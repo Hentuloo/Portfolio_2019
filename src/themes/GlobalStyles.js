@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
    background-color: white;
    margin:0px;
    overflow-x:hidden;
+  letter-spacing: 1px;
   }
 @media (min-width: 768px) {
     html {

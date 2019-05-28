@@ -1,7 +1,7 @@
 export const theme = {
   black: 'rgb(68,68,68)',
   grayFirst: 'rgb(225,224,224)',
-  graySecod: 'rgb(235,235,235)',
+  graySecond: 'rgb(235,235,235)',
   grayDark: 'rgb(123,123,123)',
   redFirst: 'rgb(215,108,108)',
   redSecondary: 'rgba(215,108,108,50%)',
