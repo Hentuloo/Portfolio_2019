@@ -5,11 +5,11 @@ import RightAnimatedBox from './RightAnimatedBox';
 
 const label = 'type';
 const options = {
-  rectangle: 'rectangle',
-  square: 'square',
-  center: 'center',
+  first: 'first',
+  second: 'second',
+  third: 'third',
 };
-const defaultValue = 'rectangle';
+const defaultValue = 'first';
 const groupId = 'GROUP-ID1';
 
 storiesOf('RightAnimatedBox', module).add('basic', () => {
