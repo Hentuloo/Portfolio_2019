@@ -7,53 +7,51 @@ const fristSecond = keyframes`
 transform: scaleY(1) scaleX(1) translate(0%, 0%);
 }
 60%{
- transform: scaleY(0.3) scaleX(1) translate(0%, -200px);
+ transform: scaleY(0.3) scaleX(1) translate(0%, 300px);
 }
 100%{
- transform: scaleY(0.3) scaleX(1.5) translate(-10%, -200px);
+ transform: scaleY(0.3) scaleX(1.6) translate(20px, 300px);
 }
 `;
 const fristThird = keyframes`
 0%{
 transform: scaleY(1) scaleX(1) translate(0%, 0%);
 }
-40%{
- transform: scaleY(0.3) scaleX(1) translate(0%, -150px);
+60%{
+ transform: scaleY(0.6) scaleX(1) translate(0%, 120px);
 }
-70%{
-   transform: scaleY(0.3) scaleX(1) translate(-30%, -150px);
-}
+
 100%{
-  transform: scaleY(0.3) scaleX(1.8) translate(-30%, -150px);
+  transform: scaleY(0.6) scaleX(2.5) translate(30px, 120px);
 }
 `;
 const secondThird = keyframes`
 0%{
-   transform: scaleY(0.3) scaleX(1.5) translate(-10%, -200px);
+    transform: scaleY(0.3) scaleX(1.6) translate(20px, 300px);
 }
-30%{
-   transform: scaleY(0.3) scaleX(1.5) translate(-10%, -150px);
+40%{
+   transform: scaleY(0.3) scaleX(1.6) translate(20px, 120px);
 }
-50%{
-   transform: scaleY(0.3) scaleX(1.5) translate(-30%, -150px);
+70%{
+   transform: scaleY(0.3) scaleX(2.5) translate(30px, 120px);
 }
 100%{
- transform: scaleY(0.3) scaleX(1.8) translate(-30%, -150px);
+transform: scaleY(0.6) scaleX(2.5) translate(30px, 120px);
 }
 `;
 const Box = styled.div`
   position: absolute;
-  background-color: ${({ theme }) => theme.redFirst};
-  width: 150px;
-  height: 200px;
-  right: 0%;
+  background-color: ${({ theme }) => theme.redSecondary};
+  width: 100px;
+  height: 400px;
+  left: 0%;
   top: 0%;
   ${({ presentType, pastType }) => {
     if (pastType === 'first' && presentType === 'second') {
       // From first to Second 1=>2
       return css`
         animation: ${fristSecond} 1s linear forwards;
-        transform: scaleY(0.3) scaleX(1.5) translate(-10%, 0px);
+        transform: scaleY(0.3) scaleX(1.6) translate(20px, 300px);
       `;
     }
     if (pastType === 'second' && presentType === 'first') {
@@ -67,7 +65,7 @@ const Box = styled.div`
       // From first to Second 1=>3
       return css`
         animation: ${fristThird} 1s linear forwards;
-        transform: scaleY(0.3) scaleX(3) translate(-50%, 50%);
+        transform: scaleY(0.6) scaleX(2.5) translate(30px, 120px);
       `;
     }
     if (pastType === 'third' && presentType === 'first') {
@@ -81,14 +79,14 @@ const Box = styled.div`
       // From first to Second 2=>3
       return css`
         animation: ${secondThird} 1s linear forwards;
-        transform: scaleY(0.3) scaleX(1.8) translate(-30%, -200px);
+        transform: scaleY(0.6) scaleX(2.5) translate(30px, 120px);
       `;
     }
     if (pastType === 'third' && presentType === 'second') {
       // From first to Second 3=>2
       return css`
         animation: ${secondThird} 1s linear reverse;
-        transform: scaleY(0.3) scaleX(2) translate(-10%, 50%);
+        transform: scaleY(0.3) scaleX(1.6) translate(20px, 300px);
       `;
     }
     return css`
@@ -96,7 +94,7 @@ const Box = styled.div`
     `;
   }};
 `;
-class RightAnimatedBox extends Component {
+class LeftAnimatedBox extends Component {
   state = {
     pastType: '',
   };
@@ -123,11 +121,11 @@ class RightAnimatedBox extends Component {
     return <Box key={Math.random()} presentType={type} pastType={pastType} />;
   }
 }
-RightAnimatedBox.propTypes = {
+LeftAnimatedBox.propTypes = {
   type: PropTypes.string,
 };
-RightAnimatedBox.defaultProps = {
+LeftAnimatedBox.defaultProps = {
   type: 'first',
 };
 
-export default RightAnimatedBox;
+export default LeftAnimatedBox;
