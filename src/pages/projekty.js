@@ -5,13 +5,13 @@ import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
 
-const index = () => (
+const Projekty = () => (
   <ThemeProvider theme={theme}>
     <>
       <GlobalStyle />
-      <MainTemplate typePage="first" />
+      <MainTemplate typePage="second" />
     </>
   </ThemeProvider>
 );
 
-export default index;
+export default Projekty;

@@ -10,7 +10,9 @@
     "jest": true
   },
   "globals": {
-    "document": true
+    "document": true,
+    "window": true,
+    "location": true
   },
   "rules": {
     "import/no-extraneous-dependencies": 0,
