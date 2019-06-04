@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftAnimatedBox from 'components/atoms/LeftAnimatedBox/LeftAnimatedBox';
+import AnimatedBoxs from 'components/atoms/AnimatedBoxs/AnimatedBoxs';
 import Menu from 'components/molecules/Menu/Menu';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,7 @@ const MainTemplate = ({ children }) => {
   return (
     <div>
       <Menu />
-      <LeftAnimatedBox />
+      <AnimatedBoxs />
       <>{children}</>
     </div>
   );
