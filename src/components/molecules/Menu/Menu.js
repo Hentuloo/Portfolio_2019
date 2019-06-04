@@ -30,7 +30,6 @@ const MenuWrapper = styled.nav`
   bottom: 0%;
   left: 0%;
   background-color: ${({ theme }) => theme.redSecondary};
-  font-family: 'Baloo Tamma', cursive;
   ul {
     display: flex;
     flex-wrap: wrap;

@@ -13,8 +13,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
    font-size:1.6rem;
-   font-family: 'Rhodium Libre', serif;
-   /* font-family: 'Baloo Tamma', cursive; */
+   /* font-family: 'Rhodium Libre', serif; */
+   font-family: 'Baloo Tamma', cursive;
    font-weight:700;
    background-color: white;
    margin:0px;

@@ -42,10 +42,11 @@ const projektyKontakt = keyframes`
 const Box = styled.div`
   position: absolute;
   background-color: ${({ theme }) => theme.redSecondary};
-  width: 20%;
+  width: 27%;
   height: 70%;
   left: 0%;
   top: 0%;
+  z-index: -2;
   ${({ currentPath, previousPath }) => {
     if (previousPath === 'portfolio' && currentPath === 'projekty') {
       return css`
