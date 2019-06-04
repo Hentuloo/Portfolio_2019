@@ -2,7 +2,7 @@
 exports.onRouteUpdate = () => {
   window.locations = window.locations || [document.referrer];
   locations.push(window.location.pathname);
-  window.previousPath = locations[locations.length - 1];
+  window.previousPath = locations[locations.length - 1]; // .substring(15) for gh-pages
   if (locations.length > 20) {
     locations = locations.slice(Math.max(locations.length - 6, 1)); // last 6 elements
   }

@@ -51,37 +51,37 @@ const Box = styled.div`
   ${({ currentPath, previousPath }) => {
     if (previousPath === 'portfolio' && currentPath === 'projekty') {
       return css`
-        animation: ${portfolioProjekty} 1s linear forwards;
+        animation: ${portfolioProjekty} 0.8s linear forwards;
         transform: scaleY(0.3) scaleX(2.4) translate(-20%, -80px);
       `;
     }
     if (previousPath === 'projekty' && currentPath === 'portfolio') {
       return css`
-        animation: ${portfolioProjekty} 1s linear reverse;
+        animation: ${portfolioProjekty} 0.8s linear reverse;
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
     }
     if (previousPath === 'portfolio' && currentPath === 'kontakt') {
       return css`
-        animation: ${portfolioKontakt} 1s linear forwards;
+        animation: ${portfolioKontakt} 0.8s linear forwards;
         transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
       `;
     }
     if (previousPath === 'kontakt' && currentPath === 'portfolio') {
       return css`
-        animation: ${portfolioKontakt} 1s linear reverse;
+        animation: ${portfolioKontakt} 0.8s linear reverse;
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
     }
     if (previousPath === 'projekty' && currentPath === 'kontakt') {
       return css`
-        animation: ${projektyKontakt} 1s linear forwards;
+        animation: ${projektyKontakt} 0.8s linear forwards;
         transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
       `;
     }
     if (previousPath === 'kontakt' && currentPath === 'projekty') {
       return css`
-        animation: ${projektyKontakt} 1s linear reverse;
+        animation: ${projektyKontakt} 0.8s linear reverse;
         transform: scaleY(0.3) scaleX(2.4) translate(-20%, -80px);
       `;
     }

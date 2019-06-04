@@ -3,14 +3,18 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
+import SEO from 'components/organisms/SEO';
 
 const Kontakt = () => (
-  <ThemeProvider theme={theme}>
-    <>
-      <GlobalStyle />
-      <MainTemplate typePage="third" />
-    </>
-  </ThemeProvider>
+  <>
+    <SEO />
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <MainTemplate />
+      </>
+    </ThemeProvider>
+  </>
 );
 
 export default Kontakt;

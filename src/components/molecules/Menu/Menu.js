@@ -25,6 +25,7 @@ const ListElement = styled.li`
 const MenuWrapper = styled.nav`
   position: fixed;
   width: 100%;
+  max-width: 100vw;
   height: 100px;
   bottom: 0%;
   left: 0%;
