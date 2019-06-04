@@ -7,6 +7,9 @@ const GlobalStyle = createGlobalStyle`
 }
   html{
     font-size:62.5%;
+    width:100vw;
+    height:100vh;
+    overflow-x:hidden;
   }
   body {
    font-size:1.6rem;
@@ -15,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
    font-weight:700;
    background-color: white;
    margin:0px;
-   overflow-x:hidden;
   letter-spacing: 1px;
   }
 @media (min-width: 768px) {

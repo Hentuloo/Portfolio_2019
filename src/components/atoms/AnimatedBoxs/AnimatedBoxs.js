@@ -15,7 +15,6 @@ class AnimatedBoxs extends Component {
     ) {
       previousPath = 'portfolio';
     } else {
-      console.log(previousPath);
       previousPath = previousPath.substring(1);
     }
     if (
