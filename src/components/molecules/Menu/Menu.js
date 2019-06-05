@@ -39,23 +39,35 @@ const MenuWrapper = styled.nav`
     padding: 0px;
   }
 `;
-const Menu = ({ onChangePage }) => {
+const Menu = ({ onChangePage, currentPage }) => {
   return (
     <MenuWrapper>
       <ul>
         <ListElement>
-          <a href="#portfolio" onClick={() => onChangePage('portfolio')}>
+          <a
+            href="#portfolio"
+            className={currentPage === 'portfolio' ? 'active' : ''}
+            onClick={() => onChangePage('portfolio')}
+          >
             {/* href="/Portfolio_2019/#portfolio"  for gh-pages */}
             Portfolio
           </a>
         </ListElement>
         <ListElement>
-          <a href="#projekty" onClick={() => onChangePage('projekty')}>
+          <a
+            href="#projekty"
+            className={currentPage === 'projekty' ? 'active' : ''}
+            onClick={() => onChangePage('projekty')}
+          >
             Projekty
           </a>
         </ListElement>
         <ListElement>
-          <a href="#kontakt" onClick={() => onChangePage('kontakt')}>
+          <a
+            href="#kontakt"
+            className={currentPage === 'kontakt' ? 'active' : ''}
+            onClick={() => onChangePage('kontakt')}
+          >
             Kontakt
           </a>
         </ListElement>
@@ -65,6 +77,9 @@ const Menu = ({ onChangePage }) => {
 };
 Menu.propTypes = {
   onChangePage: PropTypes.func.isRequired,
+  currentPage: PropTypes.string,
 };
-
+Menu.defaultProps = {
+  currentPage: 'portfolio',
+};
 export default Menu;

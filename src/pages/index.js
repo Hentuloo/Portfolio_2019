@@ -14,10 +14,21 @@ class index extends Component {
     currentPage: 'portfolio',
   };
 
+  pages = ['portfolio', 'projekty', 'kontakt'];
+
+  componentDidMount() {
+    const pageType = window.location.hash.substring(1);
+    if (this.pages.includes(pageType))
+      this.setState({ previousPage: pageType, currentPage: pageType });
+  }
+
   handleChangePage = e => {
-    this.setState(prevState => {
-      return { previousPage: prevState.currentPage, currentPage: e };
-    });
+    const { currentPage } = this.state;
+    if (e !== currentPage) {
+      this.setState(prevState => {
+        return { previousPage: prevState.currentPage, currentPage: e };
+      });
+    }
   };
 
   render() {

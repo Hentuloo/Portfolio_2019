@@ -31,6 +31,7 @@ const ImageWrapper = styled.div`
   img {
     position: absolute;
     max-width: 100%;
+    max-height: 80vh;
     transform: translateY(-100%);
     will-change: transform;
     animation: ${imageAnimation} 0.5s 0.6s ease-in-out forwards;
@@ -39,7 +40,7 @@ const ImageWrapper = styled.div`
 const HeaderName = styled(Paragraph)`
   width: 50%;
   margin: 5% 2%;
-  word-spacing: 30px;
+  word-spacing: 50px;
   font-size: ${({ theme }) => theme.font.l};
   line-height: ${({ theme }) => theme.font.l};
 `;

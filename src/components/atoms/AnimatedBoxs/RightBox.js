@@ -24,7 +24,7 @@ transform: scaleY(1) scaleX(1) translate(0%, 0%);
    transform: scaleY(0.3) scaleX(1) translate(-45%, -50px);
 }
 100%{
-  transform: scaleY(0.3) scaleX(3) translate(-45%,-50px)
+  transform: scaleY(0.3) scaleX(2.7) translate(-45%,-50px)
 }
 `;
 const projektyKontakt = keyframes`
@@ -38,7 +38,7 @@ const projektyKontakt = keyframes`
    transform: scaleY(0.3) scaleX(2.4) translate(-45%, -50px);
 }
 100%{
- transform: scaleY(0.3) scaleX(3) translate(-45%,-50px)
+ transform: scaleY(0.3) scaleX(2.7) translate(-45%,-50px)
 }
 `;
 const Box = styled.div`
@@ -66,7 +66,7 @@ const Box = styled.div`
     if (previousPage === 'portfolio' && currentPage === 'kontakt') {
       return css`
         animation: ${portfolioKontakt} 0.8s linear forwards;
-        transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
+        transform: scaleY(0.3) scaleX(2.7) translate(-45%, -50px);
       `;
     }
     if (previousPage === 'kontakt' && currentPage === 'portfolio') {
@@ -78,7 +78,7 @@ const Box = styled.div`
     if (previousPage === 'projekty' && currentPage === 'kontakt') {
       return css`
         animation: ${projektyKontakt} 0.8s linear forwards;
-        transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
+        transform: scaleY(0.3) scaleX(2.7) translate(-45%, -50px);
       `;
     }
     if (previousPage === 'kontakt' && currentPage === 'projekty') {
@@ -97,7 +97,7 @@ const Box = styled.div`
       `;
     if (currentPage === 'kontakt')
       return css`
-        transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
+        transform: scaleY(0.3) scaleX(2.7) translate(-45%, -50px);
       `;
     return css`
       transform: scaleY(1) scaleX(1) translate(0%, 0%);

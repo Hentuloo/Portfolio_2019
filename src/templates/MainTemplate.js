@@ -42,7 +42,7 @@ const MainTemplate = ({
 };
 
 MainTemplate.propTypes = {
-  children: PropTypes.arrayOf(Object),
+  children: PropTypes.objectOf(Object),
   onChangePage: PropTypes.func.isRequired,
   previousPage: PropTypes.string,
   currentPage: PropTypes.string,
