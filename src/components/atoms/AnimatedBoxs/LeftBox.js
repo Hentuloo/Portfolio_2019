@@ -47,52 +47,52 @@ const Box = styled.div`
   left: 0%;
   top: 0%;
   z-index: -2;
-  ${({ currentPath, previousPath }) => {
-    if (previousPath === 'portfolio' && currentPath === 'projekty') {
+  ${({ currentPage, previousPage }) => {
+    if (previousPage === 'portfolio' && currentPage === 'projekty') {
       return css`
         animation: ${portfolioProjekty} 0.8s linear forwards;
         transform: scaleY(0.2) scaleX(3) translate(20%, 300px);
       `;
     }
-    if (previousPath === 'projekty' && currentPath === 'portfolio') {
+    if (previousPage === 'projekty' && currentPage === 'portfolio') {
       return css`
         animation: ${portfolioProjekty} 0.8s linear reverse;
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
     }
-    if (previousPath === 'portfolio' && currentPath === 'kontakt') {
+    if (previousPage === 'portfolio' && currentPage === 'kontakt') {
       return css`
         animation: ${portfolioKontakt} 0.8s linear forwards;
         transform: scaleY(0.4) scaleX(5) translate(20%, 120px);
       `;
     }
-    if (previousPath === 'kontakt' && currentPath === 'portfolio') {
+    if (previousPage === 'kontakt' && currentPage === 'portfolio') {
       return css`
         animation: ${portfolioKontakt} 0.8s linear reverse;
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
     }
-    if (previousPath === 'projekty' && currentPath === 'kontakt') {
+    if (previousPage === 'projekty' && currentPage === 'kontakt') {
       return css`
         animation: ${projektyKontakt} 0.8s linear forwards;
         transform: scaleY(0.4) scaleX(5) translate(20%, 120px);
       `;
     }
-    if (previousPath === 'kontakt' && currentPath === 'projekty') {
+    if (previousPage === 'kontakt' && currentPage === 'projekty') {
       return css`
         animation: ${projektyKontakt} 0.8s linear reverse;
         transform: scaleY(0.2) scaleX(3) translate(20%, 300px);
       `;
     }
-    if (currentPath === 'portfolio')
+    if (currentPage === 'portfolio')
       return css`
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
-    if (currentPath === 'projekty')
+    if (currentPage === 'projekty')
       return css`
         transform: scaleY(0.2) scaleX(3) translate(20%, 300px);
       `;
-    if (currentPath === 'kontakt')
+    if (currentPage === 'kontakt')
       return css`
         transform: scaleY(0.4) scaleX(5) translate(20%, 120px);
       `;
@@ -102,15 +102,15 @@ const Box = styled.div`
   }};
 `;
 
-const AnimatedBoxs = ({ currentPath, previousPath }) => (
-  <Box currentPath={currentPath} previousPath={previousPath} />
+const AnimatedBoxs = ({ currentPage, previousPage }) => (
+  <Box currentPage={currentPage} previousPage={previousPage} />
 );
 AnimatedBoxs.propTypes = {
-  currentPath: PropTypes.string,
-  previousPath: PropTypes.string,
+  currentPage: PropTypes.string,
+  previousPage: PropTypes.string,
 };
 AnimatedBoxs.defaultProps = {
-  currentPath: 'portfolio',
-  previousPath: 'portfolio',
+  currentPage: 'portfolio',
+  previousPage: 'portfolio',
 };
 export default AnimatedBoxs;

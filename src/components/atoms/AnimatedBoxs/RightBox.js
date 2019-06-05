@@ -49,52 +49,52 @@ const Box = styled.div`
   right: 0%;
   top: 0%;
   z-index: -2;
-  ${({ currentPath, previousPath }) => {
-    if (previousPath === 'portfolio' && currentPath === 'projekty') {
+  ${({ currentPage, previousPage }) => {
+    if (previousPage === 'portfolio' && currentPage === 'projekty') {
       return css`
         animation: ${portfolioProjekty} 0.8s linear forwards;
         transform: scaleY(0.3) scaleX(2.4) translate(-20%, -80px);
       `;
     }
-    if (previousPath === 'projekty' && currentPath === 'portfolio') {
+    if (previousPage === 'projekty' && currentPage === 'portfolio') {
       return css`
         animation: ${portfolioProjekty} 0.8s linear reverse;
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
     }
-    if (previousPath === 'portfolio' && currentPath === 'kontakt') {
+    if (previousPage === 'portfolio' && currentPage === 'kontakt') {
       return css`
         animation: ${portfolioKontakt} 0.8s linear forwards;
         transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
       `;
     }
-    if (previousPath === 'kontakt' && currentPath === 'portfolio') {
+    if (previousPage === 'kontakt' && currentPage === 'portfolio') {
       return css`
         animation: ${portfolioKontakt} 0.8s linear reverse;
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
     }
-    if (previousPath === 'projekty' && currentPath === 'kontakt') {
+    if (previousPage === 'projekty' && currentPage === 'kontakt') {
       return css`
         animation: ${projektyKontakt} 0.8s linear forwards;
         transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
       `;
     }
-    if (previousPath === 'kontakt' && currentPath === 'projekty') {
+    if (previousPage === 'kontakt' && currentPage === 'projekty') {
       return css`
         animation: ${projektyKontakt} 0.8s linear reverse;
         transform: scaleY(0.3) scaleX(2.4) translate(-20%, -80px);
       `;
     }
-    if (currentPath === 'portfolio')
+    if (currentPage === 'portfolio')
       return css`
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
       `;
-    if (currentPath === 'projekty')
+    if (currentPage === 'projekty')
       return css`
         transform: scaleY(0.3) scaleX(2.4) translate(-20%, -80px);
       `;
-    if (currentPath === 'kontakt')
+    if (currentPage === 'kontakt')
       return css`
         transform: scaleY(0.3) scaleX(3) translate(-45%, -50px);
       `;
@@ -103,17 +103,17 @@ const Box = styled.div`
     `;
   }};
 `;
-const RightBox = ({ currentPath, previousPath }) => (
-  <Box currentPath={currentPath} previousPath={previousPath} />
+const RightBox = ({ currentPage, previousPage }) => (
+  <Box currentPage={currentPage} previousPage={previousPage} />
 );
 
 RightBox.propTypes = {
-  currentPath: PropTypes.string,
-  previousPath: PropTypes.string,
+  currentPage: PropTypes.string,
+  previousPage: PropTypes.string,
 };
 RightBox.defaultProps = {
-  currentPath: 'portfolio',
-  previousPath: 'portfolio',
+  currentPage: 'portfolio',
+  previousPage: 'portfolio',
 };
 
 export default RightBox;

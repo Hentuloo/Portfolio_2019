@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ListElement = styled.li`
@@ -38,28 +38,31 @@ const MenuWrapper = styled.nav`
     padding: 0px;
   }
 `;
-const Menu = () => {
+const Menu = ({ onChangePage }) => {
   return (
     <MenuWrapper>
       <ul>
         <ListElement>
-          <Link to="/" activeClassName="active">
+          <a href="/#portfolio" onClick={() => onChangePage('portfolio')}>
             Portfolio
-          </Link>
+          </a>
         </ListElement>
         <ListElement>
-          <Link to="/projekty" activeClassName="active">
+          <a href="/#projekty" onClick={() => onChangePage('projekty')}>
             Projekty
-          </Link>
+          </a>
         </ListElement>
         <ListElement>
-          <Link to="/kontakt" activeClassName="active">
+          <a href="/#kontakt" onClick={() => onChangePage('kontakt')}>
             Kontakt
-          </Link>
+          </a>
         </ListElement>
       </ul>
     </MenuWrapper>
   );
+};
+Menu.propTypes = {
+  onChangePage: PropTypes.func.isRequired,
 };
 
 export default Menu;

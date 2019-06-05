@@ -1,17 +1,8 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import AnimatedBoxs from 'components/atoms/AnimatedBoxs/AnimatedBoxs';
 import Menu from 'components/molecules/Menu/Menu';
-import PropTypes from 'prop-types';
-
-const opacity = keyframes`
-from{
-opacity:0;
-}
-to{
-opacity:1
-}
-`;
 
 const BackgroundBlock = styled.div`
   width: 120vw;
@@ -24,25 +15,32 @@ const BackgroundBlock = styled.div`
   background-color: ${({ theme }) => theme.grayFirst};
   z-index: -3;
 `;
-const ContentWrapper = styled.div`
-  opacity: 0;
-  animation: ${opacity} 0.2s 0.7s linear forwards;
-`;
-const MainTemplate = ({ children }) => {
+
+const MainTemplate = ({
+  children,
+  onChangePage,
+  previousPage,
+  currentPage,
+}) => {
   return (
     <div>
-      <Menu />
-      <AnimatedBoxs />
+      <Menu onChangePage={onChangePage} currentPage={currentPage} />
+      <AnimatedBoxs previousPage={previousPage} currentPage={currentPage} />
       <BackgroundBlock />
-      <ContentWrapper>{children}</ContentWrapper>
+      <div>{children}</div>
     </div>
   );
 };
 
 MainTemplate.propTypes = {
   children: PropTypes.arrayOf(Object),
+  onChangePage: PropTypes.func.isRequired,
+  previousPage: PropTypes.string,
+  currentPage: PropTypes.string,
 };
 MainTemplate.defaultProps = {
   children: null,
+  previousPage: 'portfolio',
+  currentPage: 'portfolio',
 };
 export default MainTemplate;

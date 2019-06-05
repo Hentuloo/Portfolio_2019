@@ -1,48 +1,48 @@
-import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import React, { Component } from 'react';
+import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
 import SEO from 'components/organisms/SEO';
-import Paragraph from 'components/atoms/Paragraph/Paragraph';
 
-import image from 'images/person.png';
+import SwitchPage from './SwitchPage';
 
-const ImageWrapper = styled.div`
-  position: absolute;
-  top: 6%;
-  right: 7%;
-  width: 40%;
-  height: 40%;
-  img {
-    position: absolute;
-    max-width: 100%;
-  }
-`;
-const HeaderName = styled(Paragraph)`
-  width: 50%;
-  margin: 5% 2%;
-  word-spacing: 30px;
-  font-size: ${() => theme.font.l};
-  line-height: ${() => theme.font.l};
-`;
+class index extends Component {
+  state = {
+    previousPage: 'portfolio',
+    currentPage: 'portfolio',
+  };
 
-const index = () => (
-  <>
-    <SEO />
-    <ThemeProvider theme={theme}>
+  handleChangePage = e => {
+    console.log(e);
+    this.setState(prevState => {
+      console.log(prevState);
+      return { previousPage: prevState.currentPage, currentPage: e };
+    });
+  };
+
+  render() {
+    console.log(this.state);
+    const { previousPage, currentPage } = this.state;
+    return (
       <>
-        <GlobalStyle />
-        <MainTemplate>
-          <HeaderName as="h2">Kamil Chędkowski</HeaderName>
-          <ImageWrapper>
-            <img src={image} alt="Moja skromna osoba" />
-          </ImageWrapper>
-        </MainTemplate>
+        <SEO />
+        <ThemeProvider theme={theme}>
+          <>
+            <GlobalStyle />
+            <MainTemplate
+              onChangePage={this.handleChangePage}
+              previousPage={previousPage}
+              currentPage={currentPage}
+            >
+              <SwitchPage page={currentPage} />
+            </MainTemplate>
+          </>
+        </ThemeProvider>
       </>
-    </ThemeProvider>
-  </>
-);
+    );
+  }
+}
 
 export default index;
