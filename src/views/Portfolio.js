@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-
+import PropTypes from 'prop-types';
+import { StaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
-import image from 'images/person300.png';
+import Markdown from 'components/molecules/Markdown/Markdown';
 
 const imageAnimation = keyframes`
 form{
@@ -12,15 +14,24 @@ to{
   transform:translateY(0%);
 }
 `;
-// const opacity = keyframes`
-// from{
-// opacity:0;
-// }
-// to{
-// opacity:1;
-// }
-// `;
+const opacity = keyframes`
+from{
+opacity:0;
+}
+to{
+opacity:1;
+}
+`;
 
+const MarkdownWrapper = styled.div`
+  position: absolute;
+  width: 90%;
+  bottom: 100px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  opacity: 0;
+  animation: ${opacity} 0.5s 0.6s linear forwards;
+`;
 const ImageWrapper = styled.div`
   position: absolute;
   top: 6%;
@@ -45,15 +56,56 @@ const HeaderName = styled(Paragraph)`
   line-height: ${({ theme }) => theme.font.l};
 `;
 
-const Portfolio = () => {
+const Portfolio = ({ data }) => {
+  const { fluid } = data.myImage.childImageSharp;
+  const { content } = data.portfolio.mainPages[0];
   return (
     <section>
       <HeaderName as="h2">Kamil Chędkowski</HeaderName>
       <ImageWrapper>
-        <img src={image} alt="Moja skromna osoba" />
+        <Img alt="Moja skromna osoba" fluid={fluid} />
       </ImageWrapper>
+      <MarkdownWrapper>
+        <Markdown markdown={content} />
+      </MarkdownWrapper>
     </section>
   );
 };
-
-export default Portfolio;
+Portfolio.propTypes = {
+  data: PropTypes.objectOf(Object),
+};
+Portfolio.defaultProps = {
+  data: null,
+};
+export default () => (
+  <StaticQuery
+    query={graphql`
+      {
+        myImage: file(relativePath: { eq: "person.png" }) {
+          childImageSharp {
+            fluid(maxWidth: 400) {
+              base64
+              tracedSVG
+              aspectRatio
+              src
+              srcSet
+              srcWebp
+              srcSetWebp
+              sizes
+              originalImg
+              originalName
+              presentationWidth
+              presentationHeight
+            }
+          }
+        }
+        portfolio {
+          mainPages {
+            content
+          }
+        }
+      }
+    `}
+    render={data => <Portfolio data={data} />}
+  />
+);
