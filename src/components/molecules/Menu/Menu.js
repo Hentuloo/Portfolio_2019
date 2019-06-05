@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const ListElement = styled.li`
   display: block;
-  flex-basis: 33.333%;
+  flex-grow: 1;
   height: 100%;
   position: relative;
 
@@ -15,7 +15,7 @@ const ListElement = styled.li`
     height: 100%;
     font-size: ${({ theme }) => theme.font.m};
     text-align: center;
-    line-height: 100px;
+    line-height: 80px;
     color: black;
   }
   a.active {
@@ -26,11 +26,12 @@ const MenuWrapper = styled.nav`
   position: fixed;
   width: 100%;
   max-width: 100vw;
-  height: 100px;
+  height: 70px;
   bottom: 0%;
   left: 0%;
   background-color: ${({ theme }) => theme.redSecondary};
   ul {
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
     height: 100%;
@@ -43,17 +44,18 @@ const Menu = ({ onChangePage }) => {
     <MenuWrapper>
       <ul>
         <ListElement>
-          <a href="/#portfolio" onClick={() => onChangePage('portfolio')}>
+          <a href="#portfolio" onClick={() => onChangePage('portfolio')}>
+            {/* href="/Portfolio_2019/#portfolio"  for gh-pages */}
             Portfolio
           </a>
         </ListElement>
         <ListElement>
-          <a href="/#projekty" onClick={() => onChangePage('projekty')}>
+          <a href="#projekty" onClick={() => onChangePage('projekty')}>
             Projekty
           </a>
         </ListElement>
         <ListElement>
-          <a href="/#kontakt" onClick={() => onChangePage('kontakt')}>
+          <a href="#kontakt" onClick={() => onChangePage('kontakt')}>
             Kontakt
           </a>
         </ListElement>

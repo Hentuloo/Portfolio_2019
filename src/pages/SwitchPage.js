@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Portfolio from './views/Portfolio';
-import Kontakt from './views/Kontakt';
-import Projekty from './views/Projekty';
+import Portfolio from 'views/Portfolio';
+import Kontakt from 'views/Kontakt';
+import Projekty from 'views/Projekty';
 
 const SwitchPage = ({ page }) => {
   if (page === 'portfolio') {

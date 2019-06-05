@@ -47,6 +47,7 @@ const Box = styled.div`
   left: 0%;
   top: 0%;
   z-index: -2;
+  will-change: transform;
   ${({ currentPage, previousPage }) => {
     if (previousPage === 'portfolio' && currentPage === 'projekty') {
       return css`
