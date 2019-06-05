@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled, { keyframes } from 'styled-components';
 
 import Portfolio from './views/Portfolio';
 import Kontakt from './views/Kontakt';

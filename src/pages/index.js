@@ -15,15 +15,12 @@ class index extends Component {
   };
 
   handleChangePage = e => {
-    console.log(e);
     this.setState(prevState => {
-      console.log(prevState);
       return { previousPage: prevState.currentPage, currentPage: e };
     });
   };
 
   render() {
-    console.log(this.state);
     const { previousPage, currentPage } = this.state;
     return (
       <>
