@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import GraphImg from 'graphcms-image';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Markdown from 'components/molecules/Markdown/Markdown';
 
@@ -57,13 +57,18 @@ const HeaderName = styled(Paragraph)`
 `;
 
 const Portfolio = ({ data }) => {
-  const { fluid } = data.myImage.childImageSharp;
-  const { content } = data.portfolio.mainPages[0];
+  const { content, photo } = data.portfolio.mainPages[0];
   return (
     <section>
       <HeaderName as="h2">Kamil Chędkowski</HeaderName>
       <ImageWrapper>
-        <Img alt="Moja skromna osoba" fluid={fluid} />
+        <GraphImg
+          image={photo}
+          maxWidth={600}
+          fadeIn={false}
+          blurryPlaceholder={false}
+          backgroundColor={false}
+        />
       </ImageWrapper>
       <MarkdownWrapper>
         <Markdown markdown={content} />
@@ -81,27 +86,14 @@ export default () => (
   <StaticQuery
     query={graphql`
       {
-        myImage: file(relativePath: { eq: "person.png" }) {
-          childImageSharp {
-            fluid(maxWidth: 400) {
-              base64
-              tracedSVG
-              aspectRatio
-              src
-              srcSet
-              srcWebp
-              srcSetWebp
-              sizes
-              originalImg
-              originalName
-              presentationWidth
-              presentationHeight
-            }
-          }
-        }
         portfolio {
           mainPages {
             content
+            photo {
+              handle
+              width
+              height
+            }
           }
         }
       }

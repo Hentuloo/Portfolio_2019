@@ -4,13 +4,7 @@ import styled from 'styled-components';
 import AnimatedBoxs from 'components/atoms/AnimatedBoxs/AnimatedBoxs';
 import Menu from 'components/molecules/Menu/Menu';
 
-const Layout = styled.div`
-  position: absolute;
-  top: 0%;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-`;
+const Layout = styled.div``;
 const BackgroundBlock = styled.div`
   width: 120vw;
   height: 250vw;

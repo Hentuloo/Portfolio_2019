@@ -1,58 +1,73 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import GraphImg from 'graphcms-image';
 
 const Icons = styled.div`
-  margin-left: auto;
+  flex-basis: 100%;
+  height: 25px;
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: flex-end;
+  position: relative;
+  padding: 3px 8px;
+
+  div {
+    width: 25px;
+    height: 25px;
+    margin: 0px 2px;
+  }
   img {
-    max-width: 30px;
-    max-height: 30px;
-    margin: 2px 5px;
+    width: 100%;
   }
 `;
 const Description = styled.div`
-  margin: 10px 5px 3px 8px;
-  font-size: ${({ theme }) => theme.font.xs};
+  flex-basis: 100%;
+  margin: 5px 5px 8px 3px;
+  font-size: ${({ theme }) => theme.font.xxs};
   line-height: ${({ theme }) => theme.font.s};
 `;
 const Links = styled.div`
   text-transform: uppercase;
-  font-size: ${({ theme }) => theme.font.xxs};
+  font-size: ${({ theme }) => theme.font.xxxs};
   a {
     display: inline-block;
-    height: 40px;
-    margin: 6px 0px;
+    height: 30px;
     text-decoration: none;
     background-color: white;
     padding: 0px 4px;
-    margin: 0px 2px;
+    margin: 6px 4px;
     color: black;
-    line-height: 40px;
+    line-height: 30px;
   }
 `;
 const TitleLinks = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   height: 50px;
+  text-align: center;
   font-size: ${({ theme }) => theme.font.xs};
   line-height: ${({ theme }) => theme.font.s};
   h2 {
+    flex-basis: 100%;
     font-family: 'Baloo Tamma', cursive;
+    font-size: ${({ theme }) => theme.font.xs};
     text-transform: uppercase;
     margin: 0px;
   }
 `;
-const TextWrapper = styled.div`
-  flex-basis: 60%;
+const TittleWrapper = styled.div`
+  flex-basis: 45%;
   padding-left: 10px;
   padding: 7px;
 `;
 const ProjectImage = styled.div`
   position: relative;
-  flex-basis: 40%;
-  min-height: 100px;
+  flex-basis: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   background-color: white;
   overflow: hidden;
   img {
@@ -60,51 +75,54 @@ const ProjectImage = styled.div`
     max-width: 100%;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
   }
 `;
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   position: relative;
   width: 100%;
   display: flex;
-  min-height: 100px;
+  flex-wrap: wrap;
+  min-height: 130px;
   background-color: ${({ theme }) => theme.grayFirst};
   box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
   border: 1px solid ${({ theme }) => theme.grayDark};
   border-radius: 5px;
   font-family: 'Rhodium Libre', serif;
+  overflow: hidden;
 `;
-const ProjectBox = () => {
-  // { image, title, description, liveUrl, GitUrl, icons }
+const ProjectBox = ({ data }) => {
+  const { title, description, gitLink, liveLink, photo, technologies } = data;
   return (
     <Wrapper>
       <ProjectImage>
-        <img src="https://unsplash.it/300/200" alt="title" />
+        <GraphImg image={photo} maxWidth={600} alt={title} />
       </ProjectImage>
-      <TextWrapper>
+      <TittleWrapper>
         <TitleLinks>
-          <h2>Orkiestra Goles</h2>
+          <h2>{title}</h2>
           <Links>
-            <a href="/">LIVE</a>
-            <a href="/">GitHub</a>
+            <a target="_blank" rel="noopener noreferrer" href={gitLink}>
+              Github
+            </a>
+            <a target="_blank" rel="noopener noreferrer" s href={liveLink}>
+              LIVE
+            </a>
           </Links>
         </TitleLinks>
-        <Description>
-          adfs dfsa sdaf sda fsxf asdf asdfasdfads fasdf asdfsadf sdaf asdf asd
-          asdf adfs fasd fdsaf adsf dfsa sad faasd ad f
-        </Description>
-        <Icons>
-          <img src="https://unsplash.it/50/50" alt="title" />
-          <img src="https://unsplash.it/50/50" alt="title" />
-          <img src="https://unsplash.it/50/50" alt="title" />
-          <img src="https://unsplash.it/50/50" alt="title" />
-          <img src="https://unsplash.it/50/50" alt="title" />
-          <img src="https://unsplash.it/50/50" alt="title" />
-          <img src="https://unsplash.it/50/50" alt="title" />
-        </Icons>
-      </TextWrapper>
+      </TittleWrapper>
+      <Description>{description}</Description>
+      <Icons>
+        {technologies.map(e => (
+          <GraphImg key={e.id} image={e} alt={e.fileName} maxWidth={100} />
+        ))}
+      </Icons>
     </Wrapper>
   );
 };
-
+ProjectBox.propTypes = {
+  data: PropTypes.arrayOf(Object),
+};
+ProjectBox.defaultProps = {
+  data: null,
+};
 export default ProjectBox;

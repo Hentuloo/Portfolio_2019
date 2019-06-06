@@ -25,11 +25,11 @@ const ListElement = styled.li`
 const MenuWrapper = styled.nav`
   position: fixed;
   width: 100%;
-  max-width: 100vw;
   height: 70px;
   bottom: 0%;
   left: 0%;
-  background-color: ${({ theme }) => theme.redSecondary};
+  background-color: ${({ theme }) => theme.redThird};
+  z-index: 10;
   ul {
     list-style: none;
     display: flex;
@@ -49,7 +49,7 @@ const Menu = ({ onChangePage, currentPage }) => {
             className={currentPage === 'portfolio' ? 'active' : ''}
             onClick={() => onChangePage('portfolio')}
           >
-            {/* href="/Portfolio_2019/#portfolio"  for gh-pages */}
+            {/* href="#portfolio"  for gh-pages */}
             Portfolio
           </a>
         </ListElement>

@@ -40,7 +40,7 @@ const projektyKontakt = keyframes`
 }
 `;
 const Box = styled.div`
-  position: absolute;
+  position: fixed;
   background-color: ${({ theme }) => theme.redSecondary};
   width: 27%;
   height: 70%;
