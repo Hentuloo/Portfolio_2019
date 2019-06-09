@@ -102,14 +102,14 @@ const Kontakt = () => {
   return (
     <Wrapper>
       <Form
-        name="portfolio-contact"
+        name="contact"
         method="POST"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
         action="/#kontakt-success"
       >
         <input type="hidden" name="bot-field" />
-        <input type="hidden" name="form-name" value="portfolio-contact" />
+        <input type="hidden" name="form-name" value="contact" />
         <InputName
           type="text"
           name="name"
@@ -133,7 +133,7 @@ const Kontakt = () => {
           maxlength="200"
           required
         />
-        <Button>WYŚLIJ</Button>
+        <Button type="submit">WYŚLIJ</Button>
       </Form>
     </Wrapper>
   );
