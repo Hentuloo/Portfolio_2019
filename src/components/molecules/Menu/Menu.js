@@ -7,7 +7,9 @@ const ListElement = styled.li`
   flex-grow: 1;
   height: 100%;
   position: relative;
-
+  &.hideMobile {
+    display: none;
+  }
   a {
     position: absolute;
     text-decoration: none;
@@ -20,6 +22,18 @@ const ListElement = styled.li`
   }
   a.active {
     background-color: ${({ theme }) => theme.redSecondary};
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    flex-grow: 0;
+    height: 25%;
+    &.hideMobile {
+      display: block;
+    }
+    a {
+      line-height: 25vh;
+      font-size: ${({ theme }) => theme.font.s};
+    }
   }
 `;
 const MenuWrapper = styled.nav`
@@ -37,6 +51,16 @@ const MenuWrapper = styled.nav`
     height: 100%;
     margin: 0px;
     padding: 0px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    width: 200px;
+    height: 100%;
+    bottom: 0%;
+    background-color: transparent;
+    ul {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
   }
 `;
 const Menu = ({ onChangePage, currentPage }) => {
@@ -70,6 +94,9 @@ const Menu = ({ onChangePage, currentPage }) => {
           >
             Kontakt
           </a>
+        </ListElement>
+        <ListElement className="hideMobile">
+          <a href="https://github.com">Github</a>
         </ListElement>
       </ul>
     </MenuWrapper>
