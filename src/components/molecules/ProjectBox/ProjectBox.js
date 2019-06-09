@@ -104,7 +104,7 @@ const ProjectBox = ({ data }) => {
             <a target="_blank" rel="noopener noreferrer" href={gitLink}>
               Github
             </a>
-            <a target="_blank" rel="noopener noreferrer" s href={liveLink}>
+            <a target="_blank" rel="noopener noreferrer" href={liveLink}>
               LIVE
             </a>
           </Links>
@@ -120,7 +120,7 @@ const ProjectBox = ({ data }) => {
   );
 };
 ProjectBox.propTypes = {
-  data: PropTypes.arrayOf(Object),
+  data: PropTypes.objectOf(Object),
 };
 ProjectBox.defaultProps = {
   data: null,

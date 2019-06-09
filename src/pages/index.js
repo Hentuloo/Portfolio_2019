@@ -19,7 +19,18 @@ class index extends Component {
   componentDidMount() {
     const pageType = window.location.hash.substring(1);
     if (this.pages.includes(pageType))
-      this.setState({ previousPage: pageType, currentPage: pageType });
+      this.setState({
+        previousPage: pageType,
+        currentPage: pageType,
+      });
+    if (pageType === 'kontakt-success') {
+      console.log('sd');
+      // when form was send
+      this.setState({
+        previousPage: 'kontakt',
+        currentPage: 'kontakt',
+      });
+    }
   }
 
   handleChangePage = e => {

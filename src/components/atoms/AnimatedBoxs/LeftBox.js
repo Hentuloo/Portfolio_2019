@@ -18,11 +18,11 @@ const portfolioKontakt = keyframes`
 transform: scaleY(1) scaleX(1) translate(0%, 0%);
 }
 60%{
- transform: scaleY(0.4) scaleX(1) translate(0%, 120px);
+ transform: scaleY(0.4) scaleX(1) translate(0%, 43vh);
 }
 
 100%{
-  transform: scaleY(0.4) scaleX(4) translate(20%, 120px);
+  transform: scaleY(0.4) scaleX(4.3) translate(20%,43vh);
 }
 `;
 const projektyKontakt = keyframes`
@@ -30,13 +30,13 @@ const projektyKontakt = keyframes`
     transform: scaleY(0.2) scaleX(3) translate(20%, 300px);
 }
 40%{
-   transform:scaleY(0.2) scaleX(3)  translate(20%, 120px);
+   transform:scaleY(0.2) scaleX(3)  translate(20%, 43vh);
 }
 70%{
-   transform: scaleY(0.2) scaleX(4) translate(20%, 120px);
+   transform: scaleY(0.2) scaleX(4.3) translate(20%, 43vh);
 }
 100%{
- transform: scaleY(0.4) scaleX(4) translate(20%, 120px);
+ transform: scaleY(0.4) scaleX(4.3) translate(20%, 43vh);
 }
 `;
 const Box = styled.div`
@@ -64,7 +64,7 @@ const Box = styled.div`
     if (previousPage === 'portfolio' && currentPage === 'kontakt') {
       return css`
         animation: ${portfolioKontakt} 0.8s linear forwards;
-        transform: scaleY(0.4) scaleX(4) translate(20%, 120px);
+        transform: scaleY(0.4) scaleX(4.3) translate(20%, 43vh);
       `;
     }
     if (previousPage === 'kontakt' && currentPage === 'portfolio') {
@@ -76,7 +76,7 @@ const Box = styled.div`
     if (previousPage === 'projekty' && currentPage === 'kontakt') {
       return css`
         animation: ${projektyKontakt} 0.8s linear forwards;
-        transform: scaleY(0.4) scaleX(4) translate(20%, 120px);
+        transform: scaleY(0.4) scaleX(4.3) translate(20%, 43vh);
       `;
     }
     if (previousPage === 'kontakt' && currentPage === 'projekty') {
@@ -95,7 +95,7 @@ const Box = styled.div`
       `;
     if (currentPage === 'kontakt')
       return css`
-        transform: scaleY(0.4) scaleX(4) translate(20%, 120px);
+        transform: scaleY(0.4) scaleX(4.3) translate(20%, 43vh);
       `;
     return css`
       transform: scaleY(1) scaleX(1) translate(0%, 0%);
