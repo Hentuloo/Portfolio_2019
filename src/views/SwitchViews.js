@@ -5,7 +5,7 @@ import Portfolio from 'views/Portfolio';
 import Kontakt from 'views/Kontakt';
 import Projekty from 'views/Projekty';
 
-const SwitchPage = ({ page }) => {
+const SwitchViews = ({ page }) => {
   if (page === 'portfolio') {
     return <Portfolio />;
   }
@@ -17,10 +17,10 @@ const SwitchPage = ({ page }) => {
   }
   return null;
 };
-SwitchPage.propTypes = {
+SwitchViews.propTypes = {
   page: PropTypes.string,
 };
-SwitchPage.defaultProps = {
+SwitchViews.defaultProps = {
   page: null,
 };
-export default SwitchPage;
+export default SwitchViews;

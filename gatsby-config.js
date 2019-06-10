@@ -1,4 +1,3 @@
-const path = require(`path`);
 module.exports = {
   pathPrefix: '/Portfolio_2019',
   siteMetadata: {
@@ -22,14 +21,6 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: path.join(__dirname, `src`, `images`),
-      },
-    },
-
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {

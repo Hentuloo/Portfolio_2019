@@ -6,7 +6,7 @@ import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
 import SEO from 'components/organisms/SEO';
 
-import SwitchPage from './SwitchPage';
+import SwitchViews from 'views/SwitchViews';
 
 class index extends Component {
   state = {
@@ -24,7 +24,6 @@ class index extends Component {
         currentPage: pageType,
       });
     if (pageType === 'kontakt-success') {
-      console.log('sd');
       // when form was send
       this.setState({
         previousPage: 'kontakt',
@@ -55,7 +54,7 @@ class index extends Component {
               previousPage={previousPage}
               currentPage={currentPage}
             >
-              <SwitchPage page={currentPage} />
+              <SwitchViews page={currentPage} />
             </MainTemplate>
           </>
         </ThemeProvider>
