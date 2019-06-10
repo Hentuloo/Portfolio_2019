@@ -9,7 +9,7 @@ export const theme = {
   font: {
     bold: '700',
     light: '400',
-    xxxs: '1.0rem',
+    xxxs: '0.9rem',
     xxs: '1.2rem',
     xs: '1.4rem',
     s: '1.6rem',
