@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import AnimatedBoxs from 'components/atoms/AnimatedBoxs/AnimatedBoxs';
 import BackgroundBlock from 'components/atoms/BackgroundBlock/BackgroundBlock';
 import Menu from 'components/molecules/Menu/Menu';
+
+const Content = styled.div`
+  flex-grow: 1;
+`;
+const ContentMenuWrapper = styled.div`
+  display: flex;
+`;
 
 const MainTemplate = ({
   children,
@@ -12,9 +20,11 @@ const MainTemplate = ({
 }) => {
   return (
     <div>
-      <Menu onChangePage={onChangePage} currentPage={currentPage} />
       <AnimatedBoxs previousPage={previousPage} currentPage={currentPage} />
-      <div>{children}</div>
+      <ContentMenuWrapper>
+        <Menu onChangePage={onChangePage} currentPage={currentPage} />
+        <Content>{children}</Content>
+      </ContentMenuWrapper>
       <BackgroundBlock />
     </div>
   );
