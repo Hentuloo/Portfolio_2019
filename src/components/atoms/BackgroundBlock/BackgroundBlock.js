@@ -10,5 +10,9 @@ const BackgroundBlock = styled.div`
   transform: translate(-47%, -84%) rotate(26deg);
   background-color: ${({ theme }) => theme.grayFirst};
   z-index: -3;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    width: 33vw;
+    transform: translate(-20%, -78%) rotate(41deg);
+  }
 `;
 export default BackgroundBlock;

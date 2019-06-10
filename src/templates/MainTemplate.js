@@ -10,6 +10,7 @@ const Content = styled.div`
 `;
 const ContentMenuWrapper = styled.div`
   display: flex;
+  padding-left: 150px;
 `;
 
 const MainTemplate = ({

@@ -20,4 +20,5 @@ export const theme = {
     xxxl: '7rem',
   },
   breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
+  breakPointLarge: '1350px',
 };

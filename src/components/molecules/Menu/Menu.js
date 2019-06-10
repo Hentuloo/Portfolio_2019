@@ -94,7 +94,9 @@ const MenuWrapper = styled.nav`
     padding: 0px;
   }
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-    position: relative;
+    position: fixed;
+    top: 0%;
+    left: 0%;
     width: 150px;
     height: 100vh;
     background-color: transparent;
