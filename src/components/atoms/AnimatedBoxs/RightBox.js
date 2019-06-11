@@ -108,6 +108,23 @@ const Box = styled.div`
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 22%;
     height: 40%;
+    ${({ currentPage }) => {
+      if (currentPage === 'portfolio')
+        return css`
+          transform: scaleY(1) scaleX(1) translate(0%, 0%);
+        `;
+      if (currentPage === 'projekty')
+        return css`
+          transform: scaleY(0.5) scaleX(3.2) translate(-6vw, -50%);
+        `;
+      if (currentPage === 'kontakt')
+        return css`
+          /* transform: scaleY(0.3) scaleX(2.7) translate(-36%, -19vh); */
+        `;
+      return css`
+        transform: scaleY(1) scaleX(1) translate(0%, 0%);
+      `;
+    }};
   }
 `;
 const RightBox = ({ currentPage, previousPage }) => (

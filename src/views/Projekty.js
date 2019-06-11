@@ -15,7 +15,7 @@ opacity:1;
 `;
 const fromLeft = keyframes`
 from{
-  transform: translateX(-130%);
+  transform: translateX(-150%);
 }
 to{
    transform:translateX(0%);
@@ -23,33 +23,62 @@ to{
 `;
 const fromRight = keyframes`
 from{
-  transform: translateX(130%);
+  transform: translateX(150%);
 }
 to{
    transform:translateX(0%);
 }
 `;
 const ProjektyAnimatedBox = styled.div`
+ margin: 30px 0px;
   ${({ even }) =>
     even &&
     css`
-      transform: translateX(-130%);
-      animation: ${fromLeft} 0.6s ${({ animationDelay }) => animationDelay}
+      transform: translateX(-150%);
+      animation: ${fromLeft} 0.7s ${({ animationDelay }) => animationDelay}
         linear forwards;
     `}
   ${({ even }) =>
     !even &&
     css`
-      transform: translateX(130%);
-      animation: ${fromRight} 0.6s ${({ animationDelay }) => animationDelay}
+      transform: translateX(150%);
+      animation: ${fromRight} 0.7s ${({ animationDelay }) => animationDelay}
         linear forwards;
     `}
+      @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+
+        flex-basis:44%;
+        min-width:400px;
+        min-height:200px;
+         margin: 40px 0px;
+        &>div{
+          min-height:240px;
+        }
+      }
 `;
 const MarkdownWrapper = styled.div`
   width: 90%;
   margin: 0px auto;
   opacity: 0;
   animation: ${opacity} 0.5s 0.6s linear forwards;
+  position: relative;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    width: 80%;
+    max-width: 900px;
+    margin-bottom: 80px;
+    margin-top: 80px;
+    &::after {
+      content: '';
+      width: 120px;
+      height: 80px;
+      position: absolute;
+      bottom: 0%;
+      right: 0%;
+      background-color: ${({ theme }) => theme.redFirst};
+      z-index: 7;
+      transform: translate(45%, 45%);
+    }
+  }
 `;
 const ProjektyWrapper = styled.section`
   display: block;
@@ -57,8 +86,11 @@ const ProjektyWrapper = styled.section`
   width: 100%;
   overflow: hidden;
   padding: 0px 20px;
-  & > div {
-    margin: 30px 0px;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 `;
 const Wrapper = styled.div`
@@ -71,7 +103,7 @@ const ProjectsBoxes = (data, animationStartFrom, animationDelay) => {
   let Delay = animationStartFrom;
   const projects = data.map((e, i) => {
     Delay += animationDelay;
-    if (i < 2) {
+    if (i <= 4) {
       return (
         <ProjektyAnimatedBox
           key={e.id}

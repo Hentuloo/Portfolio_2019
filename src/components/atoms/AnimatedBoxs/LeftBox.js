@@ -108,6 +108,23 @@ const Box = styled.div`
     height: 70%;
     left: auto;
     right: 22%;
+    ${({ currentPage }) => {
+      if (currentPage === 'portfolio')
+        return css`
+          transform: scaleY(1) scaleX(1) translate(0%, 0%);
+        `;
+      if (currentPage === 'projekty')
+        return css`
+          transform: scaleY(1) scaleX(1.7) translate(11vw, 35vh);
+        `;
+      if (currentPage === 'kontakt')
+        return css`
+          /* transform: scaleY(0.3) scaleX(2.7) translate(-36%, -19vh); */
+        `;
+      return css`
+        transform: scaleY(1) scaleX(1) translate(0%, 0%);
+      `;
+    }};
   }
 `;
 

@@ -75,13 +75,7 @@ const ImageWrapper = styled.div`
   height: 45%;
   overflow: hidden;
   span {
-    display: block;
-    width: 100%;
-    font-size: ${({ theme }) => theme.font.xxs};
-    font-weight: ${({ theme }) => theme.font.light};
-    letter-spacing: 0px;
-    text-align: center;
-    text-transform: uppercase;
+    display: none;
   }
   img {
     position: absolute;
@@ -106,9 +100,16 @@ const ImageWrapper = styled.div`
       background-color: ${({ theme }) => theme.grayDark};
     }
     span {
+      display: block;
+      width: 100%;
       font-size: ${({ theme }) => theme.font.xxs};
+      font-weight: ${({ theme }) => theme.font.light};
+      letter-spacing: 0px;
+      text-align: center;
+      text-transform: uppercase;
       padding: 10px 0px;
       letter-spacing: -0.8px;
+      display: block;
     }
   }
 `;

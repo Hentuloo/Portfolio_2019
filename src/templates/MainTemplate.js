@@ -9,8 +9,10 @@ const Content = styled.div`
   flex-grow: 1;
 `;
 const ContentMenuWrapper = styled.div`
-  display: flex;
-  padding-left: 150px;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    display: flex;
+    padding-left: 150px;
+  }
 `;
 
 const MainTemplate = ({

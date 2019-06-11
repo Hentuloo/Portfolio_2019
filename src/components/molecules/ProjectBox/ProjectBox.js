@@ -101,12 +101,16 @@ const ProjectBox = ({ data }) => {
         <TitleLinks>
           <h2>{title}</h2>
           <Links>
-            <a target="_blank" rel="noopener noreferrer" href={gitLink}>
-              Github
-            </a>
-            <a target="_blank" rel="noopener noreferrer" href={liveLink}>
-              LIVE
-            </a>
+            {gitLink && (
+              <a target="_blank" rel="noopener noreferrer" href={gitLink}>
+                Github
+              </a>
+            )}
+            {liveLink && (
+              <a target="_blank" rel="noopener noreferrer" href={liveLink}>
+                LIVE
+              </a>
+            )}
           </Links>
         </TitleLinks>
       </TittleWrapper>
