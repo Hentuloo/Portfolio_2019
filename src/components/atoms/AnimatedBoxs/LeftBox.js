@@ -119,7 +119,7 @@ const Box = styled.div`
         `;
       if (currentPage === 'kontakt')
         return css`
-          /* transform: scaleY(0.3) scaleX(2.7) translate(-36%, -19vh); */
+          transform: scaleY(0.4) scaleX(6) translate(-11%, 38vh);
         `;
       return css`
         transform: scaleY(1) scaleX(1) translate(0%, 0%);
