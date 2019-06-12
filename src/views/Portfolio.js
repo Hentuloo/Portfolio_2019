@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { Component } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
@@ -8,7 +8,7 @@ import Markdown from 'components/molecules/Markdown/Markdown';
 
 const imageAnimation = keyframes`
 form{
-  transform:translateY(-100%);
+  transform:translateY(-110%);
 }
 to{
   transform:translateY(0%);
@@ -74,6 +74,7 @@ const ImageWrapper = styled.div`
   width: 42%;
   height: 45%;
   overflow: hidden;
+
   span {
     display: none;
   }
@@ -81,9 +82,13 @@ const ImageWrapper = styled.div`
     position: absolute;
     max-width: 100%;
     max-height: 80vh;
-    transform: translateY(-100%);
+    transform: translateY(-110%);
     will-change: transform;
-    animation: ${imageAnimation} 0.5s 0.6s ease-in-out forwards;
+    ${({ loadStatus }) =>
+      loadStatus &&
+      css`
+        animation: ${imageAnimation} 0.5s 0.6s ease-in-out forwards;
+      `}
   }
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     top: 10%;
@@ -134,28 +139,35 @@ const HeaderName = styled(Paragraph)`
 const Wrapper = styled.section`
   display: flex;
 `;
+class Portfolio extends Component {
+  state = { load: false };
 
-const Portfolio = ({ data }) => {
-  const { content, photo } = data.portfolio.mainPages[0];
-  return (
-    <Wrapper>
-      <HeaderName as="h2">Kamil Chędkowski</HeaderName>
-      <ImageWrapper>
-        <GraphImg
-          image={photo}
-          maxWidth={600}
-          fadeIn={false}
-          blurryPlaceholder={false}
-          backgroundColor={false}
-        />
-        <span>chentulooo@gmail.com</span>
-      </ImageWrapper>
-      <MarkdownWrapper>
-        <Markdown markdown={content} />
-      </MarkdownWrapper>
-    </Wrapper>
-  );
-};
+  render() {
+    const { data } = this.props;
+    const { content, photo } = data.portfolio.mainPages[0];
+    const { load } = this.state;
+    return (
+      <Wrapper>
+        <HeaderName as="h2">Kamil Chędkowski</HeaderName>
+        <ImageWrapper loadStatus={load}>
+          <GraphImg
+            image={photo}
+            maxWidth={600}
+            fadeIn={false}
+            blurryPlaceholder={false}
+            backgroundColor={false}
+            onLoad={() => this.setState({ load: true })}
+          />
+          <span>chentulooo@gmail.com</span>
+        </ImageWrapper>
+        <MarkdownWrapper>
+          <Markdown markdown={content} />
+        </MarkdownWrapper>
+      </Wrapper>
+    );
+  }
+}
+
 Portfolio.propTypes = {
   data: PropTypes.objectOf(Object),
 };

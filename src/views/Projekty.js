@@ -31,22 +31,25 @@ to{
 `;
 const ProjektyAnimatedBox = styled.div`
  margin: 30px 0px;
-  ${({ even }) =>
-    even &&
-    css`
-      transform: translateX(-150%);
-      animation: ${fromLeft} 0.5s ${({ animationDelay }) => animationDelay}
-        linear forwards;
-    `}
-  ${({ even }) =>
-    !even &&
-    css`
-      transform: translateX(150%);
-      animation: ${fromRight} 0.5s ${({ animationDelay }) => animationDelay}
-        linear forwards;
-    `}
+ ${({ index }) =>
+   index < 4 && // first four boxes are animate
+   css`
+     ${({ even }) =>
+       even &&
+       css`
+         transform: translateX(-150%);
+         animation: ${fromLeft} 0.5s ${({ animationDelay }) => animationDelay}
+           linear forwards;
+       `}
+     ${({ even }) =>
+       !even &&
+       css`
+         transform: translateX(150%);
+         animation: ${fromRight} 0.5s ${({ animationDelay }) => animationDelay}
+           linear forwards;
+       `}
+   `}
       @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-
         flex-basis:44%;
         min-width:400px;
         min-height:200px;
@@ -107,6 +110,7 @@ const ProjectsBoxes = (data, animationStartFrom, animationDelay) => {
       return (
         <ProjektyAnimatedBox
           key={e.id}
+          index={i}
           even={i % 2 === 0}
           animationDelay={`${Delay}s`}
         >
