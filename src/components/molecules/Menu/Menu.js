@@ -67,8 +67,8 @@ const ListElement = styled.li`
         position: absolute;
         content: '';
         width: 120%;
-        height: 40px;
-        top: 50%;
+        height: 60px;
+        top: 60%;
         left: -10%;
         transform: translateY(-50%);
         background-color: ${({ theme }) => theme.graySecond};

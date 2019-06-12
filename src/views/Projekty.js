@@ -35,14 +35,14 @@ const ProjektyAnimatedBox = styled.div`
     even &&
     css`
       transform: translateX(-150%);
-      animation: ${fromLeft} 0.7s ${({ animationDelay }) => animationDelay}
+      animation: ${fromLeft} 0.5s ${({ animationDelay }) => animationDelay}
         linear forwards;
     `}
   ${({ even }) =>
     !even &&
     css`
       transform: translateX(150%);
-      animation: ${fromRight} 0.7s ${({ animationDelay }) => animationDelay}
+      animation: ${fromRight} 0.5s ${({ animationDelay }) => animationDelay}
         linear forwards;
     `}
       @media (min-width: ${({ theme }) => theme.breakPointMobile}) {

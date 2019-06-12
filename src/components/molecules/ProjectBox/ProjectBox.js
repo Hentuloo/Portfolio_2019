@@ -68,7 +68,6 @@ const ProjectImage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background-color: white;
   overflow: hidden;
   img {
     position: absolute;
