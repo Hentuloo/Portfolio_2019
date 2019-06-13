@@ -3,12 +3,32 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import GraphImg from 'graphcms-image';
 
+const Icon = styled.div`
+  position: relative;
+  cursor: pointer;
+  span {
+    opacity: 0;
+    font-size: ${({ theme }) => theme.font.xxxs};
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, 150%);
+    padding: 2px 8px;
+    background-color: ${({ theme }) => theme.graySecond};
+    border: 1px solid black;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  &:hover span {
+    opacity: 1;
+  }
+`;
 const Icons = styled.div`
   flex-basis: 100%;
   height: 25px;
   display: flex;
+  flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
-  justify-content: flex-end;
   position: relative;
   padding: 3px 8px;
 
@@ -21,7 +41,7 @@ const Icons = styled.div`
     width: 100%;
   }
 `;
-const Description = styled.div`
+const Description = styled.p`
   flex-basis: 100%;
   margin: 5px 5px 8px 3px;
   font-size: ${({ theme }) => theme.font.xxs};
@@ -87,7 +107,6 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.grayDark};
   border-radius: 5px;
   font-family: 'Rhodium Libre', serif;
-  overflow: hidden;
 `;
 const ProjectBox = ({ data }) => {
   const { title, description, gitLink, liveLink, photo, technologies } = data;
@@ -116,7 +135,10 @@ const ProjectBox = ({ data }) => {
       <Description>{description}</Description>
       <Icons>
         {technologies.map(e => (
-          <GraphImg key={e.id} image={e} alt={e.fileName} maxWidth={100} />
+          <Icon>
+            <GraphImg key={e.id} image={e} alt={e.fileName} maxWidth={100} />
+            <span>{e.title}</span>
+          </Icon>
         ))}
       </Icons>
     </Wrapper>

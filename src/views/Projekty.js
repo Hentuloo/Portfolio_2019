@@ -29,7 +29,7 @@ to{
    transform:translateX(0%);
 }
 `;
-const ProjektyAnimatedBox = styled.div`
+const ProjektyAnimatedBox = styled.section`
  margin: 30px 0px;
  ${({ index }) =>
    index < 4 && // first four boxes are animate
@@ -67,9 +67,9 @@ const MarkdownWrapper = styled.div`
   position: relative;
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 80%;
-    max-width: 900px;
-    margin-bottom: 80px;
-    margin-top: 80px;
+    max-width: 1100px;
+    margin-bottom: 3s0px;
+    margin-top: 20px;
     &::after {
       content: '';
       width: 120px;
@@ -83,7 +83,7 @@ const MarkdownWrapper = styled.div`
     }
   }
 `;
-const ProjektyWrapper = styled.section`
+const ProjektyWrapper = styled.div`
   display: block;
   margin-bottom: 150px;
   width: 100%;
@@ -99,7 +99,7 @@ const ProjektyWrapper = styled.section`
 const Wrapper = styled.div`
   width: 100%;
   min-height: 110vh;
-  margin: 40px auto 0px auto;
+  margin: 10px auto 0px auto;
 `;
 
 const ProjectsBoxes = (data, animationStartFrom, animationDelay) => {
@@ -161,12 +161,13 @@ export default () => (
             description
             gitLink
             liveLink
-            technologies {
+            technologies(orderBy: index_ASC) {
               id
               handle
               width
               height
               fileName
+              title
             }
             photo {
               handle

@@ -148,7 +148,7 @@ class Portfolio extends Component {
     const { load } = this.state;
     return (
       <Wrapper>
-        <HeaderName as="h2">Kamil Chędkowski</HeaderName>
+        <HeaderName as="h1">Kamil Chędkowski</HeaderName>
         <ImageWrapper loadStatus={load}>
           <GraphImg
             image={photo}
