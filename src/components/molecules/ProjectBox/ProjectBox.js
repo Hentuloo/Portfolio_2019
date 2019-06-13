@@ -18,6 +18,7 @@ const Icon = styled.div`
     border: 1px solid black;
     border-radius: 5px;
     white-space: nowrap;
+    z-index: 7;
   }
   &:hover span {
     opacity: 1;
@@ -25,10 +26,10 @@ const Icon = styled.div`
 `;
 const Icons = styled.div`
   flex-basis: 100%;
-  height: 25px;
+  min-height: 25px;
   display: flex;
   flex-direction: row-reverse;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   position: relative;
   padding: 3px 8px;
 
@@ -135,8 +136,8 @@ const ProjectBox = ({ data }) => {
       <Description>{description}</Description>
       <Icons>
         {technologies.map(e => (
-          <Icon>
-            <GraphImg key={e.id} image={e} alt={e.fileName} maxWidth={100} />
+          <Icon key={e.id}>
+            <GraphImg image={e} alt={e.fileName} maxWidth={100} />
             <span>{e.title}</span>
           </Icon>
         ))}
