@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import Favico from 'images/favicon.ico';
 
 const SEO = () => {
   return (
@@ -12,6 +13,8 @@ const SEO = () => {
       />
       <link rel="index" title="Strona główna" href="#" />
       <title>Kamil Chędkowski - Portfolio</title>
+      <link rel="shortcut icon" type="image/png" href={Favico} />
+      <link rel="shortcut icon" type="image/png" href={Favico} />
     </Helmet>
   );
 };
