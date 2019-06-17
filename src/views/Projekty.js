@@ -68,9 +68,9 @@ const MarkdownWrapper = styled.div`
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 80%;
     max-width: 1100px;
-    margin-bottom: 3s0px;
+    margin-bottom: 30px;
     margin-top: 20px;
-    &::after {
+    &::before {
       content: '';
       width: 120px;
       height: 80px;
@@ -78,7 +78,6 @@ const MarkdownWrapper = styled.div`
       bottom: 0%;
       right: 0%;
       background-color: ${({ theme }) => theme.redFirst};
-      z-index: 7;
       transform: translate(45%, 45%);
     }
   }
