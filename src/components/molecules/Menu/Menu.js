@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { StaticQuery, graphql } from 'gatsby';
 
 const ListElement = styled.li`
   display: block;
@@ -105,14 +106,15 @@ const MenuWrapper = styled.nav`
       position: relative;
       flex-direction: column;
       flex-wrap: nowrap;
-      height: 70%;
+      height: 80%;
       width: 120px;
-      top: 45%;
+      top: 48%;
       transform: translateY(-50%);
     }
   }
 `;
-const Menu = ({ onChangePage, currentPage }) => {
+const Menu = ({ onChangePage, currentPage, data }) => {
+  const { pdf } = data.portfolio.mainPages[0];
   return (
     <MenuWrapper>
       <ul>
@@ -145,7 +147,18 @@ const Menu = ({ onChangePage, currentPage }) => {
           </a>
         </ListElement>
         <ListElement className="hideMobile">
-          <a href="https://github.com">Github</a>
+          <a
+            href="https://github.com/Hentuloo?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Github
+          </a>
+        </ListElement>
+        <ListElement className="hideMobile">
+          <a href={pdf.url} target="_blank" rel="noopener noreferrer">
+            CV
+          </a>
         </ListElement>
       </ul>
     </MenuWrapper>
@@ -154,8 +167,25 @@ const Menu = ({ onChangePage, currentPage }) => {
 Menu.propTypes = {
   onChangePage: PropTypes.func.isRequired,
   currentPage: PropTypes.string,
+  data: PropTypes.objectOf(Object),
 };
 Menu.defaultProps = {
   currentPage: 'portfolio',
+  data: null,
 };
-export default Menu;
+export default props => (
+  <StaticQuery
+    query={graphql`
+      {
+        portfolio {
+          mainPages {
+            pdf {
+              url
+            }
+          }
+        }
+      }
+    `}
+    render={data => <Menu data={data} {...props} />}
+  />
+);
