@@ -1,67 +1,58 @@
-import React, { Component } from 'react';
-import styled, { ThemeProvider, keyframes } from 'styled-components';
+import { Component } from 'react';
+import Constants from 'config/Constants';
 
-import GlobalStyle from 'themes/GlobalStyles';
-import { theme } from 'themes/mainTheme';
-import SEO from 'components/organisms/SEO';
-import Menu from 'components/molecules/Menu/Menu';
-import BackgroundBlock from 'components/atoms/BackgroundBlock/BackgroundBlock';
-
-const opacity = keyframes`
-from{
-opacity:0;
-}
-to{
-opacity:1;
-}
-`;
-
-const Wrapper = styled.div`
-  opacity: 0;
-  animation: ${opacity} 0.5s 0.6s linear forwards;
-  position: absolute;
-  text-align: center;
-  @media (min-width: ${() => theme.breakPointMobile}) {
-    width: calc(100% - 200px);
-    margin-top: 20vh;
-    right: 0%;
-  }
-`;
-class index extends Component {
+class ErrorRedirect extends Component {
   state = {};
 
-  pages = ['portfolio', 'projekty', 'kontakt', 'kontakt-success'];
-
   componentDidMount() {
-    const pageType = window.location.pathname.replace(/\//g, '');
-    if (this.pages.includes(pageType)) {
-      window.location.href = `/#${pageType}`;
+    // get all languages from Constants
+    const allLanguages = Object.keys(Constants);
+    const partsUrl = window.location.pathname.split('/');
+
+    // find similar part to allLanguages shortcuts
+    const currentLang = allLanguages.find(language => {
+      return partsUrl.find(part => part.includes(language));
+    });
+
+    if (currentLang) {
+      // find similar page path
+      const allPaths = Object.keys(Constants[currentLang].PATHS);
+      const currentPage = allPaths.find(path => {
+        return partsUrl.find(part => part.includes(path));
+      });
+      if (currentPage) {
+        window.location.href = `/${currentLang}/#${currentPage}`;
+        return;
+      }
+      window.location.href = `/${currentLang}/#${
+        Constants[currentLang].PATHS.portfolio
+      }`;
+    } else {
+      const allEngPaths = Object.keys(Constants.en.PATHS);
+      const currentPage = allEngPaths.find(path => {
+        return partsUrl.find(part => part.includes(path));
+      });
+      if (currentPage) {
+        window.location.href = `/en/#${currentPage}`;
+        return;
+      }
+      // look in hash
+      const hash = window.location.hash.slice(1);
+      const PageFromHash = allEngPaths.find(path => path.includes(hash));
+      if (PageFromHash) {
+        window.location.href = `/en/#${PageFromHash}`;
+      }
+      const userLang = navigator.language || navigator.userLanguage;
+      if (userLang === 'pl-PL') {
+        window.location.href = `/pl/#${Constants.pl.PATHS.portfolio}`;
+        return;
+      }
+      window.location.href = `/en/#${Constants.en.PATHS.portfolio}`;
     }
   }
 
-  handleChangePage = e => {
-    window.location.href = `/#${e}`;
-  };
-
   render() {
-    return (
-      <>
-        <SEO />
-        <ThemeProvider theme={theme}>
-          <>
-            <GlobalStyle />
-
-            <Wrapper>
-              <h1>!Coś poszło nie tak spróbuj użyć menu by powrócić</h1>
-            </Wrapper>
-
-            <Menu onChangePage={this.handleChangePage} />
-            <BackgroundBlock />
-          </>
-        </ThemeProvider>
-      </>
-    );
+    return null;
   }
 }
-
-export default index;
+export default ErrorRedirect;

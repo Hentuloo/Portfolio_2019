@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
+import Constants from 'config/Constants';
+import withContext from 'hoc/withContext';
+import { compose } from 'recompose';
 
 const ListElement = styled.li`
   display: block;
@@ -113,37 +116,54 @@ const MenuWrapper = styled.nav`
     }
   }
 `;
-const Menu = ({ onChangePage, currentPage, data }) => {
+const Menu = props => {
+  const {
+    data,
+    langContext,
+    pageContext: { onChangePage, currentPage },
+  } = props;
+
   const { pdf } = data.portfolio.mainPages[0];
   return (
     <MenuWrapper>
       <ul>
         <ListElement>
           <a
-            href="#portfolio"
-            className={currentPage === 'portfolio' ? 'active' : ''}
-            onClick={() => onChangePage('portfolio')}
+            href={`#${Constants[langContext].PATHS.portfolio}`}
+            className={
+              currentPage === Constants[langContext].PATHS.portfolio
+                ? 'active'
+                : ''
+            }
+            onClick={() => onChangePage(Constants[langContext].PATHS.portfolio)}
           >
-            {/* href="#portfolio"  for gh-pages */}
-            Portfolio
+            {Constants[langContext].PATHS.portfolio}
           </a>
         </ListElement>
         <ListElement>
           <a
-            href="#projekty"
-            className={currentPage === 'projekty' ? 'active' : ''}
-            onClick={() => onChangePage('projekty')}
+            href={`#${Constants[langContext].PATHS.projects}`}
+            className={
+              currentPage === Constants[langContext].PATHS.projects
+                ? 'active'
+                : ''
+            }
+            onClick={() => onChangePage(Constants[langContext].PATHS.projects)}
           >
-            Projekty
+            {Constants[langContext].PATHS.projects}
           </a>
         </ListElement>
         <ListElement>
           <a
-            href="#kontakt"
-            className={currentPage === 'kontakt' ? 'active' : ''}
-            onClick={() => onChangePage('kontakt')}
+            href={`#${Constants[langContext].PATHS.contact}`}
+            className={
+              currentPage === Constants[langContext].PATHS.contact
+                ? 'active'
+                : ''
+            }
+            onClick={() => onChangePage(Constants[langContext].PATHS.contact)}
           >
-            Kontakt
+            {Constants[langContext].PATHS.contact}
           </a>
         </ListElement>
         <ListElement className="hideMobile">
@@ -165,27 +185,42 @@ const Menu = ({ onChangePage, currentPage, data }) => {
   );
 };
 Menu.propTypes = {
-  onChangePage: PropTypes.func.isRequired,
-  currentPage: PropTypes.string,
+  langContext: PropTypes.string.isRequired,
+  pageContext: PropTypes.shape({
+    previousPage: PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
+    onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
+  }).isRequired,
   data: PropTypes.objectOf(Object),
 };
 Menu.defaultProps = {
-  currentPage: 'portfolio',
   data: null,
 };
-export default props => (
-  <StaticQuery
-    query={graphql`
-      {
-        portfolio {
-          mainPages {
-            pdf {
-              url
+
+const withStaticQuery = Component => {
+  return function componentWithQuery(...props) {
+    return (
+      <StaticQuery
+        query={graphql`
+          {
+            portfolio {
+              mainPages {
+                pdf {
+                  url
+                }
+              }
             }
           }
-        }
-      }
-    `}
-    render={data => <Menu data={data} {...props} />}
-  />
-);
+        `}
+        render={data => {
+          return <Component {...props[0]} data={data} />;
+        }}
+      />
+    );
+  };
+};
+
+export default compose(
+  withContext,
+  withStaticQuery,
+)(Menu);

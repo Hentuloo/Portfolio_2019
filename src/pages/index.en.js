@@ -5,16 +5,22 @@ import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
 import SEO from 'components/organisms/SEO';
+import langContext from 'context/langContext';
+import pageContext from 'context/pageContext';
 
-import SwitchViews from 'views/SwitchViews';
+import Constants from 'config/Constants';
+
+import SwitchViews from 'views/en/SwitchViews';
+
+const lang = 'en';
 
 class index extends Component {
   state = {
-    previousPage: 'portfolio',
-    currentPage: 'portfolio',
+    previousPage: Constants[lang].PATHS.portfolio,
+    currentPage: Constants[lang].PATHS.portfolio,
   };
 
-  pages = ['portfolio', 'projekty', 'kontakt'];
+  pages = [...Constants[lang].PATHS];
 
   componentDidMount() {
     const pageType = window.location.hash.substring(1);
@@ -23,11 +29,11 @@ class index extends Component {
         previousPage: pageType,
         currentPage: pageType,
       });
-    if (pageType === 'kontakt-success') {
+    if (pageType === Constants[lang].PATHS.contactSuccess) {
       // when form was send
       this.setState({
-        previousPage: 'kontakt',
-        currentPage: 'kontakt',
+        previousPage: Constants[lang].PATHS.contact,
+        currentPage: Constants[lang].PATHS.contact,
       });
     }
   }
@@ -43,20 +49,24 @@ class index extends Component {
 
   render() {
     const { previousPage, currentPage } = this.state;
+
+    const pageContextValue = {
+      onChangePage: this.handleChangePage,
+      previousPage,
+      currentPage,
+    };
     return (
       <>
         <SEO />
         <ThemeProvider theme={theme}>
-          <>
-            <GlobalStyle />
-            <MainTemplate
-              onChangePage={this.handleChangePage}
-              previousPage={previousPage}
-              currentPage={currentPage}
-            >
-              <SwitchViews page={currentPage} />
-            </MainTemplate>
-          </>
+          <pageContext.Provider value={pageContextValue}>
+            <langContext.Provider value={lang}>
+              <GlobalStyle />
+              <MainTemplate>
+                <SwitchViews page={currentPage} />
+              </MainTemplate>
+            </langContext.Provider>
+          </pageContext.Provider>
         </ThemeProvider>
       </>
     );

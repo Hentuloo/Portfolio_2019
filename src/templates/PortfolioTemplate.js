@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
 import GraphImg from 'graphcms-image';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Markdown from 'components/molecules/Markdown/Markdown';
+
+import Constants from 'config/Constants';
+import withContext from 'hoc/withContext';
 
 const imageAnimation = keyframes`
 form{
@@ -143,12 +145,12 @@ class Portfolio extends Component {
   state = { load: false };
 
   render() {
-    const { data } = this.props;
-    const { content, photo } = data.portfolio.mainPages[0];
+    const { content, photo, langContext } = this.props;
     const { load } = this.state;
+    const { email, headLine } = Constants[langContext].CONTENT;
     return (
       <Wrapper>
-        <HeaderName as="h1">Kamil Chędkowski</HeaderName>
+        <HeaderName as="h1">{headLine}</HeaderName>
         <ImageWrapper loadStatus={load}>
           <GraphImg
             image={photo}
@@ -158,7 +160,7 @@ class Portfolio extends Component {
             backgroundColor={false}
             onLoad={() => this.setState({ load: true })}
           />
-          <span>chentulooo@gmail.com</span>
+          <span>{email}</span>
         </ImageWrapper>
         <MarkdownWrapper>
           <Markdown markdown={content} />
@@ -169,27 +171,12 @@ class Portfolio extends Component {
 }
 
 Portfolio.propTypes = {
-  data: PropTypes.objectOf(Object),
+  langContext: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  photo: PropTypes.shape({
+    handle: PropTypes.string,
+    width: PropTypes.number,
+    height: PropTypes.number,
+  }).isRequired,
 };
-Portfolio.defaultProps = {
-  data: null,
-};
-export default () => (
-  <StaticQuery
-    query={graphql`
-      {
-        portfolio {
-          mainPages {
-            content
-            photo {
-              handle
-              width
-              height
-            }
-          }
-        }
-      }
-    `}
-    render={data => <Portfolio data={data} />}
-  />
-);
+export default withContext(Portfolio);

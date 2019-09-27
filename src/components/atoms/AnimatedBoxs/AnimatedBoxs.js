@@ -1,25 +1,82 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LeftBox from './LeftBox';
-import RightBox from './RightBox';
+import styled from 'styled-components';
+import withContext from 'hoc/withContext';
+import Constants from 'config/Constants';
 
-const AnimatedBoxs = ({ currentPage, previousPage }) => {
-  // console.log(currentPage);
-  // console.log(previousPage);
+// animations for Box
+import MobileRight from './MobileAnimations/MobileRight';
+import MobileLeft from './MobileAnimations/MobileLeft';
+import DesktopRight from './DesktopAniamtions/DesktopRight';
+import DesktopLeft from './DesktopAniamtions/DesktopLeft';
+
+const RightBox = styled.div`
+  position: fixed;
+  background-color: ${({ theme }) => theme.redFirst};
+  width: 30%;
+  height: 33%;
+  right: 0%;
+  top: 0%;
+  z-index: -2;
+  will-change: transform;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    width: 22%;
+    height: 40%;
+  }
+  ${MobileRight}
+  ${DesktopRight}
+`;
+
+const LeftBox = styled.div`
+  position: fixed;
+  background-color: ${({ theme }) => theme.redSecondary};
+  width: 27%;
+  height: 70%;
+  left: 0%;
+  top: 0%;
+  z-index: -2;
+  will-change: transform;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    width: 15%;
+    height: 70%;
+    left: auto;
+    right: 22%;
+  }
+  ${MobileLeft}
+  ${DesktopLeft}
+`;
+
+const AnimatedBoxs = ({ langContext, pageContext }) => {
+  const { currentPage, previousPage } = pageContext;
+  const pagesPaths = {
+    portfolio: Constants[langContext].PATHS.portfolio,
+    contact: Constants[langContext].PATHS.contact,
+    projects: Constants[langContext].PATHS.projects,
+  };
+
   return (
     // Random for reset animation
     <div key={Math.random()}>
-      <LeftBox currentPage={currentPage} previousPage={previousPage} />
-      <RightBox currentPage={currentPage} previousPage={previousPage} />
+      <LeftBox
+        pagesPaths={pagesPaths}
+        currentPage={currentPage}
+        previousPage={previousPage}
+      />
+      <RightBox
+        pagesPaths={pagesPaths}
+        currentPage={currentPage}
+        previousPage={previousPage}
+      />
     </div>
   );
 };
 AnimatedBoxs.propTypes = {
-  previousPage: PropTypes.string,
-  currentPage: PropTypes.string,
+  langContext: PropTypes.string.isRequired,
+  pageContext: PropTypes.shape({
+    previousPage: PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
+    onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
+  }).isRequired,
 };
-AnimatedBoxs.defaultProps = {
-  previousPage: 'portfolio',
-  currentPage: 'portfolio',
-};
-export default AnimatedBoxs;
+
+export default withContext(AnimatedBoxs);

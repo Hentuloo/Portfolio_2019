@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components';
-
 import validator from 'validator';
+
+import Constants from 'config/Constants';
+import withContext from 'hoc/withContext';
 
 const opacity = keyframes`
 from{
@@ -126,22 +128,44 @@ class FormNetlify extends Component {
   };
 
   render() {
-    const { success } = this.props;
+    const { success, langContext } = this.props;
     const { name, email, message, valid } = this.state;
+
+    const {
+      formAction,
+      messageCorrectEmailSend,
+      textAreaPlaceholder,
+      emailPlaceholder,
+      namePlaceholder,
+      submitTitle,
+      validatorTextArea,
+      validatorEmail,
+      validatorName,
+    } = Constants[langContext].FORM;
+
     if (success) {
       return (
         <Wrapper success>
           <Form disabled>
-            <InputName type="text" name="name" placeholder="Imie:" disabled />
+            <InputName
+              type="text"
+              name="name"
+              placeholder={namePlaceholder}
+              disabled
+            />
             <InputEmail
               type="email"
               name="email"
-              placeholder="Email:"
+              placeholder={emailPlaceholder}
               disabled
             />
-            <Textarea name="message" placeholder="Treść wiadomości" disabled />
-            <InputSubmit disabled value="Wyślij" />
-            <Message>Wiadomość została wysłana popranwnie!</Message>
+            <Textarea
+              name="message"
+              placeholder={textAreaPlaceholder}
+              disabled
+            />
+            <InputSubmit disabled value={submitTitle} />
+            <Message>{messageCorrectEmailSend}</Message>
           </Form>
         </Wrapper>
       );
@@ -153,7 +177,7 @@ class FormNetlify extends Component {
           method="post"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
-          action="/#kontakt-success"
+          action={formAction}
         >
           <input type="hidden" name="bot-field" />
           <input type="hidden" name="form-name" value="contact" />
@@ -161,39 +185,39 @@ class FormNetlify extends Component {
             <InputName
               type="text"
               name="name"
-              placeholder="Imie:"
+              placeholder={namePlaceholder}
               minlength="6"
               maxlength="20"
               required
               value={name}
               onChange={this.handleChangeForm}
             />
-            <ValidatiorSettings>6-30 znaków</ValidatiorSettings>
+            <ValidatiorSettings>{validatorName}</ValidatiorSettings>
           </InputWrapper>
           <InputWrapper>
             <InputEmail
               type="email"
               name="email"
-              placeholder="Email:"
+              placeholder={emailPlaceholder}
               required
               value={email}
               onChange={this.handleChangeForm}
             />
-            <ValidatiorSettings>email!</ValidatiorSettings>
+            <ValidatiorSettings>{validatorEmail}</ValidatiorSettings>
           </InputWrapper>
           <InputWrapper>
             <Textarea
               name="message"
-              placeholder="Treść wiadomości"
+              placeholder={textAreaPlaceholder}
               minlength="10"
               maxlength="200"
               required
               value={message}
               onChange={this.handleChangeForm}
             />
-            <ValidatiorSettings>10-200 znaków</ValidatiorSettings>
+            <ValidatiorSettings>{validatorTextArea}</ValidatiorSettings>
           </InputWrapper>
-          <InputSubmit disabled={!valid} type="submit" value="WYŚLIJ" />
+          <InputSubmit disabled={!valid} type="submit" value={submitTitle} />
         </Form>
       </Wrapper>
     );
@@ -201,10 +225,11 @@ class FormNetlify extends Component {
 }
 
 FormNetlify.propTypes = {
+  langContext: PropTypes.string.isRequired,
   success: PropTypes.bool,
 };
 FormNetlify.defaultProps = {
   success: false,
 };
 
-export default FormNetlify;
+export default withContext(FormNetlify);

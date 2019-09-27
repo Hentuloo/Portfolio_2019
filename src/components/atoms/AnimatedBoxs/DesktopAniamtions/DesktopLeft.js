@@ -95,52 +95,70 @@ const DesktopLeft = css`
     }};
   } */
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-    ${({ currentPage, previousPage }) => {
-      if (previousPage === 'portfolio' && currentPage === 'projekty') {
+    ${({ currentPage, previousPage, pagesPaths }) => {
+      if (
+        previousPage === pagesPaths.portfolio &&
+        currentPage === pagesPaths.projects
+      ) {
         return css`
           animation: ${portfolioProjekty} 0.8s linear forwards;
           transform: scaleY(1) scaleX(1.7) translate(11vw, 35vh);
         `;
       }
-      if (previousPage === 'projekty' && currentPage === 'portfolio') {
+      if (
+        previousPage === pagesPaths.projects &&
+        currentPage === pagesPaths.portfolio
+      ) {
         return css`
           animation: ${portfolioProjekty} 0.8s linear reverse;
           transform: scaleY(1) scaleX(1) translate(0%, 0%);
         `;
       }
-      if (previousPage === 'portfolio' && currentPage === 'kontakt') {
+      if (
+        previousPage === pagesPaths.portfolio &&
+        currentPage === pagesPaths.contact
+      ) {
         return css`
           animation: ${portfolioKontakt} 0.8s linear forwards;
           transform: scaleY(0.4) scaleX(6) translate(-11%, 38vh);
         `;
       }
-      if (previousPage === 'kontakt' && currentPage === 'portfolio') {
+      if (
+        previousPage === pagesPaths.contact &&
+        currentPage === pagesPaths.portfolio
+      ) {
         return css`
           animation: ${portfolioKontakt} 0.8s linear reverse;
           transform: scaleY(1) scaleX(1) translate(0%, 0%);
         `;
       }
-      if (previousPage === 'projekty' && currentPage === 'kontakt') {
+      if (
+        previousPage === pagesPaths.projects &&
+        currentPage === pagesPaths.contact
+      ) {
         return css`
           animation: ${projektyKontakt} 0.8s linear forwards;
           transform: scaleY(0.4) scaleX(6) translate(-11%, 38vh);
         `;
       }
-      if (previousPage === 'kontakt' && currentPage === 'projekty') {
+      if (
+        previousPage === pagesPaths.contact &&
+        currentPage === pagesPaths.projects
+      ) {
         return css`
           animation: ${projektyKontakt} 0.8s linear reverse;
           transform: scaleY(1) scaleX(1.7) translate(11vw, 35vh);
         `;
       }
-      if (currentPage === 'portfolio')
+      if (currentPage === pagesPaths.portfolio)
         return css`
           transform: scaleY(1) scaleX(1) translate(0%, 0%);
         `;
-      if (currentPage === 'projekty')
+      if (currentPage === pagesPaths.projects)
         return css`
           transform: scaleY(1) scaleX(1.7) translate(11vw, 35vh);
         `;
-      if (currentPage === 'kontakt')
+      if (currentPage === pagesPaths.contact)
         return css`
           transform: scaleY(0.4) scaleX(6) translate(-11%, 38vh);
         `;

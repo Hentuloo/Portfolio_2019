@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: '/Portfolio_2019',
+  pathPrefix: '/en/',
   siteMetadata: {
     title: 'Portfolio - Kamil Chędkowski',
     description: 'Pretendent na Junior Developer',
@@ -28,7 +28,7 @@ module.exports = {
       options: {
         name: 'gatsby-starter-default',
         short_name: 'starter',
-        start_url: '/',
+        start_url: '/en/',
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
@@ -45,6 +45,13 @@ module.exports = {
         // Url to query from
         url:
           'https://api-euwest.graphcms.com/v1/cjwjd62bu01ru01b33oksrla4/master',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-i18n',
+      options: {
+        langKeyDefault: 'en',
+        useLangKeyLayout: false,
       },
     },
   ],

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
 import ProjectBox from 'components/molecules/ProjectBox/ProjectBox';
 import Markdown from 'components/molecules/Markdown/Markdown';
 
@@ -29,7 +28,7 @@ to{
    transform:translateX(0%);
 }
 `;
-const ProjektyAnimatedBox = styled.section`
+const ProjectsAnimatedBox = styled.section`
  margin: 30px 0px;
  ${({ index }) =>
    index < 4 && // first four boxes are animate
@@ -82,7 +81,7 @@ const MarkdownWrapper = styled.div`
     }
   }
 `;
-const ProjektyWrapper = styled.div`
+const ProjectsWrapper = styled.div`
   display: block;
   margin-bottom: 150px;
   width: 100%;
@@ -107,76 +106,39 @@ const ProjectsBoxes = (data, animationStartFrom, animationDelay) => {
     Delay += animationDelay;
     if (i <= 4) {
       return (
-        <ProjektyAnimatedBox
+        <ProjectsAnimatedBox
           key={e.id}
           index={i}
           even={i % 2 === 0}
           animationDelay={`${Delay}s`}
         >
           <ProjectBox data={e} />
-        </ProjektyAnimatedBox>
+        </ProjectsAnimatedBox>
       );
     }
     return (
-      <ProjektyAnimatedBox key={e.id}>
+      <ProjectsAnimatedBox key={e.id}>
         <ProjectBox data={e} />
-      </ProjektyAnimatedBox>
+      </ProjectsAnimatedBox>
     );
   });
   return projects;
 };
 
-const Projekty = ({ data }) => {
-  const projects = data.portfolio.projectses;
-  const markdownContent = data.portfolio.projectsPages[0].content;
+const Projects = ({ projects, markdownContent }) => {
   return (
     <Wrapper>
       <MarkdownWrapper>
         <Markdown markdown={markdownContent} />
       </MarkdownWrapper>
-      <ProjektyWrapper>{ProjectsBoxes(projects, 0.3, 0.2)}</ProjektyWrapper>
+      <ProjectsWrapper>{ProjectsBoxes(projects, 0.3, 0.2)}</ProjectsWrapper>
     </Wrapper>
   );
 };
 
-Projekty.propTypes = {
-  data: PropTypes.objectOf(Object),
-};
-Projekty.defaultProps = {
-  data: null,
+Projects.propTypes = {
+  markdownContent: PropTypes.string.isRequired,
+  projects: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default () => (
-  <StaticQuery
-    query={graphql`
-      {
-        portfolio {
-          projectsPages {
-            content
-          }
-          projectses(orderBy: index_DESC) {
-            id
-            title
-            description
-            gitLink
-            liveLink
-            technologies(orderBy: index_ASC) {
-              id
-              handle
-              width
-              height
-              fileName
-              title
-            }
-            photo {
-              handle
-              width
-              height
-            }
-          }
-        }
-      }
-    `}
-    render={data => <Projekty data={data} />}
-  />
-);
+export default Projects;
