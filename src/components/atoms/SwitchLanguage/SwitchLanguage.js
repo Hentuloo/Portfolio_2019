@@ -74,22 +74,21 @@ class SwitchLanguage extends Component {
   state = {};
 
   handleClickButton = lang => {
-    const { langContext } = this.props;
+    const {
+      langContext,
+      pageContext: { currentPage },
+    } = this.props;
     if (lang !== langContext) {
-      const hash = window.location.hash.slice(1);
-
-      if (hash) {
-        const allPaths = Object.keys(Constants[langContext].PATHS);
-        const pageName = allPaths.find(
-          path => Constants[langContext].PATHS[path] === hash,
-        );
-
-        if (pageName) {
-          const { origin } = window.location;
-          window.location.href = `${origin}/${lang}/#${
-            Constants[lang].PATHS[pageName]
-          }`;
-        }
+      const allPaths = Object.keys(Constants[langContext].PATHS);
+      const pageName = allPaths.find(
+        path => Constants[langContext].PATHS[path] === currentPage,
+      );
+      if (pageName) {
+        const { origin } = window.location;
+        window.location.href = `${origin}/${lang}/#${
+          Constants[lang].PATHS[pageName]
+        }`;
+        return;
       }
       window.location.href = `/${lang}/#${Constants[lang].PATHS.portfolio}`;
     }
@@ -120,6 +119,11 @@ class SwitchLanguage extends Component {
 
 SwitchLanguage.propTypes = {
   langContext: PropTypes.string.isRequired,
+  pageContext: PropTypes.shape({
+    previousPage: PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
+    onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
+  }).isRequired,
 };
 
 export default withContext(SwitchLanguage);

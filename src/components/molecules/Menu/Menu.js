@@ -141,7 +141,6 @@ const Menu = props => {
   } = props;
 
   const { pdf, pdfEng } = data.portfolio.mainPages[0];
-  console.log(data.portfolio);
   return (
     <MenuWrapper>
       <ul>

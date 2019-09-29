@@ -127,12 +127,36 @@ class ContactTemplate extends Component {
     this.setState({ valid });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const {
+      langContext,
+      pageContext: { onChangePage },
+    } = this.props;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: this.encode({ 'form-name': 'contact', ...this.state }),
+    })
+      .then(() => {
+        const { contactSuccess } = Constants[langContext].PATHS;
+        window.location.hash = `#${contactSuccess}`;
+        onChangePage(contactSuccess);
+      })
+      .catch(error => console.log(error));
+  };
+
+  encode = data => {
+    return Object.keys(data)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+      .join('&');
+  };
+
   render() {
     const { success, langContext } = this.props;
     const { name, email, message, valid } = this.state;
 
     const {
-      formAction,
       messageCorrectEmailSend,
       textAreaPlaceholder,
       emailPlaceholder,
@@ -177,7 +201,7 @@ class ContactTemplate extends Component {
           method="post"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
-          action={formAction}
+          onSubmit={this.handleSubmit}
         >
           <input type="hidden" name="bot-field" />
           <input type="hidden" name="form-name" value="contact" />
@@ -226,6 +250,11 @@ class ContactTemplate extends Component {
 
 ContactTemplate.propTypes = {
   langContext: PropTypes.string.isRequired,
+  pageContext: PropTypes.shape({
+    previousPage: PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
+    onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
+  }).isRequired,
   success: PropTypes.bool,
 };
 ContactTemplate.defaultProps = {

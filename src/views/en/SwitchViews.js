@@ -12,6 +12,7 @@ const SwitchViews = ({ page, langContext }) => {
   const components = {
     portfolio: Portfolio,
     contact: Contact,
+    contactSuccess: Contact,
     projects: Projects,
   };
 

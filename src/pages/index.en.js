@@ -33,13 +33,6 @@ class index extends Component {
         currentPage: Constants[lang].PATHS[pageType],
       });
     }
-    if (currentHash === Constants[lang].PATHS.contactSuccess) {
-      // when form was send
-      this.setState({
-        previousPage: Constants[lang].PATHS.contact,
-        currentPage: Constants[lang].PATHS.contact,
-      });
-    }
   }
 
   handleChangePage = e => {

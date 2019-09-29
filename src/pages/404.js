@@ -38,9 +38,12 @@ class ErrorRedirect extends Component {
       }
       // look in hash
       const hash = window.location.hash.slice(1);
-      const PageFromHash = allEngPaths.find(path => path.includes(hash));
+      const PageFromHash = allLanguages.find(langObject => {
+        const allPaths = Object.keys(langObject);
+        return allPaths.find(path => langObject[path] === hash);
+      });
       if (PageFromHash) {
-        window.location.href = `/en/#${PageFromHash}`;
+        window.location.href = `/${PageFromHash}/#${hash}`;
       }
       const userLang = navigator.language || navigator.userLanguage;
       if (userLang === 'pl-PL') {
