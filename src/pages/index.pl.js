@@ -20,22 +20,26 @@ class index extends Component {
     currentPage: Constants[lang].PATHS.portfolio,
   };
 
-  pages = [...Constants[lang].PATHS];
+  pages = Object.keys(Constants[lang].PATHS);
 
   componentDidMount() {
-    const pageType = window.location.hash.substring(1);
-    if (this.pages.includes(pageType))
+    const currentHash = window.location.hash.substring(1);
+    const pageType = this.pages.find(page => {
+      return Constants[lang].PATHS[page] === currentHash;
+    });
+    if (pageType) {
       this.setState({
-        previousPage: pageType,
-        currentPage: pageType,
-      });
-    if (pageType === Constants[lang].PATHS.contactSuccess) {
-      // when form was send
-      this.setState({
-        previousPage: Constants[lang].PATHS.contact,
-        currentPage: Constants[lang].PATHS.contact,
+        previousPage: Constants[lang].PATHS[pageType],
+        currentPage: Constants[lang].PATHS[pageType],
       });
     }
+    // if (currentHash === Constants[lang].PATHS.contactSuccess) {
+    //   // when form was send
+    //   this.setState({
+    //     previousPage: Constants[lang].PATHS.contact,
+    //     currentPage: Constants[lang].PATHS.contact,
+    //   });
+    // }
   }
 
   handleChangePage = e => {

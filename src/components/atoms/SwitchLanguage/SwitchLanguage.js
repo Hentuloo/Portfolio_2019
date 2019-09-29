@@ -1,36 +1,68 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+
+import Constants from 'config/Constants';
+import withContext from 'hoc/withContext';
 
 const Button = styled.button`
-  background-color: ${({ theme }) => theme.graySecond};
+  position: relative;
   width: 40px;
-  border: none;
   padding: 2px 0px;
+  border: none;
+  border-radius: 4px;
+  letter-spacing: 1px;
   font-family: 'Rhodium Libre', serif;
   font-size: ${({ theme }) => theme.font.xxs};
   font-weight: ${({ theme }) => theme.font.bold};
-  letter-spacing: 1px;
+  background-color: ${({ theme }) => theme.graySecond};
   cursor: pointer;
-  border-radius: 4px;
+  &:hover {
+    background-color: ${({ theme }) => theme.grayThird};
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    padding: 20px;
+    opacity: 0.4;
+  }
+  &:nth-of-type(1) {
+    &::before {
+      transform: translateX(-25%);
+    }
+  }
+
   ${({ active, theme }) =>
     active &&
     css`
       background-color: ${theme.redSecondary};
+      &:hover {
+        background-color: ${theme.redSecondary};
+      }
     `};
+
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-    font-size: ${({ theme }) => theme.font.xxs};
     width: 40px;
     padding: 2px 0px;
     letter-spacing: 1px;
+    font-size: ${({ theme }) => theme.font.xxs};
+    &::before {
+      display: none;
+    }
   }
 `;
 const Wrapper = styled.div`
+  position: fixed;
   display: flex;
   max-width: 27%;
-  position: fixed;
-  right: 1%;
+  right: 8px;
   top: 2px;
-  z-index: 10;
+  z-index: 20;
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     max-width: auto;
     left: 12px;
@@ -41,14 +73,53 @@ const Wrapper = styled.div`
 class SwitchLanguage extends Component {
   state = {};
 
+  handleClickButton = lang => {
+    const { langContext } = this.props;
+    if (lang !== langContext) {
+      const hash = window.location.hash.slice(1);
+
+      if (hash) {
+        const allPaths = Object.keys(Constants[langContext].PATHS);
+        const pageName = allPaths.find(
+          path => Constants[langContext].PATHS[path] === hash,
+        );
+
+        if (pageName) {
+          const { origin } = window.location;
+          window.location.href = `${origin}/${lang}/#${
+            Constants[lang].PATHS[pageName]
+          }`;
+        }
+      }
+      window.location.href = `/${lang}/#${Constants[lang].PATHS.portfolio}`;
+    }
+  };
+
   render() {
+    const { langContext } = this.props;
     return (
       <Wrapper>
-        <Button active>PL</Button>
-        <Button>ENG</Button>
+        <Button
+          type="button"
+          active={langContext === 'pl'}
+          onClick={() => this.handleClickButton('pl')}
+        >
+          PL
+        </Button>
+        <Button
+          type="button"
+          active={langContext === 'en'}
+          onClick={() => this.handleClickButton('en')}
+        >
+          ENG
+        </Button>
       </Wrapper>
     );
   }
 }
 
-export default SwitchLanguage;
+SwitchLanguage.propTypes = {
+  langContext: PropTypes.string.isRequired,
+};
+
+export default withContext(SwitchLanguage);

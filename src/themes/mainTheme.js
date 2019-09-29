@@ -2,6 +2,7 @@ export const theme = {
   black: 'rgb(68,68,68)',
   grayFirst: 'rgb(225,224,224)',
   graySecond: 'rgb(235,235,235)',
+  grayThird: 'rgb(198, 194, 194)',
   grayDark: 'rgb(123,123,123)',
   redFirst: 'rgb(215,108,108)',
   redSecondary: 'rgba(215,108,108,50%)',
@@ -9,6 +10,7 @@ export const theme = {
   font: {
     bold: '700',
     light: '400',
+    mini: '0.7rem',
     xxxs: '0.9rem',
     xxs: '1.2rem',
     xs: '1.4rem',

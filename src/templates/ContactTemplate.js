@@ -94,7 +94,7 @@ const Form = styled.form`
 `;
 const Wrapper = styled.section`
   width: 80%;
-  margin: 0px auto;
+  margin: 20px auto 0px auto;
   ${({ success }) =>
     !success &&
     css`
@@ -103,7 +103,7 @@ const Wrapper = styled.section`
     `}
 `;
 
-class FormNetlify extends Component {
+class ContactTemplate extends Component {
   state = {
     name: '',
     email: '',
@@ -224,12 +224,12 @@ class FormNetlify extends Component {
   }
 }
 
-FormNetlify.propTypes = {
+ContactTemplate.propTypes = {
   langContext: PropTypes.string.isRequired,
   success: PropTypes.bool,
 };
-FormNetlify.defaultProps = {
+ContactTemplate.defaultProps = {
   success: false,
 };
 
-export default withContext(FormNetlify);
+export default withContext(ContactTemplate);

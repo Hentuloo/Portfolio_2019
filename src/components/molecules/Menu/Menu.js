@@ -22,8 +22,19 @@ const ListElement = styled.li`
     font-size: ${({ theme }) => theme.font.s};
     text-align: center;
     line-height: 75px;
-    color: black;
+    color: ${({ theme }) => theme.black};
     text-transform: uppercase;
+    &:nth-of-type(2) {
+      width: auto;
+      height: auto;
+      transform: translate(90%, 2%);
+      font-size: ${({ theme }) => theme.font.mini};
+      text-decoration: underline;
+      z-index: 10;
+      @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        transform: translate(110%, 2%);
+      }
+    }
   }
   a.active {
     background-color: ${({ theme }) => theme.redSecondary};
@@ -80,6 +91,12 @@ const ListElement = styled.li`
       }
     }
   }
+  @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+    a {
+      line-height: 16.5vh;
+      font-size: ${({ theme }) => theme.font.m};
+    }
+  }
 `;
 const MenuWrapper = styled.nav`
   position: fixed;
@@ -123,7 +140,8 @@ const Menu = props => {
     pageContext: { onChangePage, currentPage },
   } = props;
 
-  const { pdf } = data.portfolio.mainPages[0];
+  const { pdf, pdfEng } = data.portfolio.mainPages[0];
+  console.log(data.portfolio);
   return (
     <MenuWrapper>
       <ul>
@@ -179,6 +197,9 @@ const Menu = props => {
           <a href={pdf.url} target="_blank" rel="noopener noreferrer">
             CV
           </a>
+          <a href={pdfEng.url} target="_blank" rel="noopener noreferrer">
+            ENG
+          </a>
         </ListElement>
       </ul>
     </MenuWrapper>
@@ -206,6 +227,9 @@ const withStaticQuery = Component => {
             portfolio {
               mainPages {
                 pdf {
+                  url
+                }
+                pdfEng {
                   url
                 }
               }

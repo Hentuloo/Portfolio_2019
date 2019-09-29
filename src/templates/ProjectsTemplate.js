@@ -97,7 +97,7 @@ const ProjectsWrapper = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   min-height: 110vh;
-  margin: 10px auto 0px auto;
+  margin: 30px auto 0px auto;
 `;
 
 const ProjectsBoxes = (data, animationStartFrom, animationDelay) => {
