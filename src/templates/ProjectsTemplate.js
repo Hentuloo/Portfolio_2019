@@ -104,7 +104,7 @@ const ProjectsBoxes = (data, animationStartFrom, animationDelay) => {
   let Delay = animationStartFrom;
   const projects = data.map((e, i) => {
     Delay += animationDelay;
-    if (i <= 4) {
+    if (i <= 2) {
       return (
         <ProjectsAnimatedBox
           key={e.id}
