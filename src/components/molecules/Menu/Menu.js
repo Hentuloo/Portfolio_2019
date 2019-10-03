@@ -14,6 +14,7 @@ const ListElement = styled.li`
   &.hideMobile {
     display: none;
   }
+
   a {
     position: absolute;
     text-decoration: none;
@@ -24,16 +25,30 @@ const ListElement = styled.li`
     line-height: 75px;
     color: ${({ theme }) => theme.black};
     text-transform: uppercase;
+    &:hover {
+      span {
+        text-decoration: underline;
+      }
+    }
+
     &:nth-of-type(2) {
       width: auto;
       height: auto;
-      transform: translate(90%, 2%);
+      transform: translate(95%, 2%);
       font-size: ${({ theme }) => theme.font.mini};
-      text-decoration: underline;
+      padding-right: 25px;
       z-index: 10;
       @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
         transform: translate(110%, 2%);
       }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    span {
+      position: absolute;
+      font-size: ${({ theme }) => theme.font.mini};
+      transform: translate(-15%, 2%);
     }
   }
   a.active {
@@ -193,11 +208,11 @@ const Menu = props => {
           </a>
         </ListElement>
         <ListElement className="hideMobile">
-          <a href={pdf.url} target="_blank" rel="noopener noreferrer">
-            CV
-          </a>
           <a href={pdfEng.url} target="_blank" rel="noopener noreferrer">
-            ENG
+            CV<span>ENG</span>
+          </a>
+          <a href={pdf.url} target="_blank" rel="noopener noreferrer">
+            |pl
           </a>
         </ListElement>
       </ul>
