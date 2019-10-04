@@ -7,31 +7,32 @@ const Icon = styled.div`
   position: relative;
   cursor: pointer;
   span {
-    opacity: 0;
-    font-size: ${({ theme }) => theme.font.xxxs};
     position: absolute;
     bottom: 0%;
     left: 50%;
     transform: translate(-50%, 150%);
-    padding: 2px 8px;
-    background-color: ${({ theme }) => theme.graySecond};
+    padding: 2px 6px;
     border: 1px solid black;
     border-radius: 5px;
+    background-color: ${({ theme }) => theme.graySecond};
+    font-size: ${({ theme }) => theme.font.xxxs};
     white-space: nowrap;
     z-index: 7;
+    opacity: 0;
   }
   &:hover span {
     opacity: 1;
   }
 `;
 const Icons = styled.div`
-  flex-basis: 100%;
-  min-height: 25px;
+  grid-column: 1/-1;
+  grid-row: 3;
   display: flex;
+  min-height: 25px;
+  padding: 3px 8px;
   flex-direction: row-reverse;
   flex-wrap: wrap;
   position: relative;
-  padding: 3px 8px;
 
   div {
     width: 25px;
@@ -43,16 +44,19 @@ const Icons = styled.div`
   }
 `;
 const Description = styled.p`
-  flex-basis: 100%;
+  grid-column: 1/-1;
+  grid-row: 2;
   margin: 5px 5px 8px 3px;
   font-size: ${({ theme }) => theme.font.xxs};
   line-height: ${({ theme }) => theme.font.s};
 `;
 const Links = styled.div`
+  display: flex;
+  justify-content: center;
+  min-height: 38px;
   text-transform: uppercase;
   font-size: ${({ theme }) => theme.font.xxxs};
   a {
-    display: inline-block;
     height: 30px;
     text-decoration: none;
     background-color: white;
@@ -63,10 +67,7 @@ const Links = styled.div`
   }
 `;
 const TitleLinks = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  height: 50px;
   text-align: center;
   font-size: ${({ theme }) => theme.font.xs};
   line-height: ${({ theme }) => theme.font.s};
@@ -79,15 +80,17 @@ const TitleLinks = styled.div`
   }
 `;
 const TittleWrapper = styled.div`
-  flex-basis: 45%;
-  padding-left: 10px;
-  padding: 7px;
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0px 4px;
+  @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    padding: 10px 10px 0px 10px;
+  }
 `;
 const ProjectImage = styled.div`
+  grid-column: 1;
+  grid-row: 1;
   position: relative;
-  flex-basis: 55%;
-  display: flex;
-  flex-direction: column;
   justify-content: space-around;
   overflow: hidden;
   img {
@@ -99,14 +102,16 @@ const ProjectImage = styled.div`
 `;
 const Wrapper = styled.div`
   position: relative;
+  display: grid;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
   min-height: 130px;
-  background-color: ${({ theme }) => theme.grayFirst};
-  box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
+  grid-template-columns: repeat(2, minmax(auto, 1fr));
+  grid-template-rows: repeat(3, auto);
   border: 1px solid ${({ theme }) => theme.grayDark};
   border-radius: 5px;
+  padding-top: 2px;
+  background-color: ${({ theme }) => theme.grayFirst};
+  box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
   font-family: 'Rhodium Libre', serif;
 `;
 const ProjectBox = ({ data }) => {

@@ -33,6 +33,13 @@ const MarkdownWrapper = styled.div`
   transform: translate(-50%, 0%);
   opacity: 0;
   animation: ${opacity} 0.5s 0.6s linear forwards;
+
+  /* For mobile smaller than 530height */
+  @media (max-height: 530px) {
+    padding-bottom: 100px;
+    top: 45%;
+    bottom: auto;
+  }
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     left: auto;
     right: 0%;
@@ -122,6 +129,7 @@ const ImageWrapper = styled.div`
 `;
 
 const HeaderName = styled(Paragraph)`
+  position: fixed;
   width: 40%;
   margin: 5% 2%;
   word-spacing: 50px;
