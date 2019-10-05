@@ -12,7 +12,7 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   letter-spacing: 1px;
-  font-family: 'Rhodium Libre', serif;
+  font-family: ${({ theme }) => theme.font.second};
   font-size: ${({ theme }) => theme.font.xxs};
   font-weight: ${({ theme }) => theme.font.bold};
   background-color: ${({ theme }) => theme.graySecond};

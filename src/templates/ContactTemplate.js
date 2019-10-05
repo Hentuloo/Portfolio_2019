@@ -18,7 +18,7 @@ const ValidatiorSettings = styled.span`
   position: absolute;
   right: 0%;
   top: 0%;
-  font-family: 'Rhodium Libre', serif;
+  font-family: ${({ theme }) => theme.font.second};
   font-size: ${({ theme }) => theme.font.xxxs};
   color: ${({ theme }) => theme.grayDark};
   text-transform: uppercase;
@@ -77,7 +77,7 @@ const Form = styled.form`
     padding: 3px;
     border: none;
     font-size: ${({ theme }) => theme.font.m};
-    font-family: 'Baloo Tamma', cursive;
+    font-family: ${({ theme }) => theme.font.first};
     &:focus {
       outline: none;
     }

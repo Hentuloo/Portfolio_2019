@@ -20,6 +20,8 @@ export const theme = {
     xl: '3.2rem',
     xxl: '4rem',
     xxxl: '7rem',
+    first: "'Baloo Tamma', cursive",
+    second: "'Roboto Mono', monospace",
   },
   breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
   breakPointMiddle: '1100px',

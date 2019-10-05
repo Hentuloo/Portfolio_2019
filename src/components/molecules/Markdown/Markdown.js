@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Wrapper = styled.div`
   position: relative;
   white-space: pre-wrap;
-  font-family: 'Rhodium Libre', serif;
+  font-family: ${({ theme }) => theme.font.second};
   background-color: ${({ theme }) => theme.graySecond};
   font-size: ${({ theme }) => theme.font.xxs};
   line-height: ${({ theme }) => theme.font.xs};

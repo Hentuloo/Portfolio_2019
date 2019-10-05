@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
 import Constants from 'config/Constants';
 import withContext from 'hoc/withContext';
@@ -11,50 +11,6 @@ const ListElement = styled.li`
   flex-grow: 1;
   height: 100%;
   position: relative;
-  &.hideMobile {
-    display: none;
-  }
-
-  a {
-    position: absolute;
-    text-decoration: none;
-    width: 100%;
-    height: 100%;
-    font-size: ${({ theme }) => theme.font.s};
-    text-align: center;
-    line-height: 75px;
-    color: ${({ theme }) => theme.black};
-    text-transform: uppercase;
-    &:hover {
-      span {
-        text-decoration: underline;
-      }
-    }
-
-    &:nth-of-type(2) {
-      width: auto;
-      height: auto;
-      transform: translate(95%, 2%);
-      font-size: ${({ theme }) => theme.font.mini};
-      padding-right: 25px;
-      z-index: 10;
-      @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        transform: translate(110%, 2%);
-      }
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    span {
-      position: absolute;
-      font-size: ${({ theme }) => theme.font.mini};
-      transform: translate(-15%, 2%);
-    }
-  }
-  a.active {
-    background-color: ${({ theme }) => theme.redSecondary};
-  }
-
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     flex-grow: 0;
     height: 25%;
@@ -79,37 +35,59 @@ const ListElement = styled.li`
         border-radius: 25%;
       }
     }
-    &.hideMobile {
+  }
+
+  &.hideMobile {
+    display: none;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
       display: block;
     }
-    a {
-      line-height: 16.5vh;
-      font-size: ${({ theme }) => theme.font.s};
-      text-align: left;
-      padding-left: 10px;
-      font-family: 'Rhodium Libre', serif;
-      font-weight: ${({ theme }) => theme.font.light};
-    }
-    a.active {
-      background-color: transparent;
-      position: relative;
-      &::before {
-        position: absolute;
-        content: '';
-        width: 120%;
-        height: 60px;
-        top: 60%;
-        left: -10%;
-        transform: translateY(-50%);
-        background-color: ${({ theme }) => theme.graySecond};
-        z-index: -1;
-      }
-    }
   }
-  @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-    a {
+
+  a {
+    position: absolute;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    font-size: ${({ theme }) => theme.font.s};
+    text-align: center;
+    line-height: 75px;
+    color: ${({ theme }) => theme.black};
+    text-transform: uppercase;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
       line-height: 16.5vh;
       font-size: ${({ theme }) => theme.font.m};
+      text-align: left;
+      padding-left: 10px;
+      font-family: ${({ theme }) => theme.font.second};
+      font-weight: ${({ theme }) => theme.font.light};
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+      line-height: 16.5vh;
+    }
+    &:hover {
+      span {
+        text-decoration: underline;
+      }
+    }
+    &:nth-of-type(2) {
+      width: auto;
+      height: auto;
+      transform: translate(95%, 2%);
+      font-size: ${({ theme }) => theme.font.mini};
+      padding-right: 25px;
+      z-index: 10;
+      @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        transform: translate(110%, 2%);
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    span {
+      position: absolute;
+      font-size: ${({ theme }) => theme.font.mini};
+      transform: translate(-15%, 2%);
     }
   }
 `;
@@ -121,14 +99,6 @@ const MenuWrapper = styled.nav`
   left: 0%;
   background-color: ${({ theme }) => theme.redThird};
   z-index: 10;
-  ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-  }
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     position: fixed;
     top: 0%;
@@ -137,7 +107,82 @@ const MenuWrapper = styled.nav`
     height: 100vh;
     background-color: transparent;
     margin-left: 8px;
-    ul {
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 33.3333vw;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    background-color: ${({ theme }) => theme.redSecondary};
+    transition: transform 0.8s ease-in-out;
+
+    ${({ currentPage, langContext }) => {
+      const { portfolio, projects, contact } = Constants[langContext].PATHS;
+      switch (currentPage) {
+        case portfolio:
+          return css`
+            transform: translateX(0vw);
+          `;
+        case projects:
+          return css`
+            transform: translateX(33.3333vw);
+          `;
+        case contact:
+          return css`
+            transform: translateX(66.6666vw);
+          `;
+        default:
+          return css`
+            transform: translateX(0vw);
+          `;
+      }
+    }}
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+      width: 120%;
+      height: 60px;
+      left: -10%;
+      transform: translateY(-50%);
+      background-color: ${({ theme }) => theme.graySecond};
+
+       ${({ currentPage, langContext }) => {
+         const { portfolio, projects, contact } = Constants[langContext].PATHS;
+
+         switch (currentPage) {
+           case portfolio:
+             return css`
+               transform: translateY(13vh);
+             `;
+           case projects:
+             return css`
+               transform: translateY(29vh);
+             `;
+           case contact:
+             return css`
+               transform: translateY(45vh);
+             `;
+           default:
+             return css`
+               transform: translateX(13vh);
+             `;
+         }
+       }}
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+      width: 140%;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
       position: relative;
       flex-direction: column;
       flex-wrap: nowrap;
@@ -157,7 +202,7 @@ const Menu = props => {
 
   const { pdf, pdfEng } = data.portfolio.mainPages[0];
   return (
-    <MenuWrapper>
+    <MenuWrapper currentPage={currentPage} langContext={langContext}>
       <ul>
         <ListElement>
           <a
