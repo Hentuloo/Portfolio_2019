@@ -48,8 +48,10 @@ const ProjectsAnimatedBox = styled.section`
            linear forwards;
        `}
    `}
+   
+     
       @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        flex-basis:44%;
+        flex-basis:60%;
         min-width:400px;
         min-height:200px;
          margin: 40px 0px;
@@ -57,6 +59,11 @@ const ProjectsAnimatedBox = styled.section`
           min-height:240px;
         }
       }
+       @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
+         flex-basis:45%;
+      }
+     
+      
 `;
 const MarkdownWrapper = styled.div`
   width: 90%;

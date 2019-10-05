@@ -46,9 +46,12 @@ const Icons = styled.div`
 const Description = styled.p`
   grid-column: 1/-1;
   grid-row: 2;
-  margin: 5px 5px 8px 3px;
-  font-size: ${({ theme }) => theme.font.xxs};
-  line-height: ${({ theme }) => theme.font.s};
+  padding: 1px 8px;
+  margin: 7px 3px 6px 0px;
+  font-size: ${({ theme }) => theme.font.xs};
+  line-height: ${({ theme }) => theme.font.xs};
+  letter-spacing: 1px;
+  word-spacing: 2px;
 `;
 const Links = styled.div`
   display: flex;
@@ -58,12 +61,13 @@ const Links = styled.div`
   font-size: ${({ theme }) => theme.font.xxxs};
   a {
     height: 30px;
-    text-decoration: none;
-    background-color: white;
     padding: 0px 4px;
     margin: 6px 4px;
+    line-height: 32px;
+    border-radius: 4px;
+    text-decoration: none;
     color: black;
-    line-height: 30px;
+    background-color: white;
   }
 `;
 const TitleLinks = styled.div`
@@ -93,6 +97,7 @@ const ProjectImage = styled.div`
   position: relative;
   justify-content: space-around;
   overflow: hidden;
+  margin-left: 2px;
   img {
     position: absolute;
     max-width: 100%;
@@ -107,12 +112,13 @@ const Wrapper = styled.div`
   min-height: 130px;
   grid-template-columns: repeat(2, minmax(auto, 1fr));
   grid-template-rows: repeat(3, auto);
-  border: 1px solid ${({ theme }) => theme.grayDark};
+  padding: 4px;
   border-radius: 5px;
-  padding-top: 2px;
+  border: 1px solid ${({ theme }) => theme.grayDark};
   background-color: ${({ theme }) => theme.grayFirst};
   box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
-  font-family: 'Rhodium Libre', serif;
+  font-family: 'Baloo Tamma', cursive;
+  font-weight: 300;
 `;
 const ProjectBox = ({ data }) => {
   const { title, description, gitLink, liveLink, photo, technologies } = data;
