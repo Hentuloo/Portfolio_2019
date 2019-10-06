@@ -48,10 +48,10 @@ const Description = styled.p`
   grid-row: 2;
   padding: 1px 8px;
   margin: 7px 3px 6px 0px;
-  font-size: ${({ theme }) => theme.font.xs};
+  font-size: ${({ theme }) => theme.font.xxs};
   line-height: ${({ theme }) => theme.font.xs};
-  letter-spacing: 1px;
-  word-spacing: 2px;
+  letter-spacing: 0px;
+  word-spacing: 3px;
 `;
 const Links = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ const Links = styled.div`
     height: 30px;
     padding: 0px 4px;
     margin: 6px 4px;
-    line-height: 32px;
+    line-height: ${({ theme }) => theme.font.m};
     border-radius: 4px;
     text-decoration: none;
     color: black;
@@ -73,12 +73,11 @@ const Links = styled.div`
 const TitleLinks = styled.div`
   justify-content: center;
   text-align: center;
-  font-size: ${({ theme }) => theme.font.xs};
   line-height: ${({ theme }) => theme.font.s};
   h2 {
     flex-basis: 100%;
     font-family: ${({ theme }) => theme.font.first};
-    font-size: ${({ theme }) => theme.font.xs};
+    font-size: ${({ theme }) => theme.font.s};
     text-transform: uppercase;
     margin: 0px;
   }
@@ -117,8 +116,8 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.grayDark};
   background-color: ${({ theme }) => theme.grayFirst};
   box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
-  font-family: ${({ theme }) => theme.font.first};
-  font-weight: 300;
+  font-family: ${({ theme }) => theme.font.second};
+  font-weight: 700;
 `;
 const ProjectBox = ({ data }) => {
   const { title, description, gitLink, liveLink, photo, technologies } = data;

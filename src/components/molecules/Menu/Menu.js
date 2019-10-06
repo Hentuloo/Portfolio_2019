@@ -56,13 +56,13 @@ const ListElement = styled.li`
     text-transform: uppercase;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
       line-height: 16.5vh;
-      font-size: ${({ theme }) => theme.font.m};
       text-align: left;
       padding-left: 10px;
       font-family: ${({ theme }) => theme.font.second};
       font-weight: ${({ theme }) => theme.font.light};
     }
     @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+      font-size: ${({ theme }) => theme.font.m};
       line-height: 16.5vh;
     }
     &:hover {

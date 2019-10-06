@@ -7,13 +7,13 @@ import withContext from 'hoc/withContext';
 
 const Button = styled.button`
   position: relative;
-  width: 40px;
-  padding: 2px 0px;
+  width: 45px;
+  padding: 4px 0px 6px 0px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   letter-spacing: 1px;
   font-family: ${({ theme }) => theme.font.second};
-  font-size: ${({ theme }) => theme.font.xxs};
+  font-size: ${({ theme }) => theme.font.xs};
   font-weight: ${({ theme }) => theme.font.bold};
   background-color: ${({ theme }) => theme.graySecond};
   cursor: pointer;
@@ -47,8 +47,6 @@ const Button = styled.button`
     `};
 
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-    width: 40px;
-    padding: 2px 0px;
     letter-spacing: 1px;
     font-size: ${({ theme }) => theme.font.xxs};
     &::before {
