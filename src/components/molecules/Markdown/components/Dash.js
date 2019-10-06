@@ -1,16 +1,45 @@
 import styled, { css } from 'styled-components';
 
 const Dash = styled.span`
-  color: pink;
   display: inline;
 
   ${({ pageType, openDashLiteral, closedDashLiteral }) => {
-    if (pageType === 'projects') {
+    if (pageType === 'portfolio') {
+      if (openDashLiteral) {
+        switch (openDashLiteral) {
+          case 1:
+            return css`
+              color: ${({ theme }) => theme.redFirst};
+            `;
+          case 2:
+            return css`
+              color: ${({ theme }) => theme.redSecondary};
+            `;
+          default:
+            return css``;
+        }
+      }
+      if (closedDashLiteral) {
+        switch (closedDashLiteral) {
+          case 1:
+            return css`
+              color: ${({ theme }) => theme.redFirst};
+            `;
+          case 2:
+            return css`
+              color: ${({ theme }) => theme.redSecondary};
+            `;
+          default:
+            return css``;
+        }
+      }
+    } else if (pageType === 'projects') {
       if (openDashLiteral) {
         switch (openDashLiteral) {
           case 1:
             return css`
               display: none;
+              color: ${({ theme }) => theme.redFirst};
               @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
                 display: inline-block;
               }
@@ -19,6 +48,7 @@ const Dash = styled.span`
             return css`
               position: absolute;
               left: 1px;
+              color: ${({ theme }) => theme.redSecondary};
               @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
                 position: relative;
               }
@@ -32,6 +62,7 @@ const Dash = styled.span`
           case 1:
             return css`
               display: none;
+              color: ${({ theme }) => theme.redFirst};
               @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
                 display: block;
               }
@@ -40,6 +71,7 @@ const Dash = styled.span`
             return css`
               position: absolute;
               right: 2px;
+              color: ${({ theme }) => theme.redSecondary};
               @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
                 position: relative;
               }

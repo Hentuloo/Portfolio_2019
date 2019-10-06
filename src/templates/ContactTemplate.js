@@ -74,7 +74,7 @@ const Form = styled.form`
     width: 100%;
     height: 8vh;
     min-height: 40px;
-    padding: 3px;
+    padding: 6px 10px;
     border: none;
     font-size: ${({ theme }) => theme.font.m};
     font-family: ${({ theme }) => theme.font.first};

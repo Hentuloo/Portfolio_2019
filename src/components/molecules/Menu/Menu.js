@@ -73,12 +73,12 @@ const ListElement = styled.li`
     &:nth-of-type(2) {
       width: auto;
       height: auto;
-      transform: translate(95%, 2%);
+      transform: translate(93%, 2%);
       font-size: ${({ theme }) => theme.font.mini};
       padding-right: 25px;
       z-index: 10;
       @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        transform: translate(110%, 2%);
+        transform: translate(103%, 2%);
       }
       &:hover {
         text-decoration: underline;
@@ -87,7 +87,7 @@ const ListElement = styled.li`
     span {
       position: absolute;
       font-size: ${({ theme }) => theme.font.mini};
-      transform: translate(-15%, 2%);
+      transform: translate(20%, 2.5%);
     }
   }
 `;
