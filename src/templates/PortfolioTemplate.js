@@ -28,25 +28,22 @@ opacity:1;
 const MarkdownWrapper = styled.div`
   position: absolute;
   width: 90%;
-  bottom: 90px;
+  top: 47%;
   left: 50%;
+  padding-bottom: 100px;
   transform: translate(-50%, 0%);
   opacity: 0;
   animation: ${opacity} 0.5s 0.6s linear forwards;
 
-  /* For mobile smaller than 530height */
-  @media (max-height: 530px) {
-    padding-bottom: 100px;
-    top: 45%;
-    bottom: auto;
-  }
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     left: auto;
-    right: 0%;
-    bottom: 20%;
+    right: -0.2%;
+    top: auto;
+    bottom: 10%;
     width: calc(100% - 180px);
     max-width: calc(800px + 22%);
     padding-right: 22%;
+    padding-bottom: 0px;
     transform: translate(0%, 0%);
     div::after {
       content: '';
@@ -54,7 +51,7 @@ const MarkdownWrapper = styled.div`
       top: 100%;
       right: 0%;
       width: 45%;
-      height: 20vh;
+      height: 10vh;
       background-color: ${({ theme }) => theme.redFirst};
     }
     div::before {
@@ -62,7 +59,7 @@ const MarkdownWrapper = styled.div`
       position: absolute;
       top: 0%;
       right: 0%;
-      width: 15vw;
+      width: 15.2vw;
       height: 80px;
       background-color: ${({ theme }) => theme.redFirst};
       z-index: -1;

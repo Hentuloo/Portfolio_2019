@@ -77,7 +77,7 @@ const TitleLinks = styled.div`
   line-height: ${({ theme }) => theme.font.s};
   h2 {
     flex-basis: 100%;
-    font-family: 'Baloo Tamma', cursive;
+    font-family: ${({ theme }) => theme.font.first};
     font-size: ${({ theme }) => theme.font.xs};
     text-transform: uppercase;
     margin: 0px;
@@ -117,7 +117,7 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.grayDark};
   background-color: ${({ theme }) => theme.grayFirst};
   box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
-  font-family: 'Baloo Tamma', cursive;
+  font-family: ${({ theme }) => theme.font.first};
   font-weight: 300;
 `;
 const ProjectBox = ({ data }) => {

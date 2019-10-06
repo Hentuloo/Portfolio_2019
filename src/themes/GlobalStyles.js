@@ -4,9 +4,6 @@ const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Baloo+Tamma|Roboto+Mono&display=swap');
 /* @import url('https://fonts.googleapis.com/css?family=Baloo+Tamma|Rhodium+Libre&display=swap'); */
 
-/* Change in mainTherme! */
-$fontFirst: "'Baloo Tamma', cursive";
-$fontSecond: "'Roboto Mono', monospace";
 
 *,*::after,*::before{
   box-sizing:border-box;
@@ -17,7 +14,7 @@ $fontSecond: "'Roboto Mono', monospace";
   body {
    font-size:1.6rem;
    /* font-family: 'Rhodium Libre', serif; */
-   font-family: $fontFirst;
+   font-family: 'Baloo Tamma', cursive;
    font-weight:700;
    background-color: white;
    margin:0px;

@@ -7,6 +7,20 @@ export const theme = {
   redFirst: 'rgb(215,108,108)',
   redSecondary: 'rgba(215,108,108,50%)',
   redThird: 'rgb(220,166,166)',
+
+  markdownBGC: 'rgb(235,235,235)',
+
+  groupsColors: [
+    'rgb(211, 80, 130)', // róż
+    'rgb(197, 149, 0)', // pomarańcz
+    'rgb(0, 99, 192)', // niebieski
+    'rgb(66, 47, 48)', // brown
+    'rgb(88, 170, 68)', // green
+    'rgb(188, 11, 11)', // czerwony
+    'rgb(104, 101, 101)', // szary
+    'rgb(168, 36, 175)', // fiolet
+  ],
+
   font: {
     bold: '700',
     light: '400',
