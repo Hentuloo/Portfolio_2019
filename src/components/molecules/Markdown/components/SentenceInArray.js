@@ -1,4 +1,30 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const randomSentencesJump = [4, 7, 24, 33];
+
+const jump = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  7% {
+    transform: translateY(-6px);
+  }
+  14% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+function jumpAnimationBuilder(number, delay) {
+  const element = css`
+    &:nth-of-type(${number}) {
+      animation: ${jump} 10s ${delay}s ease infinite;
+    }
+  `;
+  return element;
+}
 
 const SentenceInArray = styled.p`
   position: relative;
@@ -18,6 +44,10 @@ const SentenceInArray = styled.p`
     left: 0%;
     top: 0%;
   }
+  ${jumpAnimationBuilder(randomSentencesJump[0], 4.5)}
+  ${jumpAnimationBuilder(randomSentencesJump[1], 1.4)}
+  ${jumpAnimationBuilder(randomSentencesJump[2], 3.5)}
+  ${jumpAnimationBuilder(randomSentencesJump[3], 8)}
 
   ${({ groupID, theme: { groupsColors } }) => {
     switch (Number(groupID)) {
