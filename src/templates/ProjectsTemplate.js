@@ -22,7 +22,7 @@ const ProjectsAnimatedBox = styled.section`
     min-height: 200px;
     margin: 40px 0px;
     & > div {
-      min-height: 240px;
+      min-height: 210px;
     }
   }
   @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {

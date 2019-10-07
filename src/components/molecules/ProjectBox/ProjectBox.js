@@ -11,7 +11,7 @@ const Icon = styled.div`
     bottom: 0%;
     left: 50%;
     transform: translate(-50%, 150%);
-    padding: 2px 6px;
+    padding: 6px 10px;
     border: 1px solid black;
     border-radius: 5px;
     background-color: ${({ theme }) => theme.graySecond};
@@ -29,10 +29,23 @@ const Icons = styled.div`
   grid-row: 3;
   display: flex;
   min-height: 25px;
-  padding: 3px 8px;
+  padding: 12px 8px 4px 8px;
   flex-direction: row-reverse;
   flex-wrap: wrap;
   position: relative;
+  align-content: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 1px;
+    left: 5%;
+    top: 0%;
+    border-radius: 2px;
+    box-shadow: 0px 0px 20px 3px ${({ theme }) => theme.redSecondary};
+    background-color: ${({ theme }) => theme.redSecondary};
+  }
 
   div {
     width: 25px;
@@ -47,7 +60,7 @@ const Description = styled.p`
   grid-column: 1/-1;
   grid-row: 2;
   padding: 1px 8px;
-  margin: 7px 3px 6px 0px;
+  margin: 7px 3px 14px 0px;
   font-size: ${({ theme }) => theme.font.xxs};
   line-height: ${({ theme }) => theme.font.xs};
   letter-spacing: 0px;
@@ -86,6 +99,7 @@ const TitleLinks = styled.div`
   }
 `;
 const TittleWrapper = styled.div`
+  position: relative;
   grid-column: 2;
   grid-row: 1;
   padding: 0px 4px;
