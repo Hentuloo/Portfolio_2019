@@ -13,7 +13,7 @@ import SingleChar from './components/SingleChar';
 
 const Wrapper = styled.div`
   position: relative;
-  padding: 4px 5px;
+  padding: 10px 6px;
   border-radius: 5px;
   line-height: ${({ theme }) => theme.font.m};
   background-color: ${({ theme }) => theme.markdownBGC};
