@@ -58,16 +58,19 @@ const Links = styled.div`
   justify-content: center;
   min-height: 38px;
   text-transform: uppercase;
-  font-size: ${({ theme }) => theme.font.xxxs};
+  font-size: ${({ theme }) => theme.font.xxs};
   a {
     height: 30px;
-    padding: 0px 4px;
-    margin: 6px 4px;
-    line-height: ${({ theme }) => theme.font.m};
+    padding: 2px 3px 0px 3px;
+    margin: 2px 4px;
+    line-height: ${({ theme }) => theme.font.l};
     border-radius: 4px;
     text-decoration: none;
     color: black;
     background-color: white;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+      height: 34px;
+    }
   }
 `;
 const TitleLinks = styled.div`

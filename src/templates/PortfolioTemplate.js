@@ -74,7 +74,7 @@ const MarkdownWrapper = styled.div`
   }
 `;
 const ImageWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 6%;
   right: 6%;
   width: 42%;

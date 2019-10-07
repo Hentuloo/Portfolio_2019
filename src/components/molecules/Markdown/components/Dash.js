@@ -51,6 +51,7 @@ const Dash = styled.span`
               color: ${({ theme }) => theme.redSecondary};
               @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
                 position: relative;
+                padding-left: 17px;
               }
             `;
           default:
