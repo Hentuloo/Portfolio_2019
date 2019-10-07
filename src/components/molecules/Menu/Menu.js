@@ -143,10 +143,10 @@ const MenuWrapper = styled.nav`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
       width: 120%;
       height: 60px;
-      left: -10%;
+      left: -13%;
       transform: translateY(-50%);
       background-color: ${({ theme }) => theme.graySecond};
-
+      border-radius:5px;
        ${({ currentPage, langContext }) => {
          const { portfolio, projects, contact } = Constants[langContext].PATHS;
 
