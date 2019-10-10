@@ -34,6 +34,10 @@ const MarkdownWrapper = styled.div`
   transform: translate(-50%, 0%);
   opacity: 0;
   animation: ${opacity} 0.5s 0.6s linear forwards;
+  @media (max-width: ${({ theme }) =>
+      theme.breakPointMobile}) and (orientation: landscape) {
+    top: 27%;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     left: auto;
@@ -95,6 +99,11 @@ const ImageWrapper = styled.div`
       css`
         animation: ${imageAnimation} 0.5s 0.6s ease-in-out forwards;
       `}
+  }
+  @media (max-width: ${({ theme }) =>
+      theme.breakPointMobile}) and (orientation: landscape) {
+    background-color: red;
+    display: none;
   }
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     top: 10%;
