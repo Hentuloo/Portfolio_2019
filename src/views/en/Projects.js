@@ -27,7 +27,7 @@ export default () => (
           projectsPages {
             content: contentEng
           }
-          projectses(orderBy: index_DESC) {
+          projectses(orderBy: index_DESC, where: { status: PUBLISHED }) {
             id
             title: titleEng
             description: descriptionEng
