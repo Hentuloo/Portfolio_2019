@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-const randomSentencesJump = [4, 7, 24, 33];
+const randomSentencesJump = [4, 7, 23, 32];
 
 const jump = keyframes`
   0% {
