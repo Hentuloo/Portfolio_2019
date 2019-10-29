@@ -13,8 +13,9 @@ opacity:1;
 }
 `;
 
-const ProjectsAnimatedBox = styled.section`
+const ProjectsBox = styled.section`
   margin: 30px 0px;
+  z-index: 3;
 
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     flex-basis: 60%;
@@ -75,9 +76,9 @@ const Wrapper = styled.div`
 
 const ProjectsBoxes = data => {
   const projects = data.map(e => (
-    <ProjectsAnimatedBox key={e.id}>
+    <ProjectsBox key={e.id}>
       <ProjectBox data={e} />
-    </ProjectsAnimatedBox>
+    </ProjectsBox>
   ));
   return projects;
 };

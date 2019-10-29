@@ -16,7 +16,7 @@ opacity:1;
 `;
 const ValidatiorSettings = styled.span`
   position: absolute;
-  right: 0%;
+  right: 2%;
   top: 0%;
   font-family: ${({ theme }) => theme.font.second};
   font-size: ${({ theme }) => theme.font.xxxs};
@@ -37,11 +37,15 @@ const Message = styled.h3`
   text-align: center;
   background-color: ${({ theme }) => theme.redFirst};
   font-size: ${({ theme }) => theme.font.xs};
+  padding: 4px 0px;
+  border-radius: 5px;
+  box-shadow: 0px 15px 29px -3px rgba(0, 0, 0, 0.75);
 `;
 const InputSubmit = styled.input`
   border: 0px;
   background-color: ${({ theme }) => theme.redFirst};
   cursor: pointer;
+  line-height: ${({ theme }) => theme.font.xs};
 `;
 const Textarea = styled.textarea`
   background-color: ${({ theme }) => theme.graySecond};
@@ -74,12 +78,19 @@ const Form = styled.form`
     width: 100%;
     height: 8vh;
     min-height: 40px;
-    padding: 6px 10px;
+    padding: 10px 10px 6px;
     border: none;
+    border-radius: 5px;
     font-size: ${({ theme }) => theme.font.m};
     font-family: ${({ theme }) => theme.font.first};
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+      padding: 10px 10px;
+    }
     &:focus {
       outline: none;
+      transform: scale(1.04);
+      box-shadow: 0px 15px 29px -3px rgba(0, 0, 0, 0.75);
     }
     &:disabled {
       background-color: transparent;
@@ -176,6 +187,7 @@ class ContactTemplate extends Component {
               name="name"
               placeholder={namePlaceholder}
               disabled
+              autocomplete="off"
             />
             <InputEmail
               type="email"
@@ -187,6 +199,7 @@ class ContactTemplate extends Component {
               name="message"
               placeholder={textAreaPlaceholder}
               disabled
+              autocomplete="off"
             />
             <InputSubmit disabled value={submitTitle} />
             <Message>{messageCorrectEmailSend}</Message>

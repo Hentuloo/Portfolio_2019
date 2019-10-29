@@ -16,6 +16,7 @@ const Icon = styled.div`
     border-radius: 5px;
     background-color: ${({ theme }) => theme.graySecond};
     font-size: ${({ theme }) => theme.font.xxxs};
+
     white-space: nowrap;
     z-index: 7;
     opacity: 0;
@@ -29,7 +30,7 @@ const Icons = styled.div`
   grid-row: 3;
   display: flex;
   min-height: 25px;
-  padding: 12px 8px 4px 8px;
+  padding: 14px 8px 6px 8px;
   flex-direction: row-reverse;
   flex-wrap: wrap;
   position: relative;
@@ -62,9 +63,9 @@ const Description = styled.p`
   padding: 1px 8px;
   margin: 7px 3px 14px 0px;
   font-size: ${({ theme }) => theme.font.xxs};
-  line-height: ${({ theme }) => theme.font.xs};
+  line-height: ${({ theme }) => theme.font.s};
   letter-spacing: 0px;
-  word-spacing: 3px;
+  word-spacing: 4px;
 `;
 const Links = styled.div`
   display: flex;
