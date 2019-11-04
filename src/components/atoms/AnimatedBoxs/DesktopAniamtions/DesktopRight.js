@@ -62,7 +62,7 @@ const contactPortfolio = keyframes`
 `;
 const contactProjects = keyframes`
 0%{
-   transform: scale(2.8,0.5) translate(-6vw, -50%);
+   transform: scale(3.3,0.27) translate(-38%, -36vh);
 }
 50%{
    transform:scale(2.8,0.27) translate(-6vw, -36vh);
@@ -71,13 +71,12 @@ const contactProjects = keyframes`
    transform:scale(2.8,0.27) translate(-6vw, -36vh);
 }
 100%{
-  transform: scale(3.3,0.27) translate(-38%, -36vh);
+   transform: scale(2.8,0.5) translate(-6vw, -50%);
 }
 `;
 const projectsContact = keyframes`
 0%{
-   transform: scale(3.3,0.27) translate(-38%, -36vh);
-  
+   transform: scale(2.8,0.5) translate(-6vw, -50%);
 }
 50%{
   transform: scale(2.8,0.27) translate(-6vw, -36vh);
@@ -86,7 +85,7 @@ const projectsContact = keyframes`
    transform: scale(2.8,0.27) translate(-6vw, -36vh);
 }
 100%{
-  transform: scale(2.8,0.5) translate(-6vw, -50%);
+   transform: scale(3.3,0.27) translate(-38%, -36vh);
 }
 `;
 
