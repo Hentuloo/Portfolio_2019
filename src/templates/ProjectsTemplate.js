@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
-import Fade from 'react-reveal/Fade';
 
 import ProjectBox from 'components/molecules/ProjectBox/ProjectBox';
 import Markdown from 'components/molecules/Markdown/Markdown';
@@ -100,11 +99,9 @@ class Projects extends Component {
         </MarkdownWrapper>
         {markdownLoaded && (
           <ProjectsWrapper>
-            {projects.map((e, i) => (
+            {projects.map(e => (
               <ProjectsBox key={e.id}>
-                <Fade left={i % 2 === 0} right={i % 2 !== 0}>
-                  <ProjectBox data={e} />
-                </Fade>
+                <ProjectBox data={e} />
               </ProjectsBox>
             ))}
           </ProjectsWrapper>
