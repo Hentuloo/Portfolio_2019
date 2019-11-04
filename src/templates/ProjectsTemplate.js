@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import ProjectBox from 'components/molecules/ProjectBox/ProjectBox';
@@ -34,7 +34,7 @@ const MarkdownWrapper = styled.div`
   width: 90%;
   margin: 0px auto;
   opacity: 0;
-  animation: ${opacity} 0.5s 0.6s linear forwards;
+  animation: ${opacity} 0.5s linear forwards;
   position: relative;
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 80%;
@@ -73,26 +73,42 @@ const Wrapper = styled.div`
   min-height: 110vh;
   margin: 30px auto 0px auto;
 `;
+class Projects extends Component {
+  state = {
+    markdownLoaded: false,
+  };
 
-const ProjectsBoxes = data => {
-  const projects = data.map(e => (
-    <ProjectsBox key={e.id}>
-      <ProjectBox data={e} />
-    </ProjectsBox>
-  ));
-  return projects;
-};
+  componentDidMount() {
+    const { markdownLoaded } = this.state;
+    if (!markdownLoaded) {
+      setTimeout(() => {
+        this.setState({ markdownLoaded: true });
+      }, 400);
+    }
+    return null;
+  }
 
-const Projects = ({ projects, markdownContent }) => {
-  return (
-    <Wrapper>
-      <MarkdownWrapper>
-        <Markdown markdown={markdownContent} />
-      </MarkdownWrapper>
-      <ProjectsWrapper>{ProjectsBoxes(projects, 0.3, 0.2)}</ProjectsWrapper>
-    </Wrapper>
-  );
-};
+  render() {
+    const { markdownLoaded } = this.state;
+    const { projects, markdownContent } = this.props;
+    return (
+      <Wrapper>
+        <MarkdownWrapper>
+          <Markdown markdown={markdownContent} />
+        </MarkdownWrapper>
+        {markdownLoaded && (
+          <ProjectsWrapper>
+            {projects.map(e => (
+              <ProjectsBox key={e.id}>
+                <ProjectBox data={e} />
+              </ProjectsBox>
+            ))}
+          </ProjectsWrapper>
+        )}
+      </Wrapper>
+    );
+  }
+}
 
 Projects.propTypes = {
   markdownContent: PropTypes.string.isRequired,

@@ -110,7 +110,7 @@ const Wrapper = styled.section`
     !success &&
     css`
       opacity: 0;
-      animation: ${opacity} 0.5s 0.6s linear forwards;
+      animation: ${opacity} 0.5s linear forwards;
     `}
 `;
 

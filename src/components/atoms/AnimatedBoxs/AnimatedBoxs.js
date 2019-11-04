@@ -19,12 +19,14 @@ const RightBox = styled.div`
   top: 0%;
   z-index: -2;
   will-change: transform;
+   ${MobileRight}
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 22%;
     height: 40%;
+    ${DesktopRight}
   }
-  ${MobileRight}
-  ${DesktopRight}
+ 
+
 `;
 
 const LeftBox = styled.div`
@@ -36,36 +38,42 @@ const LeftBox = styled.div`
   top: 0%;
   z-index: -2;
   will-change: transform;
+   ${MobileLeft}
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 15%;
     height: 70%;
     left: auto;
     right: 22%;
+    ${DesktopLeft}
   }
-  ${MobileLeft}
-  ${DesktopLeft}
 `;
 
 const AnimatedBoxs = ({ langContext, pageContext }) => {
   const { currentPage, previousPage } = pageContext;
-  const pagesPaths = {
-    portfolio: Constants[langContext].PATHS.portfolio,
-    contact: Constants[langContext].PATHS.contact,
-    projects: Constants[langContext].PATHS.projects,
-  };
+  let curentPageType;
+  let previousPageType;
 
+  if (currentPage === Constants[langContext].PATHS.portfolio) {
+    curentPageType = 'portfolio';
+  } else if (currentPage === Constants[langContext].PATHS.contact) {
+    curentPageType = 'contact';
+  } else if (currentPage === Constants[langContext].PATHS.projects) {
+    curentPageType = 'projects';
+  }
+  if (previousPage === Constants[langContext].PATHS.portfolio) {
+    previousPageType = 'portfolio';
+  } else if (previousPage === Constants[langContext].PATHS.contact) {
+    previousPageType = 'contact';
+  } else if (previousPage === Constants[langContext].PATHS.projects) {
+    previousPageType = 'projects';
+  }
+  // console.log({ curentPageType, previousPageType });
+  // console.log(`curr-${curentPageType} prev-${previousPageType}`);
   return (
-    // Random for reset animation
-    <div key={Math.random()}>
-      <LeftBox
-        pagesPaths={pagesPaths}
-        currentPage={currentPage}
-        previousPage={previousPage}
-      />
+    <div>
+      <LeftBox className={`curr-${curentPageType} prev-${previousPageType} `} />
       <RightBox
-        pagesPaths={pagesPaths}
-        currentPage={currentPage}
-        previousPage={previousPage}
+        className={`curr-${curentPageType} prev-${previousPageType} `}
       />
     </div>
   );

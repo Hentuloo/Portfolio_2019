@@ -17,6 +17,7 @@
     "fetch": true
   },
   "rules": {
+    "react/no-did-update-set-state": 1,
     "react/no-array-index-key": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,

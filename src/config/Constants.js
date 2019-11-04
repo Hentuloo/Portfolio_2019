@@ -47,4 +47,9 @@ export default {
       validatorName: '6-30 znaków',
     },
   },
+  GENERAL: {
+    // refferal similar to themes/mainTheme
+    animationTime: '0.8s',
+    boxAnimationDelay: 700,
+  },
 };

@@ -97,7 +97,7 @@ const ImageWrapper = styled.div`
     ${({ loadStatus }) =>
       loadStatus &&
       css`
-        animation: ${imageAnimation} 0.5s 0.6s ease-in-out forwards;
+        animation: ${imageAnimation} 0.5s ease-in-out forwards;
       `}
   }
   @media (max-width: ${({ theme }) =>
