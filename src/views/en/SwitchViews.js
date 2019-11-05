@@ -15,9 +15,15 @@ class SwitchViews extends Component {
     timeoutFlag: false,
   };
 
+  componentDidMount() {
+    const { isLoading, timeoutFlag } = this.state;
+    if (isLoading === true && timeoutFlag === false) {
+      this.setState({ isLoading: false, timeoutFlag: false });
+    }
+  }
+
   componentDidUpdate() {
     const { isLoading, timeoutFlag } = this.state;
-
     if (isLoading === true && timeoutFlag === false) {
       this.setState({ timeoutFlag: true });
 
@@ -49,7 +55,6 @@ class SwitchViews extends Component {
     };
     if (currentPage) {
       if (isLoading) return null;
-
       // choose correct componenet for page names
       const pagesKeys = Object.keys(Constants[langContext].PATHS);
       const currentPageName = pagesKeys.find(pageName => {
