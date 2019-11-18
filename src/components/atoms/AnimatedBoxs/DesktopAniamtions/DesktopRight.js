@@ -42,12 +42,12 @@ transform: scale(1,1) translate(0%, 0%);
    transform: scale(1,0.27) translate(-38%,  -36vh);
 }
 100%{
- transform: scale(3.3,0.27) translate(-38%, -36vh);
+ transform: scale(3,0.27) translate(-38%, -36vh);
 }
 `;
 const contactPortfolio = keyframes`
 0%{
-  transform: scale(3.3,0.27) translate(-38%, -36vh);
+  transform: scale(3,0.27) translate(-38%, -36vh);
 
 }
 50%{
@@ -62,7 +62,7 @@ const contactPortfolio = keyframes`
 `;
 const contactProjects = keyframes`
 0%{
-   transform: scale(3.3,0.27) translate(-38%, -36vh);
+   transform: scale(3,0.27) translate(-38%, -36vh);
 }
 50%{
    transform:scale(2.8,0.27) translate(-6vw, -36vh);
@@ -85,38 +85,38 @@ const projectsContact = keyframes`
    transform: scale(2.8,0.27) translate(-6vw, -36vh);
 }
 100%{
-   transform: scale(3.3,0.27) translate(-38%, -36vh);
+   transform: scale(3,0.27) translate(-38%, -36vh);
 }
 `;
 
 const DesktopRight = css`
-  &.prev-portfolio.curr-portfolio {
-    transform: scale(1, 1) translate(0%, 0%);
-  }
-  &.prev-projects.curr-projects {
-    transform: scale(2.8, 0.5) translate(-6vw, -50%);
-  }
-  &.prev-contact.curr-contact {
-    transform: scale(3.3, 0.27) translate(-38%, -36vh);
-  }
+    &.prev-portfolio.curr-portfolio {
+        transform: scale(1, 1) translate(0%, 0%);
+    }
+    &.prev-projects.curr-projects {
+        transform: scale(2.8, 0.5) translate(-6vw, -50%);
+    }
+    &.prev-contact.curr-contact {
+        transform: scale(3.3, 0.27) translate(-38%, -36vh);
+    }
 
-  &.prev-portfolio.curr-projects {
-    animation: ${portfolioProjects} ${time} linear forwards;
-  }
-  &.prev-projects.curr-portfolio {
-    animation: ${projectsPortfolio} ${time} linear forwards;
-  }
-  &.prev-portfolio.curr-contact {
-    animation: ${portfolioContact} ${time} linear forwards;
-  }
-  &.prev-contact.curr-portfolio {
-    animation: ${contactPortfolio} ${time} linear forwards;
-  }
-  &.prev-projects.curr-contact {
-    animation: ${projectsContact} ${time} linear forwards;
-  }
-  &.prev-contact.curr-projects {
-    animation: ${contactProjects} ${time} linear forwards;
-  }
+    &.prev-portfolio.curr-projects {
+        animation: ${portfolioProjects} ${time} linear forwards;
+    }
+    &.prev-projects.curr-portfolio {
+        animation: ${projectsPortfolio} ${time} linear forwards;
+    }
+    &.prev-portfolio.curr-contact {
+        animation: ${portfolioContact} ${time} linear forwards;
+    }
+    &.prev-contact.curr-portfolio {
+        animation: ${contactPortfolio} ${time} linear forwards;
+    }
+    &.prev-projects.curr-contact {
+        animation: ${projectsContact} ${time} linear forwards;
+    }
+    &.prev-contact.curr-projects {
+        animation: ${contactProjects} ${time} linear forwards;
+    }
 `;
 export default DesktopRight;
