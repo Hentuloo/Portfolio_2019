@@ -49,42 +49,44 @@ const LeftBox = styled.div`
 `;
 
 const AnimatedBoxs = ({ langContext, pageContext }) => {
-  const { currentPage, previousPage } = pageContext;
-  let curentPageType;
-  let previousPageType;
+    const { currentPage, previousPage } = pageContext;
+    let curentPageType;
+    let previousPageType;
 
-  if (currentPage === Constants[langContext].PATHS.portfolio) {
-    curentPageType = 'portfolio';
-  } else if (currentPage === Constants[langContext].PATHS.contact) {
-    curentPageType = 'contact';
-  } else if (currentPage === Constants[langContext].PATHS.projects) {
-    curentPageType = 'projects';
-  }
-  if (previousPage === Constants[langContext].PATHS.portfolio) {
-    previousPageType = 'portfolio';
-  } else if (previousPage === Constants[langContext].PATHS.contact) {
-    previousPageType = 'contact';
-  } else if (previousPage === Constants[langContext].PATHS.projects) {
-    previousPageType = 'projects';
-  }
-  // console.log({ curentPageType, previousPageType });
-  // console.log(`curr-${curentPageType} prev-${previousPageType}`);
-  return (
-    <div>
-      <LeftBox className={`curr-${curentPageType} prev-${previousPageType} `} />
-      <RightBox
-        className={`curr-${curentPageType} prev-${previousPageType} `}
-      />
-    </div>
-  );
+    if (currentPage === Constants[langContext].PATHS.portfolio) {
+        curentPageType = 'portfolio';
+    } else if (currentPage === Constants[langContext].PATHS.contact) {
+        curentPageType = 'contact';
+    } else if (currentPage === Constants[langContext].PATHS.projects) {
+        curentPageType = 'projects';
+    }
+    if (previousPage === Constants[langContext].PATHS.portfolio) {
+        previousPageType = 'portfolio';
+    } else if (previousPage === Constants[langContext].PATHS.contact) {
+        previousPageType = 'contact';
+    } else if (previousPage === Constants[langContext].PATHS.projects) {
+        previousPageType = 'projects';
+    }
+    // console.log({ curentPageType, previousPageType });
+    // console.log(`curr-${curentPageType} prev-${previousPageType}`);
+    return (
+        <div>
+            <LeftBox
+                className={`curr-${curentPageType} prev-${previousPageType} `}
+            />
+            <RightBox
+                className={`curr-${curentPageType} prev-${previousPageType} `}
+            />
+        </div>
+    );
 };
 AnimatedBoxs.propTypes = {
-  langContext: PropTypes.string.isRequired,
-  pageContext: PropTypes.shape({
-    previousPage: PropTypes.string.isRequired,
-    currentPage: PropTypes.string.isRequired,
-    onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-  }).isRequired,
+    langContext: PropTypes.string.isRequired,
+    pageContext: PropTypes.shape({
+        previousPage: PropTypes.string.isRequired,
+        currentPage: PropTypes.string.isRequired,
+        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
+    }).isRequired,
 };
 
 export default withContext(AnimatedBoxs);
