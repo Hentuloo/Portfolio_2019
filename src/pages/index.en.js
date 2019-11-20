@@ -5,12 +5,13 @@ import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
 import SEO from 'components/organisms/SEO';
+import LoadFonts from 'components/atoms/LoadFonts/LoadFonts';
 import langContext from 'context/langContext';
 import pageContext from 'context/pageContext';
 
 import Constants from 'config/Constants';
 
-import SwitchViews from 'views/en/SwitchViews';
+import SwitchViews from 'views/pl/SwitchViews';
 
 const lang = 'en';
 
@@ -18,11 +19,15 @@ class index extends Component {
     state = {
         previousPage: Constants[lang].PATHS.portfolio,
         currentPage: Constants[lang].PATHS.portfolio,
+        fontsLoaded: false,
     };
 
     pages = Object.keys(Constants[lang].PATHS);
 
     componentDidMount() {
+        LoadFonts(() => {
+            this.setState({ fontsLoaded: true });
+        });
         const currentHash = window.location.hash.substring(1);
         const pageType = this.pages.find(page => {
             return Constants[lang].PATHS[page] === currentHash;
@@ -45,7 +50,7 @@ class index extends Component {
     };
 
     render() {
-        const { previousPage, currentPage } = this.state;
+        const { previousPage, currentPage, fontsLoaded } = this.state;
         const pageContextValue = {
             onChangePage: this.handleChangePage,
             previousPage,
@@ -59,9 +64,11 @@ class index extends Component {
                     <pageContext.Provider value={pageContextValue}>
                         <langContext.Provider value={lang}>
                             <GlobalStyle />
-                            <MainTemplate isPortfolio={isPortfolio}>
-                                <SwitchViews page={currentPage} />
-                            </MainTemplate>
+                            {fontsLoaded && (
+                                <MainTemplate isPortfolio={isPortfolio}>
+                                    <SwitchViews page={currentPage} />
+                                </MainTemplate>
+                            )}
                         </langContext.Provider>
                     </pageContext.Provider>
                 </ThemeProvider>
