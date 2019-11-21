@@ -46,15 +46,7 @@ const MarkdownWrapper = styled.div`
         padding-right: 22%;
         padding-bottom: 0px;
         transform: translate(0%, 0%);
-        div::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            right: 0%;
-            width: 45%;
-            height: 10vh;
-            background-color: ${({ theme }) => theme.redFirst};
-        }
+
         div::before {
             content: '';
             position: absolute;
