@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
-import AnimatedBoxs from 'components/atoms/AnimatedBoxs/AnimatedBoxs';
-import BackgroundBlock from 'components/atoms/BackgroundBlock/BackgroundBlock';
-import SwitchLanguage from 'components/atoms/SwitchLanguage/SwitchLanguage';
-import HeaderName from 'components/atoms/HeaderName/HeaderName';
+import {
+    AnimatedBoxs,
+    LanguageButtons,
+    PhraseBlindsEffect,
+    BackgroundPhrase,
+    GridBlocksAnimation,
+} from 'components/atoms';
 
-import Menu from 'components/molecules/Menu/Menu';
-
-import ShadowPharse from 'components/atoms/ShadowPharse/ShadowPharse';
-import GridBlocksAnimation from 'components/atoms/GridBlocksAnimation/GridBlocksAnimation';
+import { Menu } from 'components/molecules';
 
 const show = keyframes`
 100%{
@@ -46,35 +46,26 @@ const ContentMenuWrapper = styled.div`
         padding-left: 150px;
     }
 `;
-const StyledShadowPharse = styled.div`
-        &::after{
-            ${ShadowPharse}
-            content: ${({ pharse }) => (pharse ? `'${pharse}'` : 'Hello')};
-            color: rgb(225, 224, 224);
-            z-index: -10;
-        }           
-`;
 
 const MainTemplate = ({ children, isPortfolio }) => {
-    const pharse = isPortfolio ? 'Hello' : '<.../>';
+    const phrase = isPortfolio ? 'Hello' : '<.../>';
     return (
         <>
             <BeforeGridBlocks>
-                <HeaderName as="h1">
+                <PhraseBlindsEffect as="h1">
                     <span>Kamil</span>
                     <span>Chędkowski</span>
-                </HeaderName>
+                </PhraseBlindsEffect>
             </BeforeGridBlocks>
             <BlockWithDelayOpacity>
                 <AnimatedBoxs />
-                <SwitchLanguage />
+                <LanguageButtons />
                 <ContentMenuWrapper>
                     <Menu />
                     <Content>{children}</Content>
                 </ContentMenuWrapper>
             </BlockWithDelayOpacity>
-            <StyledShadowPharse pharse={pharse} />
-            <BackgroundBlock pharse={pharse} />
+            <BackgroundPhrase phrase={phrase} />
             <GridBlocksAnimation />
         </>
     );

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import ProjectBox from 'components/molecules/ProjectBox/ProjectBox';
-import Markdown from 'components/molecules/Markdown/Markdown';
+import { ProjectCard, Markdown } from 'components/molecules';
 
 const opacity = keyframes`
 from{
@@ -14,7 +13,7 @@ opacity:1;
 }
 `;
 
-const ProjectsBox = styled.section`
+const ProjectCardWrapper = styled.section`
     margin: 30px 0px;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
@@ -97,9 +96,9 @@ class Projects extends Component {
                 {markdownLoaded && (
                     <ProjectsWrapper>
                         {projects.map(e => (
-                            <ProjectsBox key={e.id}>
-                                <ProjectBox data={e} />
-                            </ProjectsBox>
+                            <ProjectCardWrapper key={e.id}>
+                                <ProjectCard data={e} />
+                            </ProjectCardWrapper>
                         ))}
                     </ProjectsWrapper>
                 )}

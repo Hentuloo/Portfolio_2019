@@ -5,7 +5,7 @@ import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 import MainTemplate from 'templates/MainTemplate';
 import SEO from 'components/organisms/SEO';
-import LoadFonts from 'components/atoms/LoadFonts/LoadFonts';
+import LoadFonts from 'components/LoadFonts';
 import langContext from 'context/langContext';
 import pageContext from 'context/pageContext';
 

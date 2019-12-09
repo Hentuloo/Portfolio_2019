@@ -9,15 +9,22 @@ import pageContext from '../src/context/pageContext';
 const req = require.context('../src/components/', true, /stories\.js$/);
 
 function loadStories() {
-  req.keys().forEach(req);
+    req.keys().forEach(req);
 }
 
 addDecorator(story => (
-  <ThemeProvider theme={theme}>
-    <pageContext.Provider value={pageContextValue}>
-      <langContext.Provider value={lang}>{story()}</langContext.Provider>
-    </pageContext.Provider>
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+        <pageContext.Provider
+            value={{
+                previousPage: 'portfolio',
+                currentPage: 'portfolio',
+                onChangePage: () => {},
+            }}
+        >
+            <langContext.Provider value={'en'}>{story()}</langContext.Provider>
+        </pageContext.Provider>
+    </ThemeProvider>
 ));
+
 addDecorator(withKnobs);
 configure(loadStories, module);

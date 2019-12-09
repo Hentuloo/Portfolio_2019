@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 import GraphImg from 'graphcms-image';
-import HeaderName from 'components/atoms/HeaderName/HeaderName';
-import Markdown from 'components/molecules/Markdown/Markdown';
+
+import { PhraseBlindsEffect } from 'components/atoms';
+import { Markdown } from 'components/molecules';
 
 import Constants from 'config/Constants';
 import withContext from 'hoc/withContext';
@@ -135,10 +136,10 @@ class Portfolio extends Component {
         const { email, headLine } = Constants[langContext].CONTENT;
         return (
             <Wrapper>
-                <HeaderName as="h1">
+                <PhraseBlindsEffect as="h1">
                     <span>{headLine[0]}</span>
                     <span>{headLine[1]}</span>
-                </HeaderName>
+                </PhraseBlindsEffect>
                 <ImageWrapper loadStatus={load}>
                     <GraphImg
                         image={photo}

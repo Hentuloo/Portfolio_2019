@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 
@@ -15,7 +15,6 @@ export const HeaderName = styled(Paragraph)`
     display: flex;
     flex-direction: column;
     margin: 5% 2%;
-    word-spacing: 50px;
     font-size: ${({ theme }) => theme.font.l};
     line-height: ${({ theme }) => theme.font.l};
     font-family: 'Baloo Tamma';
@@ -29,6 +28,7 @@ export const HeaderName = styled(Paragraph)`
         font-size: ${({ theme }) => theme.font.xxxl};
         line-height: ${({ theme }) => theme.font.xxxl};
     }
+
     &::after,
     &::before {
         content: '';
@@ -39,15 +39,39 @@ export const HeaderName = styled(Paragraph)`
         left: 0%;
         background-color: ${({ theme }) => theme.redFirst};
         transform-origin: right 50%;
-        animation: ${blinds} 0.8s 0.5s cubic-bezier(0.97, 0.16, 0.31, 0.67)
+        animation: ${blinds} 0.8s 0.5s ${({ theme }) => theme.blindsAnimation}
             forwards;
     }
     &::before {
         left: 50%;
         background-color: ${({ theme }) => theme.redThird};
-        animation: ${blinds} 0.8s 0.65s cubic-bezier(0.97, 0.16, 0.31, 0.67)
+        animation: ${blinds} 0.8s 0.65s ${({ theme }) => theme.blindsAnimation}
             forwards;
     }
+    /* RESET */
+    ${({ gray }) =>
+        gray &&
+        css`
+            &::after,
+            &::before {
+                width: 100%;
+                top: 0%;
+                left: 0%;
+                animation: none;
+                content: normal;
+            }
+        `}
+
+    ${({ gray }) =>
+        gray &&
+        css`
+            &::after {
+                content: '';
+                background-color: ${({ theme }) => theme.grayFirst};
+                animation: ${blinds} 0.8s 0s
+                    ${({ theme }) => theme.blindsAnimation} forwards;
+            }
+        `}
 `;
 
 export default HeaderName;
