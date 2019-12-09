@@ -86,7 +86,7 @@ const ImageWrapper = styled.div`
             loadStatus &&
             css`
                 animation: ${imageAnimation} 0.5s 0.4s
-                    cubic-bezier(0.97, 0.16, 0.31, 0.67) forwards;
+                    ${({ theme }) => theme.blindsAnimation} forwards;
             `}
     }
     @media (max-width: ${({ theme }) =>

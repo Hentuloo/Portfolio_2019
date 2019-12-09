@@ -35,7 +35,7 @@ const Wrapper = styled.div`
         height: 100%;
         transform-origin: left 50%;
         transform: scaleX(0);
-        animation: ${blinds} 1.5s 1.9s cubic-bezier(0.97, 0.16, 0.31, 0.67)
+        animation: ${blinds} 1.5s 1.9s ${({ theme }) => theme.blindsAnimation}
             forwards;
     }
     div:nth-of-type(1) {

@@ -39,5 +39,7 @@ export const theme = {
     },
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
     breakPointMiddle: '1200px',
-    breakPointLarge: '1450px',
+    breakPointLarge: '1400px',
+
+    blindsAnimation: 'cubic-bezier(0.97, 0.16, 0.31, 0.67)',
 };

@@ -16,19 +16,14 @@ opacity:1;
 
 const ProjectsBox = styled.section`
     margin: 30px 0px;
-    z-index: 3;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        flex-basis: 60%;
-        min-width: 400px;
-        min-height: 200px;
+        flex-basis: 45%;
+        max-width: 400px;
         margin: 40px 0px;
-        & > div {
-            min-height: 210px;
-        }
     }
     @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
-        flex-basis: 45%;
+        flex-basis: 30%;
     }
 `;
 const MarkdownWrapper = styled.div`
@@ -56,12 +51,14 @@ const MarkdownWrapper = styled.div`
 `;
 const ProjectsWrapper = styled.div`
     display: block;
-    margin-bottom: 150px;
     width: 100%;
-    overflow: hidden;
+    max-width: 370px;
+    margin: 0px auto 150px;
     padding: 0px 20px;
+    overflow: hidden;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 95%;
+        max-width: none;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

@@ -11,7 +11,7 @@ import pageContext from 'context/pageContext';
 
 import Constants from 'config/Constants';
 
-import SwitchViews from 'views/pl/SwitchViews';
+import SwitchViews from 'views/en/SwitchViews';
 
 const lang = 'en';
 
