@@ -120,18 +120,17 @@ const MenuWrapper = styled.nav`
     background-color: ${({ theme }) => theme.redSecondary};
     transition: transform 0.8s ease-in-out;
 
-    ${({ currentPage, langContext }) => {
-        const { portfolio, projects, contact } = Constants[langContext].PATHS;
+    ${({ currentPage }) => {
         switch (currentPage) {
-            case portfolio:
+            case 'portfolio':
                 return css`
                     transform: translateX(0vw);
                 `;
-            case projects:
+            case 'projects':
                 return css`
                     transform: translateX(33.3333vw);
                 `;
-            case contact:
+            case 'contact':
                 return css`
                     transform: translateX(66.6666vw);
                 `;
@@ -148,21 +147,17 @@ const MenuWrapper = styled.nav`
       transform: translateY(-50%);
       background-color: ${({ theme }) => theme.graySecond};
       border-radius:5px;
-       ${({ currentPage, langContext }) => {
-           const { portfolio, projects, contact } = Constants[
-               langContext
-           ].PATHS;
-
+       ${({ currentPage }) => {
            switch (currentPage) {
-               case portfolio:
+               case 'portfolio':
                    return css`
                        transform: translateY(13vh);
                    `;
-               case projects:
+               case 'projects':
                    return css`
                        transform: translateY(29vh);
                    `;
-               case contact:
+               case 'contact':
                    return css`
                        transform: translateY(45vh);
                    `;
@@ -214,15 +209,8 @@ const Menu = props => {
                 <ListElement>
                     <a
                         href={`#${Constants[langContext].PATHS.portfolio}`}
-                        className={
-                            currentPage ===
-                            Constants[langContext].PATHS.portfolio
-                                ? 'active'
-                                : ''
-                        }
-                        onClick={() =>
-                            onChangePage(Constants[langContext].PATHS.portfolio)
-                        }
+                        className={currentPage === 'portfolio' ? 'active' : ''}
+                        onClick={e => onChangePage(e, 'portfolio')}
                     >
                         {Constants[langContext].PATHS.portfolio}
                     </a>
@@ -230,15 +218,8 @@ const Menu = props => {
                 <ListElement>
                     <a
                         href={`#${Constants[langContext].PATHS.projects}`}
-                        className={
-                            currentPage ===
-                            Constants[langContext].PATHS.projects
-                                ? 'active'
-                                : ''
-                        }
-                        onClick={() =>
-                            onChangePage(Constants[langContext].PATHS.projects)
-                        }
+                        className={currentPage === 'projects' ? 'active' : ''}
+                        onClick={e => onChangePage(e, 'projects')}
                     >
                         {Constants[langContext].PATHS.projects}
                     </a>
@@ -246,14 +227,8 @@ const Menu = props => {
                 <ListElement>
                     <a
                         href={`#${Constants[langContext].PATHS.contact}`}
-                        className={
-                            currentPage === Constants[langContext].PATHS.contact
-                                ? 'active'
-                                : ''
-                        }
-                        onClick={() =>
-                            onChangePage(Constants[langContext].PATHS.contact)
-                        }
+                        className={currentPage === 'contact' ? 'active' : ''}
+                        onClick={e => onChangePage(e, 'contact')}
                     >
                         {Constants[langContext].PATHS.contact}
                     </a>
@@ -322,7 +297,4 @@ const withStaticQuery = Component => {
     };
 };
 
-export default compose(
-    withContext,
-    withStaticQuery,
-)(Menu);
+export default compose(withContext, withStaticQuery)(Menu);

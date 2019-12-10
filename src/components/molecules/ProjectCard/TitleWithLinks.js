@@ -14,8 +14,10 @@ const TittleWrapper = styled.div`
 const Title = styled.h2`
     margin: 0px;
     font-family: ${({ theme }) => theme.font.first};
-    font-size: ${({ theme }) => theme.font.s};
+    line-height: ${({ theme }) => theme.font.s};
+    font-size: ${({ theme }) => theme.font.medium};
     text-transform: uppercase;
+    font-weight: lighter;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         margin-top: 8px;
@@ -24,6 +26,9 @@ const Title = styled.h2`
     }
     @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
         margin: 15px 10px 0px 25px;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        font-size: ${({ theme }) => theme.font.s};
     }
 `;
 

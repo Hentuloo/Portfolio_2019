@@ -19,6 +19,7 @@ const Wrapper = styled.div`
     position: relative;
     padding-bottom: 20px;
     overflow: hidden;
+    border-radius: 8px 8px 0px 0px;
     img {
         position: absolute !important;
         top: 0%;

@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import withContext from 'hoc/withContext';
-import Constants from 'config/Constants';
 
 import SentenceInArray from './components/SentenceInArray';
 import Sentence from './components/Sentence';
@@ -23,8 +22,8 @@ const Wrapper = styled.div`
   white-space: pre-wrap;
   overflow:hidden;
  
-${({ pageType }) =>
-    pageType === 'projects' &&
+${({ currentPage }) =>
+    currentPage === 'projects' &&
     css`
         text-align: center;
         @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
@@ -43,13 +42,7 @@ ${({ pageType }) =>
   }
 `;
 
-const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
-    // find current page type
-    const keys = Object.keys(Constants[langContext].PATHS);
-    const pageType = keys.find(
-        key => Constants[langContext].PATHS[key] === currentPage,
-    );
-
+const Markdown = ({ markdown, pageContext: { currentPage } }) => {
     const markdownAfterRegEX = markdown.match(
         /[[\]]|[|{|}|,|;|:|\s]+|(['][^']+['$])|(["][^"]+["$])|([`][^`]+[`$])/gm,
     );
@@ -67,7 +60,7 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
             }
             return (
                 <Dash
-                    pageType={pageType}
+                    currentPage={currentPage}
                     key={index}
                     openDashLiteral={dashLiteral}
                 >
@@ -81,7 +74,7 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
             dashLiteral -= 1;
             return (
                 <Dash
-                    pageType={pageType}
+                    currentPage={currentPage}
                     key={index}
                     closedDashLiteral={dashLiteralHelper}
                 >
@@ -91,14 +84,14 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
         }
         if (chars.includes('{') || chars.includes('}')) {
             return (
-                <Moustache pageType={pageType} key={index}>
+                <Moustache currentPage={currentPage} key={index}>
                     {chars}
                 </Moustache>
             );
         }
         if (chars.includes(`'`) || chars.includes('`')) {
             return (
-                <Sentence pageType={pageType} key={index}>
+                <Sentence currentPage={currentPage} key={index}>
                     {chars}
                 </Sentence>
             );
@@ -106,7 +99,7 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
         if (chars.includes('"')) {
             return (
                 <SentenceInArray
-                    pageType={pageType}
+                    currentPage={currentPage}
                     groupID={groupCount}
                     key={index}
                 >
@@ -117,7 +110,7 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
         if (chars.includes(',')) {
             return (
                 <Comma
-                    pageType={pageType}
+                    currentPage={currentPage}
                     dashLiteral={dashLiteral}
                     key={index}
                 >
@@ -127,7 +120,7 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
         }
         if (chars.includes(';') || chars.includes(':')) {
             return (
-                <SingleChar pageType={pageType} key={index}>
+                <SingleChar currentPage={currentPage} key={index}>
                     {chars}
                 </SingleChar>
             );
@@ -136,12 +129,11 @@ const Markdown = ({ markdown, pageContext: { currentPage }, langContext }) => {
     });
 
     // console.log(array);
-    return <Wrapper pageType={pageType}>{array}</Wrapper>;
+    return <Wrapper currentPage={currentPage}>{array}</Wrapper>;
 };
 
 Markdown.propTypes = {
     markdown: PropTypes.string.isRequired,
-    langContext: PropTypes.string.isRequired,
     pageContext: PropTypes.shape({
         previousPage: PropTypes.string.isRequired,
         currentPage: PropTypes.string.isRequired,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import GraphImg from 'graphcms-image';
 
@@ -23,6 +23,10 @@ opacity:1;
 }
 `;
 
+const Wrapper = styled.section`
+    display: flex;
+`;
+
 const MarkdownWrapper = styled.div`
     position: absolute;
     width: 90%;
@@ -44,23 +48,11 @@ const MarkdownWrapper = styled.div`
         bottom: 10%;
         width: calc(100% - 180px);
         max-width: calc(800px + 22%);
-        padding-right: 22%;
+        padding-right: 22.22%;
         padding-bottom: 0px;
         transform: translate(0%, 0%);
-
-        div::before {
-            content: '';
-            position: absolute;
-            top: 0%;
-            right: 0%;
-            width: 15.2vw;
-            height: 80px;
-            background-color: ${({ theme }) => theme.redFirst};
-            z-index: -1;
-        }
     }
     @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        padding-right: 22vw;
         max-width: calc(1100px + 22%);
         div {
             padding-right: 200px;
@@ -74,22 +66,6 @@ const ImageWrapper = styled.div`
     width: 42%;
     height: 45%;
     overflow: hidden;
-
-    span {
-        display: none;
-    }
-    img {
-        position: absolute;
-        max-width: 100%;
-        max-height: 80vh;
-        transform: translateY(-110%);
-        ${({ loadStatus }) =>
-            loadStatus &&
-            css`
-                animation: ${imageAnimation} 0.5s 0.4s
-                    ${({ theme }) => theme.blindsAnimation} forwards;
-            `}
-    }
     @media (max-width: ${({ theme }) =>
             theme.breakPointMobile}) and (orientation: landscape) {
         background-color: red;
@@ -109,38 +85,72 @@ const ImageWrapper = styled.div`
             height: 100%;
             background-color: ${({ theme }) => theme.grayDark};
         }
-        span {
-            display: block;
-            width: 100%;
-            font-size: ${({ theme }) => theme.font.xxs};
-            font-weight: ${({ theme }) => theme.font.light};
-            letter-spacing: 0px;
-            text-align: center;
-            text-transform: uppercase;
-            padding: 10px 0px;
-            letter-spacing: -0.8px;
-            display: block;
+    }
+    /* Graph cms-image */
+    img {
+        position: absolute;
+        max-width: 100%;
+        max-height: 80vh;
+        transform: translateY(-110%);
+    }
+    /* Reset animation on change page */
+    &.reset {
+        img {
+            animation: ${imageAnimation} 0.5s
+                ${`${Constants.GENERAL.changePageDelay + 0.1}s`}
+                ${({ theme }) => theme.blindsAnimation} forwards;
+        }
+    }
+    /* On first visit on page */
+    &.firstLoad {
+        img {
+            animation: ${imageAnimation} 0.5s 3.5s
+                ${({ theme }) => theme.blindsAnimation} forwards;
         }
     }
 `;
-
-const Wrapper = styled.section`
-    display: flex;
+const EmailField = styled.span`
+    display: none;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        display: block;
+        width: 100%;
+        font-size: ${({ theme }) => theme.font.xxs};
+        font-weight: ${({ theme }) => theme.font.light};
+        letter-spacing: 0px;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 10px 0px;
+        letter-spacing: -0.8px;
+    }
 `;
+
 class Portfolio extends Component {
     state = { load: false };
 
     render() {
-        const { content, photo, langContext } = this.props;
+        const {
+            content,
+            photo,
+            langContext,
+            pageContext: { currentPage, previousPage },
+        } = this.props;
         const { load } = this.state;
         const { email, headLine } = Constants[langContext].CONTENT;
+
+        const firstLoad =
+            currentPage === previousPage && currentPage === 'portfolio';
         return (
             <Wrapper>
                 <PhraseBlindsEffect as="h1">
                     <span>{headLine[0]}</span>
                     <span>{headLine[1]}</span>
                 </PhraseBlindsEffect>
-                <ImageWrapper loadStatus={load}>
+                <ImageWrapper
+                    className={`${currentPage === 'portfolio' ? 'reset ' : ''}${
+                        firstLoad ? 'firstLoad ' : ''
+                    }`}
+                    loadStatus={load}
+                >
                     <GraphImg
                         image={photo}
                         maxWidth={600}
@@ -149,7 +159,7 @@ class Portfolio extends Component {
                         backgroundColor={false}
                         onLoad={() => this.setState({ load: true })}
                     />
-                    <span>{email}</span>
+                    <EmailField>{email}</EmailField>
                 </ImageWrapper>
                 <MarkdownWrapper>
                     <Markdown markdown={content} />
@@ -166,6 +176,11 @@ Portfolio.propTypes = {
         handle: PropTypes.string,
         width: PropTypes.number,
         height: PropTypes.number,
+    }).isRequired,
+    pageContext: PropTypes.shape({
+        previousPage: PropTypes.string.isRequired,
+        currentPage: PropTypes.string.isRequired,
+        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
     }).isRequired,
 };
 export default withContext(Portfolio);

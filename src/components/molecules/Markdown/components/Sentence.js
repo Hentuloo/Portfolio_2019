@@ -21,27 +21,27 @@ const Sentence = styled.p`
     margin: 0px;
         padding: 0px 0px;
 
-  ${({ pageType }) => {
-    if (pageType === 'portfolio') {
-      return css`
-        box-sizing: border-box;
-        padding-left: 20px;
-        text-indent: -4px;
-        @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-          padding-left: 24px;
-          text-indent: -10px;
-        }
-        &:hover {
-          transform: translateY(-6px);
-          cursor: pointer;
-        }
+  ${({ currentPage }) => {
+      if (currentPage === 'portfolio') {
+          return css`
+              box-sizing: border-box;
+              padding-left: 20px;
+              text-indent: -4px;
+              @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+                  padding-left: 24px;
+                  text-indent: -10px;
+              }
+              &:hover {
+                  transform: translateY(-6px);
+                  cursor: pointer;
+              }
 
-        &:nth-of-type(1) {
-          animation: ${move} 4s 1s ease infinite;
-        }
-      `;
-    }
-    return css``;
+              &:nth-of-type(1) {
+                  animation: ${move} 4s 1s ease infinite;
+              }
+          `;
+      }
+      return css``;
   }}
         
     &:hover {

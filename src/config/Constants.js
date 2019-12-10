@@ -50,6 +50,6 @@ export default {
     GENERAL: {
         // refferal similar to themes/mainTheme
         animationTime: '0.8s',
-        boxAnimationDelay: 700,
+        changePageDelay: 0.7,
     },
 };
