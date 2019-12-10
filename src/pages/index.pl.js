@@ -29,22 +29,24 @@ class index extends Component {
             this.setState({ fontsLoaded: true });
         });
         const currentHash = window.location.hash.substring(1);
-        const pageType = this.pages.find(page => {
-            return Constants[lang].PATHS[page] === currentHash;
+
+        this.setState({
+            previousPage: currentHash,
+            currentPage: currentHash,
         });
-        if (pageType) {
-            this.setState({
-                previousPage: Constants[lang].PATHS[pageType],
-                currentPage: Constants[lang].PATHS[pageType],
-            });
-        }
     }
 
-    handleChangePage = e => {
+    handleChangePage = (event, newPage) => {
+        event.preventDefault();
+        // set new hash
+        window.history.pushState(null, null, `#${newPage}`);
         const { currentPage } = this.state;
-        if (e !== currentPage) {
+        if (newPage !== currentPage) {
             this.setState(prevState => {
-                return { previousPage: prevState.currentPage, currentPage: e };
+                return {
+                    previousPage: prevState.currentPage,
+                    currentPage: newPage,
+                };
             });
         }
     };
@@ -56,7 +58,7 @@ class index extends Component {
             previousPage,
             currentPage,
         };
-        const isPortfolio = currentPage === Constants[lang].PATHS.portfolio;
+
         return (
             <>
                 <SEO />
@@ -65,8 +67,8 @@ class index extends Component {
                         <langContext.Provider value={lang}>
                             <GlobalStyle />
                             {fontsLoaded && (
-                                <MainTemplate isPortfolio={isPortfolio}>
-                                    <SwitchViews page={currentPage} />
+                                <MainTemplate pageContext={pageContextValue}>
+                                    <SwitchViews />
                                 </MainTemplate>
                             )}
                         </langContext.Provider>

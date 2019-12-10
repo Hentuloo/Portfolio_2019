@@ -40,15 +40,16 @@ const BlockWithDelayOpacity = styled.div`
 const Content = styled.div`
     flex-grow: 1;
 `;
-const ContentMenuWrapper = styled.div`
+const ContentWrapper = styled.div`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: flex;
         padding-left: 150px;
     }
 `;
 
-const MainTemplate = ({ children, isPortfolio }) => {
-    const phrase = isPortfolio ? 'Hello' : '<.../>';
+const MainTemplate = ({ children, pageContext: { currentPage } }) => {
+    const phrase = currentPage === 'portfolio' ? 'Hello' : '<.../>';
+
     return (
         <>
             <BeforeGridBlocks>
@@ -60,10 +61,10 @@ const MainTemplate = ({ children, isPortfolio }) => {
             <BlockWithDelayOpacity>
                 <AnimatedBoxs />
                 <LanguageButtons />
-                <ContentMenuWrapper>
+                <ContentWrapper>
                     <Menu />
                     <Content>{children}</Content>
-                </ContentMenuWrapper>
+                </ContentWrapper>
             </BlockWithDelayOpacity>
             <BackgroundPhrase phrase={phrase} />
             <GridBlocksAnimation />
@@ -73,7 +74,11 @@ const MainTemplate = ({ children, isPortfolio }) => {
 
 MainTemplate.propTypes = {
     children: PropTypes.objectOf(Object),
-    isPortfolio: PropTypes.bool.isRequired,
+    pageContext: PropTypes.shape({
+        previousPage: PropTypes.string.isRequired,
+        currentPage: PropTypes.string.isRequired,
+        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
+    }).isRequired,
 };
 MainTemplate.defaultProps = {
     children: null,

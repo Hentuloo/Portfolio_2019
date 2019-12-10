@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,8 @@ opacity:1;
 `;
 
 const ProjectCardWrapper = styled.section`
-    margin: 30px 0px;
+    margin: 30px auto;
+    max-width: 90%;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         flex-basis: 45%;
@@ -22,14 +23,17 @@ const ProjectCardWrapper = styled.section`
         margin: 40px 0px;
     }
     @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
-        flex-basis: 30%;
+        flex-basis: 29%;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        margin: 40px 10px;
     }
 `;
 const MarkdownWrapper = styled.div`
     width: 90%;
     margin: 0px auto;
     opacity: 0;
-    animation: ${opacity} 0.5s linear forwards;
+    animation: ${opacity} 0.5s 0.2s linear forwards;
     position: relative;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 80%;
@@ -55,6 +59,8 @@ const ProjectsWrapper = styled.div`
     margin: 0px auto 150px;
     padding: 0px 20px;
     overflow: hidden;
+    opacity: 0;
+    animation: ${opacity} 0.1s 1s linear forwards;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 95%;
         max-width: none;
@@ -70,42 +76,24 @@ const Wrapper = styled.div`
     min-height: 110vh;
     margin: 30px auto 0px auto;
 `;
-class Projects extends Component {
-    state = {
-        markdownLoaded: false,
-    };
 
-    componentDidMount() {
-        const { markdownLoaded } = this.state;
-        if (!markdownLoaded) {
-            setTimeout(() => {
-                this.setState({ markdownLoaded: true });
-            }, 900);
-        }
-        return null;
-    }
+const Projects = ({ projects, markdownContent }) => {
+    return (
+        <Wrapper>
+            <MarkdownWrapper>
+                <Markdown markdown={markdownContent} />
+            </MarkdownWrapper>
 
-    render() {
-        const { markdownLoaded } = this.state;
-        const { projects, markdownContent } = this.props;
-        return (
-            <Wrapper>
-                <MarkdownWrapper>
-                    <Markdown markdown={markdownContent} />
-                </MarkdownWrapper>
-                {markdownLoaded && (
-                    <ProjectsWrapper>
-                        {projects.map(e => (
-                            <ProjectCardWrapper key={e.id}>
-                                <ProjectCard data={e} />
-                            </ProjectCardWrapper>
-                        ))}
-                    </ProjectsWrapper>
-                )}
-            </Wrapper>
-        );
-    }
-}
+            <ProjectsWrapper>
+                {projects.map(e => (
+                    <ProjectCardWrapper key={e.id}>
+                        <ProjectCard data={e} />
+                    </ProjectCardWrapper>
+                ))}
+            </ProjectsWrapper>
+        </Wrapper>
+    );
+};
 
 Projects.propTypes = {
     markdownContent: PropTypes.string.isRequired,

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import withContext from 'hoc/withContext';
-import Constants from 'config/Constants';
 
 // animations for Box
 import MobileRight from './MobileAnimations/MobileRight';
@@ -43,45 +42,20 @@ const LeftBox = styled.div`
     width: 15%;
     height: 70%;
     left: auto;
-    right: 22%;
+    right: 21.999%;
     ${DesktopLeft}
   }
 `;
 
-const AnimatedBoxs = ({ langContext, pageContext }) => {
-    const { currentPage, previousPage } = pageContext;
-    let curentPageType;
-    let previousPageType;
-
-    if (currentPage === Constants[langContext].PATHS.portfolio) {
-        curentPageType = 'portfolio';
-    } else if (currentPage === Constants[langContext].PATHS.contact) {
-        curentPageType = 'contact';
-    } else if (currentPage === Constants[langContext].PATHS.projects) {
-        curentPageType = 'projects';
-    }
-    if (previousPage === Constants[langContext].PATHS.portfolio) {
-        previousPageType = 'portfolio';
-    } else if (previousPage === Constants[langContext].PATHS.contact) {
-        previousPageType = 'contact';
-    } else if (previousPage === Constants[langContext].PATHS.projects) {
-        previousPageType = 'projects';
-    }
-    // console.log({ curentPageType, previousPageType });
-    // console.log(`curr-${curentPageType} prev-${previousPageType}`);
+const AnimatedBoxs = ({ pageContext: { currentPage, previousPage } }) => {
     return (
         <div>
-            <LeftBox
-                className={`curr-${curentPageType} prev-${previousPageType} `}
-            />
-            <RightBox
-                className={`curr-${curentPageType} prev-${previousPageType} `}
-            />
+            <LeftBox className={`curr-${currentPage} prev-${previousPage} `} />
+            <RightBox className={`curr-${currentPage} prev-${previousPage} `} />
         </div>
     );
 };
 AnimatedBoxs.propTypes = {
-    langContext: PropTypes.string.isRequired,
     pageContext: PropTypes.shape({
         previousPage: PropTypes.string.isRequired,
         currentPage: PropTypes.string.isRequired,
