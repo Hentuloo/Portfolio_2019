@@ -17,8 +17,8 @@ const lang = 'pl';
 
 class index extends Component {
     state = {
-        previousPage: Constants[lang].PATHS.portfolio,
-        currentPage: Constants[lang].PATHS.portfolio,
+        previousPage: 'portfolio',
+        currentPage: 'portfolio',
         fontsLoaded: false,
     };
 
@@ -29,11 +29,12 @@ class index extends Component {
             this.setState({ fontsLoaded: true });
         });
         const currentHash = window.location.hash.substring(1);
-
-        this.setState({
-            previousPage: currentHash,
-            currentPage: currentHash,
-        });
+        if (currentHash !== '') {
+            this.setState({
+                previousPage: currentHash,
+                currentPage: currentHash,
+            });
+        }
     }
 
     handleChangePage = (event, newPage) => {

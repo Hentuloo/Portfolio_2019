@@ -10,6 +10,7 @@ export default {
         CONTENT: {
             headLine: ['Kamil', 'Chędkowski'],
             email: 'chentulooo@gmail.com',
+            error: 'Something gone wrong...',
         },
         FORM: {
             formAction: '/en/#contact-success',
@@ -34,6 +35,7 @@ export default {
         CONTENT: {
             headLine: ['Kamil', 'Chędkowski'],
             email: 'chentulooo@gmail.com',
+            error: 'Coś poszło nie tak...',
         },
         FORM: {
             formAction: '/pl/#kontakt-success',
