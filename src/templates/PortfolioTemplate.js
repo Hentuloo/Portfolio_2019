@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+
 import GraphImg from 'graphcms-image';
 
 import { PhraseBlindsEffect } from 'components/atoms';
 import { Markdown } from 'components/molecules';
-
 import Constants from 'config/Constants';
-import withContext from 'hoc/withContext';
 
 const imageAnimation = keyframes`
 form{
@@ -124,63 +124,60 @@ const EmailField = styled.span`
     }
 `;
 
-class Portfolio extends Component {
-    state = { load: false };
+const Portfolio = ({ content, photo, className }) => {
+    const [imageIsLoaded, setImageLoaded] = useState(false);
 
-    render() {
-        const {
-            content,
-            photo,
-            langContext,
-            pageContext: { currentPage, previousPage },
-        } = this.props;
-        const { load } = this.state;
-        const { email, headLine } = Constants[langContext].CONTENT;
+    const {
+        ActivePage: { current, previous },
+        Lang: { lang },
+    } = useSelector(state => ({
+        ActivePage: state.ActivePage,
+        Lang: state.Lang,
+    }));
 
-        const firstLoad =
-            currentPage === previousPage && currentPage === 'portfolio';
-        return (
-            <Wrapper>
-                <PhraseBlindsEffect as="h1">
-                    <span>{headLine[0]}</span>
-                    <span>{headLine[1]}</span>
-                </PhraseBlindsEffect>
-                <ImageWrapper
-                    className={`${currentPage === 'portfolio' ? 'reset ' : ''}${
-                        firstLoad ? 'firstLoad ' : ''
-                    }`}
-                    loadStatus={load}
-                >
-                    <GraphImg
-                        image={photo}
-                        maxWidth={600}
-                        fadeIn={false}
-                        blurryPlaceholder={false}
-                        backgroundColor={false}
-                        onLoad={() => this.setState({ load: true })}
-                    />
-                    <EmailField>{email}</EmailField>
-                </ImageWrapper>
-                <MarkdownWrapper>
-                    <Markdown markdown={content} />
-                </MarkdownWrapper>
-            </Wrapper>
-        );
-    }
-}
+    const { email, headLine } = Constants[lang].CONTENT;
+    const firstLoad = current === previous && current === 'portfolio';
+    return (
+        <Wrapper className={className}>
+            <PhraseBlindsEffect as="h1">
+                <span>{headLine[0]}</span>
+                <span>{headLine[1]}</span>
+            </PhraseBlindsEffect>
+            <ImageWrapper
+                className={`${current === 'portfolio' ? 'reset ' : ''}${
+                    firstLoad ? 'firstLoad ' : ''
+                }`}
+                loadStatus={imageIsLoaded}
+            >
+                <GraphImg
+                    image={photo}
+                    maxWidth={600}
+                    fadeIn={false}
+                    blurryPlaceholder={false}
+                    backgroundColor={false}
+                    onLoad={() => setImageLoaded(true)}
+                />
+                <EmailField>{email}</EmailField>
+            </ImageWrapper>
+            <MarkdownWrapper>
+                <Markdown markdown={content} />
+            </MarkdownWrapper>
+        </Wrapper>
+    );
+};
 
 Portfolio.propTypes = {
-    langContext: PropTypes.string.isRequired,
+    className: PropTypes.string,
     content: PropTypes.string.isRequired,
     photo: PropTypes.shape({
         handle: PropTypes.string,
         width: PropTypes.number,
         height: PropTypes.number,
     }).isRequired,
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
 };
-export default withContext(Portfolio);
+
+Portfolio.defaultProps = {
+    className: '',
+};
+
+export default Portfolio;

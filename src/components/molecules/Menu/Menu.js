@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
 import Constants from 'config/Constants';
-import withContext from 'hoc/withContext';
-import { compose } from 'recompose';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { changePage } from 'state/actions/activePageActions';
 
 const ListElement = styled.li`
     display: block;
@@ -191,46 +192,60 @@ const MenuWrapper = styled.nav`
     }
   }
 `;
-const Menu = props => {
-    const {
-        data,
-        langContext,
-        pageContext: { onChangePage, currentPage },
-    } = props;
+const Menu = ({ data, className }) => {
+    const dispatch = useDispatch();
 
-    const { pdf, pdfEng } = data.portfolio.mainPages[0];
+    const {
+        ActivePage: { current },
+        Lang: { lang },
+    } = useSelector(state => ({
+        ActivePage: state.ActivePage,
+        Lang: state.Lang,
+    }));
+
+    const onChangePage = (e, pageName) => {
+        e.preventDefault();
+        window.history.pushState(
+            {},
+            null,
+            `/${lang}/${Constants[lang].PATHS[pageName]}`,
+        );
+        dispatch(changePage(pageName));
+    };
+
+    const {
+        portfolio: { mainPages },
+    } = data;
+    const { pdf, pdfEng } = mainPages[0];
+
     return (
-        <MenuWrapper
-            {...props}
-            currentPage={currentPage}
-            langContext={langContext}
-        >
+        <MenuWrapper className={className} currentPage={current}>
             <ul>
                 <ListElement>
                     <a
-                        href={`#${Constants[langContext].PATHS.portfolio}`}
-                        className={currentPage === 'portfolio' ? 'active' : ''}
+                        href={`#${Constants[lang].PATHS.portfolio}`}
+                        className={current === 'portfolio' ? 'active' : ''}
                         onClick={e => onChangePage(e, 'portfolio')}
                     >
-                        {Constants[langContext].PATHS.portfolio}
+                        {Constants[lang].PATHS.portfolio}
                     </a>
                 </ListElement>
                 <ListElement>
                     <a
-                        href={`#${Constants[langContext].PATHS.projects}`}
-                        className={currentPage === 'projects' ? 'active' : ''}
+                        href={`#${Constants[lang].PATHS.projects}`}
+                        className={current === 'projects' ? 'active' : ''}
                         onClick={e => onChangePage(e, 'projects')}
                     >
-                        {Constants[langContext].PATHS.projects}
+                        {Constants[lang].PATHS.projects}
                     </a>
                 </ListElement>
                 <ListElement>
                     <a
-                        href={`#${Constants[langContext].PATHS.contact}`}
-                        className={currentPage === 'contact' ? 'active' : ''}
+                        href={`#${Constants[lang].PATHS.contact}`}
+                        className={current === 'contact' ? 'active' : ''}
                         onClick={e => onChangePage(e, 'contact')}
                     >
-                        {Constants[langContext].PATHS.contact}
+                        {Constants[lang].PATHS.contact}
                     </a>
                 </ListElement>
                 <ListElement className="hideMobile">
@@ -259,16 +274,12 @@ const Menu = props => {
     );
 };
 Menu.propTypes = {
-    langContext: PropTypes.string.isRequired,
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
+    className: PropTypes.string,
     data: PropTypes.objectOf(Object),
 };
 Menu.defaultProps = {
     data: null,
+    className: '',
 };
 
 const withStaticQuery = Component => {
@@ -297,4 +308,4 @@ const withStaticQuery = Component => {
     };
 };
 
-export default compose(withContext, withStaticQuery)(Menu);
+export default withStaticQuery(Menu);

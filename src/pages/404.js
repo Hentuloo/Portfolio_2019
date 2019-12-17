@@ -1,10 +1,26 @@
-import { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { changeLanguage } from 'state/actions/langActions';
+import { changePage } from 'state/actions/activePageActions';
+
+import App from 'pages/index';
+
 import Constants from 'config/Constants';
 
-class ErrorRedirect extends Component {
-    state = {};
+const ErrorRedirect = () => {
+    const dispatch = useDispatch();
 
-    componentDidMount() {
+    const [similarRoute, setSimilarRoute] = useState(false);
+
+    const choosePage = (lang, subPage) => {
+        window.history.pushState(null, null, `/${lang}/${subPage}`);
+        dispatch(changePage(subPage));
+        dispatch(changeLanguage(lang));
+        setSimilarRoute(true);
+    };
+
+    useEffect(() => {
         // get all languages from Constants
         const allLanguages = Object.keys(Constants);
         const partsUrl = window.location.pathname.split('/');
@@ -16,44 +32,41 @@ class ErrorRedirect extends Component {
 
         if (currentLang) {
             // find similar page path
-            const allPaths = Object.keys(Constants[currentLang].PATHS);
-            const currentPage = allPaths.find(path => {
+            const allValues = Object.values(Constants[currentLang].PATHS);
+            const allKeys = Object.keys(Constants[currentLang].PATHS);
+            const currentPageIndex = allValues.findIndex(path => {
                 return partsUrl.find(part => part.includes(path));
             });
-            if (currentPage) {
-                window.location.href = `/${currentLang}/#${currentPage}`;
-                return;
+
+            if (currentPageIndex !== -1) {
+                choosePage(currentLang, allKeys[currentPageIndex]);
+            } else {
+                choosePage(currentLang, allKeys[1]);
             }
-            window.location.href = `/${currentLang}/#${Constants[currentLang].PATHS.portfolio}`;
         } else {
             const allEngPaths = Object.keys(Constants.en.PATHS);
             const currentPage = allEngPaths.find(path => {
                 return partsUrl.find(part => part.includes(path));
             });
+
             if (currentPage) {
-                window.location.href = `/en/#${currentPage}`;
+                choosePage('en', currentPage);
                 return;
             }
-            // look in hash
-            const hash = window.location.hash.slice(1);
-            const PageFromHash = allLanguages.find(langObject => {
-                const allPaths = Object.keys(langObject);
-                return allPaths.find(path => langObject[path] === hash);
-            });
-            if (PageFromHash) {
-                window.location.href = `/${PageFromHash}/#${hash}`;
-            }
+            // Find by browser language
             const userLang = navigator.language || navigator.userLanguage;
             if (userLang === 'pl-PL') {
-                window.location.href = `/pl/#${Constants.pl.PATHS.portfolio}`;
+                choosePage('pl', 'portfolio');
                 return;
             }
-            window.location.href = `/en/#${Constants.en.PATHS.portfolio}`;
+            choosePage('en', 'portfolio');
         }
-    }
+    }, []);
 
-    render() {
-        return null;
+    if (similarRoute) {
+        return <App />;
     }
-}
+    return null;
+};
+
 export default ErrorRedirect;

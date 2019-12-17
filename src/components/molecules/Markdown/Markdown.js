@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import withContext from 'hoc/withContext';
+import { useSelector } from 'react-redux';
 
 import SentenceInArray from './components/SentenceInArray';
 import Sentence from './components/Sentence';
@@ -42,7 +42,9 @@ ${({ currentPage }) =>
   }
 `;
 
-const Markdown = ({ markdown, pageContext: { currentPage } }) => {
+const Markdown = ({ markdown }) => {
+    const { current } = useSelector(state => state.ActivePage);
+
     const markdownAfterRegEX = markdown.match(
         /[[\]]|[|{|}|,|;|:|\s]+|(['][^']+['$])|(["][^"]+["$])|([`][^`]+[`$])/gm,
     );
@@ -60,7 +62,7 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
             }
             return (
                 <Dash
-                    currentPage={currentPage}
+                    currentPage={current}
                     key={index}
                     openDashLiteral={dashLiteral}
                 >
@@ -74,7 +76,7 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
             dashLiteral -= 1;
             return (
                 <Dash
-                    currentPage={currentPage}
+                    currentPage={current}
                     key={index}
                     closedDashLiteral={dashLiteralHelper}
                 >
@@ -84,14 +86,14 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
         }
         if (chars.includes('{') || chars.includes('}')) {
             return (
-                <Moustache currentPage={currentPage} key={index}>
+                <Moustache currentPage={current} key={index}>
                     {chars}
                 </Moustache>
             );
         }
         if (chars.includes(`'`) || chars.includes('`')) {
             return (
-                <Sentence currentPage={currentPage} key={index}>
+                <Sentence currentPage={current} key={index}>
                     {chars}
                 </Sentence>
             );
@@ -99,7 +101,7 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
         if (chars.includes('"')) {
             return (
                 <SentenceInArray
-                    currentPage={currentPage}
+                    currentPage={current}
                     groupID={groupCount}
                     key={index}
                 >
@@ -110,7 +112,7 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
         if (chars.includes(',')) {
             return (
                 <Comma
-                    currentPage={currentPage}
+                    currentPage={current}
                     dashLiteral={dashLiteral}
                     key={index}
                 >
@@ -120,7 +122,7 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
         }
         if (chars.includes(';') || chars.includes(':')) {
             return (
-                <SingleChar currentPage={currentPage} key={index}>
+                <SingleChar currentPage={current} key={index}>
                     {chars}
                 </SingleChar>
             );
@@ -129,16 +131,11 @@ const Markdown = ({ markdown, pageContext: { currentPage } }) => {
     });
 
     // console.log(array);
-    return <Wrapper currentPage={currentPage}>{array}</Wrapper>;
+    return <Wrapper currentPage={current}>{array}</Wrapper>;
 };
 
 Markdown.propTypes = {
     markdown: PropTypes.string.isRequired,
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
 };
 
-export default withContext(Markdown);
+export default Markdown;

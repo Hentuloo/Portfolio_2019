@@ -77,9 +77,9 @@ const Wrapper = styled.div`
     margin: 30px auto 0px auto;
 `;
 
-const Projects = ({ projects, markdownContent }) => {
+const Projects = ({ projects, markdownContent, className }) => {
     return (
-        <Wrapper>
+        <Wrapper className={className}>
             <MarkdownWrapper>
                 <Markdown markdown={markdownContent} />
             </MarkdownWrapper>
@@ -96,8 +96,12 @@ const Projects = ({ projects, markdownContent }) => {
 };
 
 Projects.propTypes = {
+    className: PropTypes.string,
     markdownContent: PropTypes.string.isRequired,
     projects: PropTypes.arrayOf(Object).isRequired,
+};
+Projects.defaultProps = {
+    className: '',
 };
 
 export default Projects;

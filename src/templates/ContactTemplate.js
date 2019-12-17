@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useReducer, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import validator from 'validator';
 
+import { useSelector } from 'react-redux';
+
 import Constants from 'config/Constants';
-import withContext from 'hoc/withContext';
+import { encode } from 'config/utils';
 
 const opacity = keyframes`
 from{
@@ -118,18 +119,32 @@ const Wrapper = styled.section`
   }
 `;
 
-class ContactTemplate extends Component {
-    state = {
-        name: '',
-        email: '',
-        message: '',
-        valid: false,
-    };
+const ContactTemplate = () => {
+    const { lang } = useSelector(state => state.Lang);
+    const [sendedWithSuccess, setSendedWithSuccess] = useState(false);
+    const [isValid, setValid] = useState(false);
 
-    handleChangeForm = e => {
-        const { name, email, message } = this.state;
+    const [inputValue, setInputValue] = useReducer(
+        (state, newState) => ({
+            ...state,
+            ...newState,
+        }),
+        {
+            name: '',
+            email: '',
+            message: '',
+        },
+    );
+
+    const handleChange = e => {
+        const { name: inputName, value } = e.target;
+
+        setInputValue({ [inputName]: value });
+
+        const { name, email, message } = inputValue;
+
         let valid = true;
-        this.setState({ [e.target.name]: e.target.value });
+
         if (!validator.isEmail(email)) {
             valid = false;
         }
@@ -139,156 +154,124 @@ class ContactTemplate extends Component {
         if (!validator.isLength(message, { min: 10, max: 200 })) {
             valid = false;
         }
-        this.setState({ valid });
-    };
 
-    handleSubmit = e => {
-        e.preventDefault();
-        const {
-            langContext,
-            pageContext: { onChangePage },
-        } = this.props;
-        fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: this.encode({ 'form-name': 'contact', ...this.state }),
-        })
-            .then(() => {
-                const { contactSuccess } = Constants[langContext].PATHS;
-                window.location.hash = `#${contactSuccess}`;
-                onChangePage(contactSuccess);
-            })
-            .catch(error => console.log(error));
-    };
-
-    encode = data => {
-        return Object.keys(data)
-            .map(
-                key =>
-                    `${encodeURIComponent(key)}=${encodeURIComponent(
-                        data[key],
-                    )}`,
-            )
-            .join('&');
-    };
-
-    render() {
-        const { success, langContext } = this.props;
-        const { name, email, message, valid } = this.state;
-
-        const {
-            messageCorrectEmailSend,
-            textAreaPlaceholder,
-            emailPlaceholder,
-            namePlaceholder,
-            submitTitle,
-            validatorTextArea,
-            validatorEmail,
-            validatorName,
-        } = Constants[langContext].FORM;
-
-        if (success) {
-            return (
-                <Wrapper success>
-                    <Form disabled>
-                        <InputName
-                            type="text"
-                            name="name"
-                            placeholder={namePlaceholder}
-                            disabled
-                            autocomplete="off"
-                        />
-                        <InputEmail
-                            type="email"
-                            name="email"
-                            placeholder={emailPlaceholder}
-                            disabled
-                        />
-                        <Textarea
-                            name="message"
-                            placeholder={textAreaPlaceholder}
-                            disabled
-                            autocomplete="off"
-                        />
-                        <InputSubmit disabled value={submitTitle} />
-                        <Message>{messageCorrectEmailSend}</Message>
-                    </Form>
-                </Wrapper>
-            );
+        if (valid !== isValid) {
+            setValid(valid);
         }
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        try {
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: encode({ 'form-name': 'contact', ...inputValue }),
+            });
+            if (response.statusText === 'OK') {
+                setSendedWithSuccess(true);
+            }
+        } catch (error) {
+            throw Error(error);
+        }
+    };
+    const {
+        messageCorrectEmailSend,
+        textAreaPlaceholder,
+        emailPlaceholder,
+        namePlaceholder,
+        submitTitle,
+        validatorTextArea,
+        validatorEmail,
+        validatorName,
+    } = Constants[lang].FORM;
+
+    if (sendedWithSuccess) {
         return (
-            <Wrapper>
-                <Form
-                    name="contact"
-                    method="post"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                    onSubmit={this.handleSubmit}
-                >
-                    <input type="hidden" name="bot-field" />
-                    <input type="hidden" name="form-name" value="contact" />
-                    <InputWrapper>
-                        <InputName
-                            type="text"
-                            name="name"
-                            placeholder={namePlaceholder}
-                            minlength="6"
-                            maxlength="20"
-                            required
-                            value={name}
-                            onChange={this.handleChangeForm}
-                        />
-                        <ValidatiorSettings>{validatorName}</ValidatiorSettings>
-                    </InputWrapper>
-                    <InputWrapper>
-                        <InputEmail
-                            type="email"
-                            name="email"
-                            placeholder={emailPlaceholder}
-                            required
-                            value={email}
-                            onChange={this.handleChangeForm}
-                        />
-                        <ValidatiorSettings>
-                            {validatorEmail}
-                        </ValidatiorSettings>
-                    </InputWrapper>
-                    <InputWrapper>
-                        <Textarea
-                            name="message"
-                            placeholder={textAreaPlaceholder}
-                            minlength="10"
-                            maxlength="200"
-                            required
-                            value={message}
-                            onChange={this.handleChangeForm}
-                        />
-                        <ValidatiorSettings>
-                            {validatorTextArea}
-                        </ValidatiorSettings>
-                    </InputWrapper>
-                    <InputSubmit
-                        disabled={!valid}
-                        type="submit"
-                        value={submitTitle}
+            <Wrapper success>
+                <Form disabled>
+                    <InputName
+                        type="text"
+                        name="name"
+                        placeholder={namePlaceholder}
+                        disabled
+                        autocomplete="off"
                     />
+                    <InputEmail
+                        type="email"
+                        name="email"
+                        placeholder={emailPlaceholder}
+                        disabled
+                    />
+                    <Textarea
+                        name="message"
+                        placeholder={textAreaPlaceholder}
+                        disabled
+                        autocomplete="off"
+                    />
+                    <InputSubmit disabled value={submitTitle} />
+                    <Message>{messageCorrectEmailSend}</Message>
                 </Form>
             </Wrapper>
         );
     }
-}
-
-ContactTemplate.propTypes = {
-    langContext: PropTypes.string.isRequired,
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
-    success: PropTypes.bool,
+    return (
+        <Wrapper>
+            <Form
+                name="contact"
+                method="post"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+            >
+                <input type="hidden" name="bot-field" />
+                <input type="hidden" name="form-name" value="contact" />
+                <InputWrapper>
+                    <InputName
+                        type="text"
+                        name="name"
+                        placeholder={namePlaceholder}
+                        minlength="6"
+                        maxlength="20"
+                        required
+                        value={inputValue.name}
+                        onChange={handleChange}
+                    />
+                    <ValidatiorSettings>{validatorName}</ValidatiorSettings>
+                </InputWrapper>
+                <InputWrapper>
+                    <InputEmail
+                        type="email"
+                        name="email"
+                        placeholder={emailPlaceholder}
+                        required
+                        value={inputValue.email}
+                        onChange={handleChange}
+                    />
+                    <ValidatiorSettings>{validatorEmail}</ValidatiorSettings>
+                </InputWrapper>
+                <InputWrapper>
+                    <Textarea
+                        name="message"
+                        placeholder={textAreaPlaceholder}
+                        minlength="10"
+                        maxlength="200"
+                        required
+                        value={inputValue.message}
+                        onChange={handleChange}
+                    />
+                    <ValidatiorSettings>{validatorTextArea}</ValidatiorSettings>
+                </InputWrapper>
+                <InputSubmit
+                    disabled={!isValid}
+                    type="submit"
+                    value={submitTitle}
+                />
+            </Form>
+        </Wrapper>
+    );
 };
-ContactTemplate.defaultProps = {
-    success: false,
-};
 
-export default withContext(ContactTemplate);
+export default ContactTemplate;

@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import withContext from 'hoc/withContext';
+
+import { useSelector } from 'react-redux';
 
 // animations for Box
 import MobileRight from './MobileAnimations/MobileRight';
@@ -47,20 +47,14 @@ const LeftBox = styled.div`
   }
 `;
 
-const AnimatedBoxs = ({ pageContext: { currentPage, previousPage } }) => {
+const AnimatedBoxs = () => {
+    const { current, previous } = useSelector(state => state.ActivePage);
     return (
         <div>
-            <LeftBox className={`curr-${currentPage} prev-${previousPage} `} />
-            <RightBox className={`curr-${currentPage} prev-${previousPage} `} />
+            <LeftBox className={`curr-${current} prev-${previous} `} />
+            <RightBox className={`curr-${current} prev-${previous} `} />
         </div>
     );
 };
-AnimatedBoxs.propTypes = {
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
-};
 
-export default withContext(AnimatedBoxs);
+export default AnimatedBoxs;

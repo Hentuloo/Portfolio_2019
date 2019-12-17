@@ -1,87 +1,91 @@
 {
-  "name": "gatsby-starter-default",
-  "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "dependencies": {
-    "@storybook/addon-knobs": "^5.0.11",
-    "babel-plugin-remove-graphql-queries": "^2.7.10",
-    "babel-plugin-styled-components": "^1.10.0",
-    "fontfaceobserver": "^2.1.0",
-    "gatsby": "^2.7.3",
-    "gatsby-image": "^2.1.2",
-    "gatsby-plugin-i18n": "^1.0.1",
-    "gatsby-plugin-manifest": "^2.1.1",
-    "gatsby-plugin-offline": "^2.1.1",
-    "gatsby-plugin-react-helmet": "^3.0.12",
-    "gatsby-plugin-resolve-src": "^2.0.0",
-    "gatsby-plugin-sharp": "^2.1.1",
-    "gatsby-plugin-styled-components": "^3.0.7",
-    "gatsby-source-filesystem": "^2.0.37",
-    "gatsby-source-graphql": "^2.0.18",
-    "gatsby-transformer-sharp": "^2.1.19",
-    "graphcms-image": "^1.1.0-beta4",
-    "husky": "^2.3.0",
-    "lint-staged": "^8.1.7",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1",
-    "recompose": "^0.30.0",
-    "sharp": "^0.22.1",
-    "styled-components": "^4.2.0",
-    "validator": "^11.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@storybook/addon-actions": "^5.0.11",
-    "@storybook/addon-links": "^5.0.11",
-    "@storybook/addons": "^5.0.11",
-    "@storybook/react": "^5.0.11",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.6",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "gatsby-plugin-eslint": "^2.0.5",
-    "gh-pages": "^2.0.1",
-    "prettier": "^1.17.1"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "storybook": "start-storybook -s public",
-    "build-storybook": " build-storybook -s public",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+    "name": "gatsby-starter-default",
+    "private": true,
+    "description": "Portfolio",
+    "version": "0.1.0",
+    "author": "Kamil Chędkowski",
+    "dependencies": {
+        "@storybook/addon-knobs": "^5.0.11",
+        "babel-plugin-remove-graphql-queries": "^2.7.19",
+        "babel-plugin-styled-components": "^1.10.0",
+        "fontfaceobserver": "^2.1.0",
+        "gatsby": "^2.18.13",
+        "gatsby-image": "^2.2.37",
+        "gatsby-plugin-i18n": "^1.0.1",
+        "gatsby-plugin-manifest": "^2.2.33",
+        "gatsby-plugin-offline": "^2.1.1",
+        "gatsby-plugin-react-helmet": "^3.1.18",
+        "gatsby-plugin-resolve-src": "^2.0.0",
+        "gatsby-plugin-sharp": "^2.3.9",
+        "gatsby-plugin-styled-components": "^3.1.16",
+        "gatsby-source-filesystem": "^2.1.42",
+        "gatsby-source-graphql": "^2.1.28",
+        "gatsby-transformer-sharp": "^2.3.9",
+        "graphcms-image": "^1.1.0-beta4",
+        "husky": "^2.3.0",
+        "lint-staged": "^8.1.7",
+        "prop-types": "^15.7.2",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-helmet": "^5.2.1",
+        "react-redux": "^7.1.3",
+        "recompose": "^0.30.0",
+        "redux": "^4.0.4",
+        "redux-devtools-extension": "^2.13.8",
+        "sharp": "^0.22.1",
+        "styled-components": "^4.2.0",
+        "validator": "^11.0.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@hot-loader/react-dom": "^16.11.0",
+        "@storybook/addon-actions": "^5.0.11",
+        "@storybook/addon-links": "^5.0.11",
+        "@storybook/addons": "^5.0.11",
+        "@storybook/react": "^5.0.11",
+        "babel-eslint": "^10.0.1",
+        "babel-loader": "^8.0.6",
+        "eslint-config-airbnb": "^17.1.0",
+        "eslint-config-prettier": "^4.3.0",
+        "eslint-plugin-import": "^2.19.1",
+        "eslint-plugin-jsx-a11y": "^6.2.1",
+        "eslint-plugin-react": "^7.13.0",
+        "gatsby-plugin-eslint": "^2.0.5",
+        "gh-pages": "^2.0.1",
+        "prettier": "^1.17.1"
+    },
+    "keywords": [
+        "gatsby"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "build": "gatsby build",
+        "develop": "gatsby develop",
+        "format": "prettier --write src/**/*.{js,jsx}",
+        "start": "npm run develop",
+        "serve": "gatsby serve",
+        "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+        "storybook": "start-storybook -s public",
+        "build-storybook": " build-storybook -s public",
+        "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    },
+    "bugs": {
+        "url": "https://github.com/gatsbyjs/gatsby/issues"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.js": [
+            "prettier --config .prettierrc --write",
+            "eslint --fix",
+            "git add"
+        ]
     }
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --config .prettierrc --write",
-      "eslint --fix",
-      "git add"
-    ]
-  }
 }

@@ -1,34 +1,35 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
-  "env": {
-    "jest": true
-  },
-  "globals": {
-    "document": true,
-    "window": true,
-    "location": true,
-    "navigator": true,
-    "fetch": true
-  },
-  "rules": {
-    "react/no-did-update-set-state": 1,
-    "react/no-array-index-key": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/no-unresolved": 0,
-    "import/prefer-default-export": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-  },
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier",
+        "prettier/react"
+    ],
+    "env": {
+        "jest": true
+    },
+    "globals": {
+        "document": true,
+        "window": true,
+        "location": true,
+        "navigator": true,
+        "fetch": true
+    },
+    "rules": {
+        "import/extensions": 0,
+        "react/no-did-update-set-state": 1,
+        "react/no-array-index-key": 0,
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0,
+        "import/prefer-default-export": 0,
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     }
-  }
 }

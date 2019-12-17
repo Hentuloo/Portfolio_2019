@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { changeLanguage } from 'state/actions/langActions';
 import Constants from 'config/Constants';
-import withContext from 'hoc/withContext';
 
 const Button = styled.button`
     position: relative;
@@ -67,59 +67,48 @@ const Wrapper = styled.div`
         top: 4px;
     }
 `;
+const LanguageButtons = () => {
+    const dispatch = useDispatch();
+    const {
+        Lang: { lang: currentLang },
+        ActivePage: { current },
+    } = useSelector(state => ({
+        Lang: state.Lang,
+        ActivePage: state.ActivePage,
+    }));
 
-class LanguageButtons extends Component {
-    state = {};
-
-    handleClickButton = lang => {
-        const {
-            langContext,
-            pageContext: { currentPage },
-        } = this.props;
-        if (lang !== langContext) {
-            const allPaths = Object.keys(Constants[langContext].PATHS);
-            const pageName = allPaths.find(
-                path => Constants[langContext].PATHS[path] === currentPage,
+    const handleChangeLanguage = lang => {
+        if (lang !== currentLang) {
+            // const { origin } = window.location;
+            // window.location.href = `${origin}/${lang}/#${Constants[lang].PATHS[current]}`;
+            window.history.pushState(
+                null,
+                null,
+                `/${lang}/${Constants[lang].PATHS[current]}`,
             );
-            if (pageName) {
-                const { origin } = window.location;
-                window.location.href = `${origin}/${lang}/#${Constants[lang].PATHS[pageName]}`;
-                return;
-            }
-            window.location.href = `/${lang}/#${Constants[lang].PATHS.portfolio}`;
+
+            dispatch(changeLanguage(lang));
         }
     };
 
-    render() {
-        const { langContext } = this.props;
-        return (
-            <Wrapper>
-                <Button
-                    type="button"
-                    active={langContext === 'pl'}
-                    onClick={() => this.handleClickButton('pl')}
-                >
-                    PL
-                </Button>
-                <Button
-                    type="button"
-                    active={langContext === 'en'}
-                    onClick={() => this.handleClickButton('en')}
-                >
-                    ENG
-                </Button>
-            </Wrapper>
-        );
-    }
-}
-
-LanguageButtons.propTypes = {
-    langContext: PropTypes.string.isRequired,
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
+    return (
+        <Wrapper>
+            <Button
+                type="button"
+                active={currentLang === 'pl'}
+                onClick={() => handleChangeLanguage('pl')}
+            >
+                PL
+            </Button>
+            <Button
+                type="button"
+                active={currentLang === 'en'}
+                onClick={() => handleChangeLanguage('en')}
+            >
+                ENG
+            </Button>
+        </Wrapper>
+    );
 };
 
-export default withContext(LanguageButtons);
+export default LanguageButtons;

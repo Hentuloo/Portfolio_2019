@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
+import { useSelector } from 'react-redux';
+
 import {
     AnimatedBoxs,
     LanguageButtons,
@@ -47,8 +49,10 @@ const ContentWrapper = styled.div`
     }
 `;
 
-const MainTemplate = ({ children, pageContext: { currentPage } }) => {
-    const phrase = currentPage === 'portfolio' ? 'Hello' : '<.../>';
+const MainTemplate = ({ children }) => {
+    const { current } = useSelector(state => state.ActivePage);
+
+    const phrase = current === 'portfolio' ? 'Hello' : '<.../>';
 
     return (
         <>
@@ -73,14 +77,7 @@ const MainTemplate = ({ children, pageContext: { currentPage } }) => {
 };
 
 MainTemplate.propTypes = {
-    children: PropTypes.objectOf(Object),
-    pageContext: PropTypes.shape({
-        previousPage: PropTypes.string.isRequired,
-        currentPage: PropTypes.string.isRequired,
-        onChangePage: PropTypes.oneOfType([PropTypes.func, () => null]),
-    }).isRequired,
+    children: PropTypes.node.isRequired,
 };
-MainTemplate.defaultProps = {
-    children: null,
-};
+
 export default MainTemplate;
