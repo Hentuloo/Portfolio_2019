@@ -4,6 +4,7 @@ import LanguageButtons from './LanguageButtons/LanguageButtons';
 import Paragraph from './Paragraph/Paragraph';
 import PhraseBlindsEffect from './PhraseBlindsEffect/PhraseBlindsEffect';
 import BackgroundPhrase from './BackgroundPhrase';
+import List from './List/List';
 
 export {
     AnimatedBoxs,
@@ -12,4 +13,5 @@ export {
     Paragraph,
     PhraseBlindsEffect,
     BackgroundPhrase,
+    List,
 };
