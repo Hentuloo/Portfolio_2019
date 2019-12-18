@@ -8,7 +8,6 @@ const Wrapper = styled.ul`
     margin: 0px;
     padding: 0px;
     list-style: none;
-    background-color: ${({ theme }) => theme.redThird};
     text-align: center;
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.font.s};
@@ -18,7 +17,6 @@ const Wrapper = styled.ul`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         flex-wrap: wrap;
         font-family: ${({ theme }) => theme.font.second};
-        background-color: transparent;
     }
     @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
         font-size: ${({ theme }) => theme.font.medium};

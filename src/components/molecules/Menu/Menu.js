@@ -8,10 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePage } from 'state/actions/activePageActions';
 import { List } from 'components/atoms';
 
+import Wave from './Wave';
+
 const Wrapper = styled.nav`
+    position: relative;
     position: fixed;
     width: 100vw;
-    height: 70px;
+    height: 63px;
     bottom: 0%;
     left: 0%;
     z-index: 14;
@@ -28,17 +31,23 @@ const Link = styled.a`
     display: grid;
     width: 100%;
     height: 100%;
+    padding-bottom: 10px;
     justify-items: center;
     align-items: center;
     text-decoration: none;
     color: ${({ theme }) => theme.black};
+    z-index: 15;
+    background-color: ${({ theme }) => theme.redThird};
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        background-color: transparent;
+    }
 `;
 const ListElement = styled.li`
     &:last-of-type {
         @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
             display: flex !important;
         }
-        a {
+        ${Link} {
             display: flex;
             justify-content: flex-end;
 
@@ -65,6 +74,7 @@ const ListElement = styled.li`
             }
         `}
 `;
+
 const Menu = ({ data, className }) => {
     const dispatch = useDispatch();
 
@@ -78,6 +88,7 @@ const Menu = ({ data, className }) => {
 
     const onChangePage = (e, pageName) => {
         e.preventDefault();
+        if (pageName === current) return;
         window.scrollTo(0, 0);
         window.history.pushState(
             {},
@@ -148,6 +159,7 @@ const Menu = ({ data, className }) => {
                     </Link>
                 </ListElement>
             </List>
+            <Wave />
         </Wrapper>
     );
 };
