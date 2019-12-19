@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { useMouseMood } from 'hooks/useMouseMood';
+
 const TittleWrapper = styled.div`
     display: flex;
     justify-content: space-between;
@@ -58,12 +60,17 @@ const LinkButton = styled.a`
 `;
 
 const TitleWithLinks = ({ title, gitLink, liveLink }) => {
+    const { toggleMoodOnHover } = useMouseMood();
     return (
         <TittleWrapper>
             <Title>{title}</Title>
             <LinksWrapper>
                 {gitLink && (
                     <LinkButton
+                        {...toggleMoodOnHover({
+                            initialMood: 'normal',
+                            mood: 'focus',
+                        })}
                         target="_blank"
                         rel="noopener noreferrer"
                         href={gitLink}
@@ -73,6 +80,10 @@ const TitleWithLinks = ({ title, gitLink, liveLink }) => {
                 )}
                 {liveLink && (
                     <LinkButton
+                        {...toggleMoodOnHover({
+                            initialMood: 'normal',
+                            mood: 'focus',
+                        })}
                         target="_blank"
                         rel="noopener noreferrer"
                         href={liveLink}

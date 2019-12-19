@@ -9,6 +9,12 @@ to{
     transform: rotate(360deg);
 }
 `;
+const pulse = keyframes`
+to{
+    transform: scale(0.16);
+    opacity: 0.4;
+}
+`;
 
 const Wrapper = styled.div`
     display: none;
@@ -47,6 +53,15 @@ const CursorCircle = styled.div`
         css`
             border: 2px solid transparent;
         `}
+    ${({ focus }) =>
+        focus &&
+        css`
+            width: 50px;
+            height: 50px;
+            left: -25px;
+            top: -25px;
+            border: 1px solid ${({ theme }) => theme.grayFirst};
+        `}
 
     &::after {
         content: '';
@@ -62,6 +77,12 @@ const CursorCircle = styled.div`
         transform: rotate(0deg);
         animation: ${atomAnimation} 3s infinite forwards
             cubic-bezier(0.98, 0.43, 0.67, 0.81);
+        ${({ focus }) =>
+            focus &&
+            css`
+                transform-origin: 36px 50%;
+                background-color: black;
+            `}
     }
 `;
 
@@ -75,6 +96,12 @@ const CursorPoint = styled.div`
     background-color: ${({ theme }) => theme.redFirst};
     transition: transform 0.1s ease-out;
     will-change: transform;
+
+    ${({ focus }) =>
+        focus &&
+        css`
+            background-color: transparent;
+        `}
 
     &::before {
         content: '';
@@ -94,6 +121,17 @@ const CursorPoint = styled.div`
                 transform: scale(1);
                 opacity: 1;
             `}
+        ${({ focus }) =>
+            focus &&
+            css`
+                left: -57px;
+                top: -58px;
+                transform: scale(0.03);
+                background-color: ${({ theme }) => theme.redFirst};
+                animation: ${pulse} 1s infinite forwards alternate
+                    cubic-bezier(0.98, 0.43, 0.67, 0.81);
+                opacity: 1;
+            `}
     }
 `;
 
@@ -101,10 +139,19 @@ const Cursor = () => {
     const { getMove } = useMouseEffect();
     const { mood } = useSelector(state => state.Cursor);
     const isBlackMode = mood === 'black';
+    const isFocusMode = mood === 'focus';
     return (
         <Wrapper black={isBlackMode}>
-            <CursorPoint {...getMove()} black={isBlackMode} />
-            <CursorCircle {...getMove()} black={isBlackMode} />
+            <CursorPoint
+                {...getMove()}
+                focus={isFocusMode}
+                black={isBlackMode}
+            />
+            <CursorCircle
+                {...getMove()}
+                focus={isFocusMode}
+                black={isBlackMode}
+            />
         </Wrapper>
     );
 };
