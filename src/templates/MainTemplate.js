@@ -10,6 +10,7 @@ import {
     PhraseBlindsEffect,
     BackgroundPhrase,
     GridBlocksAnimation,
+    Cursor,
 } from 'components/atoms';
 
 import { Menu } from 'components/molecules';
@@ -72,6 +73,7 @@ const MainTemplate = ({ children }) => {
             </BlockWithDelayOpacity>
             <BackgroundPhrase phrase={phrase} />
             <GridBlocksAnimation />
+            <Cursor />
         </>
     );
 };

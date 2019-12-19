@@ -51,6 +51,7 @@ const LinkButton = styled.a`
     text-decoration: none;
     color: black;
     background-color: white;
+    cursor: none;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         height: 34px;
     }

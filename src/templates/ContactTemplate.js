@@ -85,6 +85,7 @@ const Form = styled.form`
         font-size: ${({ theme }) => theme.font.m};
         font-family: ${({ theme }) => theme.font.first};
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: none;
         @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
             padding: 10px 10px;
         }

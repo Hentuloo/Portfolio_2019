@@ -5,6 +5,7 @@ import Paragraph from './Paragraph/Paragraph';
 import PhraseBlindsEffect from './PhraseBlindsEffect/PhraseBlindsEffect';
 import BackgroundPhrase from './BackgroundPhrase';
 import List from './List/List';
+import Cursor from './Cursor/Cursor';
 
 export {
     AnimatedBoxs,
@@ -14,4 +15,5 @@ export {
     PhraseBlindsEffect,
     BackgroundPhrase,
     List,
+    Cursor,
 };

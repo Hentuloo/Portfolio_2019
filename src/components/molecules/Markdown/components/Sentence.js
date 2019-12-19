@@ -33,7 +33,6 @@ const Sentence = styled.p`
               }
               &:hover {
                   transform: translateY(-6px);
-                  cursor: pointer;
               }
 
               &:nth-of-type(1) {
@@ -46,7 +45,6 @@ const Sentence = styled.p`
         
     &:hover {
         transform: translateY(-3px);
-        cursor: pointer;
     }
 
     &:nth-last-of-type(1){

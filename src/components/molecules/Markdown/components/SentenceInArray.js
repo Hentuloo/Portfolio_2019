@@ -18,12 +18,12 @@ const jump = keyframes`
 `;
 
 function jumpAnimationBuilder(number, delay) {
-  const element = css`
-    &:nth-of-type(${number}) {
-      animation: ${jump} 10s ${delay}s ease infinite;
-    }
-  `;
-  return element;
+    const element = css`
+        &:nth-of-type(${number}) {
+            animation: ${jump} 10s ${delay}s ease infinite;
+        }
+    `;
+    return element;
 }
 
 const SentenceInArray = styled.p`
@@ -34,7 +34,6 @@ const SentenceInArray = styled.p`
 
   &:hover {
     transform: translateY(-6px);
-    cursor: pointer;
   }
   &::before {
     content: '';
@@ -50,44 +49,44 @@ const SentenceInArray = styled.p`
   ${jumpAnimationBuilder(randomSentencesJump[3], 8)}
 
   ${({ groupID, theme: { groupsColors } }) => {
-    switch (Number(groupID)) {
-      case 1:
-        return css`
-          color: ${groupsColors[6]};
-        `;
-      case 2:
-        return css`
-          color: ${groupsColors[2]};
-        `;
-      case 3:
-        return css`
-          color: ${groupsColors[1]};
-        `;
-      case 4:
-        return css`
-          color: ${groupsColors[3]};
-        `;
-      case 5:
-        return css`
-          color: ${groupsColors[4]};
-        `;
-      case 6:
-        return css`
-          color: ${groupsColors[6]};
-        `;
-      case 7:
-        return css`
-          color: ${groupsColors[0]};
-        `;
-      case 8:
-        return css`
-          color: ${groupsColors[4]};
-        `;
-      default:
-        return css`
-          color: ${groupsColors[0]};
-        `;
-    }
+      switch (Number(groupID)) {
+          case 1:
+              return css`
+                  color: ${groupsColors[6]};
+              `;
+          case 2:
+              return css`
+                  color: ${groupsColors[2]};
+              `;
+          case 3:
+              return css`
+                  color: ${groupsColors[1]};
+              `;
+          case 4:
+              return css`
+                  color: ${groupsColors[3]};
+              `;
+          case 5:
+              return css`
+                  color: ${groupsColors[4]};
+              `;
+          case 6:
+              return css`
+                  color: ${groupsColors[6]};
+              `;
+          case 7:
+              return css`
+                  color: ${groupsColors[0]};
+              `;
+          case 8:
+              return css`
+                  color: ${groupsColors[4]};
+              `;
+          default:
+              return css`
+                  color: ${groupsColors[0]};
+              `;
+      }
   }}
 `;
 

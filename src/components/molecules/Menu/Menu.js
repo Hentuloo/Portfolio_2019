@@ -38,6 +38,7 @@ const Link = styled.a`
     color: ${({ theme }) => theme.black};
     z-index: 15;
     background-color: ${({ theme }) => theme.redThird};
+    cursor: none;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         background-color: transparent;
     }
@@ -88,6 +89,7 @@ const Menu = ({ data, className }) => {
 
     const onChangePage = (e, pageName) => {
         e.preventDefault();
+        console.log(e);
         if (pageName === current) return;
         window.scrollTo(0, 0);
         window.history.pushState(
@@ -109,7 +111,6 @@ const Menu = ({ data, className }) => {
                 <ListElement>
                     <Link
                         href={`#${Constants[lang].PATHS.portfolio}`}
-                        className={current === 'portfolio' ? 'active' : ''}
                         onClick={e => onChangePage(e, 'portfolio')}
                     >
                         {Constants[lang].PATHS.portfolio}
@@ -118,7 +119,6 @@ const Menu = ({ data, className }) => {
                 <ListElement>
                     <Link
                         href={`#${Constants[lang].PATHS.projects}`}
-                        className={current === 'projects' ? 'active' : ''}
                         onClick={e => onChangePage(e, 'projects')}
                     >
                         {Constants[lang].PATHS.projects}
@@ -127,7 +127,6 @@ const Menu = ({ data, className }) => {
                 <ListElement>
                     <Link
                         href={`#${Constants[lang].PATHS.contact}`}
-                        className={current === 'contact' ? 'active' : ''}
                         onClick={e => onChangePage(e, 'contact')}
                     >
                         {Constants[lang].PATHS.contact}
