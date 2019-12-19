@@ -17,6 +17,7 @@
         "fetch": true
     },
     "rules": {
+        "no-param-reassign": 0,
         "import/extensions": 0,
         "react/no-did-update-set-state": 1,
         "react/no-array-index-key": 0,

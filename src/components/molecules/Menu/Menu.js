@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePage } from 'state/actions/activePageActions';
 import { List } from 'components/atoms';
 
+import { useMouseEffect } from 'hooks/useMouseEffect';
 import Wave from './Wave';
 import ListElement from './ListElement';
 import { Link, Wrapper } from './styles';
 
 const Menu = ({ data, className }) => {
     const dispatch = useDispatch();
+    const { getMoveOnHover } = useMouseEffect();
 
     const {
         ActivePage: { current },
@@ -44,30 +46,53 @@ const Menu = ({ data, className }) => {
             <List className={className} currentPage={current}>
                 <ListElement>
                     <Link
+                        {...getMoveOnHover({
+                            sensitivity: 0.4,
+                            x: '-35px',
+                            y: '-15px',
+                        })}
                         href={`#${Constants[lang].PATHS.portfolio}`}
                         onClick={e => onChangePage(e, 'portfolio')}
+                        active={current === 'portfolio'}
                     >
                         {Constants[lang].PATHS.portfolio}
                     </Link>
                 </ListElement>
                 <ListElement>
                     <Link
+                        {...getMoveOnHover({
+                            sensitivity: 0.4,
+                            x: '-35px',
+                            y: '-15px',
+                        })}
                         href={`#${Constants[lang].PATHS.projects}`}
                         onClick={e => onChangePage(e, 'projects')}
+                        active={current === 'projects'}
                     >
                         {Constants[lang].PATHS.projects}
                     </Link>
                 </ListElement>
                 <ListElement>
                     <Link
+                        {...getMoveOnHover({
+                            sensitivity: 0.4,
+                            x: '-35px',
+                            y: '-15px',
+                        })}
                         href={`#${Constants[lang].PATHS.contact}`}
                         onClick={e => onChangePage(e, 'contact')}
+                        active={current === 'contact'}
                     >
                         {Constants[lang].PATHS.contact}
                     </Link>
                 </ListElement>
                 <ListElement hideMobile>
                     <Link
+                        {...getMoveOnHover({
+                            sensitivity: 0.4,
+                            x: '-35px',
+                            y: '-15px',
+                        })}
                         href="https://github.com/Hentuloo?tab=repositories"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -76,20 +101,28 @@ const Menu = ({ data, className }) => {
                     </Link>
                 </ListElement>
                 <ListElement hideMobile>
-                    <Link
-                        href={pdfEng.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        CV<span>ENG</span>
-                    </Link>
-                    <Link
-                        href={pdf.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span>|pl</span>
-                    </Link>
+                    <div>
+                        <Link
+                            {...getMoveOnHover({
+                                sensitivity: 0.4,
+                            })}
+                            href={pdfEng.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            CV<span>ENG</span>
+                        </Link>
+                        <Link
+                            {...getMoveOnHover({
+                                sensitivity: 0.4,
+                            })}
+                            href={pdf.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span>|pl</span>
+                        </Link>
+                    </div>
                 </ListElement>
             </List>
             <Wave />

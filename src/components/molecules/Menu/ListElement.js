@@ -13,14 +13,21 @@ const Wrapper = styled.li`
 
     &:last-of-type {
         @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-            display: flex !important;
+            div {
+                width: 100%;
+                height: 100%;
+                display: grid !important;
+                grid-auto-flow: column;
+                gap: 10px;
+            }
         }
         ${Link} {
             display: flex;
             justify-content: flex-end;
-
+            margin-right: 30px;
             &:nth-of-type(2) {
                 justify-content: flex-start;
+                margin-right: 0px;
             }
             &:hover span {
                 text-decoration: underline;
