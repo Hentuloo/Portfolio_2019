@@ -37,7 +37,7 @@ const Icon = styled.div`
     width: 25px;
     height: 25px;
     margin: 2px 2px;
-    cursor: pointer;
+    cursor: none;
 
     &:hover ${Description} {
         opacity: 1;
