@@ -1,7 +1,8 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
-import { useMouseEffects } from 'hooks/useMouseEffects';
+import { useSelector } from 'react-redux';
+import { useMouseEffect } from 'hooks/useMouseEffect';
 
 const atomAnimation = keyframes`
 to{
@@ -19,8 +20,14 @@ const Wrapper = styled.div`
     pointer-events: none;
     overflow: hidden;
     pointer-events: none;
+    z-index: 1;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;
+        ${({ black }) =>
+            black &&
+            css`
+                z-index: -1;
+            `}
     }
 `;
 
@@ -28,10 +35,19 @@ const CursorCircle = styled.div`
     position: absolute;
     width: 32px;
     height: 32px;
+    left: -16px;
+    top: -16px;
     border: 2px solid white;
     border-radius: 50%;
     transition: transform 0.9s ease-out;
     box-sizing: border-box;
+    will-change: transform;
+    ${({ black }) =>
+        black &&
+        css`
+            border: 2px solid transparent;
+        `}
+
     &::after {
         content: '';
         position: absolute;
@@ -53,25 +69,42 @@ const CursorPoint = styled.div`
     position: absolute;
     width: 6px;
     height: 6px;
+    left: -3px;
+    top: -3px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.redFirst};
     transition: transform 0.1s ease-out;
-    transform-origin: 100% 50%;
+    will-change: transform;
+
+    &::before {
+        content: '';
+        position: fixed;
+        width: 120px;
+        height: 120px;
+        left: -60px;
+        top: -60px;
+        border-radius: 50%;
+        background-color: black;
+        transform: scale(0.2);
+        transition: transform 0.3s linear;
+        opacity: 0;
+        ${({ black }) =>
+            black &&
+            css`
+                transform: scale(1);
+                opacity: 1;
+            `}
+    }
 `;
 
 const Cursor = () => {
-    const { getMove } = useMouseEffects();
-
+    const { getMove } = useMouseEffect();
+    const { mood } = useSelector(state => state.Cursor);
+    const isBlackMode = mood === 'black';
     return (
-        <Wrapper>
-            <CursorPoint {...getMove({ x: '-3px', y: '-3px' })} />
-            <CursorCircle {...getMove({ x: '-16px', y: '-16px' })} />
-            {/* <CursorPoint
-                style={{ transform: `translate(${x - 3}px, ${y - 3}px)` }}
-            />
-            <CursorCircle
-                style={{ transform: `translate(${x - 16}px, ${y - 16}px)` }}
-            /> */}
+        <Wrapper black={isBlackMode}>
+            <CursorPoint {...getMove()} black={isBlackMode} />
+            <CursorCircle {...getMove()} black={isBlackMode} />
         </Wrapper>
     );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
 import Constants from 'config/Constants';
 
@@ -9,72 +8,8 @@ import { changePage } from 'state/actions/activePageActions';
 import { List } from 'components/atoms';
 
 import Wave from './Wave';
-
-const Wrapper = styled.nav`
-    position: relative;
-    position: fixed;
-    width: 100vw;
-    height: 63px;
-    bottom: 0%;
-    left: 0%;
-    z-index: 14;
-    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        width: 160px;
-        height: 83vh;
-        bottom: auto;
-        top: 50%;
-        transform: translateY(-50%);
-        margin-left: 9px;
-    }
-`;
-const Link = styled.a`
-    display: grid;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 10px;
-    justify-items: center;
-    align-items: center;
-    text-decoration: none;
-    color: ${({ theme }) => theme.black};
-    z-index: 15;
-    background-color: ${({ theme }) => theme.redThird};
-    cursor: none;
-    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        background-color: transparent;
-    }
-`;
-const ListElement = styled.li`
-    &:last-of-type {
-        @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-            display: flex !important;
-        }
-        ${Link} {
-            display: flex;
-            justify-content: flex-end;
-
-            &:nth-of-type(2) {
-                justify-content: flex-start;
-            }
-            &:hover span {
-                text-decoration: underline;
-            }
-        }
-
-        span {
-            padding-top: 9px;
-            font-size: ${({ theme }) => theme.font.mini};
-        }
-    }
-
-    ${({ hideMobile }) =>
-        hideMobile &&
-        css`
-            display: none !important;
-            @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-                display: grid !important;
-            }
-        `}
-`;
+import ListElement from './ListElement';
+import { Link, Wrapper } from './styles';
 
 const Menu = ({ data, className }) => {
     const dispatch = useDispatch();
@@ -89,7 +24,6 @@ const Menu = ({ data, className }) => {
 
     const onChangePage = (e, pageName) => {
         e.preventDefault();
-        console.log(e);
         if (pageName === current) return;
         window.scrollTo(0, 0);
         window.history.pushState(
