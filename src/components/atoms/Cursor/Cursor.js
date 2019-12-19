@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { useMousePosition } from 'hooks/useMousePosition';
+import { useMouseEffects } from 'hooks/useMouseEffects';
 
 const atomAnimation = keyframes`
 to{
@@ -60,16 +60,18 @@ const CursorPoint = styled.div`
 `;
 
 const Cursor = () => {
-    const { x, y } = useMousePosition();
+    const { getMove } = useMouseEffects();
 
     return (
         <Wrapper>
-            <CursorPoint
+            <CursorPoint {...getMove({ x: '-3px', y: '-3px' })} />
+            <CursorCircle {...getMove({ x: '-16px', y: '-16px' })} />
+            {/* <CursorPoint
                 style={{ transform: `translate(${x - 3}px, ${y - 3}px)` }}
             />
             <CursorCircle
                 style={{ transform: `translate(${x - 16}px, ${y - 16}px)` }}
-            />
+            /> */}
         </Wrapper>
     );
 };

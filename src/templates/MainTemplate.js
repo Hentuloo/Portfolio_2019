@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
 import { useSelector } from 'react-redux';
-
+import WithCursorProvider from 'hoc/WithCursorProvider';
 import {
     AnimatedBoxs,
     LanguageButtons,
@@ -52,29 +52,30 @@ const ContentWrapper = styled.div`
 
 const MainTemplate = ({ children }) => {
     const { current } = useSelector(state => state.ActivePage);
-
     const phrase = current === 'portfolio' ? 'Hello' : '<.../>';
 
     return (
-        <>
-            <BeforeGridBlocks>
-                <PhraseBlindsEffect as="h1">
-                    <span>Kamil</span>
-                    <span>Chędkowski</span>
-                </PhraseBlindsEffect>
-            </BeforeGridBlocks>
-            <BlockWithDelayOpacity>
-                <AnimatedBoxs />
-                <LanguageButtons />
-                <ContentWrapper>
-                    <Menu />
-                    <Content>{children}</Content>
-                </ContentWrapper>
-            </BlockWithDelayOpacity>
-            <BackgroundPhrase phrase={phrase} />
-            <GridBlocksAnimation />
-            <Cursor />
-        </>
+        <WithCursorProvider>
+            <>
+                <BeforeGridBlocks>
+                    <PhraseBlindsEffect as="h1">
+                        <span>Kamil</span>
+                        <span>Chędkowski</span>
+                    </PhraseBlindsEffect>
+                </BeforeGridBlocks>
+                <BlockWithDelayOpacity>
+                    <AnimatedBoxs />
+                    <LanguageButtons />
+                    <ContentWrapper>
+                        <Menu />
+                        <Content>{children}</Content>
+                    </ContentWrapper>
+                </BlockWithDelayOpacity>
+                <BackgroundPhrase phrase={phrase} />
+                <GridBlocksAnimation />
+                <Cursor />
+            </>
+        </WithCursorProvider>
     );
 };
 
