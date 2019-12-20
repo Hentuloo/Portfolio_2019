@@ -14,6 +14,9 @@ const Link = styled.a`
     background-color: ${({ theme }) => theme.redThird};
     cursor: none;
     transition: transform 0.3s ease-out;
+    @media (max-width: ${({ theme }) => theme.breakPointMobile}) {
+        transform: translate(0px, 0px) !important;
+    }
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         background-color: transparent;
         ${({ active }) =>
