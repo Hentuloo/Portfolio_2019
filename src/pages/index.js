@@ -7,7 +7,7 @@ import MainTemplate from 'templates/MainTemplate';
 import SEO from 'components/organisms/SEO';
 import LoadFonts from 'components/LoadFonts';
 
-import SwitchViews from 'views/SwitchViews';
+import SwitchTemplates from 'templates/SwitchTemplates';
 
 const App = () => {
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -25,7 +25,7 @@ const App = () => {
                 <GlobalStyle />
                 {fontsLoaded && (
                     <MainTemplate>
-                        <SwitchViews />
+                        <SwitchTemplates />
                     </MainTemplate>
                 )}
             </ThemeProvider>

@@ -37,7 +37,7 @@ const PageWrapper = styled.div`
         `}
 `;
 
-const SwitchViews = () => {
+const SwitchTemplates = () => {
     const {
         ActivePage: { current },
         lang,
@@ -76,4 +76,4 @@ const SwitchViews = () => {
     );
 };
 
-export default SwitchViews;
+export default SwitchTemplates;

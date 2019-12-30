@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
 import Constants from 'config/Constants';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,11 +7,12 @@ import { changePage } from 'state/actions/activePageActions';
 import { List } from 'components/atoms';
 
 import { useMouseEffect } from 'hooks/useMouseEffect';
+import { usePdfLinks } from 'api/getPdf.js';
 import Wave from './Wave';
 import ListElement from './ListElement';
 import { Link, Wrapper } from './styles';
 
-const Menu = ({ data, className }) => {
+const Menu = ({ className }) => {
     const dispatch = useDispatch();
     const { getMoveOnHover } = useMouseEffect();
 
@@ -36,21 +36,21 @@ const Menu = ({ data, className }) => {
         dispatch(changePage(pageName));
     };
 
-    const {
-        portfolio: { mainPages },
-    } = data;
-    const { pdf, pdfEng } = mainPages[0];
+    const { pdf, pdfEng } = usePdfLinks();
+
+    const LinkWithMoveHover = () =>
+        getMoveOnHover({
+            sensitivity: 0.4,
+            x: '-35px',
+            y: '-15px',
+        });
 
     return (
         <Wrapper>
             <List className={className} currentPage={current}>
                 <ListElement>
                     <Link
-                        {...getMoveOnHover({
-                            sensitivity: 0.4,
-                            x: '-35px',
-                            y: '-15px',
-                        })}
+                        {...LinkWithMoveHover()}
                         href={`#${Constants[lang].PATHS.portfolio}`}
                         onClick={e => onChangePage(e, 'portfolio')}
                         active={current === 'portfolio'}
@@ -60,11 +60,7 @@ const Menu = ({ data, className }) => {
                 </ListElement>
                 <ListElement>
                     <Link
-                        {...getMoveOnHover({
-                            sensitivity: 0.4,
-                            x: '-35px',
-                            y: '-15px',
-                        })}
+                        {...LinkWithMoveHover()}
                         href={`#${Constants[lang].PATHS.projects}`}
                         onClick={e => onChangePage(e, 'projects')}
                         active={current === 'projects'}
@@ -74,11 +70,7 @@ const Menu = ({ data, className }) => {
                 </ListElement>
                 <ListElement>
                     <Link
-                        {...getMoveOnHover({
-                            sensitivity: 0.4,
-                            x: '-35px',
-                            y: '-15px',
-                        })}
+                        {...LinkWithMoveHover()}
                         href={`#${Constants[lang].PATHS.contact}`}
                         onClick={e => onChangePage(e, 'contact')}
                         active={current === 'contact'}
@@ -88,11 +80,7 @@ const Menu = ({ data, className }) => {
                 </ListElement>
                 <ListElement hideMobile>
                     <Link
-                        {...getMoveOnHover({
-                            sensitivity: 0.4,
-                            x: '-35px',
-                            y: '-15px',
-                        })}
+                        {...LinkWithMoveHover()}
                         href="https://github.com/Hentuloo?tab=repositories"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -138,30 +126,4 @@ Menu.defaultProps = {
     className: '',
 };
 
-const withStaticQuery = Component => {
-    return function componentWithQuery(...props) {
-        return (
-            <StaticQuery
-                query={graphql`
-                    {
-                        portfolio {
-                            mainPages {
-                                pdf {
-                                    url
-                                }
-                                pdfEng {
-                                    url
-                                }
-                            }
-                        }
-                    }
-                `}
-                render={data => {
-                    return <Component {...props[0]} data={data} />;
-                }}
-            />
-        );
-    };
-};
-
-export default withStaticQuery(Menu);
+export default Menu;
