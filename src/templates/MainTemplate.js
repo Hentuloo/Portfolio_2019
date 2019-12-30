@@ -4,16 +4,16 @@ import styled, { keyframes } from 'styled-components';
 
 import { useSelector } from 'react-redux';
 import WithCursorProvider from 'hoc/WithCursorProvider';
+
+import { PhraseBlindsEffect, BackgroundPhrase } from 'components/atoms';
 import {
     AnimatedBoxs,
     LanguageButtons,
-    PhraseBlindsEffect,
-    BackgroundPhrase,
     GridBlocksAnimation,
     Cursor,
-} from 'components/atoms';
+} from 'components/molecules';
 
-import { Menu } from 'components/molecules';
+import { Menu } from 'components/organisms';
 
 const show = keyframes`
 100%{

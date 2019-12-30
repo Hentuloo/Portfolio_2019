@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import GraphImg from 'graphcms-image';
 
 import { PhraseBlindsEffect } from 'components/atoms';
-import { Markdown } from 'components/molecules';
+import { Markdown } from 'components/organisms';
 import Constants from 'config/Constants';
 
 const imageAnimation = keyframes`
