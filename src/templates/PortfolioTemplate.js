@@ -129,10 +129,10 @@ const Portfolio = ({ content, photo, className }) => {
 
     const {
         ActivePage: { current, previous },
-        Lang: { lang },
-    } = useSelector(state => ({
-        ActivePage: state.ActivePage,
-        Lang: state.Lang,
+        lang,
+    } = useSelector(({ ActivePage, language }) => ({
+        ActivePage,
+        lang: language,
     }));
 
     const { email, headLine } = Constants[lang].CONTENT;

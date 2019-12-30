@@ -1,13 +1,9 @@
 import { langActions } from 'state/actions/langActions';
 
-const initState = {
-    lang: 'pl',
-};
-
-export default (state = initState, action) => {
+export default (state = 'pl', action) => {
     switch (action.type) {
         case langActions.CHANGE_LANG:
-            return { ...state, lang: action.payload };
+            return action.payload;
         default:
             return state;
     }

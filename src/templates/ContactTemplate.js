@@ -121,7 +121,7 @@ const Wrapper = styled.section`
 `;
 
 const ContactTemplate = () => {
-    const { lang } = useSelector(state => state.Lang);
+    const lang = useSelector(({ language }) => language);
     const [sendedWithSuccess, setSendedWithSuccess] = useState(false);
     const [isValid, setValid] = useState(false);
 

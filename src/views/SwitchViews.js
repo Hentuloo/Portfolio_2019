@@ -40,10 +40,10 @@ const PageWrapper = styled.div`
 const SwitchViews = () => {
     const {
         ActivePage: { current },
-        Lang: { lang },
-    } = useSelector(state => ({
-        ActivePage: state.ActivePage,
-        Lang: state.Lang,
+        lang,
+    } = useSelector(({ ActivePage, language }) => ({
+        ActivePage,
+        lang: language,
     }));
 
     const {

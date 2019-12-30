@@ -18,10 +18,10 @@ const Menu = ({ data, className }) => {
 
     const {
         ActivePage: { current },
-        Lang: { lang },
-    } = useSelector(state => ({
-        ActivePage: state.ActivePage,
-        Lang: state.Lang,
+        lang,
+    } = useSelector(({ ActivePage, language }) => ({
+        lang: language,
+        ActivePage,
     }));
 
     const onChangePage = (e, pageName) => {

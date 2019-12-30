@@ -70,11 +70,11 @@ const Wrapper = styled.div`
 const LanguageButtons = () => {
     const dispatch = useDispatch();
     const {
-        Lang: { lang: currentLang },
+        lang: currentLang,
         ActivePage: { current },
-    } = useSelector(state => ({
-        Lang: state.Lang,
-        ActivePage: state.ActivePage,
+    } = useSelector(({ ActivePage, language }) => ({
+        lang: language,
+        ActivePage,
     }));
 
     const handleChangeLanguage = lang => {

@@ -137,7 +137,7 @@ const CursorPoint = styled.div`
 
 const Cursor = () => {
     const { getMove } = useMouseEffect();
-    const { mood } = useSelector(state => state.Cursor);
+    const mood = useSelector(({ cursor }) => cursor);
     const isBlackMode = mood === 'black';
     const isFocusMode = mood === 'focus';
     return (

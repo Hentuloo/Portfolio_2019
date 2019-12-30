@@ -1,13 +1,9 @@
 import { cursorActions } from 'state/actions/cursorActions';
 
-const initState = {
-    mood: 'normal',
-};
-
-export default (state = initState, action) => {
+export default (state = 'normal', action) => {
     switch (action.type) {
         case cursorActions.CHANGE_MOOD:
-            return { ...state, mood: action.payload };
+            return action.payload;
         default:
             return state;
     }
