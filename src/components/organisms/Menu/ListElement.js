@@ -5,6 +5,11 @@ import { useMouseMood } from 'hooks/useMouseMood';
 import Link from './styles/Link';
 
 const Wrapper = styled.li`
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
     &:hover {
         ${Link} {
             color: white;
