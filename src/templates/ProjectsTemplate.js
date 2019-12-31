@@ -58,7 +58,6 @@ const ProjectsWrapper = styled.div`
     max-width: 370px;
     margin: 0px auto 150px;
     padding: 0px 20px;
-    overflow: hidden;
     opacity: 0;
     animation: ${opacity} 0.1s 1s linear forwards;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
@@ -74,12 +73,14 @@ const ProjectsWrapper = styled.div`
 const Wrapper = styled.div`
     width: 100%;
     min-height: 110vh;
+    height: 100%;
+    padding-bottom: 100px;
     margin: 30px auto 0px auto;
 `;
 
-const Projects = ({ projects, markdownContent, className }) => {
+const Projects = ({ projects, markdownContent }) => {
     return (
-        <Wrapper className={className}>
+        <Wrapper>
             <MarkdownWrapper>
                 <Markdown markdown={markdownContent} />
             </MarkdownWrapper>
@@ -96,12 +97,8 @@ const Projects = ({ projects, markdownContent, className }) => {
 };
 
 Projects.propTypes = {
-    className: PropTypes.string,
     markdownContent: PropTypes.string.isRequired,
     projects: PropTypes.arrayOf(Object).isRequired,
-};
-Projects.defaultProps = {
-    className: '',
 };
 
 export default Projects;

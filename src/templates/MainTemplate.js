@@ -41,7 +41,9 @@ const BlockWithDelayOpacity = styled.div`
 `;
 
 const Content = styled.div`
-    flex-grow: 1;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        flex-grow: 1;
+    }
 `;
 const ContentWrapper = styled.div`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {

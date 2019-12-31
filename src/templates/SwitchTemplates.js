@@ -12,7 +12,10 @@ import ProjectsTemplate from 'templates/ProjectsTemplate';
 import { getDataByLanguage } from 'config/utils';
 
 const opacity = keyframes`
-to{
+0%{
+    opacity:0;
+}
+100%{
     opacity:1;
 }
 `;
@@ -33,7 +36,8 @@ const PageWrapper = styled.div`
         active &&
         css`
             animation: ${opacity} 0.1s
-                ${`${Constants.GENERAL.changePageDelay}s`} linear forwards;
+                ${`${Constants.GENERAL.changePageDelay}s`} linear backwards;
+            opacity: 1;
         `}
 `;
 
