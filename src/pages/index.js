@@ -8,6 +8,7 @@ import SEO from 'components/organisms/SEO';
 import LoadFonts from 'components/LoadFonts';
 
 import SwitchTemplates from 'templates/SwitchTemplates';
+import { Spiner, WhiteSpiner, BackgroundPhrase } from 'components/atoms';
 
 const App = () => {
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -23,10 +24,15 @@ const App = () => {
             <SEO />
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                {fontsLoaded && (
+                {fontsLoaded ? (
                     <MainTemplate>
                         <SwitchTemplates />
                     </MainTemplate>
+                ) : (
+                    <BackgroundPhrase
+                        white={<WhiteSpiner />}
+                        gray={<Spiner />}
+                    />
                 )}
             </ThemeProvider>
         </>

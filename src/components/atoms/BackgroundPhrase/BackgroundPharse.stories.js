@@ -1,25 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 
-import Square from './Square';
-import SquarePhrase from './SquarePhrase';
+import {
+    SquareWrapper,
+    SquareItem,
+    SquareCenterContent,
+} from './SquareWithPhrase';
+import { ShadowPhraseWrapper, ShadowPhraseItem } from './ShadowWithPhrase';
+
 import BackgroundPharse from './index';
-import ShadowPhrase from './ShadowPhrase';
 
-const StyledSquarePhrase = styled(Square)`
-    ${SquarePhrase}
-`;
-const StyledShadowPhrase = styled.div`
-    ${ShadowPhrase}
-`;
-
-storiesOf('atoms/BackgroundPharse', module)
-    .add('compile', () => <BackgroundPharse phrase="HELLO" />)
-    .add('block', () => <Square />)
+storiesOf('atoms/BackgroundPhrase', module)
+    .add('compile', () => <BackgroundPharse>Hell</BackgroundPharse>)
+    .add('block', () => <SquareWrapper />)
     .add('Square with phrase', () => (
-        <StyledSquarePhrase phrase="HELLO"></StyledSquarePhrase>
+        <SquareWrapper>
+            <SquareCenterContent>
+                <SquareItem>Eldi</SquareItem>
+            </SquareCenterContent>
+        </SquareWrapper>
     ))
     .add('gray pharse', () => (
-        <StyledShadowPhrase phrase="HELLO"></StyledShadowPhrase>
+        <ShadowPhraseWrapper phrase="HELLO">
+            <ShadowPhraseItem>Siem</ShadowPhraseItem>
+        </ShadowPhraseWrapper>
     ));

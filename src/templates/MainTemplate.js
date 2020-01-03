@@ -5,7 +5,12 @@ import styled, { keyframes } from 'styled-components';
 import { useSelector } from 'react-redux';
 import WithCursorProvider from 'hoc/WithCursorProvider';
 
-import { PhraseBlindsEffect, BackgroundPhrase } from 'components/atoms';
+import {
+    PhraseBlindsEffect,
+    BackgroundPhrase,
+    Spiner,
+    WhiteSpiner,
+} from 'components/atoms';
 import {
     AnimatedBoxs,
     LanguageButtons,
@@ -54,7 +59,6 @@ const ContentWrapper = styled.div`
 
 const MainTemplate = ({ children }) => {
     const { current } = useSelector(state => state.ActivePage);
-    const phrase = current === 'portfolio' ? 'Hello' : '<.../>';
 
     return (
         <WithCursorProvider>
@@ -73,7 +77,15 @@ const MainTemplate = ({ children }) => {
                         <Content>{children}</Content>
                     </ContentWrapper>
                 </BlockWithDelayOpacity>
-                <BackgroundPhrase phrase={phrase} />
+                {current === 'portfolio' ? (
+                    <BackgroundPhrase>Hello</BackgroundPhrase>
+                ) : (
+                    <BackgroundPhrase
+                        white={<WhiteSpiner />}
+                        gray={<Spiner />}
+                    />
+                )}
+
                 <GridBlocksAnimation />
                 <Cursor />
             </>

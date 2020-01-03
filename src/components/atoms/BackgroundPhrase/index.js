@@ -1,33 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import Square from './Square';
-import SquarePhrase from './SquarePhrase';
-import ShadowPhrase from './ShadowPhrase';
+import SquareWithPhrase from './SquareWithPhrase';
+import ShadowWithPhrase from './ShadowWithPhrase';
 
-const StyledSquarePhrase = styled(Square)`
-    ${SquarePhrase}
-`;
-const StyledShadowPhrase = styled.div`
-    ${ShadowPhrase}
-`;
-
-const BackgroundPhrase = ({ phrase }) => {
+const BackgroundPhrase = ({ children, white, gray }) => {
     return (
-        <>
-            <StyledShadowPhrase phrase={phrase} />
-            <StyledSquarePhrase phrase={phrase}></StyledSquarePhrase>
-        </>
+        <div role="presentation">
+            <ShadowWithPhrase>{children || gray}</ShadowWithPhrase>
+            <SquareWithPhrase>{children || white}</SquareWithPhrase>
+        </div>
     );
 };
 
 BackgroundPhrase.propTypes = {
-    phrase: PropTypes.string,
+    children: PropTypes.node,
+    white: PropTypes.node,
+    gray: PropTypes.node,
 };
-
 BackgroundPhrase.defaultProps = {
-    phrase: null,
+    children: null,
+    white: null,
+    gray: null,
 };
 
 export default BackgroundPhrase;

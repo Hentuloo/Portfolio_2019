@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-const ShadowPhrase = css`
+export const Centered = css`
     position: fixed;
     display: grid;
     width: 100vw;
@@ -21,11 +21,4 @@ const ShadowPhrase = css`
         padding-right: 100px;
         font-size: 25rem;
     }
-    &::after {
-        content: ${({ phrase }) => (phrase ? `'${phrase}'` : 'Hello')};
-        color: rgb(225, 224, 224);
-        z-index: -10;
-    }
 `;
-
-export default ShadowPhrase;
