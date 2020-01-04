@@ -6,9 +6,11 @@ export const useMouseEffect = () => {
         position: { x, y },
     } = useContext(CursorPosition);
 
-    const getMove = (props = {}) => {
-        const xPosition = `calc(${x}px + ${props.x || '0px'} )`;
-        const yPosition = `calc(${y}px + ${props.y || '0px'} )`;
+    const getMove = (props = { sensitivity: 1, styles: {} }) => {
+        const xPosition = `calc(${x * props.sensitivity}px + ${props.x ||
+            '0px'} )`;
+        const yPosition = `calc(${y * props.sensitivity}px + ${props.y ||
+            '0px'} )`;
 
         const scaleX =
             props.scaleX !== undefined ? `scaleX(${props.scaleX || 1})` : '';
@@ -20,6 +22,7 @@ export const useMouseEffect = () => {
         return {
             style: {
                 transform: `translate(${xPosition} , ${yPosition}) ${scale} ${scaleX} ${scaleY}`,
+                ...props.styles,
             },
         };
     };

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import WithCursorProvider from 'hoc/WithCursorProvider';
 
 import {
     PhraseBlindsEffect,
@@ -18,6 +17,7 @@ import {
     Cursor,
 } from 'components/molecules';
 
+import { useMouseEffect } from 'hooks/useMouseEffect';
 import { Menu } from 'components/organisms';
 
 const show = keyframes`
@@ -60,36 +60,45 @@ const ContentWrapper = styled.div`
 const MainTemplate = ({ children }) => {
     const { current } = useSelector(state => state.ActivePage);
 
+    const { getMove } = useMouseEffect();
     return (
-        <WithCursorProvider>
-            <>
-                <BeforeGridBlocks>
-                    <PhraseBlindsEffect as="h1">
-                        <span>Kamil</span>
-                        <span>Chędkowski</span>
-                    </PhraseBlindsEffect>
-                </BeforeGridBlocks>
-                <BlockWithDelayOpacity>
-                    <AnimatedBoxs />
-                    <LanguageButtons />
-                    <ContentWrapper>
-                        <Menu />
-                        <Content>{children}</Content>
-                    </ContentWrapper>
-                </BlockWithDelayOpacity>
-                {current === 'portfolio' ? (
-                    <BackgroundPhrase>Hello</BackgroundPhrase>
-                ) : (
-                    <BackgroundPhrase
-                        white={<WhiteSpiner />}
-                        gray={<Spiner />}
-                    />
-                )}
+        <>
+            <BeforeGridBlocks>
+                <PhraseBlindsEffect as="h1">
+                    <span>Kamil</span>
+                    <span>Chędkowski</span>
+                </PhraseBlindsEffect>
+            </BeforeGridBlocks>
+            <BlockWithDelayOpacity>
+                <AnimatedBoxs />
+                <LanguageButtons />
+                <ContentWrapper>
+                    <Menu />
+                    <Content>{children}</Content>
+                </ContentWrapper>
+            </BlockWithDelayOpacity>
+            {current === 'portfolio' ? (
+                <BackgroundPhrase>Hello</BackgroundPhrase>
+            ) : (
+                <BackgroundPhrase
+                    itemAttr={{
+                        ...getMove({
+                            sensitivity: -0.1,
+                            x: '40px',
+                            y: '40px',
+                            styles: {
+                                transition: 'translate 0.6s ease-out',
+                            },
+                        }),
+                    }}
+                    white={<WhiteSpiner />}
+                    gray={<Spiner />}
+                />
+            )}
 
-                <GridBlocksAnimation />
-                <Cursor />
-            </>
-        </WithCursorProvider>
+            <GridBlocksAnimation />
+            <Cursor />
+        </>
     );
 };
 
