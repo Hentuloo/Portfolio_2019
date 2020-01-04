@@ -8,10 +8,10 @@ import {
 } from './SquareWithPhrase';
 import { ShadowPhraseWrapper, ShadowPhraseItem } from './ShadowWithPhrase';
 
-import BackgroundPharse from './index';
+import BackgroundView from './index';
 
-storiesOf('atoms/BackgroundPhrase', module)
-    .add('compile', () => <BackgroundPharse>Hell</BackgroundPharse>)
+storiesOf('atoms/BackgroundView', module)
+    .add('compile', () => <BackgroundView>Hell</BackgroundView>)
     .add('block', () => <SquareWrapper />)
     .add('Square with phrase', () => (
         <SquareWrapper>

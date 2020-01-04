@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SquareWithPhrase from './SquareWithPhrase';
 import ShadowWithPhrase from './ShadowWithPhrase';
 
-const BackgroundPhrase = ({ children, white, gray, wrapperAttr, itemAttr }) => {
+const BackgroundView = ({ children, white, gray, wrapperAttr, itemAttr }) => {
     return (
         <div role="presentation" {...wrapperAttr}>
             <ShadowWithPhrase>
@@ -17,14 +17,14 @@ const BackgroundPhrase = ({ children, white, gray, wrapperAttr, itemAttr }) => {
     );
 };
 
-BackgroundPhrase.propTypes = {
+BackgroundView.propTypes = {
     children: PropTypes.node,
     white: PropTypes.node,
     gray: PropTypes.node,
     wrapperAttr: PropTypes.objectOf(PropTypes.object),
     itemAttr: PropTypes.objectOf(PropTypes.object),
 };
-BackgroundPhrase.defaultProps = {
+BackgroundView.defaultProps = {
     children: null,
     white: null,
     gray: null,
@@ -32,4 +32,4 @@ BackgroundPhrase.defaultProps = {
     itemAttr: {},
 };
 
-export default BackgroundPhrase;
+export default BackgroundView;

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import {
     PhraseBlindsEffect,
-    BackgroundPhrase,
+    BackgroundView,
     Spiner,
     WhiteSpiner,
 } from 'components/atoms';
@@ -78,9 +78,9 @@ const MainTemplate = ({ children }) => {
                 </ContentWrapper>
             </BlockWithDelayOpacity>
             {current === 'portfolio' ? (
-                <BackgroundPhrase>Hello</BackgroundPhrase>
+                <BackgroundView>Hello</BackgroundView>
             ) : (
-                <BackgroundPhrase
+                <BackgroundView
                     itemAttr={{
                         ...getMove({
                             sensitivity: -0.1,

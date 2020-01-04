@@ -8,7 +8,7 @@ import SEO from 'components/organisms/SEO';
 import LoadFonts from 'components/LoadFonts';
 
 import SwitchTemplates from 'templates/SwitchTemplates';
-import { Spiner, WhiteSpiner, BackgroundPhrase } from 'components/atoms';
+import { Spiner, WhiteSpiner, BackgroundView } from 'components/atoms';
 
 import WithCursorProvider from 'hoc/WithCursorProvider';
 
@@ -32,7 +32,7 @@ const App = () => {
                             <SwitchTemplates />
                         </MainTemplate>
                     ) : (
-                        <BackgroundPhrase
+                        <BackgroundView
                             white={<WhiteSpiner />}
                             gray={<Spiner />}
                         />
