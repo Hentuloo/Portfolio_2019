@@ -9,6 +9,7 @@ import LoadFonts from 'components/LoadFonts';
 
 import SwitchTemplates from 'templates/SwitchTemplates';
 import { Spiner, WhiteSpiner, BackgroundView } from 'components/atoms';
+import { Cursor } from 'components/molecules';
 
 import WithCursorProvider from 'hoc/WithCursorProvider';
 
@@ -37,6 +38,7 @@ const App = () => {
                             gray={<Spiner />}
                         />
                     )}
+                    <Cursor />
                 </WithCursorProvider>
             </ThemeProvider>
         </>

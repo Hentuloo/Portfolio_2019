@@ -8,9 +8,9 @@ import { List } from 'components/atoms';
 
 import { useMouseEffect } from 'hooks/useMouseEffect';
 import { usePdfLinks } from 'api/getPdf.js';
-import Wave from './Wave';
+import wave from 'images/MenuWave.svg';
 import ListElement from './ListElement';
-import { Link, Wrapper } from './styles';
+import { Link, Wrapper, WaveImage } from './styles';
 
 const Menu = ({ className }) => {
     const dispatch = useDispatch();
@@ -112,8 +112,8 @@ const Menu = ({ className }) => {
                         </Link>
                     </div>
                 </ListElement>
+                <WaveImage src={wave}></WaveImage>
             </List>
-            <Wave />
         </Wrapper>
     );
 };

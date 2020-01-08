@@ -14,7 +14,6 @@ import {
     AnimatedBoxs,
     LanguageButtons,
     GridBlocksAnimation,
-    Cursor,
 } from 'components/molecules';
 
 import { useMouseEffect } from 'hooks/useMouseEffect';
@@ -95,9 +94,7 @@ const MainTemplate = ({ children }) => {
                     gray={<Spiner />}
                 />
             )}
-
             <GridBlocksAnimation />
-            <Cursor />
         </>
     );
 };
