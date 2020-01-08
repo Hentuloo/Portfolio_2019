@@ -15,7 +15,7 @@ export default {
         FORM: {
             formAction: '/en/#contact-success',
             messageCorrectEmailSend: 'The message was sent successfully',
-            textAreaPlaceholder: 'Message content',
+            textAreaPlaceholder: 'Message:',
             emailPlaceholder: 'Email:',
             namePlaceholder: 'Name:',
             submitTitle: 'Send!',
@@ -40,7 +40,7 @@ export default {
         FORM: {
             formAction: '/pl/#kontakt-success',
             messageCorrectEmailSend: 'Wiadomość została wysłana poprawnie',
-            textAreaPlaceholder: 'Treść wiadomości',
+            textAreaPlaceholder: 'Wiadomości:',
             emailPlaceholder: 'Email:',
             namePlaceholder: 'Imie:',
             submitTitle: 'Wyślij!',

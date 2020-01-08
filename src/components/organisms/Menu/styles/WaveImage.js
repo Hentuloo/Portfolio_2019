@@ -4,6 +4,7 @@ const WaveImage = styled.img`
     position: fixed;
     bottom: 60px;
     width: 100%;
+    pointer-events: none;
     @media screen and (orientation: landscape) {
         width: 140%;
         transform: translate(-13%, 6px);

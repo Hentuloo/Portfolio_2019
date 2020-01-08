@@ -112,7 +112,7 @@ const Menu = ({ className }) => {
                         </Link>
                     </div>
                 </ListElement>
-                <WaveImage src={wave}></WaveImage>
+                <WaveImage src={wave} role="presentation"></WaveImage>
             </List>
         </Wrapper>
     );

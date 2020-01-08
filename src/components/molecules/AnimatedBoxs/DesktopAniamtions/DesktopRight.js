@@ -42,12 +42,12 @@ transform: scale(1,1) translate(0%, 0%);
    transform: scale(1,0.27) translate(-38%,  -36vh);
 }
 100%{
- transform: scale(3,0.27) translate(-38%, -36vh);
+ transform: scale(2.9,0.23) translate(-38%, -45vh);
 }
 `;
 const contactPortfolio = keyframes`
 0%{
-  transform: scale(3,0.27) translate(-38%, -36vh);
+  transform: scale(2.9,0.23) translate(-38%, -45vh);
 
 }
 50%{
@@ -62,7 +62,7 @@ const contactPortfolio = keyframes`
 `;
 const contactProjects = keyframes`
 0%{
-   transform: scale(3,0.27) translate(-38%, -36vh);
+   transform: scale(2.9,0.23) translate(-38%, -45vh);
 }
 50%{
    transform:scale(2.8,0.27) translate(-6vw, -36vh);
@@ -85,7 +85,7 @@ const projectsContact = keyframes`
    transform: scale(2.8,0.27) translate(-6vw, -36vh);
 }
 100%{
-   transform: scale(3,0.27) translate(-38%, -36vh);
+   transform: scale(2.9,0.23) translate(-38%, -45vh);
 }
 `;
 
@@ -97,7 +97,7 @@ const DesktopRight = css`
         transform: scale(2.8, 0.5) translate(-6vw, -50%);
     }
     &.prev-contact.curr-contact {
-        transform: scale(3.3, 0.27) translate(-38%, -36vh);
+        transform: scale(3.3, 0.27) translate(-38%, -45vh);
     }
 
     &.prev-portfolio.curr-projects {

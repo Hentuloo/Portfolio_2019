@@ -1,17 +1,19 @@
 import styled, { css } from 'styled-components';
 
 export const general = css`
+    position: relative;
     width: 100%;
     height: 8vh;
     min-height: 40px;
-    padding: 10px 10px 6px;
+    padding: 10px 10px 6px 18px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: ${({ theme }) => theme.font.m};
     font-family: ${({ theme }) => theme.font.first};
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
         opacity 0.1s ease-in-out;
     cursor: none;
+    z-index: 3;
     opacity: 0.9;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         padding: 10px 10px;

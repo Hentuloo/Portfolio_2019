@@ -2,10 +2,17 @@ import React, { useReducer, useState } from 'react';
 import validator from 'validator';
 
 import { useSelector } from 'react-redux';
+import { useMouseEffect } from 'hooks/useMouseEffect';
 
 import Constants from 'config/Constants';
 import { encode } from 'config/utils';
 import { PrefixNote } from 'components/atoms';
+
+import letterLarge from 'images/lettersSvg/letterLarge.svg';
+import letterFirst from 'images/lettersSvg/letterFirst.svg';
+import letterSecond from 'images/lettersSvg/letterSecond.svg';
+import letterValidFalse from 'images/lettersSvg/letterValidFalse.svg';
+import letterValidTrue from 'images/lettersSvg/letterValidTrue.svg';
 import {
     InputWrapper,
     InputSubmit,
@@ -14,8 +21,8 @@ import {
     InputName,
     Form,
     Wrapper,
+    LetterIcon,
 } from './styles';
-
 import SubmittedForm from './SubmittedForm';
 
 const ContactTemplate = () => {
@@ -35,6 +42,7 @@ const ContactTemplate = () => {
         },
     );
 
+    const { getMove, getMoveOnHover } = useMouseEffect();
     const handleChange = e => {
         const { name: inputName, value } = e.target;
 
@@ -111,6 +119,21 @@ const ContactTemplate = () => {
                         onChange={handleChange}
                     />
                     <PrefixNote>{validatorName}</PrefixNote>
+                    <LetterIcon
+                        className="large"
+                        src={letterLarge}
+                        alt="ikona listu"
+                        {...getMove({
+                            sensitivity: 0.03,
+                            x: '-10px',
+                            y: '-10px',
+                        })}
+                    />
+                    <LetterIcon
+                        className="first"
+                        src={letterFirst}
+                        alt="ikona listu"
+                    />
                 </InputWrapper>
                 <InputWrapper>
                     <InputEmail
@@ -134,11 +157,26 @@ const ContactTemplate = () => {
                         onChange={handleChange}
                     />
                     <PrefixNote>{validatorTextArea}</PrefixNote>
+                    <LetterIcon
+                        className="second"
+                        src={letterSecond}
+                        alt="ikona listu"
+                    />
                 </InputWrapper>
                 <InputSubmit
-                    disabled={!isValid}
+                    isValid={isValid}
                     type="submit"
                     value={submitTitle}
+                />
+                <LetterIcon
+                    className="valid"
+                    src={isValid ? letterValidTrue : letterValidFalse}
+                    alt="ikona listu"
+                    {...getMoveOnHover({
+                        sensitivity: 0.6,
+                        x: '-30px',
+                        y: '-30px',
+                    })}
                 />
             </Form>
         </Wrapper>
