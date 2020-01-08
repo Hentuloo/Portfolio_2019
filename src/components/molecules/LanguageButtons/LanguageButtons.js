@@ -16,7 +16,7 @@ const Button = styled.button`
     font-size: ${({ theme }) => theme.font.xs};
     font-weight: ${({ theme }) => theme.font.bold};
     background-color: ${({ theme }) => theme.graySecond};
-    cursor: pointer;
+    cursor: none;
     &:hover {
         background-color: ${({ theme }) => theme.grayThird};
     }
