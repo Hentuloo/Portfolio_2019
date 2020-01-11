@@ -3,15 +3,13 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
-import MainTemplate from 'templates/MainTemplate';
+import MainTemplate from 'templates/MainTemplate/index';
 import SEO from 'components/organisms/SEO';
 import LoadFonts from 'components/LoadFonts';
 
 import SwitchTemplates from 'templates/SwitchTemplates';
 import { Spiner, WhiteSpiner, BackgroundView } from 'components/atoms';
 import { Cursor } from 'components/molecules';
-
-import WithCursorProvider from 'hoc/WithCursorProvider';
 
 const App = () => {
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -27,19 +25,14 @@ const App = () => {
             <SEO />
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                <WithCursorProvider>
-                    {fontsLoaded ? (
-                        <MainTemplate>
-                            <SwitchTemplates />
-                        </MainTemplate>
-                    ) : (
-                        <BackgroundView
-                            white={<WhiteSpiner />}
-                            gray={<Spiner />}
-                        />
-                    )}
-                    <Cursor />
-                </WithCursorProvider>
+                {fontsLoaded ? (
+                    <MainTemplate>
+                        <SwitchTemplates />
+                    </MainTemplate>
+                ) : (
+                    <BackgroundView white={<WhiteSpiner />} gray={<Spiner />} />
+                )}
+                <Cursor />
             </ThemeProvider>
         </>
     );

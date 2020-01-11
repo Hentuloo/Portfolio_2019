@@ -2,22 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 
-import { useSelector } from 'react-redux';
-
-import {
-    PhraseBlindsEffect,
-    BackgroundView,
-    Spiner,
-    WhiteSpiner,
-} from 'components/atoms';
+import { PhraseBlindsEffect } from 'components/atoms';
 import {
     AnimatedBoxs,
     LanguageButtons,
     GridBlocksAnimation,
 } from 'components/molecules';
 
-import { useMouseEffect } from 'hooks/useMouseEffect';
 import { Menu } from 'components/organisms';
+import CustomBackgrounView from './CustomBackgrounView';
 
 const show = keyframes`
 100%{
@@ -57,9 +50,6 @@ const ContentWrapper = styled.div`
 `;
 
 const MainTemplate = ({ children }) => {
-    const { current } = useSelector(state => state.ActivePage);
-
-    const { getMove } = useMouseEffect();
     return (
         <>
             <BeforeGridBlocks>
@@ -76,24 +66,7 @@ const MainTemplate = ({ children }) => {
                     <Content>{children}</Content>
                 </ContentWrapper>
             </BlockWithDelayOpacity>
-            {current === 'portfolio' ? (
-                <BackgroundView>Hello</BackgroundView>
-            ) : (
-                <BackgroundView
-                    itemAttr={{
-                        ...getMove({
-                            sensitivity: -0.1,
-                            x: '40px',
-                            y: '40px',
-                            styles: {
-                                transition: 'translate 0.6s ease-out',
-                            },
-                        }),
-                    }}
-                    white={<WhiteSpiner />}
-                    gray={<Spiner />}
-                />
-            )}
+            <CustomBackgrounView />
             <GridBlocksAnimation />
         </>
     );

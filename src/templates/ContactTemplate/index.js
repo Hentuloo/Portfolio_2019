@@ -2,17 +2,22 @@ import React, { useReducer, useState } from 'react';
 import validator from 'validator';
 
 import { useSelector } from 'react-redux';
-import { useMouseEffect } from 'hooks/useMouseEffect';
 
 import Constants from 'config/Constants';
 import { encode } from 'config/utils';
 import { PrefixNote } from 'components/atoms';
 
-import letterLarge from 'images/lettersSvg/letterLarge.svg';
-import letterFirst from 'images/lettersSvg/letterFirst.svg';
-import letterSecond from 'images/lettersSvg/letterSecond.svg';
-import letterValidFalse from 'images/lettersSvg/letterValidFalse.svg';
-import letterValidTrue from 'images/lettersSvg/letterValidTrue.svg';
+import { WithMouseMove } from 'providers/WithMouseMove';
+import { WithMouseHover } from 'providers/WithMouseHover';
+
+import {
+    letterLarge,
+    letterFirst,
+    letterSecond,
+    letterValidFalse,
+    letterValidTrue,
+} from 'images/lettersSvg';
+
 import {
     InputWrapper,
     InputSubmit,
@@ -42,7 +47,6 @@ const ContactTemplate = () => {
         },
     );
 
-    const { getMove, getMoveOnHover } = useMouseEffect();
     const handleChange = e => {
         const { name: inputName, value } = e.target;
 
@@ -119,16 +123,22 @@ const ContactTemplate = () => {
                         onChange={handleChange}
                     />
                     <PrefixNote>{validatorName}</PrefixNote>
-                    <LetterIcon
-                        className="large"
-                        src={letterLarge}
-                        alt="ikona listu"
-                        {...getMove({
-                            sensitivity: 0.03,
-                            x: '-10px',
-                            y: '-10px',
-                        })}
+                    <WithMouseMove
+                        gsapDelay={0.3}
+                        attr={{
+                            sensitivity: 0.07,
+                            x: -70,
+                            y: -70,
+                        }}
+                        render={() => (
+                            <LetterIcon
+                                className="large"
+                                src={letterLarge}
+                                alt="ikona listu"
+                            />
+                        )}
                     />
+
                     <LetterIcon
                         className="first"
                         src={letterFirst}
@@ -168,15 +178,21 @@ const ContactTemplate = () => {
                     type="submit"
                     value={submitTitle}
                 />
-                <LetterIcon
-                    className="valid"
-                    src={isValid ? letterValidTrue : letterValidFalse}
-                    alt="ikona listu"
-                    {...getMoveOnHover({
+                <WithMouseHover
+                    gsapDelay={0.5}
+                    attr={{
                         sensitivity: 0.6,
-                        x: '-30px',
-                        y: '-30px',
-                    })}
+                        x: -25,
+                        y: -25,
+                    }}
+                    render={({ listeners }) => (
+                        <LetterIcon
+                            {...listeners}
+                            className="valid"
+                            src={isValid ? letterValidTrue : letterValidFalse}
+                            alt="ikona listu"
+                        />
+                    )}
                 />
             </Form>
         </Wrapper>

@@ -116,12 +116,12 @@ export const InputSubmit = styled(Input)`
 
 export const LetterIcon = styled.img`
     position: absolute;
+    display: block;
     z-index: 0;
     &.large {
         left: -30px;
         bottom: 40%;
         z-index: 0;
-        transition: translate 0.6s ease-out;
     }
     &.first {
         right: -30px;
@@ -151,7 +151,6 @@ export const LetterIcon = styled.img`
             padding: 40px;
             left: 70%;
             border-radius: 50%;
-            transition: transform 0.1s ease-in-out;
         }
     }
 `;

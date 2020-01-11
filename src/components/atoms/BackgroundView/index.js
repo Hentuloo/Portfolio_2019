@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import SquareWithPhrase from './SquareWithPhrase';
 import ShadowWithPhrase from './ShadowWithPhrase';
 
-const BackgroundView = ({ children, white, gray, wrapperAttr, itemAttr }) => {
+const BackgroundView = ({ children, white, gray, itemAttr }) => {
     return (
-        <div role="presentation" {...wrapperAttr}>
+        <div role="presentation">
             <ShadowWithPhrase>
                 <div {...itemAttr}>{children || gray}</div>
             </ShadowWithPhrase>

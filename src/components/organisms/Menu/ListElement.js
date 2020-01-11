@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { useMouseMood } from 'hooks/useMouseMood';
-import Link from './styles/Link';
+import WithMouseMoodHandlers from 'providers/WithMouseMoodHandlers';
+import { StyledLink } from './Link';
 
-const Wrapper = styled.li`
+const Element = styled.li`
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
     &:hover {
-        ${Link} {
+        ${StyledLink} {
             color: white;
         }
     }
@@ -26,7 +26,7 @@ const Wrapper = styled.li`
                 gap: 10px;
             }
         }
-        ${Link} {
+        ${StyledLink} {
             display: flex;
             justify-content: flex-end;
             margin-right: 30px;
@@ -56,17 +56,18 @@ const Wrapper = styled.li`
 `;
 
 const ListElement = ({ children, hideMobile }) => {
-    const { toggleMoodOnHover } = useMouseMood();
     return (
-        <Wrapper
-            hideMobile={hideMobile}
-            {...toggleMoodOnHover({
-                initialMood: 'normal',
-                mood: 'black',
-            })}
-        >
-            {children}
-        </Wrapper>
+        <>
+            <WithMouseMoodHandlers
+                initialMood="normal"
+                mood="black"
+                render={({ getHandlers }) => (
+                    <Element {...getHandlers} hideMobile={hideMobile}>
+                        {children}
+                    </Element>
+                )}
+            />
+        </>
     );
 };
 

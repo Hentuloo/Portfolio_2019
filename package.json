@@ -22,6 +22,7 @@
         "gatsby-source-graphql": "^2.1.29",
         "gatsby-transformer-sharp": "^2.3.9",
         "graphcms-image": "^1.1.0-beta4",
+        "gsap": "^3.0.5",
         "husky": "^2.3.0",
         "lint-staged": "^8.1.7",
         "prop-types": "^15.7.2",

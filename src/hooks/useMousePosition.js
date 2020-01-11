@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 
 export const useMousePosition = () => {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [callbacks, setCallbacks] = useState([]);
+
+    const setNewCallback = callback => setCallbacks([...callbacks, callback]);
 
     useEffect(() => {
-        const setFromEvent = e => setPosition({ x: e.clientX, y: e.clientY });
-        window.addEventListener('mousemove', setFromEvent);
-        return () => {
-            window.removeEventListener('mousemove', setFromEvent);
+        const runCallbacks = e => {
+            callbacks.forEach(callback => callback(e));
         };
-    }, []);
+        document.addEventListener('mousemove', runCallbacks);
+        return () => {
+            document.removeEventListener('mousemove', runCallbacks);
+        };
+    }, [callbacks]);
 
-    return position;
+    return setNewCallback;
 };

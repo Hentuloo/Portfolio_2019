@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { useMouseEffect } from 'hooks/useMouseEffect';
+import { WithMouseMove } from 'providers/WithMouseMove';
 
 const atomAnimation = keyframes`
 to{
@@ -17,16 +17,10 @@ to{
 `;
 
 const Wrapper = styled.div`
-    display: none;
     position: fixed;
     top: 0%;
-    right: 0%;
-    bottom: 0%;
     left: 0%;
-    pointer-events: none;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
+    display: none;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;
         ${({ black }) =>
@@ -45,9 +39,9 @@ const CursorCircle = styled.div`
     top: -16px;
     border: 2px solid white;
     border-radius: 50%;
-    transition: transform 0.9s ease-out;
     box-sizing: border-box;
-    will-change: transform;
+    cursor: none;
+    pointer-events: none;
     ${({ black }) =>
         black &&
         css`
@@ -94,13 +88,16 @@ const CursorPoint = styled.div`
     top: -3px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.redFirst};
-    transition: transform 0.1s ease-out;
-    will-change: transform;
 
     ${({ focus }) =>
         focus &&
         css`
             background-color: transparent;
+        `}
+    ${({ black }) =>
+        black &&
+        css`
+            z-index: -22;
         `}
 
     &::before {
@@ -136,21 +133,22 @@ const CursorPoint = styled.div`
 `;
 
 const Cursor = () => {
-    const { getMove } = useMouseEffect();
     const mood = useSelector(({ cursor }) => cursor);
     const isBlackMode = mood === 'black';
     const isFocusMode = mood === 'focus';
     return (
         <Wrapper black={isBlackMode}>
-            <CursorPoint
-                {...getMove()}
-                focus={isFocusMode}
-                black={isBlackMode}
+            <WithMouseMove
+                gsapDelay={0.3}
+                render={() => (
+                    <CursorPoint focus={isFocusMode} black={isBlackMode} />
+                )}
             />
-            <CursorCircle
-                {...getMove()}
-                focus={isFocusMode}
-                black={isBlackMode}
+            <WithMouseMove
+                gsapDelay={1.6}
+                render={() => (
+                    <CursorCircle focus={isFocusMode} black={isBlackMode} />
+                )}
             />
         </Wrapper>
     );
