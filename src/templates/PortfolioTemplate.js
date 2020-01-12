@@ -32,7 +32,7 @@ const MarkdownWrapper = styled.div`
     width: 90%;
     top: 47%;
     left: 50%;
-    padding-bottom: 100px;
+    padding-bottom: 100vh;
     transform: translate(-50%, 0%);
     opacity: 0;
     animation: ${opacity} 0.6s 0.3s linear forwards;

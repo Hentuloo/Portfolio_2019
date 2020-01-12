@@ -11,11 +11,20 @@ import { grayCodeBackground, whiteCodeBackground } from 'images/CodeBackground';
 const BackgroundImage = styled.img`
     position: relative;
     display: block;
-    max-width: 80vw;
+    max-width: 94vw;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        max-width: 80vw;
+    }
 `;
 const CodeImage = styled(BackgroundImage)`
-    margin-top: -190px;
-    margin-right: -450px;
+    margin-top: -40px;
+    margin-right: -120px;
+    max-width: 120vw;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        max-width: 80vw;
+        margin-top: -15vh;
+        margin-right: -450px;
+    }
 `;
 
 const CustomBackgroundView = () => {
