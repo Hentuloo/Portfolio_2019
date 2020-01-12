@@ -6,10 +6,12 @@ import GraphImg from 'graphcms-image';
 import LinePrimary from 'images/projectBoxLinePrimary.svg';
 
 const ShadowImage = styled(GraphImg)`
-    width: 100%;
-    filter: blur(5px);
     display: none;
+
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        width: 100%;
+        filter: blur(5px);
+        display: block;
     }
 `;
 
