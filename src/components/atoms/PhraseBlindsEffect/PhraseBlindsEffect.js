@@ -39,13 +39,13 @@ export const HeaderName = styled(Paragraph)`
         left: 0%;
         background-color: ${({ theme }) => theme.redFirst};
         transform-origin: right 50%;
-        animation: ${blinds} 0.8s 0.5s ${({ theme }) => theme.blindsAnimation}
+        animation: ${blinds} 0.8s 0.9s ${({ theme }) => theme.blindsAnimation}
             forwards;
     }
     &::before {
         left: 50%;
         background-color: ${({ theme }) => theme.redThird};
-        animation: ${blinds} 0.8s 0.65s ${({ theme }) => theme.blindsAnimation}
+        animation: ${blinds} 0.8s 1.1s ${({ theme }) => theme.blindsAnimation}
             forwards;
     }
     /* RESET */

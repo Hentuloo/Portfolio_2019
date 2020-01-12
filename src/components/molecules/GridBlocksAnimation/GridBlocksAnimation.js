@@ -35,28 +35,28 @@ const Wrapper = styled.div`
         height: 100%;
         transform-origin: left 50%;
         transform: scaleX(0);
-        animation: ${blinds} 1.5s 1.9s ${({ theme }) => theme.blindsAnimation}
+        animation: ${blinds} 1.5s 2.3s ${({ theme }) => theme.blindsAnimation}
             forwards;
     }
     div:nth-of-type(1) {
         display: block;
         background-color: ${({ theme }) => theme.redThird};
-        animation-delay: 1.9s;
+        animation-delay: 2.3s;
     }
     div:nth-of-type(2) {
         display: block;
         background-color: ${({ theme }) => theme.grayThird};
-        animation-delay: 1.95s;
+        animation-delay: 2.35s;
     }
     div:nth-of-type(3) {
         display: block;
         background-color: ${({ theme }) => theme.grayDark};
-        animation-delay: 2s;
+        animation-delay: 2.4s;
     }
     div:nth-of-type(4) {
         display: block;
         background-color: ${({ theme }) => theme.redFirst};
-        animation-delay: 2.05s;
+        animation-delay: 2.45s;
     }
 `;
 

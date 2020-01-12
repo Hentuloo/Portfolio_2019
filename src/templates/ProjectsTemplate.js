@@ -58,8 +58,6 @@ const ProjectsWrapper = styled.div`
     max-width: 370px;
     margin: 0px auto 150px;
     padding: 0px 20px;
-    opacity: 0;
-    animation: ${opacity} 0.1s 1s linear forwards;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 95%;
         max-width: none;
