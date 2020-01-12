@@ -8,6 +8,9 @@ import LinePrimary from 'images/projectBoxLinePrimary.svg';
 const ShadowImage = styled(GraphImg)`
     width: 100%;
     filter: blur(5px);
+    display: none;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+    }
 `;
 
 const Line = styled.img`
@@ -20,6 +23,7 @@ const Wrapper = styled.div`
     padding-bottom: 20px;
     overflow: hidden;
     border-radius: 8px 8px 0px 0px;
+    min-height: 170px;
     img {
         position: absolute !important;
         top: 0%;
@@ -27,6 +31,7 @@ const Wrapper = styled.div`
     .innerImage {
         position: absolute !important;
         width: 100%;
+
         top: 0%;
         transition: transform 0.8s ${({ theme }) => theme.blindsAnimation};
 

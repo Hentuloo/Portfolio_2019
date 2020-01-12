@@ -1,14 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
-import SentenceInArray from './components/SentenceInArray';
-import Sentence from './components/Sentence';
-import Dash from './components/Dash';
-import Comma from './components/Comma';
-import Moustache from './components/Moustache';
-import SingleChar from './components/SingleChar';
+import Spliter from './Spliter';
 
 const Wrapper = styled.div`
   position: relative;
@@ -42,100 +36,20 @@ ${({ currentPage }) =>
   }
 `;
 
-const Markdown = ({ markdown }) => {
-    const { current } = useSelector(state => state.ActivePage);
-
-    const markdownAfterRegEX = markdown.match(
-        /[[\]]|[|{|}|,|;|:|\s]+|(['][^']+['$])|(["][^"]+["$])|([`][^`]+[`$])/gm,
+const Markdown = ({ markdown, type }) => {
+    return (
+        <Wrapper currentPage={type}>
+            <Spliter current={type}>{markdown}</Spliter>
+        </Wrapper>
     );
-
-    let groupCount = 0;
-    let dashLiteral = 0;
-    let groupFlag = false;
-
-    const array = markdownAfterRegEX.map((chars, index) => {
-        if (`[`.includes(chars)) {
-            dashLiteral += 1;
-            if (!groupFlag) {
-                groupFlag = true;
-                groupCount += 1;
-            }
-            return (
-                <Dash
-                    currentPage={current}
-                    key={index}
-                    openDashLiteral={dashLiteral}
-                >
-                    {chars}
-                </Dash>
-            );
-        }
-        if (`]`.includes(chars)) {
-            groupFlag = false;
-            const dashLiteralHelper = dashLiteral;
-            dashLiteral -= 1;
-            return (
-                <Dash
-                    currentPage={current}
-                    key={index}
-                    closedDashLiteral={dashLiteralHelper}
-                >
-                    {chars}
-                </Dash>
-            );
-        }
-        if (chars.includes('{') || chars.includes('}')) {
-            return (
-                <Moustache currentPage={current} key={index}>
-                    {chars}
-                </Moustache>
-            );
-        }
-        if (chars.includes(`'`) || chars.includes('`')) {
-            return (
-                <Sentence currentPage={current} key={index}>
-                    {chars}
-                </Sentence>
-            );
-        }
-        if (chars.includes('"')) {
-            return (
-                <SentenceInArray
-                    currentPage={current}
-                    groupID={groupCount}
-                    key={index}
-                >
-                    {chars}
-                </SentenceInArray>
-            );
-        }
-        if (chars.includes(',')) {
-            return (
-                <Comma
-                    currentPage={current}
-                    dashLiteral={dashLiteral}
-                    key={index}
-                >
-                    {chars}
-                </Comma>
-            );
-        }
-        if (chars.includes(';') || chars.includes(':')) {
-            return (
-                <SingleChar currentPage={current} key={index}>
-                    {chars}
-                </SingleChar>
-            );
-        }
-        return chars;
-    });
-
-    // console.log(array);
-    return <Wrapper currentPage={current}>{array}</Wrapper>;
 };
 
 Markdown.propTypes = {
     markdown: PropTypes.string.isRequired,
+    type: PropTypes.string,
+};
+Markdown.defaultProps = {
+    type: '',
 };
 
-export default Markdown;
+export default memo(Markdown, (prev, next) => prev.markdown === next.markdown);

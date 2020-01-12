@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TweenLite, Power1 } from 'gsap';
+import { gsap, Power1 } from 'gsap';
 import { useMousePosition } from 'hooks/useMousePosition';
 
 export const WithMouseMoveWrapper = styled.div`
@@ -18,7 +18,7 @@ export const WithMouseMove = ({ render, attr, gsapAttr, gsapDelay }) => {
         if (window.innerWidth <= 755) return;
         const { sensitivity = 1, x = 0, y = 0 } = attr;
         setNewCallback(({ clientX, clientY }) => {
-            TweenLite.to(elementRef.current, gsapDelay, {
+            gsap.to(elementRef.current, gsapDelay, {
                 x: clientX * sensitivity + x,
                 y: clientY * sensitivity + y,
                 ease: Power1.ease,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { WithMouseHover } from 'providers/WithMouseHover';
@@ -88,4 +88,4 @@ Link.defaultProps = {
     rel: '',
 };
 
-export default Link;
+export default memo(Link, (prev, next) => prev.active === next.active);

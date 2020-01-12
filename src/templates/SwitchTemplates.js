@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 import Constants from 'config/Constants';
@@ -9,7 +9,7 @@ import PortfolioTemplate from 'templates/PortfolioTemplate';
 import ContactTemplate from 'templates/ContactTemplate';
 import ProjectsTemplate from 'templates/ProjectsTemplate';
 
-import { getDataByLanguage } from 'config/utils';
+import { useDataApi } from 'api/data';
 
 const opacity = keyframes`
 0%{
@@ -42,27 +42,39 @@ const PageWrapper = styled.div`
 `;
 
 const SwitchTemplates = () => {
+    const [{ photo, pl, en }, setData] = useState({
+        photo: null,
+        pl: {
+            mainPageContent: null,
+            projectPage: null,
+            projects: null,
+        },
+        en: {
+            mainPageContent: null,
+            projectPage: null,
+            projects: null,
+        },
+    });
+
     const {
         ActivePage: { current },
-        lang,
+        lang: currentLang,
     } = useSelector(({ ActivePage, language }) => ({
         ActivePage,
         lang: language,
     }));
 
-    const {
-        projects,
-        mainPageMarkdown,
-        photo,
-        projectPageMarkdown,
-    } = getDataByLanguage(lang);
+    if (!photo) setData(useDataApi());
+
+    const { mainPageContent, projectPage, projects } =
+        currentLang === 'en' ? en : pl;
 
     return (
         <>
             <PageWrapper active={current === 'portfolio'}>
                 <PortfolioTemplate
                     photo={photo}
-                    content={mainPageMarkdown}
+                    content={mainPageContent}
                     email="chentulooo@gmail.com"
                     headLine="Kamil Chędkowski"
                 />
@@ -70,7 +82,7 @@ const SwitchTemplates = () => {
             <PageWrapper active={current === 'projects'}>
                 <ProjectsTemplate
                     projects={projects}
-                    markdownContent={projectPageMarkdown}
+                    markdownContent={projectPage}
                 />
             </PageWrapper>
             <PageWrapper active={current === 'contact'}>

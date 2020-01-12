@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Constants from 'config/Constants';
 
@@ -24,17 +24,20 @@ const Menu = ({ className }) => {
         ActivePage,
     }));
 
-    const onChangePage = (e, pageName) => {
-        e.preventDefault();
-        if (pageName === current) return;
-        window.scrollTo(0, 0);
-        window.history.pushState(
-            {},
-            null,
-            `/${lang}/${Constants[lang].PATHS[pageName]}`,
-        );
-        dispatch(changePage(pageName));
-    };
+    const onChangePage = useCallback(
+        (e, pageName) => {
+            e.preventDefault();
+            if (pageName === current) return;
+            window.scrollTo(0, 0);
+            window.history.pushState(
+                {},
+                null,
+                `/${lang}/${Constants[lang].PATHS[pageName]}`,
+            );
+            dispatch(changePage(pageName));
+        },
+        [current],
+    );
 
     const { pdf, pdfEng } = usePdfLinks();
 

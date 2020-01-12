@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -82,7 +82,7 @@ const Projects = ({ projects, markdownContent }) => {
     return (
         <Wrapper>
             <MarkdownWrapper>
-                <Markdown markdown={markdownContent} />
+                <Markdown markdown={markdownContent} type="projects" />
             </MarkdownWrapper>
 
             <ProjectsWrapper>
@@ -101,4 +101,7 @@ Projects.propTypes = {
     projects: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default Projects;
+export default memo(
+    Projects,
+    (prev, next) => prev.markdownContent === next.markdownContent,
+);

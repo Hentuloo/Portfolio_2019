@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -160,7 +160,7 @@ const Portfolio = ({ content, photo, className }) => {
                 <EmailField>{email}</EmailField>
             </ImageWrapper>
             <MarkdownWrapper>
-                <Markdown markdown={content} />
+                <Markdown markdown={content} type="portfolio" />
             </MarkdownWrapper>
         </Wrapper>
     );
@@ -180,4 +180,4 @@ Portfolio.defaultProps = {
     className: '',
 };
 
-export default Portfolio;
+export default memo(Portfolio, (prev, next) => prev.content === next.content);

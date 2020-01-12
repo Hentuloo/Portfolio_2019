@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, memo } from 'react';
 import validator from 'validator';
 
 import { useSelector } from 'react-redux';
@@ -34,7 +34,6 @@ const ContactTemplate = () => {
     const lang = useSelector(({ language }) => language);
     const [sendedWithSuccess, setSendedWithSuccess] = useState(false);
     const [isValid, setValid] = useState(false);
-
     const [inputValue, setInputValue] = useReducer(
         (state, newState) => ({
             ...state,
@@ -199,4 +198,4 @@ const ContactTemplate = () => {
     );
 };
 
-export default ContactTemplate;
+export default memo(ContactTemplate, () => true);

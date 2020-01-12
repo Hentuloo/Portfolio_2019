@@ -1,20 +1,23 @@
 import { useStaticQuery, graphql } from 'gatsby';
 
-export const useEnglishApi = () => {
+export const useDataApi = () => {
     const data = useStaticQuery(
         graphql`
             {
                 portfolio {
                     projectsPages {
-                        content: contentEng
+                        content
+                        contentEng
                     }
                     projectses(
                         orderBy: index_DESC
                         where: { status: PUBLISHED }
                     ) {
                         id
-                        title: titleEng
-                        description: descriptionEng
+                        title
+                        titleEng
+                        description
+                        descriptionEng
                         gitLink
                         liveLink
                         technologies(orderBy: index_ASC) {
@@ -32,7 +35,8 @@ export const useEnglishApi = () => {
                         }
                     }
                     mainPages {
-                        content: contentEng
+                        content
+                        contentEng
                         photo {
                             handle
                             width
@@ -50,14 +54,23 @@ export const useEnglishApi = () => {
             projectses: projects,
         },
     } = data;
-
-    const { content: mainPageMarkdown, photo } = mainPage;
-    const { content: projectPageMarkdown } = projectsPage;
-
+    const { content: mpContent, contentEng: mpContentEng, photo } = mainPage;
+    const { content: ppContent, contentEng: ppContentEng } = projectsPage;
+    const projectsEng = projects.map(project => ({
+        ...project,
+        ...{ title: project.titleEng, description: project.descriptionEng },
+    }));
     return {
-        projects,
-        mainPageMarkdown,
         photo,
-        projectPageMarkdown,
+        pl: {
+            mainPageContent: mpContent,
+            projectPage: ppContent,
+            projects,
+        },
+        en: {
+            mainPageContent: mpContentEng,
+            projectPage: ppContentEng,
+            projects: projectsEng,
+        },
     };
 };
