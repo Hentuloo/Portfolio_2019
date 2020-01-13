@@ -17,7 +17,7 @@ const Title = styled.h2`
     line-height: ${({ theme }) => theme.font.s};
     font-size: ${({ theme }) => theme.font.medium};
     text-transform: uppercase;
-    font-weight: lighter;
+    font-weight: 600;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         margin-top: 8px;
@@ -46,9 +46,10 @@ const LinkButton = styled.a`
     height: 30px;
     padding: 2px 7px 0px;
     margin: 2px 4px;
-    line-height: ${({ theme }) => theme.font.l};
     border-radius: 10px;
+    line-height: ${({ theme }) => theme.font.l};
     text-decoration: none;
+    letter-spacing: 0.04em;
     color: black;
     background-color: white;
     cursor: none;

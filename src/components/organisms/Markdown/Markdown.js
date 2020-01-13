@@ -12,6 +12,8 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.markdownBGC};
   font-size: ${({ theme }) => theme.font.xs};
   font-family: ${({ theme }) => theme.font.second};
+  font-weight: 600;
+  letter-spacing: 0.1em;
   z-index: 2;
   white-space: pre-wrap;
   overflow:hidden;

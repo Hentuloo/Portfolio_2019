@@ -1,5 +1,5 @@
 import '@openfonts/baloo-tamma_latin-ext';
-import '@openfonts/roboto-mono_latin-ext';
+import '@openfonts/montserrat_latin-ext';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 

@@ -32,6 +32,7 @@ const Description = styled.p`
     font-size: ${({ theme }) => theme.font.xxs};
     line-height: ${({ theme }) => theme.font.s};
     letter-spacing: 0px;
+    font-weight: 600;
     word-spacing: 4px;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
