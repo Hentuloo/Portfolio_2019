@@ -156,6 +156,7 @@ const Portfolio = ({ content, photo, className }) => {
                     blurryPlaceholder={false}
                     backgroundColor={false}
                     onLoad={() => setImageLoaded(true)}
+                    alt="Kamil Chędkowski - zdjęcie"
                 />
                 <EmailField>{email}</EmailField>
             </ImageWrapper>

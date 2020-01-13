@@ -111,6 +111,7 @@ const ContactTemplate = () => {
                 <input type="hidden" name="bot-field" />
                 <input type="hidden" name="form-name" value="contact" />
                 <InputWrapper>
+                    <div className="sr-only">{namePlaceholder}</div>
                     <InputName
                         type="text"
                         name="name"
@@ -145,6 +146,7 @@ const ContactTemplate = () => {
                     />
                 </InputWrapper>
                 <InputWrapper>
+                    <div className="sr-only">{emailPlaceholder}</div>
                     <InputEmail
                         type="email"
                         name="email"
@@ -156,6 +158,7 @@ const ContactTemplate = () => {
                     <PrefixNote>{validatorEmail}</PrefixNote>
                 </InputWrapper>
                 <InputWrapper>
+                    <div className="sr-only">{textAreaPlaceholder}</div>
                     <Textarea
                         name="message"
                         placeholder={textAreaPlaceholder}

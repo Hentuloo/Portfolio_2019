@@ -34,7 +34,7 @@ export const Wrapper = styled.section`
             animation: ${opacity} 0.5s linear forwards;
         `}
 `;
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.label`
     width: 100%;
     position: relative;
 `;
