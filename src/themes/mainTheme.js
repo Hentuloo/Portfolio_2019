@@ -1,14 +1,19 @@
 export const theme = {
-    black: 'rgb(68,68,68)',
-    grayFirst: 'rgb(225,224,224)',
-    graySecond: 'rgb(235,235,235)',
-    grayThird: 'rgb(198, 194, 194)',
-    grayDark: 'rgb(123,123,123)',
-    redFirst: 'rgb(215,108,108)',
-    redSecondary: 'rgba(215,108,108,50%)',
-    redThird: 'rgb(220,166,166)',
-
-    markdownBGC: 'rgb(235,235,235)',
+    color: {
+        black: ['rgb(68,68,68)'],
+        gray: [
+            'rgb(225,224,224)',
+            'rgb(235,235,235)',
+            'rgb(198, 194, 194)',
+            'rgb(123,123,123)',
+            '#454545',
+        ],
+        brand: [
+            'rgb(215,108,108)',
+            'rgba(215,108,108,50%)',
+            'rgb(220,166,166)',
+        ],
+    },
 
     groupsColors: [
         'rgb(211, 80, 130)', // róż
@@ -41,6 +46,7 @@ export const theme = {
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
     breakPointMiddle: '1200px',
     breakPointLarge: '1400px',
+    breakPointMobileLandscape: `@media (max-width: 768px) and (orientation: landscape)`,
 
     blindsAnimation: 'cubic-bezier(0.97, 0.16, 0.31, 0.67)',
 };

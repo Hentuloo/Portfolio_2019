@@ -13,7 +13,7 @@ const Wrapper = styled.ul`
     font-size: ${({ theme }) => theme.font.s};
     font-family: ${({ theme }) => theme.font.first};
     font-weight: ${({ theme }) => theme.font.bold};
-    color: ${({ theme }) => theme.black};
+    color: ${({ theme }) => theme.color.black[0]};
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         flex-wrap: wrap;
         font-family: ${({ theme }) => theme.font.second};

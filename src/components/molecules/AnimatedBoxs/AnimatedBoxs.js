@@ -11,7 +11,7 @@ import DesktopLeft from './DesktopAniamtions/DesktopLeft';
 
 const RightBox = styled.div`
   position: fixed;
-  background-color: ${({ theme }) => theme.redFirst};
+  background-color: ${({ theme }) => theme.color.brand[0]};
   width: 30%;
   height: 33%;
   right: 0%;
@@ -30,7 +30,7 @@ const RightBox = styled.div`
 
 const LeftBox = styled.div`
   position: fixed;
-  background-color: ${({ theme }) => theme.redSecondary};
+  background-color: ${({ theme }) => theme.color.brand[1]};
   width: 27%;
   height: 70%;
   left: 0%;

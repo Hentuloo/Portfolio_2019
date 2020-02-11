@@ -6,7 +6,7 @@ export const PrefixNote = styled.span`
     top: 3px;
     font-family: ${({ theme }) => theme.font.second};
     font-size: ${({ theme }) => theme.font.xxxs};
-    color: ${({ theme }) => theme.grayDark};
+    color: ${({ theme }) => theme.color.gray[2]};
     text-transform: uppercase;
     z-index: 5;
 `;

@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     min-height: 130px;
     flex-direction: column;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.grayFirst};
+    background-color: ${({ theme }) => theme.color.gray[0]};
     box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
     font-family: ${({ theme }) => theme.font.second};
     font-weight: 700;

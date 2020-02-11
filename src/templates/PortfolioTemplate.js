@@ -24,71 +24,61 @@ opacity:1;
 `;
 
 const Wrapper = styled.section`
-    display: flex;
+    display: grid;
+    grid-template-columns: 55% 35% 10%;
+    grid-template-rows: 45px 160px 70px auto;
+    margin-top: 16px;
+    @media (min-width: 550px) {
+        grid-template-columns: 50% 30% 20%;
+        grid-template-rows: 45px 210px 70px auto;
+    }
+    ${({ theme }) => theme.breakPointMobileLandscape} {
+        top: 27%;
+        grid-template-rows: 95px 1fr;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        grid-template-columns: auto 3% 200px 8%;
+        grid-template-rows: 30px 280px 70px auto;
+    }
 `;
 
 const MarkdownWrapper = styled.div`
-    position: absolute;
-    width: 90%;
-    top: 47%;
-    left: 50%;
+    grid-column: 1/-1;
+    grid-row: -2/-1;
+    margin: 0px 15px;
     padding-bottom: 100vh;
-    transform: translate(-50%, 0%);
     opacity: 0;
     animation: ${opacity} 0.6s 0.3s linear forwards;
-    @media (max-width: ${({ theme }) =>
-            theme.breakPointMobile}) and (orientation: landscape) {
-        top: 27%;
+    ${({ theme }) => theme.breakPointMobileLandscape} {
+        grid-row: 2/3;
     }
-
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        left: auto;
-        right: -0.2%;
-        top: auto;
-        bottom: 10%;
-        width: calc(100% - 180px);
-        max-width: calc(800px + 22%);
-        padding-right: 22.22%;
+        grid-column: 1/2;
+        grid-row: -3/-1;
         padding-bottom: 0px;
-        transform: translate(0%, 0%);
-    }
-    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        max-width: calc(1100px + 22%);
-        div {
-            padding-right: 200px;
-        }
     }
 `;
 const ImageWrapper = styled.div`
-    position: fixed;
-    top: 6%;
-    right: 6%;
-    width: 42%;
-    height: 45%;
-    overflow: hidden;
-    @media (max-width: ${({ theme }) =>
-            theme.breakPointMobile}) and (orientation: landscape) {
-        background-color: red;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    @media (min-width: 550px) {
+        width: 30%;
+    }
+    ${({ theme }) => theme.breakPointMobileLandscape} {
         display: none;
     }
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        top: 10%;
+        grid-column: 3/4;
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: auto;
         right: auto;
-        right: 0%;
-        width: 22%;
-        height: 90%;
-        max-width: 420px;
-        &::after {
-            display: block;
-            content: '';
-            width: 100%;
-            height: 100%;
-            background-color: ${({ theme }) => theme.grayDark};
-        }
     }
+
     /* Graph cms-image */
     img {
-        position: absolute;
+        position: relative;
         max-width: 100%;
         max-height: 80vh;
         transform: translateY(-110%);
@@ -113,14 +103,15 @@ const EmailField = styled.span`
     display: none;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;
-        width: 100%;
+        grid-column: 2/4;
+        grid-row: 3/4;
+        font-family: ${({ theme }) => theme.font.second};
         font-size: ${({ theme }) => theme.font.xxs};
-        font-weight: ${({ theme }) => theme.font.light};
+        line-height: 70px;
+        font-weight: 700;
         letter-spacing: 0px;
-        text-align: center;
         text-transform: uppercase;
-        padding: 10px 0px;
-        letter-spacing: -0.8px;
+        letter-spacing: 0.5px;
     }
 `;
 
@@ -143,6 +134,7 @@ const Portfolio = ({ content, photo, className }) => {
                 <span>{headLine[0]}</span>
                 <span>{headLine[1]}</span>
             </PhraseBlindsEffect>
+            <div></div>
             <ImageWrapper
                 className={`${current === 'portfolio' ? 'reset ' : ''}${
                     firstLoad ? 'firstLoad ' : ''
@@ -158,8 +150,8 @@ const Portfolio = ({ content, photo, className }) => {
                     onLoad={() => setImageLoaded(true)}
                     alt="Kamil Chędkowski - zdjęcie"
                 />
-                <EmailField>{email}</EmailField>
             </ImageWrapper>
+            <EmailField>{email}</EmailField>
             <MarkdownWrapper>
                 <Markdown markdown={content} type="portfolio" />
             </MarkdownWrapper>

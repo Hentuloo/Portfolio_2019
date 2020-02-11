@@ -47,7 +47,7 @@ const MarkdownWrapper = styled.div`
             position: absolute;
             bottom: 0%;
             right: 0%;
-            background-color: ${({ theme }) => theme.redFirst};
+            background-color: ${({ theme }) => theme.color.brand[0]};
             transform: translate(45%, 45%);
         }
     }

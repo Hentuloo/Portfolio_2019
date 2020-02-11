@@ -12,9 +12,9 @@ export const StyledLink = styled.a`
     justify-items: center;
     align-items: center;
     text-decoration: none;
-    color: ${({ theme }) => theme.black};
+    color: ${({ theme }) => theme.color.black[0]};
     z-index: 15;
-    background-color: ${({ theme }) => theme.redThird};
+    background-color: ${({ theme }) => theme.color.brand[2]};
     cursor: none;
     transition: transform 0.3s ease-out;
     @media (max-width: ${({ theme }) => theme.breakPointMobile}) {
@@ -25,9 +25,9 @@ export const StyledLink = styled.a`
         ${({ active }) =>
             active &&
             css`
-                color: ${({ theme }) => theme.redThird};
+                color: ${({ theme }) => theme.color.brand[2]};
                 &:hover {
-                    color: ${({ theme }) => theme.redFirst} !important;
+                    color: ${({ theme }) => theme.color.brand[0]} !important;
                 }
             `}
     }

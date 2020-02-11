@@ -15,10 +15,10 @@ const Button = styled.button`
     font-family: ${({ theme }) => theme.font.second};
     font-size: ${({ theme }) => theme.font.xs};
     font-weight: ${({ theme }) => theme.font.bold};
-    background-color: ${({ theme }) => theme.graySecond};
+    background-color: ${({ theme }) => theme.color.gray[1]};
     cursor: none;
     &:hover {
-        background-color: ${({ theme }) => theme.grayThird};
+        background-color: ${({ theme }) => theme.color.gray[2]};
     }
 
     &::before {
@@ -40,9 +40,9 @@ const Button = styled.button`
     ${({ active, theme }) =>
         active &&
         css`
-            background-color: ${theme.redSecondary};
+            background-color: ${theme.color.brand[1]};
             &:hover {
-                background-color: ${theme.redSecondary};
+                background-color: ${theme.color.brand[1]};
             }
         `};
 

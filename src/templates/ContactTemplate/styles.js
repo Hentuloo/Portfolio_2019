@@ -62,7 +62,7 @@ export const Message = styled.h3`
     width: 90%;
     transform: translate(-50%, 100%);
     text-align: center;
-    background-color: ${({ theme }) => theme.redFirst};
+    background-color: ${({ theme }) => theme.color.brand[0]};
     font-size: ${({ theme }) => theme.font.xs};
     padding: 4px 0px;
     border-radius: 5px;
@@ -70,13 +70,13 @@ export const Message = styled.h3`
 `;
 
 export const InputName = styled(Input)`
-    background-color: ${({ theme }) => theme.redThird};
+    background-color: ${({ theme }) => theme.color.brand[2]};
 `;
 
 export const InputEmail = styled(Input)`
-    background-color: ${({ theme }) => theme.graySecond};
+    background-color: ${({ theme }) => theme.color.gray[1]};
     &:valid {
-        background-color: ${({ theme }) => theme.graySecond};
+        background-color: ${({ theme }) => theme.color.gray[1]};
     }
 `;
 
@@ -84,7 +84,7 @@ export const Textarea = styled.textarea`
     ${general}
     padding-top: 18px;
     line-height: ${({ theme }) => theme.font.m};
-    background-color: ${({ theme }) => theme.graySecond};
+    background-color: ${({ theme }) => theme.color.gray[1]};
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         padding-top: 30px;
@@ -101,7 +101,7 @@ export const Textarea = styled.textarea`
 export const InputSubmit = styled(Input)`
     border: 0px;
     padding: 15px 0px;
-    background-color: ${({ theme }) => theme.redFirst};
+    background-color: ${({ theme }) => theme.color.brand[0]};
     line-height: ${({ theme }) => theme.font.m};
     text-transform: uppercase;
     pointer-events: all;

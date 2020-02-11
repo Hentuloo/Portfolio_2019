@@ -25,7 +25,7 @@ const Description = styled.span`
     font-size: ${({ theme }) => theme.font.xxxs};
     z-index: 7;
     opacity: 0;
-    background-color: ${({ theme }) => theme.graySecond};
+    background-color: ${({ theme }) => theme.color.gray[1]};
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         transform: translate(-50%, 190%);

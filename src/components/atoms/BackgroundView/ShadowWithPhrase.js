@@ -8,7 +8,8 @@ export const ShadowPhraseWrapper = styled.div`
 `;
 
 export const ShadowPhraseItem = styled.div`
-    color: rgb(225, 224, 224);
+    color: ${({ theme }) => theme.color.gray[0]};
+
     z-index: -10;
 `;
 

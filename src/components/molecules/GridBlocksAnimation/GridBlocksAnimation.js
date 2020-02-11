@@ -40,22 +40,22 @@ const Wrapper = styled.div`
     }
     div:nth-of-type(1) {
         display: block;
-        background-color: ${({ theme }) => theme.redThird};
+        background-color: ${({ theme }) => theme.color.brand[2]};
         animation-delay: 2.3s;
     }
     div:nth-of-type(2) {
         display: block;
-        background-color: ${({ theme }) => theme.grayThird};
+        background-color: ${({ theme }) => theme.color.gray[2]};
         animation-delay: 2.35s;
     }
     div:nth-of-type(3) {
         display: block;
-        background-color: ${({ theme }) => theme.grayDark};
+        background-color: ${({ theme }) => theme.color.gray[3]};
         animation-delay: 2.4s;
     }
     div:nth-of-type(4) {
         display: block;
-        background-color: ${({ theme }) => theme.redFirst};
+        background-color: ${({ theme }) => theme.color.brand[0]};
         animation-delay: 2.45s;
     }
 `;

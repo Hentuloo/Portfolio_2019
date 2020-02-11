@@ -18,7 +18,7 @@ export const Circle = styled.div`
     left: calc(50% - 6px);
     top: calc(50% - 6px);
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.grayFirst};
+    background-color: ${({ theme }) => theme.color.gray[0]};
 `;
 
 export const InnerAtoms = styled.div`
@@ -45,7 +45,7 @@ export const OuterAtoms = styled.div`
     height: 200px;
     left: calc(50% - 100px);
     top: calc(50% - 100px);
-    border: 1px solid ${({ theme }) => theme.grayFirst};
+    border: 1px solid ${({ theme }) => theme.color.gray[0]};
     border-radius: 50%;
 
     ${Circle} {

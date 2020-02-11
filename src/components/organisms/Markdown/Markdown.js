@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   padding: 10px 6px;
   border-radius: 5px;
   line-height: ${({ theme }) => theme.font.m};
-  background-color: ${({ theme }) => theme.markdownBGC};
+  background-color: ${({ theme }) => theme.color.gray[1]};
   font-size: ${({ theme }) => theme.font.xs};
   font-family: ${({ theme }) => theme.font.second};
   font-weight: 600;

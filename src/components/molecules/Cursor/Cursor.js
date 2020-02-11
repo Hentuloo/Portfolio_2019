@@ -54,7 +54,7 @@ const CursorCircle = styled.div`
             height: 50px;
             left: -25px;
             top: -25px;
-            border: 1px solid ${({ theme }) => theme.grayFirst};
+            border: 1px solid ${({ theme }) => theme.color.gray[0]};
         `}
 
     &::after {
@@ -66,7 +66,7 @@ const CursorCircle = styled.div`
         height: 4px;
         border-radius: 50%;
         box-sizing: border-box;
-        background-color: ${({ theme }) => theme.redThird};
+        background-color: ${({ theme }) => theme.color.brand[2]};
         transform-origin: 26px 50%;
         transform: rotate(0deg);
         animation: ${atomAnimation} 3s infinite forwards
@@ -87,7 +87,7 @@ const CursorPoint = styled.div`
     left: -3px;
     top: -3px;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.redFirst};
+    background-color: ${({ theme }) => theme.color.brand[0]};
 
     ${({ focus }) =>
         focus &&
@@ -124,7 +124,7 @@ const CursorPoint = styled.div`
                 left: -57px;
                 top: -58px;
                 transform: scale(0.03);
-                background-color: ${({ theme }) => theme.redFirst};
+                background-color: ${({ theme }) => theme.color.brand[0]};
                 animation: ${pulse} 1s infinite forwards alternate
                     cubic-bezier(0.98, 0.43, 0.67, 0.81);
                 opacity: 1;

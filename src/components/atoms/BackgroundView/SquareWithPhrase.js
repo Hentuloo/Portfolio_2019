@@ -12,7 +12,7 @@ export const SquareWrapper = styled.div`
     transform-origin: left bottom;
     transform: rotate(22deg);
     /* transform: translate(-47%, -84%) rotate(26deg); */
-    background-color: ${({ theme }) => theme.grayFirst};
+    background-color: ${({ theme }) => theme.color.gray[0]};
     z-index: -10;
     overflow: hidden;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
