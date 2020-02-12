@@ -7,12 +7,14 @@ import Constants from 'config/Constants';
 
 import BrandImage from './BrandImage';
 import BrandName from './BrandName';
+import AboutSection from './AboutSection';
 
 const Wrapper = styled.section`
     display: grid;
     grid-template-columns: 1fr 110px 12%;
-    grid-template-rows: 45px 160px 70px auto;
-    margin-top: 16px;
+    grid-template-rows: 65px 160px 40px auto;
+    margin-top: 0px;
+    padding-bottom: 200px;
     @media (min-width: 550px) {
         grid-template-columns: 1fr 140px 8%;
         grid-template-rows: 45px 200px 90px auto;
@@ -22,6 +24,7 @@ const Wrapper = styled.section`
         grid-template-rows: 95px 1fr;
     }
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        padding-bottom: 0px;
         grid-template-columns: 1fr 3% 160px 5%;
         grid-template-rows: 30px 230px 70px auto;
     }
@@ -52,11 +55,25 @@ const EmailField = styled.span`
         letter-spacing: 0.5px;
     }
 `;
-
+const StyledAboutSection = styled(AboutSection)`
+    grid-column: 1/-1;
+    grid-row: 4/-1;
+    width: 85%;
+    margin: 0px auto;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        grid-column: 1/2;
+        grid-row: 3/-1;
+        width: 75%;
+        margin: 0px auto 0px 40px;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        width: 60%;
+        margin: 0px auto 0px 60px;
+    }
+`;
 const Portfolio = ({ content, photo, className }) => {
     const lang = useSelector(({ language }) => language);
     const { email } = Constants[lang].CONTENT;
-    console.log(content);
 
     return (
         <Wrapper className={className}>
@@ -64,9 +81,7 @@ const Portfolio = ({ content, photo, className }) => {
             <div></div>
             <StyledBrandImage photo={photo} />
             <EmailField>{email}</EmailField>
-            {/* <MarkdownWrapper>
-                <Markdown markdown={content} type="portfolio" />
-            </MarkdownWrapper> */}
+            <StyledAboutSection content={content} />
         </Wrapper>
     );
 };

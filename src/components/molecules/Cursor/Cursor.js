@@ -21,6 +21,7 @@ const Wrapper = styled.div`
     top: 0%;
     left: 0%;
     display: none;
+    mix-blend-mode: difference;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;
         ${({ black }) =>
@@ -82,10 +83,10 @@ const CursorCircle = styled.div`
 
 const CursorPoint = styled.div`
     position: absolute;
-    width: 6px;
-    height: 6px;
-    left: -3px;
-    top: -3px;
+    width: 8px;
+    height: 8px;
+    left: -4px;
+    top: -4px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.color.brand[0]};
 
