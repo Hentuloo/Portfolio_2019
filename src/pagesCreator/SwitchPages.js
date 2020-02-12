@@ -5,11 +5,11 @@ import Constants from 'config/Constants';
 
 import { useSelector } from 'react-redux';
 
-import PortfolioTemplate from 'templates/PortfolioTemplate';
-import ContactTemplate from 'templates/ContactTemplate';
-import ProjectsTemplate from 'templates/ProjectsTemplate';
-
 import { useDataApi } from 'api/data';
+
+import PortfolioPage from './Portfolio/PortfolioPage';
+import ContactPage from './Contact/ContactPage';
+import ProjectsPage from './Projects/ProjectsPage';
 
 const opacity = keyframes`
 0%{
@@ -41,7 +41,7 @@ const PageWrapper = styled.div`
         `}
 `;
 
-const SwitchTemplates = () => {
+const SwitchPages = () => {
     const [{ photo, pl, en }, setData] = useState({
         photo: null,
         pl: {
@@ -72,7 +72,7 @@ const SwitchTemplates = () => {
     return (
         <>
             <PageWrapper active={current === 'portfolio'}>
-                <PortfolioTemplate
+                <PortfolioPage
                     photo={photo}
                     content={mainPageContent}
                     email="chentulooo@gmail.com"
@@ -80,16 +80,16 @@ const SwitchTemplates = () => {
                 />
             </PageWrapper>
             <PageWrapper active={current === 'projects'}>
-                <ProjectsTemplate
+                <ProjectsPage
                     projects={projects}
                     markdownContent={projectPage}
                 />
             </PageWrapper>
             <PageWrapper active={current === 'contact'}>
-                <ContactTemplate />
+                <ContactPage />
             </PageWrapper>
         </>
     );
 };
 
-export default SwitchTemplates;
+export default SwitchPages;

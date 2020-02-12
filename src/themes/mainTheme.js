@@ -41,7 +41,7 @@ export const theme = {
         xxl: '4rem',
         xxxl: '7rem',
         first: "'Baloo Tamma', cursive",
-        second: "'Montserrat', sans-serif",
+        second: "'Roboto', sans-serif",
     },
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
     breakPointMiddle: '1200px',

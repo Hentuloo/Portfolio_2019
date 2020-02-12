@@ -5,11 +5,11 @@ export const Centered = css`
     display: grid;
     width: 100vw;
     height: 100vh;
-    bottom: 0%;
-    left: 0%;
+    top: 0%;
+    right: 0%;
     justify-content: center;
     align-items: center;
-    padding-top: 40px;
+    padding-top: 0px;
     line-height: 150px;
     letter-spacing: 7px;
     text-align: center;

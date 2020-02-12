@@ -4,32 +4,32 @@ import styled from 'styled-components';
 import { Centered } from './Centered';
 
 export const SquareWrapper = styled.div`
-    width: 100vw;
-    height: 120vh;
+    width: 140px;
+    height: 140vh;
     position: fixed;
-    bottom: 0%;
-    left: 20vw;
-    transform-origin: left bottom;
-    transform: rotate(22deg);
+    top: 0%;
+    right: 0px;
+    transform-origin: right top;
+    transform: rotate(30deg);
     /* transform: translate(-47%, -84%) rotate(26deg); */
     background-color: ${({ theme }) => theme.color.gray[0]};
     z-index: -10;
     overflow: hidden;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        width: 500px;
+        width: 220px;
         height: 200vh;
-        left: 27vw;
-        transform: rotate(41deg);
+        right: -130px;
+        transform: rotate(35deg);
         pointer-events: none;
     }
 `;
 
 export const SquareCenterContent = styled.div`
     ${Centered};
-    transform-origin: left bottom;
-    transform: rotate(-22deg) translate(-20vw, calc(0vh));
+    transform-origin: top right;
+    transform: rotate(-30deg);
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        transform: rotate(-41deg) translate(-27vw, calc(0vh));
+        transform: rotate(-35deg) translateX(-130px);
     }
 `;
 export const SquareItem = styled.div``;

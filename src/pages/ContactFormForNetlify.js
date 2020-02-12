@@ -3,13 +3,13 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'themes/GlobalStyles';
 import { theme } from 'themes/mainTheme';
 
-import ContactTemplate from 'templates/ContactTemplate';
+import ContactPage from 'pagesCreator/Contact/ContactPage';
 
 const ContactFormForNetlify = () => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <ContactTemplate />
+            <ContactPage />
         </ThemeProvider>
     );
 };

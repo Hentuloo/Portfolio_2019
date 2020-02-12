@@ -6,7 +6,7 @@
     "author": "Kamil Chędkowski",
     "dependencies": {
         "@openfonts/baloo-tamma_latin-ext": "^1.44.0",
-        "@openfonts/montserrat_latin-ext": "^1.44.0",
+        "@openfonts/roboto_latin-ext": "^1.44.0",
         "@storybook/addon-knobs": "^5.0.11",
         "babel-plugin-remove-graphql-queries": "^2.7.19",
         "babel-plugin-styled-components": "^1.10.6",

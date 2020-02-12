@@ -1,5 +1,5 @@
 import '@openfonts/baloo-tamma_latin-ext';
-import '@openfonts/montserrat_latin-ext';
+import '@openfonts/roboto_latin-ext';
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';

@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
    margin:0px;
   letter-spacing: 1px;
   overflow-x:hidden;
+    color: ${({ theme }) => theme.color.gray[4]};
   }
 @media (min-width: 768px) {
     html {

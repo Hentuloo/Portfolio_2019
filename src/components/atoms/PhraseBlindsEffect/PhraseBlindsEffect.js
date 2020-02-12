@@ -1,34 +1,29 @@
 import styled, { keyframes, css } from 'styled-components';
 
-import Paragraph from 'components/atoms/Paragraph/Paragraph';
-
 const blinds = keyframes`
 100%{
  transform: scaleX(0);
 }
 `;
 
-export const HeaderName = styled(Paragraph)`
+export const HeaderName = styled.p`
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 10px;
+    left: 15px;
+    margin: 0px;
     display: flex;
     flex-direction: column;
-    margin: 5% 2%;
     font-size: ${({ theme }) => theme.font.l};
     line-height: ${({ theme }) => theme.font.l};
     font-family: ${({ theme }) => theme.font.second};
     font-weight: ${({ theme }) => theme.font.bold};
+    text-transform: uppercase;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        left: 204px;
-        margin: 2% 6%;
+        left: 260px;
+        top: 35px;
         line-height: ${({ theme }) => theme.font.xxl};
-        font-size: ${({ theme }) => theme.font.xl};
-    }
-    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        font-size: ${({ theme }) => theme.font.xxxl};
-        line-height: ${({ theme }) => theme.font.xxxl};
+        font-size: ${({ theme }) => theme.font.xxl};
     }
 
     &::after,
