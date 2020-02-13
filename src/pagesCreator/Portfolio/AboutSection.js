@@ -9,17 +9,21 @@ const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 50px 1fr 50px;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        grid-row-gap: 60px;
+        grid-template-columns: 150px 1fr 150px;
+        grid-row-gap: 80px;
     }
 `;
 const AliginRight = styled.div`
-    grid-column: 2/-1;
+    grid-column: 1/-1;
     text-align: right;
     ${ParagraphTitle} {
         &::after {
             left: auto;
             right: 0%;
         }
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        grid-column: -3/-1;
     }
 `;
 const AliginLeft = styled.div`
@@ -35,25 +39,23 @@ const AliginLeft = styled.div`
 
 const ImageWrapper = styled.div`
     grid-column: 1/-1;
-    width: 96%;
-    height: 200px;
+    width: 100%;
+    height: 250px;
     margin: -20px auto;
     z-index: -1;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         position: fixed;
-        width: 36%;
-        height: calc(100vh - 350px);
+        width: 40%;
+        height: calc(100vh - 400px);
         bottom: 0%;
         right: 3%;
     }
     @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        width: 46%;
-        height: calc(100vh - 300px);
+        width: 45%;
+        height: calc(100vh - 400px);
     }
 `;
 const Image = styled.img`
-    width: 100%;
-    height: 100%;
     max-width: 100%;
     max-height: 100%;
 `;
@@ -78,7 +80,7 @@ const AboutSection = ({ className }) => {
             </ImageWrapper>
 
             <AliginLeft>
-                <Paragraph underline asTitle>
+                <Paragraph as="h4" underline asTitle>
                     Nie tylko kod!
                 </Paragraph>
                 <Paragraph>

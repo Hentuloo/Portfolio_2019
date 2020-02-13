@@ -25,7 +25,10 @@ const Wrapper = styled.div`
     padding-bottom: 20px;
     overflow: hidden;
     border-radius: 8px 8px 0px 0px;
-    min-height: 170px;
+    min-height: 180px;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        min-height: 140px;
+    }
     img {
         position: absolute !important;
         top: 0%;

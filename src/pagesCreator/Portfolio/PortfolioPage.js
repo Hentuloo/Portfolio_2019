@@ -14,7 +14,7 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr 110px 12%;
     grid-template-rows: 65px 160px 40px auto;
     margin-top: 0px;
-    padding-bottom: 200px;
+    padding-bottom: 90px;
     @media (min-width: 550px) {
         grid-template-columns: 1fr 140px 8%;
         grid-template-rows: 45px 200px 90px auto;
@@ -63,12 +63,12 @@ const StyledAboutSection = styled(AboutSection)`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         grid-column: 1/2;
         grid-row: 3/-1;
-        width: 75%;
-        margin: 0px auto 0px 40px;
+        width: 70%;
+        margin: 0px auto 0px 80px;
     }
     @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
         width: 60%;
-        margin: 0px auto 0px 60px;
+        margin: 0px auto 0px 9%;
     }
 `;
 const Portfolio = ({ content, photo, className }) => {

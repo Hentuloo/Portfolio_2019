@@ -17,7 +17,7 @@ const Title = styled.h2`
     line-height: ${({ theme }) => theme.font.s};
     font-size: ${({ theme }) => theme.font.medium};
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 400;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         margin-top: 8px;

@@ -22,7 +22,12 @@ const GlobalStyle = createGlobalStyle`
   }
 @media (min-width: 768px) {
     html {
-   font-size:80.5%;
+   font-size:76.5%;
+  }
+  }
+@media (min-width: 1300px) {
+    html {
+   font-size:81.5%;
   }
   }
  .focus-only {

@@ -1,73 +1,10 @@
 import React, { memo } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { ProjectCard, Markdown } from 'components/organisms';
+import ProjectsWrapper from './ProjectsWrapper';
+import SkilsSwitcher from './SkilsSwitcher';
 
-const opacity = keyframes`
-from{
-opacity:0;
-}
-to{
-opacity:1;
-}
-`;
-
-const ProjectCardWrapper = styled.section`
-    margin: 30px auto;
-    max-width: 90%;
-
-    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        flex-basis: 45%;
-        max-width: 400px;
-        margin: 40px 0px;
-    }
-    @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
-        flex-basis: 29%;
-    }
-    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
-        margin: 40px 10px;
-    }
-`;
-const MarkdownWrapper = styled.div`
-    width: 90%;
-    margin: 0px auto;
-    opacity: 0;
-    animation: ${opacity} 0.5s 0.2s linear forwards;
-    position: relative;
-    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        width: 80%;
-        max-width: 1100px;
-        margin-bottom: 30px;
-        margin-top: 20px;
-        &::before {
-            content: '';
-            width: 120px;
-            height: 80px;
-            position: absolute;
-            bottom: 0%;
-            right: 0%;
-            background-color: ${({ theme }) => theme.color.brand[0]};
-            transform: translate(45%, 45%);
-        }
-    }
-`;
-const ProjectsWrapper = styled.div`
-    display: block;
-    width: 100%;
-    max-width: 370px;
-    margin: 0px auto 150px;
-    padding: 0px 20px;
-    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        width: 95%;
-        max-width: none;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin: 0px auto;
-    }
-`;
 const Wrapper = styled.div`
     width: 100%;
     min-height: 110vh;
@@ -76,20 +13,26 @@ const Wrapper = styled.div`
     margin: 30px auto 0px auto;
 `;
 
+const StyledProjectsWrapper = styled(ProjectsWrapper)`
+    display: block;
+    width: 100%;
+    max-width: 370px;
+    margin: 0px auto 150px;
+    padding: 0px 20px;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        display: flex;
+        width: 95%;
+        max-width: none;
+        margin: 0px auto;
+    }
+`;
+
 const Projects = ({ projects, markdownContent }) => {
+    console.log(markdownContent);
     return (
         <Wrapper>
-            <MarkdownWrapper>
-                <Markdown markdown={markdownContent} type="projects" />
-            </MarkdownWrapper>
-
-            <ProjectsWrapper>
-                {projects.map(e => (
-                    <ProjectCardWrapper key={e.id}>
-                        <ProjectCard data={e} />
-                    </ProjectCardWrapper>
-                ))}
-            </ProjectsWrapper>
+            <SkilsSwitcher />
+            <StyledProjectsWrapper projects={projects} />
         </Wrapper>
     );
 };

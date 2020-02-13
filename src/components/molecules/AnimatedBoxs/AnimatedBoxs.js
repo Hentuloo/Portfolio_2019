@@ -51,13 +51,13 @@ const LeftBox = styled.div`
 const StaticGrayBlock = styled.div`
     display: none;
     position: fixed;
-    width: 285px;
-    height: 900px;
+    width: 500px;
+    height: 1000px;
     top: -74px;
     right: 88px;
     background-color: ${({ theme }) => theme.color.gray[3]};
     transform-origin: left bottom;
-    transform: rotate(35deg);
+    transform: rotate(35deg) translate(29%, 13%);
     z-index: -2;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;

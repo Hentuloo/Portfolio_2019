@@ -17,10 +17,12 @@ export const StyledLink = styled.a`
     background-color: ${({ theme }) => theme.color.brand[2]};
     cursor: none;
     transition: transform 0.3s ease-out;
+    font-weight: 400;
     @media (max-width: ${({ theme }) => theme.breakPointMobile}) {
         transform: translate(0px, 0px) !important;
     }
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        font-weight: 600;
         background-color: transparent;
         ${({ active }) =>
             active &&
