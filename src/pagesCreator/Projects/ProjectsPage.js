@@ -27,8 +27,8 @@ const StyledProjectsWrapper = styled(ProjectsWrapper)`
     }
 `;
 
-const Projects = ({ projects, markdownContent }) => {
-    console.log(markdownContent);
+const Projects = ({ projects }) => {
+    // console.log(markdownContent);
     return (
         <Wrapper>
             <SkilsSwitcher />
@@ -38,7 +38,6 @@ const Projects = ({ projects, markdownContent }) => {
 };
 
 Projects.propTypes = {
-    markdownContent: PropTypes.string.isRequired,
     projects: PropTypes.arrayOf(Object).isRequired,
 };
 
