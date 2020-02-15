@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Context from './Context';
@@ -21,6 +21,10 @@ const WrapperSC = styled.div`
     background-color: ${({ theme }) => theme.color.white[0]};
     box-shadow: 0px 3px 48px rgba(0, 0, 0, 0.35);
     z-index: 1;
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        margin: 90px auto 0px;
+        padding: 42px 15px 10px;
+    }
 `;
 
 const CirclesImageWrapper = styled.div`
@@ -37,6 +41,7 @@ const Image = styled.img`
 `;
 
 export const Wrapper = ({ children }) => {
+    const [throttledButtons, setThrottledButtons] = useState(null);
     const [{ prevActive, active }, setNewActive] = useReducer(
         (prevS, newActive) => ({ prevActive: prevS.active, active: newActive }),
         {
@@ -47,7 +52,13 @@ export const Wrapper = ({ children }) => {
 
     const handleChangeActive = newActive => {
         if (newActive === active) return null;
-        setNewActive(newActive);
+        if (throttledButtons === null) {
+            setNewActive(newActive);
+            const timeoutId = setTimeout(() => {
+                setThrottledButtons(null);
+            }, 800);
+            setThrottledButtons(timeoutId);
+        }
         return null;
     };
 

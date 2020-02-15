@@ -57,7 +57,7 @@ export const setAsActiveAnimation = button => {
 
     tl.to(button, 0.8, {
         x: '10%',
-        y: button.offsetHeight / 1.5,
+        y: button.offsetHeight / 1.7,
         scale: 2,
     });
 
