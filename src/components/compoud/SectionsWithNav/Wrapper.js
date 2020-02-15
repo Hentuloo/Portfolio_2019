@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Context from './Context';
@@ -6,7 +6,7 @@ import Context from './Context';
 import circlesRightBottom from './assets/circlesRightBottom.svg';
 
 import { SectionsWrapper } from './SectionsWrapper';
-import { ButtonsWrapper } from './ButtonsWrapper';
+import { ButtonsWrapper } from './Buttons';
 
 import { separatedChildrenWithButtonEvent } from './utils';
 
@@ -14,7 +14,7 @@ const WrapperSC = styled.div`
     position: relative;
     display: grid;
     width: 90%;
-    min-height: 300px;
+    min-height: 400px;
     margin: 70px auto 0px;
     padding: 22px 15px 10px;
     border-radius: 6px;
@@ -37,20 +37,28 @@ const Image = styled.img`
 `;
 
 export const Wrapper = ({ children }) => {
-    const [activeSection, setActiveSection] = useState(0);
+    const [{ prevActive, active }, setNewActive] = useReducer(
+        (prevS, newActive) => ({ prevActive: prevS.active, active: newActive }),
+        {
+            prevActive: null,
+            active: 0,
+        },
+    );
 
-    const onChangeActive = newIndex => {
-        setActiveSection(newIndex);
+    const handleChangeActive = newActive => {
+        if (newActive === active) return null;
+        setNewActive(newActive);
+        return null;
     };
 
     const contextValue = {
-        active: activeSection,
-        onChange: onChangeActive,
+        active,
+        prevActive,
     };
 
-    const [buttons, sections] = useMemo(
-        () => separatedChildrenWithButtonEvent(children, onChangeActive),
-        [],
+    const [buttons, sections] = separatedChildrenWithButtonEvent(
+        children,
+        handleChangeActive,
     );
 
     return (

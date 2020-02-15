@@ -9,9 +9,6 @@ export const ButtonSC = styled.button`
     border-radius: 50%;
     background-color: white;
     border: none;
-
-    left: calc(100% - 60px);
-    bottom: 0%;
 `;
 
 export const Button = ({ children, ...props }) => {

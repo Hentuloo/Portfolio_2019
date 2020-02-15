@@ -17,3 +17,17 @@ export const separatedChildrenWithButtonEvent = (children, onButtonClick) => {
         [[], []],
     );
 };
+
+export const setOrderByNewActive = (array, activeIndex) =>
+    array.reduce((acc, value, index) => {
+        if (index === 0) return [null, value];
+        if (value !== activeIndex) {
+            return [
+                acc[0],
+                ...acc.slice(1, acc.length - 1),
+                value,
+                acc[acc.length - 1],
+            ];
+        }
+        return [value, ...acc.slice(1)];
+    }, []);

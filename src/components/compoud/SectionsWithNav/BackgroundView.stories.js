@@ -13,7 +13,7 @@ const IconImage = styled.img`
     max-height: 100%;
 `;
 
-storiesOf('atoms/BackgroundView', module).add('compile', () => (
+storiesOf('cmp', module).add('compile', () => (
     <SWN.Wrapper>
         <SWN.Button>
             <ImageWrapper>

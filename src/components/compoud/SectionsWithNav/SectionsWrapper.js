@@ -6,6 +6,7 @@ import Context from './Context';
 import { Section } from './Section';
 
 export const SectionsWrapperSC = styled.section`
+    padding: 40px 20px 0px;
     ${({ active }) => css`
         ${Section}:nth-child(${active + 1}){
             opacity:1;
