@@ -3,7 +3,7 @@ import React, { useContext, useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { TimelineLite } from 'gsap';
-import Context from '../Context';
+import { Context } from '../Context';
 
 import { ButtonSC } from './Button';
 import { setOrderByNewActive } from '../utils';
@@ -34,7 +34,7 @@ export const ButtonsWrapperSC = styled.div`
         }`}
 `;
 
-export const ButtonsWrapper = ({ children }) => {
+export const ButtonsWrapper = ({ children, triggerInitAnimation }) => {
     const { active, prevActive } = useContext(Context);
 
     const wrapperRef = useRef(null);
@@ -82,15 +82,19 @@ export const ButtonsWrapper = ({ children }) => {
     useEffect(() => {
         if (prevActive === null) {
             // init animation
-            const { buttons } = getSetupNodes();
-            const tl = new TimelineLite();
+            const introWithSelectActive = () => {
+                const { buttons } = getSetupNodes();
+                const tl = new TimelineLite();
+                setButtonsOrder(buttons.map((btn, i) => i));
 
-            setButtonsOrder(buttons.map((btn, i) => i));
-
-            tl.add(introAnimation(buttons)).add(
-                setButtonAsActiveAnimation(active),
-                '-=0.4',
-            );
+                tl.add(introAnimation(buttons)).add(
+                    setButtonAsActiveAnimation(active),
+                    '-=0.4',
+                );
+                return 'ss';
+            };
+            introWithSelectActive();
+            triggerInitAnimation(() => introWithSelectActive());
         } else {
             const newOrder = changeActiveButtonIndex(active);
             setButtonsPositionByOrder(newOrder);
@@ -106,6 +110,7 @@ export const ButtonsWrapper = ({ children }) => {
 
 ButtonsWrapper.propTypes = {
     children: PropTypes.node,
+    triggerInitAnimation: PropTypes.func.isRequired,
 };
 ButtonsWrapper.defaultProps = {
     children: null,

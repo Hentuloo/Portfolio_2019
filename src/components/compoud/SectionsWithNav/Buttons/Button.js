@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Context } from '../Context';
 
 export const ButtonSC = styled.button`
     position: absolute;
@@ -16,8 +17,15 @@ export const ButtonSC = styled.button`
 `;
 
 export const Button = ({ children, ...props }) => {
+    const { active, prevActive } = useContext(Context);
+
     return (
-        <ButtonSC type="button" {...props}>
+        <ButtonSC
+            active={active}
+            prevActive={prevActive}
+            type="button"
+            {...props}
+        >
             {children}
         </ButtonSC>
     );

@@ -1,11 +1,14 @@
 import { TimelineLite } from 'gsap';
 
 export const introAnimation = btnsNodes => {
+    if (!btnsNodes.length) return null;
     const { parentNode } = btnsNodes[0];
     const tl = new TimelineLite();
 
     tl.set(btnsNodes, {
         opacity: 0,
+        scale: 1,
+        y: 0,
         x: parentNode.offsetWidth,
     });
 
@@ -16,7 +19,7 @@ export const introAnimation = btnsNodes => {
             const margin = i * 3;
             return parentNode.offsetWidth + ofset + margin;
         },
-        delay: 0.2,
+        delay: 0.4,
     });
 
     return tl;
@@ -36,7 +39,7 @@ export const setInRowAnimation = (btnsNodes, orderArray, wrapper) => {
                         btnsNodes[0].offsetWidth *
                         (orderArray.length - index + 2)
                     );
-                    const margin = index * 3;
+                    const margin = (index - 2) * 3;
                     return (
                         wrapper.offsetWidth +
                         ofset +
@@ -53,6 +56,7 @@ export const setInRowAnimation = (btnsNodes, orderArray, wrapper) => {
 };
 
 export const setAsActiveAnimation = button => {
+    if (!button) return null;
     const tl = new TimelineLite();
 
     tl.to(button, 0.8, {

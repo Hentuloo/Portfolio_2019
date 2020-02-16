@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import { SectionsWithNav as SWN } from 'components/compoud';
 import { ParagraphTitle, Paragraph } from 'components/atoms';
@@ -7,18 +8,70 @@ import { ParagraphTitle, Paragraph } from 'components/atoms';
 import { mountain, graph, box, joystic } from 'images/projectsWindowIcons';
 
 const Wrapper = styled.div`
-    margin-top: 120px;
+    position: relative;
+    width: 100%;
+    max-width: 950px;
+    margin: 29px auto;
+    &::before {
+        position: absolute;
+        content: '';
+        width: 90%;
+        height: calc(100% - 70px);
+        bottom: 0px;
+        left: 50%;
+        max-width: 950px;
+        transform: translate(-50%, 0%);
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.35);
+
+        @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+            height: calc(100% - 90px);
+        }
+    }
+    ${SWN.ButtonSC} {
+        cursor: none;
+        outline: none;
+    }
 `;
+
 const ImageWrapper = styled.div``;
 const IconImage = styled.img`
     max-width: 100%;
     max-height: 100%;
 `;
+const StyledSection = styled(SWN.SectionSC)`
+    ${Paragraph}:nth-child(3) {
+        padding-top: 20px;
+    }
+
+    ${Paragraph}:nth-child(4) {
+        padding-right: 30px;
+    }
+`;
 
 const SkilsSwitcher = () => {
+    const [triggerInintAnim, setTriggerInitAnimation] = useState(null);
+
+    const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
+
+    useEffect(() => {
+        if (
+            current !== previous &&
+            current === 'projects' &&
+            triggerInintAnim !== null &&
+            triggerInintAnim !== undefined
+        ) {
+            setTimeout(() => {
+                triggerInintAnim();
+            }, 700);
+        }
+    }, [current, previous]);
+    const up = fn => {
+        setTriggerInitAnimation(() => fn);
+    };
+
     return (
         <Wrapper>
-            <SWN.Wrapper>
+            <SWN.Wrapper triggerInitAnimation={up}>
                 <SWN.Button>
                     <ImageWrapper>
                         <IconImage src={mountain} />
@@ -39,8 +92,7 @@ const SkilsSwitcher = () => {
                         <IconImage src={joystic} />
                     </ImageWrapper>
                 </SWN.Button>
-
-                <SWN.Section>
+                <StyledSection>
                     <ParagraphTitle>Front-end</ParagraphTitle>
                     <Paragraph>
                         HTML, CSS, JS, SASS, SCSS, Styled-components, BEM,
@@ -51,8 +103,8 @@ const SkilsSwitcher = () => {
                         Troche znam:
                     </Paragraph>
                     <Paragraph>HTML5:Canvas, Bulma, GraphQL, jQuery</Paragraph>
-                </SWN.Section>
-                <SWN.Section>
+                </StyledSection>
+                <StyledSection>
                     <ParagraphTitle>Back-end</ParagraphTitle>
                     <Paragraph>
                         Node.js, Express, MongoDB, Firestore, Firebase,
@@ -62,8 +114,8 @@ const SkilsSwitcher = () => {
                         Troche znam:
                     </Paragraph>
                     <Paragraph>TypeScript, PHP, MySQL</Paragraph>
-                </SWN.Section>
-                <SWN.Section>
+                </StyledSection>
+                <StyledSection>
                     <ParagraphTitle>Inne</ParagraphTitle>
                     <Paragraph>
                         Eslint, Prettier, Husky + lintStage Netlify, Heroku,
@@ -73,8 +125,8 @@ const SkilsSwitcher = () => {
                         Troche znam:
                     </Paragraph>
                     <Paragraph>WordPress</Paragraph>
-                </SWN.Section>
-                <SWN.Section>
+                </StyledSection>
+                <StyledSection>
                     <ParagraphTitle>Teraz/niedługo:</ParagraphTitle>
                     <Paragraph>
                         Przerabiam kurs “średnio zawansowany Gatsby”, Złożona
@@ -82,7 +134,7 @@ const SkilsSwitcher = () => {
                         React-Native (wyłącznie praca z dokumentacją) W marcu
                         nowe kursy na Front-end masters!
                     </Paragraph>
-                </SWN.Section>
+                </StyledSection>
             </SWN.Wrapper>
         </Wrapper>
     );

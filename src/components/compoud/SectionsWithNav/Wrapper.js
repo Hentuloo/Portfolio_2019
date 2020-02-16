@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Context from './Context';
+import { Context } from './Context';
 
 import circlesRightBottom from './assets/circlesRightBottom.svg';
 
@@ -10,24 +10,28 @@ import { ButtonsWrapper } from './Buttons';
 
 import { separatedChildrenWithButtonEvent } from './utils';
 
-const WrapperSC = styled.div`
+export const OutWrapperSC = styled.div`
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+`;
+export const WrapperSC = styled.div`
     position: relative;
     display: grid;
     width: 90%;
-    min-height: 400px;
+    min-height: 350px;
     margin: 70px auto 0px;
     padding: 22px 15px 10px;
     border-radius: 6px;
     background-color: ${({ theme }) => theme.color.white[0]};
-    box-shadow: 0px 3px 48px rgba(0, 0, 0, 0.35);
     z-index: 1;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         margin: 90px auto 0px;
-        padding: 42px 15px 10px;
+        padding: 52px 15px 10px;
     }
 `;
 
-const CirclesImageWrapper = styled.div`
+export const CirclesImageWrapper = styled.div`
     position: absolute;
     width: 213px;
     height: 174px;
@@ -40,10 +44,13 @@ const Image = styled.img`
     max-height: 100%;
 `;
 
-export const Wrapper = ({ children }) => {
+export const Wrapper = ({ children, triggerInitAnimation }) => {
     const [throttledButtons, setThrottledButtons] = useState(null);
     const [{ prevActive, active }, setNewActive] = useReducer(
-        (prevS, newActive) => ({ prevActive: prevS.active, active: newActive }),
+        (prevS, newActive) => ({
+            prevActive: prevS.active,
+            active: newActive,
+        }),
         {
             prevActive: null,
             active: 0,
@@ -74,16 +81,24 @@ export const Wrapper = ({ children }) => {
 
     return (
         <Context.Provider value={contextValue}>
-            <WrapperSC>
-                <ButtonsWrapper>{buttons}</ButtonsWrapper>
-                <SectionsWrapper>{sections}</SectionsWrapper>
-                <CirclesImageWrapper type="presentation">
-                    <Image src={circlesRightBottom} />
-                </CirclesImageWrapper>
-            </WrapperSC>
+            <OutWrapperSC>
+                <WrapperSC>
+                    <ButtonsWrapper triggerInitAnimation={triggerInitAnimation}>
+                        {buttons}
+                    </ButtonsWrapper>
+                    <SectionsWrapper>{sections}</SectionsWrapper>
+                    <CirclesImageWrapper type="presentation">
+                        <Image src={circlesRightBottom} />
+                    </CirclesImageWrapper>
+                </WrapperSC>
+            </OutWrapperSC>
         </Context.Provider>
     );
 };
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
+    triggerInitAnimation: PropTypes.func,
+};
+Wrapper.defaultProps = {
+    triggerInitAnimation: () => null,
 };

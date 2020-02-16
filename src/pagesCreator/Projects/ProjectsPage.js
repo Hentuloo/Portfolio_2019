@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import ProjectsWrapper from './ProjectsWrapper';
-import SkilsSwitcher from './SkilsSwitcher';
+import SkillsSwitcher from './SkillsSwitcher';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -31,7 +31,7 @@ const Projects = ({ projects }) => {
     // console.log(markdownContent);
     return (
         <Wrapper>
-            <SkilsSwitcher />
+            <SkillsSwitcher />
             <StyledProjectsWrapper projects={projects} />
         </Wrapper>
     );

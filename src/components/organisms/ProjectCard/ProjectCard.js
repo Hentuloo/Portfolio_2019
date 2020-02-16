@@ -14,8 +14,8 @@ const Wrapper = styled.div`
     min-height: 130px;
     flex-direction: column;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.color.gray[0]};
-    box-shadow: 0 0 20px 1px ${({ theme }) => theme.grayDark};
+    background-color: ${({ theme }) => theme.color.white[0]};
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.35);
     font-family: ${({ theme }) => theme.font.second};
     font-weight: 700;
     &:hover {

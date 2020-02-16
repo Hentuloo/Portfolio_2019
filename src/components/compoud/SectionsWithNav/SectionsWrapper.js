@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import Context from './Context';
+import { Context } from './Context';
 
-import { Section } from './Section';
+import { SectionSC } from './Section';
 
-export const SectionsWrapperSC = styled.section`
-    padding: 40px 20px 0px;
+export const SectionsWrapperSC = styled.div`
     ${({ active }) => css`
-        ${Section}:nth-child(${active + 1}){
+        ${SectionSC}:nth-child(${active + 1}){
             opacity:1;
         }`}
 `;
