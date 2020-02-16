@@ -16,20 +16,26 @@ export const ButtonSC = styled.button`
     }
 `;
 
-export const Button = ({ children, ...props }) => {
+export const Button = ({ children, render, ...props }) => {
     const { active, prevActive } = useContext(Context);
-
+    if (render) {
+        return (
+            <ButtonSC type="button" {...props}>
+                {render({ active, prevActive })}
+            </ButtonSC>
+        );
+    }
     return (
-        <ButtonSC
-            active={active}
-            prevActive={prevActive}
-            type="button"
-            {...props}
-        >
+        <ButtonSC type="button" {...props}>
             {children}
         </ButtonSC>
     );
 };
 Button.propTypes = {
-    children: PropTypes.node.isRequired,
+    render: PropTypes.func,
+    children: PropTypes.node,
+};
+Button.defaultProps = {
+    render: null,
+    children: null,
 };

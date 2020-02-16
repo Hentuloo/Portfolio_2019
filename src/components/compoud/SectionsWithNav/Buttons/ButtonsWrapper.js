@@ -34,8 +34,8 @@ export const ButtonsWrapperSC = styled.div`
         }`}
 `;
 
-export const ButtonsWrapper = ({ children, triggerInitAnimation }) => {
-    const { active, prevActive } = useContext(Context);
+export const ButtonsWrapper = ({ children, initAnimationRef }) => {
+    const { active } = useContext(Context);
 
     const wrapperRef = useRef(null);
     const [btnsOrder, setButtonsOrder] = useState([]);
@@ -79,27 +79,27 @@ export const ButtonsWrapper = ({ children, triggerInitAnimation }) => {
         return newOrder;
     };
 
-    useEffect(() => {
-        if (prevActive === null) {
-            // init animation
-            const introWithSelectActive = () => {
-                const { buttons } = getSetupNodes();
-                const tl = new TimelineLite();
-                setButtonsOrder(buttons.map((btn, i) => i));
+    const introWithSelectActive = buttons => {
+        const tl = new TimelineLite();
+        tl.add(introAnimation(buttons)).add(
+            setButtonAsActiveAnimation(active),
+            '-=0.4',
+        );
+    };
 
-                tl.add(introAnimation(buttons)).add(
-                    setButtonAsActiveAnimation(active),
-                    '-=0.4',
-                );
-                return 'ss';
-            };
-            introWithSelectActive();
-            triggerInitAnimation(() => introWithSelectActive());
-        } else {
-            const newOrder = changeActiveButtonIndex(active);
-            setButtonsPositionByOrder(newOrder);
-        }
+    useEffect(() => {
+        const newOrder = changeActiveButtonIndex(active);
+        setButtonsPositionByOrder(newOrder);
     }, [active]);
+
+    useEffect(() => {
+        const { buttons } = getSetupNodes();
+        setButtonsOrder(buttons.map((btn, i) => i));
+        introWithSelectActive(buttons);
+
+        // Bind trigger
+        initAnimationRef(() => introWithSelectActive(buttons));
+    }, []);
 
     return (
         <ButtonsWrapperSC ref={wrapperRef} active={active}>
@@ -110,7 +110,7 @@ export const ButtonsWrapper = ({ children, triggerInitAnimation }) => {
 
 ButtonsWrapper.propTypes = {
     children: PropTypes.node,
-    triggerInitAnimation: PropTypes.func.isRequired,
+    initAnimationRef: PropTypes.func.isRequired,
 };
 ButtonsWrapper.defaultProps = {
     children: null,

@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import { SectionsWithNav as SWN } from 'components/compoud';
-import { ParagraphTitle, Paragraph } from 'components/atoms';
+import {
+    ParagraphTitle,
+    Paragraph,
+    Mountain,
+    Charts,
+    Box,
+    Joystick,
+} from 'components/atoms';
 
-import { mountain, graph, box, joystic } from 'images/projectsWindowIcons';
+import { useFunctionRef } from 'hooks/useFunctionRef';
 
 const Wrapper = styled.div`
     position: relative;
@@ -33,10 +40,15 @@ const Wrapper = styled.div`
     }
 `;
 
-const ImageWrapper = styled.div``;
-const IconImage = styled.img`
-    max-width: 100%;
-    max-height: 100%;
+const ImageWrapper = styled.div`
+    svg {
+        position: absolute;
+        max-width: 80%;
+        max-height: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 `;
 const StyledSection = styled(SWN.SectionSC)`
     ${Paragraph}:nth-child(3) {
@@ -49,49 +61,33 @@ const StyledSection = styled(SWN.SectionSC)`
 `;
 
 const SkilsSwitcher = () => {
-    const [triggerInintAnim, setTriggerInitAnimation] = useState(null);
-
     const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
+    const triggerInitAnimation = useFunctionRef();
 
     useEffect(() => {
-        if (
-            current !== previous &&
-            current === 'projects' &&
-            triggerInintAnim !== null &&
-            triggerInintAnim !== undefined
-        ) {
+        if (current !== previous && current === 'projects') {
             setTimeout(() => {
-                triggerInintAnim();
+                triggerInitAnimation();
             }, 700);
         }
-    }, [current, previous]);
-    const up = fn => {
-        setTriggerInitAnimation(() => fn);
-    };
+    }, [current]);
 
+    const CreateSWNButton = (Component, index) => (
+        <SWN.Button
+            render={({ active }) => (
+                <ImageWrapper>
+                    <Component tlSettings={{ paused: active !== index }} />
+                </ImageWrapper>
+            )}
+        />
+    );
     return (
         <Wrapper>
-            <SWN.Wrapper triggerInitAnimation={up}>
-                <SWN.Button>
-                    <ImageWrapper>
-                        <IconImage src={mountain} />
-                    </ImageWrapper>
-                </SWN.Button>
-                <SWN.Button>
-                    <ImageWrapper>
-                        <IconImage src={graph} />
-                    </ImageWrapper>
-                </SWN.Button>
-                <SWN.Button>
-                    <ImageWrapper>
-                        <IconImage src={box} />
-                    </ImageWrapper>
-                </SWN.Button>
-                <SWN.Button>
-                    <ImageWrapper>
-                        <IconImage src={joystic} />
-                    </ImageWrapper>
-                </SWN.Button>
+            <SWN.Wrapper initAnimationRef={triggerInitAnimation}>
+                {CreateSWNButton(Mountain, 0)}
+                {CreateSWNButton(Charts, 1)}
+                {CreateSWNButton(Box, 2)}
+                {CreateSWNButton(Joystick, 3)}
                 <StyledSection>
                     <ParagraphTitle>Front-end</ParagraphTitle>
                     <Paragraph>

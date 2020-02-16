@@ -13,7 +13,7 @@ const IconImage = styled.img`
     max-height: 100%;
 `;
 
-storiesOf('cmp', module).add('compile', () => (
+storiesOf('SectionsWithNavButtons', module).add('Compoud', () => (
     <SWN.Wrapper>
         <SWN.Button>
             <ImageWrapper>
@@ -36,7 +36,7 @@ storiesOf('cmp', module).add('compile', () => (
             </ImageWrapper>
         </SWN.Button>
 
-        <SWN.Section>
+        <SWN.SectionSC>
             <ParagraphTitle>Front-end</ParagraphTitle>
             <Paragraph>
                 HTML, CSS, JS, SASS, SCSS, Styled-components, BEM, Bootstrap4,
@@ -47,8 +47,8 @@ storiesOf('cmp', module).add('compile', () => (
                 Troche znam:
             </Paragraph>
             <Paragraph>HTML5:Canvas, Bulma, GraphQL, jQuery</Paragraph>
-        </SWN.Section>
-        <SWN.Section>
+        </SWN.SectionSC>
+        <SWN.SectionSC>
             <ParagraphTitle>Back-end</ParagraphTitle>
             <Paragraph>
                 Node.js, Express, MongoDB, Firestore, Firebase, Cloud-functions,
@@ -57,8 +57,8 @@ storiesOf('cmp', module).add('compile', () => (
                 Troche znam:
             </Paragraph>
             <Paragraph>TypeScript, PHP, MySQL</Paragraph>
-        </SWN.Section>
-        <SWN.Section>
+        </SWN.SectionSC>
+        <SWN.SectionSC>
             <ParagraphTitle>Inne</ParagraphTitle>
             <Paragraph>
                 Eslint, Prettier, Husky + lintStage Netlify, Heroku, Figma,
@@ -68,14 +68,14 @@ storiesOf('cmp', module).add('compile', () => (
                 Troche znam:
             </Paragraph>
             <Paragraph>WordPress</Paragraph>
-        </SWN.Section>
-        <SWN.Section>
+        </SWN.SectionSC>
+        <SWN.SectionSC>
             <ParagraphTitle>Teraz/niedługo:</ParagraphTitle>
             <Paragraph>
                 Przerabiam kurs “średnio zawansowany Gatsby”, Złożona animacja z
                 wykorzystaniem GSAP, Stworzyć coś w React-Native (wyłącznie
                 praca z dokumentacją) W marcu nowe kursy na Front-end masters!
             </Paragraph>
-        </SWN.Section>
+        </SWN.SectionSC>
     </SWN.Wrapper>
 ));
