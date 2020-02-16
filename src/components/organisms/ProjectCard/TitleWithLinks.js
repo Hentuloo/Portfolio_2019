@@ -7,7 +7,7 @@ const TittleWrapper = styled.div`
     justify-content: space-between;
     padding: 0px 15px 0px 20px;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        padding: 0px 5px 0px 15px;
+        padding: 0px 5px 0px 10px;
     }
 `;
 
@@ -18,6 +18,7 @@ const Title = styled.h2`
     font-size: ${({ theme }) => theme.font.medium};
     text-transform: uppercase;
     font-weight: 400;
+    color: ${({ theme }) => theme.color.brand[0]};
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         margin-top: 8px;
@@ -35,7 +36,7 @@ const Title = styled.h2`
 const LinksWrapper = styled.div`
     display: flex;
     height: 55px;
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.font.xxs};
@@ -43,6 +44,7 @@ const LinksWrapper = styled.div`
 `;
 
 const LinkButton = styled.a`
+    position: relative;
     height: 30px;
     padding: 2px 7px 0px;
     margin: 2px 4px;
@@ -51,8 +53,18 @@ const LinkButton = styled.a`
     text-decoration: none;
     letter-spacing: 0.04em;
     color: black;
-    background-color: white;
     cursor: none;
+
+    &::before {
+        position: absolute;
+        content: '';
+        width: 40%;
+        height: 2px;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        background-color: ${({ theme }) => theme.color.brand[1]};
+    }
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         height: 34px;
     }

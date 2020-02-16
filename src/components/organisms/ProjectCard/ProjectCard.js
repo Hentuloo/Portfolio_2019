@@ -31,12 +31,17 @@ const Description = styled.p`
     padding: 5px 10px 10px;
     font-size: ${({ theme }) => theme.font.xxs};
     line-height: ${({ theme }) => theme.font.s};
+    font-family: ${({ theme }) => theme.font.second};
+
     letter-spacing: 0px;
-    font-weight: 600;
+    font-weight: 400;
     word-spacing: 4px;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        padding: 0px 30px;
+        padding: 0px 15px;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        padding: 0px 20px;
     }
 `;
 
