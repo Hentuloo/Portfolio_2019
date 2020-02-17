@@ -37,6 +37,8 @@ const LinksWrapper = styled.div`
     display: flex;
     height: 55px;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     text-align: center;
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.font.xxs};

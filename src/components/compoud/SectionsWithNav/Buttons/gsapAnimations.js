@@ -1,21 +1,20 @@
 import { TimelineLite } from 'gsap';
 
-export const introAnimation = btnsNodes => {
-    if (!btnsNodes.length) return null;
-    const { parentNode } = btnsNodes[0];
+export const entryAnimation = elements => {
+    if (!elements.length) return null;
+    const { parentNode } = elements[0];
     const tl = new TimelineLite();
-
-    tl.set(btnsNodes, {
+    tl.set(elements, {
         opacity: 0,
         scale: 1,
         y: 0,
         x: parentNode.offsetWidth,
     });
 
-    tl.staggerTo(btnsNodes, 0.6, {
+    tl.staggerTo(elements, 0.6, {
         opacity: 1,
         x: (i, t) => {
-            const ofset = -(t.offsetWidth * (btnsNodes.length - i));
+            const ofset = -(t.offsetWidth * (elements.length - i));
             const margin = i * 3;
             return parentNode.offsetWidth + ofset + margin;
         },
@@ -25,27 +24,51 @@ export const introAnimation = btnsNodes => {
     return tl;
 };
 
-export const setInRowAnimation = (btnsNodes, orderArray, wrapper) => {
-    const tl = new TimelineLite();
+export const setAsActiveAnimation = element => {
+    if (!element) return null;
 
-    orderArray.forEach((btnIndex, index) => {
+    const tl = new TimelineLite();
+    tl.to(element, 0.8, {
+        x: '10%',
+        y: element.offsetHeight / 1.7,
+        scale: 2,
+    });
+
+    return tl;
+};
+
+export const introAnimation = elements => {
+    if (!elements.length) return null;
+
+    const tl = new TimelineLite();
+    tl.addLabel('start')
+        .add(entryAnimation(elements), 'start')
+        .add(setAsActiveAnimation(elements[0]), 'start+=0.6');
+
+    return tl;
+};
+
+export const setInRowAnimation = elements => {
+    if (!elements.length) return null;
+    const wrapper = elements[0].parentNode;
+
+    const wrapperWidth = wrapper.offsetWidth;
+    const elementWidth = elements[0].offsetWidth;
+
+    const tl = new TimelineLite();
+    elements.forEach((btn, index) => {
         tl.to(
-            btnsNodes[btnIndex],
+            btn,
             0.4,
             {
                 y: 0,
                 x: () => {
                     const ofset = -(
-                        btnsNodes[0].offsetWidth *
-                        (orderArray.length - index + 2)
+                        elementWidth *
+                        (elements.length - index + 2)
                     );
                     const margin = (index - 2) * 3;
-                    return (
-                        wrapper.offsetWidth +
-                        ofset +
-                        margin +
-                        btnsNodes[0].offsetWidth
-                    );
+                    return wrapperWidth + ofset + margin + elementWidth;
                 },
             },
             index * 0.15,
@@ -55,20 +78,10 @@ export const setInRowAnimation = (btnsNodes, orderArray, wrapper) => {
     return tl;
 };
 
-export const setAsActiveAnimation = button => {
+export const removeFromActivePositionAnimation = button => {
     if (!button) return null;
-    const tl = new TimelineLite();
+    const wrapper = button.parentNode;
 
-    tl.to(button, 0.8, {
-        x: '10%',
-        y: button.offsetHeight / 1.7,
-        scale: 2,
-    });
-
-    return tl;
-};
-
-export const removeFromActivePositionAnimation = (wrapper, button) => {
     const tl = new TimelineLite();
     tl.to(button, 0.5, {
         scale: 0.3,
@@ -87,5 +100,20 @@ export const removeFromActivePositionAnimation = (wrapper, button) => {
                 return wrapper.offsetWidth + ofset + margin;
             },
         });
+
+    return tl;
+};
+
+export const selectItemAnimation = elements => {
+    const activeEl = elements[0];
+    const lastEl = elements[elements.length - 1];
+    const restElements = elements.slice(1, elements.length - 1);
+
+    const tl = new TimelineLite();
+    tl.addLabel('start')
+        .add(setInRowAnimation(restElements), 'start')
+        .add(setAsActiveAnimation(activeEl), 'start')
+        .add(removeFromActivePositionAnimation(lastEl), 'start+=0.3');
+
     return tl;
 };

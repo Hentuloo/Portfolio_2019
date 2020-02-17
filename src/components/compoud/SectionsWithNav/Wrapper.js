@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Context } from './Context';
@@ -44,7 +44,7 @@ const Image = styled.img`
     max-height: 100%;
 `;
 
-export const Wrapper = ({ children, initAnimationRef }) => {
+export const Wrapper = ({ children, triggerInitAnimationDeps }) => {
     const [throttledButtons, setThrottledButtons] = useState(null);
     const [{ prevActive, active }, setNewActive] = useReducer(
         (prevS, newActive) => ({
@@ -58,7 +58,6 @@ export const Wrapper = ({ children, initAnimationRef }) => {
     );
 
     const handleChangeActive = newActive => {
-        if (newActive === active) return null;
         if (throttledButtons === null) {
             setNewActive(newActive);
             const timeoutId = setTimeout(() => {
@@ -74,16 +73,18 @@ export const Wrapper = ({ children, initAnimationRef }) => {
         prevActive,
     };
 
-    const [buttons, sections] = separatedChildrenWithButtonEvent(
-        children,
-        handleChangeActive,
+    const [buttons, sections] = useMemo(
+        () => separatedChildrenWithButtonEvent(children, handleChangeActive),
+        [],
     );
 
     return (
         <Context.Provider value={contextValue}>
             <OutWrapperSC>
                 <WrapperSC>
-                    <ButtonsWrapper initAnimationRef={initAnimationRef}>
+                    <ButtonsWrapper
+                        triggerInitAnimationDeps={triggerInitAnimationDeps}
+                    >
                         {buttons}
                     </ButtonsWrapper>
                     <SectionsWrapper>{sections}</SectionsWrapper>
@@ -97,8 +98,12 @@ export const Wrapper = ({ children, initAnimationRef }) => {
 };
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
-    initAnimationRef: PropTypes.func,
+    triggerInitAnimationDeps: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.func,
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
 };
 Wrapper.defaultProps = {
-    initAnimationRef: () => null,
+    triggerInitAnimationDeps: [],
 };

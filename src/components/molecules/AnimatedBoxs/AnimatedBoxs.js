@@ -22,7 +22,7 @@ const RightBox = styled.div`
   @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
     width: 160px;
     height: 210px;
-    ${DesktopRight}
+    /* ${DesktopRight} */
   }
  
 
