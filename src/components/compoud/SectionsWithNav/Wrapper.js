@@ -44,7 +44,7 @@ const Image = styled.img`
     max-height: 100%;
 `;
 
-export const Wrapper = ({ children, initAnimationRef }) => {
+export const Wrapper = ({ children, triggerInitAnimationDeps }) => {
     const [throttledButtons, setThrottledButtons] = useState(null);
     const [{ prevActive, active }, setNewActive] = useReducer(
         (prevS, newActive) => ({
@@ -83,7 +83,9 @@ export const Wrapper = ({ children, initAnimationRef }) => {
         <Context.Provider value={contextValue}>
             <OutWrapperSC>
                 <WrapperSC>
-                    <ButtonsWrapper initAnimationRef={initAnimationRef}>
+                    <ButtonsWrapper
+                        triggerInitAnimationDeps={triggerInitAnimationDeps}
+                    >
                         {buttons}
                     </ButtonsWrapper>
                     <SectionsWrapper>{sections}</SectionsWrapper>
@@ -97,8 +99,12 @@ export const Wrapper = ({ children, initAnimationRef }) => {
 };
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
-    initAnimationRef: PropTypes.func,
+    triggerInitAnimationDeps: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.func,
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
 };
 Wrapper.defaultProps = {
-    initAnimationRef: () => null,
+    triggerInitAnimationDeps: [],
 };

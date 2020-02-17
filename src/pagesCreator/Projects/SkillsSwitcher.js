@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -11,8 +11,6 @@ import {
     Box,
     Joystick,
 } from 'components/atoms';
-
-import { useFunctionRef } from 'hooks/useFunctionRef';
 
 const Wrapper = styled.div`
     position: relative;
@@ -61,16 +59,7 @@ const StyledSection = styled(SWN.SectionSC)`
 `;
 
 const SkilsSwitcher = () => {
-    const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
-    const triggerInitAnimation = useFunctionRef();
-
-    useEffect(() => {
-        if (current !== previous && current === 'projects') {
-            setTimeout(() => {
-                triggerInitAnimation();
-            }, 700);
-        }
-    }, [current]);
+    const { current } = useSelector(({ ActivePage }) => ActivePage);
 
     const CreateSWNButton = (Component, index) => (
         <SWN.Button
@@ -81,9 +70,19 @@ const SkilsSwitcher = () => {
             )}
         />
     );
+
     return (
         <Wrapper>
-            <SWN.Wrapper initAnimationRef={triggerInitAnimation}>
+            <SWN.Wrapper
+                triggerInitAnimationDeps={[
+                    initAnim => () => {
+                        if (current === 'projects') {
+                            setTimeout(() => initAnim(), 600);
+                        }
+                    },
+                    [current],
+                ]}
+            >
                 {CreateSWNButton(Mountain, 0)}
                 {CreateSWNButton(Charts, 1)}
                 {CreateSWNButton(Box, 2)}

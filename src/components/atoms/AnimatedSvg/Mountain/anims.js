@@ -3,7 +3,7 @@ import { TimelineLite } from 'gsap';
 export const flagAnim = el => {
     const tl = new TimelineLite();
     tl.set(el, { transformOrigin: '0px 30px' });
-    tl.from(el.current, 3, { y: '32%' }).to(el, 3, {
+    tl.from(el, 3, { y: '32%' }).to(el, 3, {
         transformOrigin: '0px 40px',
         rotationZ: 360,
     });

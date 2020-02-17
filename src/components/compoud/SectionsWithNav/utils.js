@@ -1,9 +1,15 @@
 import { Children, cloneElement } from 'react';
 
+export const elementsByOrder = (elements, orders) => {
+    if (orders.length) return orders.map(orderIndex => elements[orderIndex]);
+    return elements;
+};
+
 export const separatedChildrenWithButtonEvent = (children, onButtonClick) => {
     return Children.toArray(children).reduce(
         (reactElements, child, i) => {
             const componentName = child.type.name || child.type.displayName;
+            console.log(child);
             if (componentName === 'Button') {
                 const buttonWithOnClick = cloneElement(child, {
                     onClick: () => onButtonClick(i),
