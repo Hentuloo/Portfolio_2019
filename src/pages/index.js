@@ -11,6 +11,8 @@ import SEO from 'components/organisms/SEO';
 import SwitchPages from 'pagesCreator/SwitchPages';
 import { Cursor } from 'components/molecules';
 
+import 'config/gsapConfig';
+
 const App = () => {
     return (
         <>

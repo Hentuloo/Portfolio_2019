@@ -9,7 +9,7 @@ export const separatedChildrenWithButtonEvent = (children, onButtonClick) => {
     return Children.toArray(children).reduce(
         (reactElements, child, i) => {
             const componentName = child.type.name || child.type.displayName;
-            if (componentName === 'Button' || componentName === 'tn') {
+            if (componentName !== 'SkillsSwitcher__StyledSection') {
                 const buttonWithOnClick = cloneElement(child, {
                     onClick: () => onButtonClick(i),
                 });
