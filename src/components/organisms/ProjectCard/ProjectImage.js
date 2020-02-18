@@ -54,6 +54,7 @@ const ProjectImage = ({ photo, title }) => {
                 image={photo}
                 alt={title}
                 fadeIn={false}
+                blurryPlaceholder={false}
                 role="presentation"
             />
             <GraphImg
@@ -61,6 +62,7 @@ const ProjectImage = ({ photo, title }) => {
                 image={photo}
                 maxWidth={600}
                 fadeIn={false}
+                blurryPlaceholder={false}
                 alt={title}
             />
             <Line src={LinePrimary} role="presentation" alt="" />

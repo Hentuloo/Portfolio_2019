@@ -14,7 +14,7 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr 110px 12%;
     grid-template-rows: 65px 160px 40px auto;
     margin-top: 0px;
-    padding-bottom: 90px;
+    padding-bottom: 200px;
     @media (min-width: 550px) {
         grid-template-columns: 1fr 140px 8%;
         grid-template-rows: 45px 200px 90px auto;

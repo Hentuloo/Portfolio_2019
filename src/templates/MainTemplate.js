@@ -29,7 +29,7 @@ const hide = keyframes`
 
 const BeforeGridBlocks = styled.div`
     opacity: 1;
-    animation: ${hide} 0s 3s linear forwards;
+    animation: ${hide} 0.1s 3s linear forwards;
 `;
 
 const BlockWithDelayOpacity = styled.div`

@@ -26,7 +26,8 @@ const Wrapper = styled.div`
 
 const PageWrapper = styled.div`
     opacity: 0;
-    position: absolute !important;
+    position: absolute;
+    top: 0%;
     width: 100%;
     transform-origin: top;
     overflow: hidden;

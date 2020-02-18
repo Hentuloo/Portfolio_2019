@@ -19,7 +19,7 @@ export const WrapperSC = styled.div`
     position: relative;
     display: grid;
     width: 90%;
-    min-height: 350px;
+    min-height: 400px;
     margin: 70px auto 0px;
     padding: 22px 15px 10px;
     border-radius: 6px;
