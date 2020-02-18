@@ -53,12 +53,14 @@ const ProjectImage = ({ photo, title }) => {
                 outerWrapperClassName="outImage"
                 image={photo}
                 alt={title}
+                fadeIn={false}
                 role="presentation"
             />
             <GraphImg
                 outerWrapperClassName="innerImage"
                 image={photo}
                 maxWidth={600}
+                fadeIn={false}
                 alt={title}
             />
             <Line src={LinePrimary} role="presentation" alt="" />

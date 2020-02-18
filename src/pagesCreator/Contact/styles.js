@@ -26,13 +26,6 @@ export const Wrapper = styled.section`
     @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
         max-width: 900px;
     }
-
-    ${({ success }) =>
-        !success &&
-        css`
-            opacity: 0;
-            animation: ${opacity} 0.5s linear forwards;
-        `}
 `;
 export const InputWrapper = styled.label`
     width: 100%;

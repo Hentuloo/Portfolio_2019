@@ -7,9 +7,6 @@ import Constants from 'config/Constants';
 import { encode } from 'config/utils';
 import { PrefixNote } from 'components/atoms';
 
-import { WithMouseMove } from 'providers/WithMouseMove';
-import { WithMouseHover } from 'providers/WithMouseHover';
-
 import {
     letterLarge,
     letterFirst,
@@ -123,22 +120,11 @@ const ContactTemplate = () => {
                         onChange={handleChange}
                     />
                     <PrefixNote>{validatorName}</PrefixNote>
-                    <WithMouseMove
-                        gsapDelay={0.3}
-                        attr={{
-                            sensitivity: 0.07,
-                            x: -70,
-                            y: -70,
-                        }}
-                        render={() => (
-                            <LetterIcon
-                                className="large"
-                                src={letterLarge}
-                                alt="ikona listu"
-                            />
-                        )}
+                    <LetterIcon
+                        className="large"
+                        src={letterLarge}
+                        alt="ikona listu"
                     />
-
                     <LetterIcon
                         className="first"
                         src={letterFirst}
@@ -180,21 +166,10 @@ const ContactTemplate = () => {
                     type="submit"
                     value={submitTitle}
                 />
-                <WithMouseHover
-                    gsapDelay={0.5}
-                    attr={{
-                        sensitivity: 0.6,
-                        x: -25,
-                        y: -25,
-                    }}
-                    render={({ listeners }) => (
-                        <LetterIcon
-                            {...listeners}
-                            className="valid"
-                            src={isValid ? letterValidTrue : letterValidFalse}
-                            alt="ikona listu"
-                        />
-                    )}
+                <LetterIcon
+                    className="valid"
+                    src={isValid ? letterValidTrue : letterValidFalse}
+                    alt="ikona listu"
                 />
             </Form>
         </Wrapper>

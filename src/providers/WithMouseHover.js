@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { TweenLite, Power1 } from 'gsap';
 
-export const WithMouseHover = ({ render, attr, gsapAttr, gsapDelay }) => {
+const WithMouseHover = ({ render, attr, gsapAttr, gsapDelay }) => {
     const moveElement = useMemo(
         () => e => {
             const { target, clientX, clientY } = e;
@@ -22,14 +22,16 @@ export const WithMouseHover = ({ render, attr, gsapAttr, gsapDelay }) => {
         [],
     );
 
-    const resetElement = useMemo(() => e => {
-        TweenLite.to(e.target, gsapDelay, {
-            x: 0,
-            y: 0,
-            ease: Power1.ease,
-        });
-    });
-
+    const resetElement = useMemo(
+        () => e => {
+            TweenLite.to(e.target, gsapDelay, {
+                x: 0,
+                y: 0,
+                ease: Power1.ease,
+            });
+        },
+        [],
+    );
     const listeners = {
         onMouseMove: moveElement,
         onMouseLeave: resetElement,
@@ -59,3 +61,5 @@ WithMouseHover.defaultProps = {
     gsapAttr: {},
     gsapDelay: 0.1,
 };
+
+export default WithMouseHover;

@@ -58,7 +58,13 @@ const Icons = ({ technologies }) => {
         <Wrapper>
             {technologies.map(e => (
                 <Icon key={e.id}>
-                    <GraphImg image={e} alt={e.fileName} maxWidth={100} />
+                    <GraphImg
+                        image={e}
+                        alt={e.fileName}
+                        maxWidth={100}
+                        fadeIn={false}
+                        blurryPlaceholder={false}
+                    />
                     <Description>{e.title}</Description>
                 </Icon>
             ))}

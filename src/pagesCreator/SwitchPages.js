@@ -20,17 +20,21 @@ const opacity = keyframes`
 }
 `;
 
+const Wrapper = styled.div`
+    position: relative;
+`;
+
 const PageWrapper = styled.div`
     opacity: 0;
+    position: absolute !important;
+    width: 100%;
+    transform-origin: top;
+    overflow: hidden;
     ${({ active }) =>
         !active &&
         css`
-            position: absolute !important;
-            height: 1px;
-            width: 1px;
-            overflow: hidden;
-            clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-            clip: rect(1px, 1px, 1px, 1px);
+            z-index: -5;
+            transform: scaleY(0.01);
         `}
     ${({ active }) =>
         active &&
@@ -38,6 +42,7 @@ const PageWrapper = styled.div`
             animation: ${opacity} 0.1s
                 ${`${Constants.GENERAL.changePageDelay}s`} linear backwards;
             opacity: 1;
+            transform: scaleY(1);
         `}
 `;
 
@@ -70,7 +75,7 @@ const SwitchPages = () => {
         currentLang === 'en' ? en : pl;
 
     return (
-        <>
+        <Wrapper>
             <PageWrapper active={current === 'portfolio'}>
                 <PortfolioPage
                     photo={photo}
@@ -88,7 +93,7 @@ const SwitchPages = () => {
             <PageWrapper active={current === 'contact'}>
                 <ContactPage />
             </PageWrapper>
-        </>
+        </Wrapper>
     );
 };
 

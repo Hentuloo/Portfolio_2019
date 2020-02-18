@@ -12,6 +12,8 @@ import {
     Joystick,
 } from 'components/atoms';
 
+import SkillSwitcherButton from './SkillSwitcherButton';
+
 const Wrapper = styled.div`
     position: relative;
     width: 100%;
@@ -38,16 +40,6 @@ const Wrapper = styled.div`
     }
 `;
 
-const ImageWrapper = styled.div`
-    svg {
-        position: absolute;
-        max-width: 80%;
-        max-height: 80%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-`;
 const StyledSection = styled(SWN.SectionSC)`
     ${Paragraph}:nth-child(3) {
         padding-top: 20px;
@@ -61,32 +53,22 @@ const StyledSection = styled(SWN.SectionSC)`
 const SkilsSwitcher = () => {
     const { current } = useSelector(({ ActivePage }) => ActivePage);
 
-    const CreateSWNButton = (Component, index) => (
-        <SWN.Button
-            render={({ active }) => (
-                <ImageWrapper>
-                    <Component tlSettings={{ paused: active !== index }} />
-                </ImageWrapper>
-            )}
-        />
-    );
-
     return (
         <Wrapper>
             <SWN.Wrapper
                 triggerInitAnimationDeps={[
                     initAnim => () => {
                         if (current === 'projects') {
-                            setTimeout(() => initAnim(), 600);
+                            setTimeout(() => initAnim(), 550);
                         }
                     },
                     [current],
                 ]}
             >
-                {CreateSWNButton(Mountain, 0)}
-                {CreateSWNButton(Charts, 1)}
-                {CreateSWNButton(Box, 2)}
-                {CreateSWNButton(Joystick, 3)}
+                <SkillSwitcherButton Component={Mountain} index={0} />
+                <SkillSwitcherButton Component={Charts} index={1} />
+                <SkillSwitcherButton Component={Box} index={2} />
+                <SkillSwitcherButton Component={Joystick} index={3} />
                 <StyledSection>
                     <ParagraphTitle>Front-end</ParagraphTitle>
                     <Paragraph>

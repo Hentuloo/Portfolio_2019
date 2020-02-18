@@ -1,20 +1,9 @@
-import React from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import React, { useEffect, useRef } from 'react';
+import styled, { css } from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { WithMouseMove } from 'providers/WithMouseMove';
 
-const atomAnimation = keyframes`
-to{
-    transform: rotate(360deg);
-}
-`;
-const pulse = keyframes`
-to{
-    transform: scale(0.16);
-    opacity: 0.4;
-}
-`;
+import { TweenLite, Power1 } from 'gsap';
 
 const Wrapper = styled.div`
     position: fixed;
@@ -22,6 +11,7 @@ const Wrapper = styled.div`
     left: 0%;
     display: none;
     mix-blend-mode: difference;
+    pointer-events: none;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;
         ${({ black }) =>
@@ -43,42 +33,12 @@ const CursorCircle = styled.div`
     box-sizing: border-box;
     cursor: none;
     pointer-events: none;
+
     ${({ black }) =>
         black &&
         css`
             border: 2px solid transparent;
         `}
-    ${({ focus }) =>
-        focus &&
-        css`
-            width: 50px;
-            height: 50px;
-            left: -25px;
-            top: -25px;
-            border: 1px solid ${({ theme }) => theme.color.gray[0]};
-        `}
-
-    &::after {
-        content: '';
-        position: absolute;
-        top: calc(50% - 2px);
-        left: -13px;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        box-sizing: border-box;
-        background-color: ${({ theme }) => theme.color.brand[2]};
-        transform-origin: 26px 50%;
-        transform: rotate(0deg);
-        animation: ${atomAnimation} 3s infinite forwards
-            cubic-bezier(0.98, 0.43, 0.67, 0.81);
-        ${({ focus }) =>
-            focus &&
-            css`
-                transform-origin: 36px 50%;
-                background-color: black;
-            `}
-    }
 `;
 
 const CursorPoint = styled.div`
@@ -90,11 +50,6 @@ const CursorPoint = styled.div`
     border-radius: 50%;
     background-color: ${({ theme }) => theme.color.brand[0]};
 
-    ${({ focus }) =>
-        focus &&
-        css`
-            background-color: transparent;
-        `}
     ${({ black }) =>
         black &&
         css`
@@ -119,17 +74,6 @@ const CursorPoint = styled.div`
                 transform: scale(1);
                 opacity: 1;
             `}
-        ${({ focus }) =>
-            focus &&
-            css`
-                left: -57px;
-                top: -58px;
-                transform: scale(0.03);
-                background-color: ${({ theme }) => theme.color.brand[0]};
-                animation: ${pulse} 1s infinite forwards alternate
-                    cubic-bezier(0.98, 0.43, 0.67, 0.81);
-                opacity: 1;
-            `}
     }
 `;
 
@@ -137,20 +81,35 @@ const Cursor = () => {
     const mood = useSelector(({ cursor }) => cursor);
     const isBlackMode = mood === 'black';
     const isFocusMode = mood === 'focus';
+
+    const wrapperRef = useRef(null);
+
+    useEffect(() => {
+        const [small, big] = [...wrapperRef.current.childNodes];
+        const mouseMove = ({ clientX, clientY }) => {
+            TweenLite.to(small, 0.3, {
+                x: clientX,
+                y: clientY,
+                ease: Power1.ease,
+                force3D: false,
+            });
+            TweenLite.to(big, 0.9, {
+                x: clientX,
+                y: clientY,
+                force3D: false,
+                ease: Power1.ease,
+            });
+        };
+        document.addEventListener('mousemove', mouseMove);
+        return () => {
+            document.removeEventListener('mousemove', mouseMove);
+        };
+    }, []);
+
     return (
-        <Wrapper black={isBlackMode}>
-            <WithMouseMove
-                gsapDelay={0.3}
-                render={() => (
-                    <CursorPoint focus={isFocusMode} black={isBlackMode} />
-                )}
-            />
-            <WithMouseMove
-                gsapDelay={1.6}
-                render={() => (
-                    <CursorCircle focus={isFocusMode} black={isBlackMode} />
-                )}
-            />
+        <Wrapper black={isBlackMode} ref={wrapperRef}>
+            <CursorPoint focus={isFocusMode} black={isBlackMode} />
+            <CursorCircle focus={isFocusMode} black={isBlackMode} />
         </Wrapper>
     );
 };

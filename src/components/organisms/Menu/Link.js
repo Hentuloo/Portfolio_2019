@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { WithMouseHover } from 'providers/WithMouseHover';
+import WithMouseHover from 'providers/WithMouseHover';
 
 export const StyledLink = styled.a`
     position: relative;
@@ -16,7 +16,6 @@ export const StyledLink = styled.a`
     z-index: 15;
     background-color: ${({ theme }) => theme.color.brand[2]};
     cursor: none;
-    transition: transform 0.3s ease-out;
     font-weight: 400;
     @media (max-width: ${({ theme }) => theme.breakPointMobile}) {
         transform: translate(0px, 0px) !important;
