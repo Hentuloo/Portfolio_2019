@@ -37,14 +37,23 @@ const PageWrapper = styled.div`
             z-index: -5;
             transform: scaleY(0.01);
         `}
-    ${({ active }) =>
-        active &&
-        css`
-            animation: ${opacity} 0.1s
-                ${`${Constants.GENERAL.changePageDelay}s`} linear backwards;
-            opacity: 1;
-            transform: scaleY(1);
-        `}
+    ${({ active, firstOpen }) => {
+        if (firstOpen && firstOpen) {
+            return css`
+                opacity: 1;
+                transform: scaleY(1);
+            `;
+        }
+        if (active) {
+            return css`
+                animation: ${opacity} 0.1s
+                    ${`${Constants.GENERAL.changePageDelay}s`} linear backwards;
+                opacity: 1;
+                transform: scaleY(1);
+            `;
+        }
+        return css``;
+    }}
 `;
 
 const SwitchPages = () => {
@@ -63,7 +72,7 @@ const SwitchPages = () => {
     });
 
     const {
-        ActivePage: { current },
+        ActivePage: { current, previous },
         lang: currentLang,
     } = useSelector(({ ActivePage, language }) => ({
         ActivePage,
@@ -77,7 +86,10 @@ const SwitchPages = () => {
 
     return (
         <Wrapper>
-            <PageWrapper active={current === 'portfolio'}>
+            <PageWrapper
+                firstOpen={current === previous}
+                active={current === 'portfolio'}
+            >
                 <PortfolioPage
                     photo={photo}
                     content={mainPageContent}

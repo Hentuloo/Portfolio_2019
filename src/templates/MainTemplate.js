@@ -35,7 +35,7 @@ const ContentWrapper = styled.div`
 
 const MainTemplate = ({ children }) => {
     // const [startAnimationComplete, setStartAnimationComplete] = useState(false);
-    const generalTl = useMemo(() => new TimelineLite({ delay: 2 }), []);
+    const generalTl = useMemo(() => new TimelineLite({ delay: 1 }), []);
     const beforeAnimationNode = useRef(null);
     const afterAnimationNode = useRef(null);
 

@@ -59,7 +59,7 @@ const SkilsSwitcher = () => {
                 triggerInitAnimationDeps={[
                     initAnim => () => {
                         if (current === 'projects') {
-                            setTimeout(() => initAnim(), 300);
+                            setTimeout(() => initAnim(), 50);
                         }
                     },
                     [current],
