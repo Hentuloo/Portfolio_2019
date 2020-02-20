@@ -46,14 +46,14 @@ const ImageWrapper = styled.div`
     z-index: -1;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         position: fixed;
-        width: 40%;
+        width: 42%;
         height: calc(100vh - 400px);
         bottom: 0%;
         right: 3%;
     }
     @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
         width: 45%;
-        height: calc(100vh - 400px);
+        height: calc(100vh - 500px);
     }
 `;
 const Image = styled.img`

@@ -32,7 +32,6 @@ const ProjectCardWrapper = styled.section`
 `;
 
 const ProjectsWrapper = ({ className, projects }) => {
-    console.log('REERERERRE');
     return (
         <Wrapper className={className}>
             {projects.map(e => (

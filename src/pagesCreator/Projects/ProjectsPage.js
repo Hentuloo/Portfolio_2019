@@ -34,7 +34,7 @@ const Projects = ({ projects }) => {
 
     useEffect(() => {
         if (current === previous) {
-            setTimeout(() => setRenderProjects(true), 5000);
+            setTimeout(() => setRenderProjects(true), 500);
         } else {
             setRenderProjects(true);
         }

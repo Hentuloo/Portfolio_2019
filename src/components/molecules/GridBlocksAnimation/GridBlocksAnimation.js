@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
+import { Power2 } from 'gsap';
 
 const blinds = keyframes`
 0%{
@@ -35,8 +37,9 @@ const Wrapper = styled.div`
         height: 100%;
         transform-origin: left 50%;
         transform: scaleX(0);
-        animation: ${blinds} 1.5s 2.3s ${({ theme }) => theme.blindsAnimation}
-            forwards;
+        /* animation: ${blinds} 1.5s 2.3s ${({ theme }) =>
+    theme.blindsAnimation}
+            forwards; */
     }
     div:nth-of-type(1) {
         display: block;
@@ -60,19 +63,45 @@ const Wrapper = styled.div`
     }
 `;
 
-const GridBlocksAnimation = () => {
+const GridBlocksAnimation = ({ tl, startLabel, endLabel }) => {
+    const wrapperRef = useRef();
+
+    useEffect(() => {
+        if (!tl) return;
+        const boxes = wrapperRef.current.childNodes;
+
+        if (startLabel) tl.addLabel(startLabel);
+
+        tl.set(boxes, { scaleX: 0, transformOrigin: 'left 50%' });
+        tl.staggerTo(boxes, 0.7, { scaleX: 1, ease: Power2.easeInOut }, 0.07)
+            .to(boxes, 0, {
+                transformOrigin: 'right 50%',
+            })
+            .staggerTo(boxes, 0.6, { scaleX: 0, ease: Power2.easeInOut }, 0.07);
+
+        if (endLabel) tl.addLabel(endLabel);
+    }, []);
+
     return (
-        <Wrapper>
-            <div />
-            <div />
-            <div />
-            <div />
+        <Wrapper ref={wrapperRef}>
             <div />
             <div />
             <div />
             <div />
         </Wrapper>
     );
+};
+
+GridBlocksAnimation.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    tl: PropTypes.any,
+    startLabel: PropTypes.string,
+    endLabel: PropTypes.string,
+};
+GridBlocksAnimation.defaultProps = {
+    tl: null,
+    startLabel: null,
+    endLabel: null,
 };
 
 export default GridBlocksAnimation;

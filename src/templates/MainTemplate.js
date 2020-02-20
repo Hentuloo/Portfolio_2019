@@ -1,40 +1,24 @@
-import React from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-import { PhraseBlindsEffect } from 'components/atoms';
+import { PhraseBlindsEffect, BackgroundView } from 'components/atoms';
 import {
-    AnimatedBoxs,
+    BackgroudBoxes,
     LanguageButtons,
     GridBlocksAnimation,
 } from 'components/molecules';
 
 import { Menu } from 'components/organisms';
-import CustomBackgrounView from './CustomBackgrounView';
+import { TimelineLite } from 'gsap';
+import BackgroundViewWithImage from './BackgroundViewWithImage';
 
-const show = keyframes`
-100%{
-  opacity:1;
-}
-`;
-const hide = keyframes`
-99.9%{
-  opacity:0;
-}
-100%{
-  opacity:0;
-  display:none;
-}
-`;
-
-const BeforeGridBlocks = styled.div`
+const StartAnimation = styled.div`
     opacity: 1;
-    animation: ${hide} 0.1s 3s linear forwards;
 `;
 
-const BlockWithDelayOpacity = styled.div`
+const ShowAfterStartAnimation = styled.div`
     opacity: 0;
-    animation: ${show} 0.1s 3.1s linear forwards;
 `;
 
 const Content = styled.div`
@@ -50,24 +34,51 @@ const ContentWrapper = styled.div`
 `;
 
 const MainTemplate = ({ children }) => {
+    // const [startAnimationComplete, setStartAnimationComplete] = useState(false);
+    const generalTl = useMemo(() => new TimelineLite({ delay: 3 }), []);
+    const beforeAnimationNode = useRef(null);
+    const afterAnimationNode = useRef(null);
+
+    useEffect(() => {
+        generalTl
+            .addLabel('start')
+            .to(
+                afterAnimationNode.current,
+                0,
+                { opacity: 1 },
+                'gridAnimationStart+=1.1',
+            )
+            .to(
+                beforeAnimationNode.current,
+                0,
+                { opacity: 0 },
+                'gridAnimationStart+=1.1',
+            );
+    }, []);
+
     return (
         <>
-            <BeforeGridBlocks>
-                <PhraseBlindsEffect as="h1">
+            <StartAnimation ref={beforeAnimationNode}>
+                <PhraseBlindsEffect as="h1" tl={generalTl}>
                     <span>Kamil</span>
                     <span>Chędkowski</span>
                 </PhraseBlindsEffect>
-            </BeforeGridBlocks>
-            <BlockWithDelayOpacity>
-                <AnimatedBoxs />
+                <BackgroundViewWithImage />
+            </StartAnimation>
+            <ShowAfterStartAnimation ref={afterAnimationNode}>
+                <BackgroudBoxes />
                 <LanguageButtons />
                 <ContentWrapper>
                     <Menu />
                     <Content>{children}</Content>
                 </ContentWrapper>
-            </BlockWithDelayOpacity>
-            <CustomBackgrounView />
-            <GridBlocksAnimation />
+                <BackgroundView />
+            </ShowAfterStartAnimation>
+            <GridBlocksAnimation
+                tl={generalTl}
+                startLabel="gridAnimationStart"
+                endLabel="gridAnimationEnd"
+            />
         </>
     );
 };

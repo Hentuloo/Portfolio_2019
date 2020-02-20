@@ -100,7 +100,9 @@ const Cursor = () => {
                 ease: Power1.ease,
             });
         };
-        document.addEventListener('mousemove', mouseMove);
+        if (window.innerWidth >= 755) {
+            document.addEventListener('mousemove', mouseMove);
+        }
         return () => {
             document.removeEventListener('mousemove', mouseMove);
         };
