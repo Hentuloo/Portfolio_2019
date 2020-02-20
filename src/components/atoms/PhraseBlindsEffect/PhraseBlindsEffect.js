@@ -36,7 +36,7 @@ const AnimatedBox = styled.div`
         gray &&
         css`
             left: 50%;
-            background-color: ${({ theme }) => theme.color.gray[0]};
+            background-color: ${({ theme }) => theme.color.brand[2]};
         `}
 `;
 

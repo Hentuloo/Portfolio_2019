@@ -1,7 +1,6 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
 import ProjectsWrapper from './ProjectsWrapper';
 import SkillsSwitcher from './SkillsSwitcher';
@@ -29,21 +28,10 @@ const StyledProjectsWrapper = styled(ProjectsWrapper)`
 `;
 
 const Projects = ({ projects }) => {
-    const [renderProjects, setRenderProjects] = useState(false);
-    const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
-
-    useEffect(() => {
-        if (current === previous) {
-            setTimeout(() => setRenderProjects(true), 500);
-        } else {
-            setRenderProjects(true);
-        }
-    }, []);
-
     return (
         <Wrapper>
             <SkillsSwitcher />
-            {renderProjects && <StyledProjectsWrapper projects={projects} />}
+            <StyledProjectsWrapper projects={projects} />
         </Wrapper>
     );
 };

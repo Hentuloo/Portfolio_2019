@@ -5,6 +5,8 @@ import Constants from 'config/Constants';
 
 const Wrapper = styled.div`
     position: relative;
+    top: 10px;
+    left: 15px;
     display: grid;
     margin: 0px;
     font-size: ${({ theme }) => theme.font.l};
