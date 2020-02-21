@@ -59,14 +59,21 @@ const SkilsSwitcher = ({ data }) => {
             >
                 {data.map(({ title }, index) => (
                     <Button
+                        SectionWithNavComponent="Button"
                         key={index}
+                        index={index}
                         Component={buttonComponents[index] || null}
                         title={title}
                     />
                 ))}
 
                 {data.map(({ type, content }, index) => (
-                    <Section key={index} type={type} content={content} />
+                    <Section
+                        SectionWithNavComponent="Section"
+                        key={index}
+                        type={type}
+                        content={content}
+                    />
                 ))}
             </SWN.Wrapper>
         </Wrapper>
