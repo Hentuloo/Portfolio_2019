@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import ProjectsWrapper from './ProjectsWrapper';
-import SkillsSwitcher from './SkillsSwitcher';
+import SkillsSwitcher from './SkillsSwitcher/SkillsSwitcher';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -27,20 +27,29 @@ const StyledProjectsWrapper = styled(ProjectsWrapper)`
     }
 `;
 
-const Projects = ({ projects }) => {
+const Projects = ({ projects, data }) => {
     return (
         <Wrapper>
-            <SkillsSwitcher />
+            <SkillsSwitcher data={data} />
             <StyledProjectsWrapper projects={projects} />
         </Wrapper>
     );
 };
 
 Projects.propTypes = {
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            type: PropTypes.string,
+            title: PropTypes.string,
+            content: PropTypes.arrayOf(
+                PropTypes.shape({
+                    title: PropTypes.string,
+                    paragraph: PropTypes.string,
+                }),
+            ),
+        }),
+    ).isRequired,
     projects: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default memo(
-    Projects,
-    (prev, next) => prev.markdownContent === next.markdownContent,
-);
+export default memo(Projects, (prev, next) => prev.data === next.data);

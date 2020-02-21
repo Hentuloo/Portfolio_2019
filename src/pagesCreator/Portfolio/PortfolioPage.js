@@ -88,7 +88,12 @@ const Portfolio = ({ content, photo, className }) => {
 
 Portfolio.propTypes = {
     className: PropTypes.string,
-    content: PropTypes.string.isRequired,
+    content: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string,
+            paragraph: PropTypes.string,
+        }),
+    ).isRequired,
     photo: PropTypes.shape({
         handle: PropTypes.string,
         width: PropTypes.number,

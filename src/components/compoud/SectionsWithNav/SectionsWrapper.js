@@ -9,6 +9,7 @@ export const SectionsWrapperSC = styled.div`
     ${({ active }) => css`
         ${SectionSC}:nth-child(${active + 1}){
             opacity:1;
+            z-index:2;
         }`}
 `;
 

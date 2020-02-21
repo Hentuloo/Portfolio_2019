@@ -61,40 +61,37 @@ const Image = styled.img`
     max-height: 100%;
 `;
 
-const AboutSection = ({ className }) => {
+const AboutSection = ({ className, content }) => {
+    if (!content) return null;
+
     return (
         <Wrapper className={className}>
             <AliginRight>
-                <ParagraphTitle>Coś o mnie</ParagraphTitle>
-                <Paragraph>
-                    Zajmuje się pisaniem stron internetowych już od czterech
-                    lat, a swoje pierwsze kroki robiłem w technikum. Od tego
-                    czasu zdążyłem poznać sposoby budowania serwisów od strony
-                    Front-end jak i Back-end, ucząc się głownie z kursów online
-                    i dokumentacji, ale najwięcej zmagając się z własnymi
-                    projektami które staram się dodawać na bieżąco gdy czegoś
-                    nowego się nauczę.
-                </Paragraph>
+                <ParagraphTitle>{content[0].title}</ParagraphTitle>
+                <Paragraph>{content[0].paragraph}</Paragraph>
             </AliginRight>
+
             <ImageWrapper>
                 <Image src={pandaGround} />
             </ImageWrapper>
 
             <AliginLeft>
                 <Paragraph as="h4" underline asTitle>
-                    Nie tylko kod!
+                    {content[1].title}
                 </Paragraph>
-                <Paragraph>
-                    W między czasie: gram na trąbce, trochę biegam, słucham
-                    podcastów oraz audiobooki i coraz częściej projektuję
-                    layouty/grafiki te ostatnie to głównie wektorowe.
-                </Paragraph>
+                <Paragraph>{content[1].paragraph}</Paragraph>
             </AliginLeft>
         </Wrapper>
     );
 };
 
 AboutSection.propTypes = {
+    content: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string,
+            paragraph: PropTypes.string,
+        }),
+    ).isRequired,
     className: PropTypes.string,
 };
 AboutSection.defaultProps = {

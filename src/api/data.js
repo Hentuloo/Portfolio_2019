@@ -6,8 +6,7 @@ export const useDataApi = () => {
             {
                 portfolio {
                     projectsPages {
-                        content
-                        contentEng
+                        data
                     }
                     projectses(
                         orderBy: index_DESC
@@ -35,8 +34,7 @@ export const useDataApi = () => {
                         }
                     }
                     mainPages {
-                        content
-                        contentEng
+                        data
                         photo {
                             handle
                             width
@@ -54,8 +52,13 @@ export const useDataApi = () => {
             projectses: projects,
         },
     } = data;
-    const { content: mpContent, contentEng: mpContentEng, photo } = mainPage;
-    const { content: ppContent, contentEng: ppContentEng } = projectsPage;
+    const {
+        data: { pl: mpDataPl, eng: mpDataEng },
+        photo,
+    } = mainPage;
+    const {
+        data: { pl: ppDataPl, eng: ppDataEng },
+    } = projectsPage;
     const projectsEng = projects.map(project => ({
         ...project,
         ...{ title: project.titleEng, description: project.descriptionEng },
@@ -63,13 +66,13 @@ export const useDataApi = () => {
     return {
         photo,
         pl: {
-            mainPageContent: mpContent,
-            projectPage: ppContent,
+            mainPageContent: mpDataPl.contents,
+            projectPage: ppDataPl.sections,
             projects,
         },
         en: {
-            mainPageContent: mpContentEng,
-            projectPage: ppContentEng,
+            mainPageContent: mpDataEng.contents,
+            projectPage: ppDataEng.sections,
             projects: projectsEng,
         },
     };

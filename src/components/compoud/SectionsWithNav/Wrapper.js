@@ -44,7 +44,11 @@ const Image = styled.img`
     max-height: 100%;
 `;
 
-export const Wrapper = ({ children, triggerInitAnimationDeps }) => {
+export const Wrapper = ({
+    children,
+    triggerInitAnimationDeps,
+    updateTrigger,
+}) => {
     const [throttledButtons, setThrottledButtons] = useState(null);
     const [{ prevActive, active }, setNewActive] = useReducer(
         (prevS, newActive) => ({
@@ -72,10 +76,9 @@ export const Wrapper = ({ children, triggerInitAnimationDeps }) => {
         active,
         prevActive,
     };
-
     const [buttons, sections] = useMemo(
         () => separatedChildrenWithButtonEvent(children, handleChangeActive),
-        [],
+        [updateTrigger],
     );
 
     return (
@@ -98,6 +101,8 @@ export const Wrapper = ({ children, triggerInitAnimationDeps }) => {
 };
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
+    updateTrigger: PropTypes.any,
     triggerInitAnimationDeps: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.func,
@@ -105,5 +110,6 @@ Wrapper.propTypes = {
     ]),
 };
 Wrapper.defaultProps = {
+    updateTrigger: null,
     triggerInitAnimationDeps: [],
 };

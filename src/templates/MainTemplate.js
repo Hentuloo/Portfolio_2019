@@ -19,6 +19,7 @@ const StartAnimation = styled.div`
 
 const ShowAfterStartAnimation = styled.div`
     opacity: 0;
+    pointer-events: none;
 `;
 
 const Content = styled.div`
@@ -34,7 +35,6 @@ const ContentWrapper = styled.div`
 `;
 
 const MainTemplate = ({ children }) => {
-    // const [startAnimationComplete, setStartAnimationComplete] = useState(false);
     const generalTl = useMemo(() => new TimelineLite({ delay: 1 }), []);
     const beforeAnimationNode = useRef(null);
     const afterAnimationNode = useRef(null);
@@ -45,7 +45,7 @@ const MainTemplate = ({ children }) => {
             .to(
                 afterAnimationNode.current,
                 0,
-                { opacity: 1 },
+                { opacity: 1, pointerEvents: 'auto' },
                 'gridAnimationStart+=1.1',
             )
             .to(

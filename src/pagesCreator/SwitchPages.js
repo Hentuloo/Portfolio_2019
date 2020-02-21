@@ -83,7 +83,6 @@ const SwitchPages = () => {
 
     const { mainPageContent, projectPage, projects } =
         currentLang === 'en' ? en : pl;
-
     return (
         <Wrapper>
             <PageWrapper
@@ -98,10 +97,7 @@ const SwitchPages = () => {
                 />
             </PageWrapper>
             <PageWrapper active={current === 'projects'}>
-                <ProjectsPage
-                    projects={projects}
-                    markdownContent={projectPage}
-                />
+                <ProjectsPage projects={projects} data={projectPage} />
             </PageWrapper>
             <PageWrapper active={current === 'contact'}>
                 <ContactPage />
