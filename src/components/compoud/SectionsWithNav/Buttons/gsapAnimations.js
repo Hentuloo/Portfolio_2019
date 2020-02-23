@@ -18,7 +18,7 @@ export const entryAnimation = elements => {
             const margin = i * 3;
             return parentNode.offsetWidth + ofset + margin;
         },
-        delay: 0.4,
+        delay: 0.5,
     });
 
     return tl;

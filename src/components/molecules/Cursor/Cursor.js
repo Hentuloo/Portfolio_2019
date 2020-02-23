@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     display: none;
     mix-blend-mode: difference;
     pointer-events: none;
+    z-index: 20;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         display: block;
         ${({ black }) =>
