@@ -128,7 +128,7 @@ const Wrapper = styled.div`
     }
 `;
 
-storiesOf('molecules/', module).add('ProjectCard', () => (
+storiesOf('organism/', module).add('ProjectCard', () => (
     <Wrapper>
         <ProjectCard data={mockData} />
     </Wrapper>

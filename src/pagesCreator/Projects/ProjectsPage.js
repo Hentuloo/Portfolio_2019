@@ -52,4 +52,4 @@ Projects.propTypes = {
     projects: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default memo(Projects, (prev, next) => prev.data === next.data);
+export default memo(Projects);

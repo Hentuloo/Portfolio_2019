@@ -77,7 +77,12 @@ const GridBlocksAnimation = ({ tl, startLabel, endLabel }) => {
             .to(boxes, 0, {
                 transformOrigin: 'right 50%',
             })
-            .staggerTo(boxes, 0.6, { scaleX: 0, ease: Power2.easeInOut }, 0.07);
+            .staggerTo(
+                boxes,
+                0.6,
+                { scaleX: 0, ease: Power2.easeInOut, delay: 0.2 },
+                0.07,
+            );
 
         if (endLabel) tl.addLabel(endLabel);
     }, []);
