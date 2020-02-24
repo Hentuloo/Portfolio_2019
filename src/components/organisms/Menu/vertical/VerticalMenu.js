@@ -15,6 +15,7 @@ const Wrapper = styled.nav`
     top: 50%;
     transform: translateY(-50%);
     margin-left: 9px;
+    z-index: 25;
 `;
 
 const VerticalMenu = ({ pdfEng, pdf }) => {

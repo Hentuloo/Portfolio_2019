@@ -24,21 +24,21 @@ const ListWrapper = ({ changePage, pdfs }) => {
                 onClick={e => changePage(e, 'portfolio')}
                 active={current === 'portfolio'}
             >
-                <span>{Constants[lang].PATHS.portfolio}</span>
+                {Constants[lang].PATHS.portfolio}
             </ListElement>
             <ListElement
                 href={`#${Constants[lang].PATHS.projects}`}
                 onClick={e => changePage(e, 'projects')}
                 active={current === 'projects'}
             >
-                <span>{Constants[lang].PATHS.projects}</span>
+                {Constants[lang].PATHS.projects}
             </ListElement>
             <ListElement
                 href={`#${Constants[lang].PATHS.contact}`}
                 onClick={e => changePage(e, 'contact')}
                 active={current === 'contact'}
             >
-                <span>{Constants[lang].PATHS.contact}</span>
+                {Constants[lang].PATHS.contact}
             </ListElement>
             <ListElement
                 href="https://github.com/Hentuloo?tab=repositories"

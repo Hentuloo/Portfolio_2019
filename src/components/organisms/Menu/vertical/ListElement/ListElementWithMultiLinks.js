@@ -29,14 +29,11 @@ const StyledListElementWrapper = styled(ListElementWrapper)`
     }
 `;
 
-const ListElementWithMultiLinks = ({ hideMobile, render, ...props }) => {
+const ListElementWithMultiLinks = ({ render, ...props }) => {
     return (
         <WithHoverEffects
             render={({ ListElementProps, LinkProps }) => (
-                <StyledListElementWrapper
-                    {...ListElementProps}
-                    hideMobile={hideMobile}
-                >
+                <StyledListElementWrapper {...ListElementProps}>
                     {render({
                         LinkElement: Link,
                         linkElementProps: { ...LinkProps, ...props },
@@ -49,10 +46,6 @@ const ListElementWithMultiLinks = ({ hideMobile, render, ...props }) => {
 
 ListElementWithMultiLinks.propTypes = {
     render: PropTypes.func.isRequired,
-    hideMobile: PropTypes.bool,
-};
-ListElementWithMultiLinks.defaultProps = {
-    hideMobile: false,
 };
 
 export default ListElementWithMultiLinks;
