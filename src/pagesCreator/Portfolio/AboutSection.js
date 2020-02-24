@@ -30,7 +30,7 @@ const AliginLeft = styled.div`
     grid-column: 1/4;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         grid-column: 1/3;
-        padding-bottom: 100px;
+        padding-bottom: 60px;
     }
 
     ${Paragraph}:first-child {

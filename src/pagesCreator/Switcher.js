@@ -26,7 +26,7 @@ const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
     const generalTl = useMemo(() => new TimelineLite(), []);
 
     useEffect(() => {
-        const hidden = { opacity: 0, zIndex: -5 };
+        const hidden = { opacity: 0, zIndex: -5, scaleY: 0 };
         const visible = { opacity: 1, delay: 0.4 };
         const pages = [
             portfolioRef.current,
@@ -35,7 +35,7 @@ const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
         ];
         const setAsActive = index => {
             pages.forEach(pageNode => generalTl.set(pageNode, hidden));
-            generalTl.set(pages[index], { zIndex: 1 });
+            generalTl.set(pages[index], { zIndex: 1, scaleY: 1 });
             generalTl.to(pages[index], 0.1, visible);
         };
         if (currentPage === 'portfolio') setAsActive(0);
