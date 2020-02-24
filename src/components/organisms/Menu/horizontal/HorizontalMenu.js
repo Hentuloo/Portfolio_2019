@@ -4,7 +4,7 @@ import { useChangePage } from '../utils';
 
 import ListWrapper from './ListWrapper';
 
-const Wrapper = styled.nav`
+const Wrapperr = styled.nav`
     position: fixed;
     width: 100%;
     height: 100px;
@@ -15,11 +15,10 @@ const Wrapper = styled.nav`
 
 const HorizontalMenu = () => {
     const changePage = useChangePage();
-
     return (
-        <Wrapper>
+        <Wrapperr>
             <ListWrapper changePage={changePage} />
-        </Wrapper>
+        </Wrapperr>
     );
 };
 

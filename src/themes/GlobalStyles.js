@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
    /* font-family: 'Rhodium Libre', serif; */
    font-family: 'Baloo Tamma';
    font-weight: bold;
-   background-color: white;
    margin:0px;
   letter-spacing: 1px;
   overflow-x:hidden;
