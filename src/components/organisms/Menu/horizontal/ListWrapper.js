@@ -33,6 +33,7 @@ const WaveImageWrapper = styled.div`
     left: calc(-33vw - 2%);
     bottom: -5%;
     z-index: 15;
+    will-change: transform;
     &::after {
         position: absolute;
         content: '';

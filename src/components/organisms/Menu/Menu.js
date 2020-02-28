@@ -9,6 +9,7 @@ const Menu = () => {
     const [isMobile, setIsMobile] = useState(undefined);
     const { width } = useWindowSize();
     const pdfs = usePdfLinks();
+
     useEffect(() => {
         if (width <= 769 || width === undefined) {
             setIsMobile(true);

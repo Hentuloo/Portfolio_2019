@@ -10,6 +10,7 @@ export const ButtonSC = styled.button`
     border-radius: 50%;
     background-color: white;
     border: none;
+    will-change: transform;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 80px;
         height: 80px;
