@@ -1,22 +1,22 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 
 import { circlesWithGradient } from 'images/Circles';
 import { LetterImage } from './LetterImage';
 
-import Steps from './Steps';
+import Form from './Form';
 
 const Wrapper = styled.div`
     position: relative;
     display: block;
     width: 84%;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 250px);
     margin: 110px auto 0px auto;
     border-radius: 15px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     background-color: ${({ theme }) => theme.color.white[0]};
     ${({ theme }) => theme.breakPointMobileKeyboard} {
-        height: calc(100vh - 100px);
+        height: calc(100vh - 120px);
         margin: 80px auto 0px auto;
     }
 `;
@@ -48,40 +48,43 @@ const CirclesImage = styled.img`
 `;
 
 export const ContactForm = () => {
+    const formRef = useRef(null);
     const [inputs, setInputs] = useReducer(
         (prev, next) => ({ ...prev, ...next }),
         {
-            name: '',
-            email: '',
-            message: '',
+            pName: '',
+            pEmail: '',
+            pMessage: '',
         },
     );
-    const [step, setStep] = useState(1);
+    const [letterStep, setLetterStep] = useState(1);
 
+    const handleFocusFirstInput = () => {
+        setTimeout(() => {
+            formRef.current.scrollTop = '100';
+        }, 400);
+    };
     const onInputChange = e => {
-        const { name, value } = e;
+        const { name, value } = e.target;
         setInputs({ [name]: value });
     };
-    const changeStep = (e, amount) => {
+    const handleSubmitForm = e => {
         e.preventDefault();
-        const newStepIndex = step + amount;
-        if (newStepIndex < 1) return;
-        if (newStepIndex > 7) return;
-        setStep(newStepIndex);
     };
+
+    console.log(setLetterStep);
 
     return (
         <Wrapper>
-            <InnerWrapper>
-                <Steps
-                    active={step}
+            <InnerWrapper ref={formRef}>
+                <Form
+                    handleFocusFirstInput={handleFocusFirstInput}
                     inputsValues={inputs}
                     onInputChange={onInputChange}
-                    nextStep={e => changeStep(e, 1)}
-                    prevStep={e => changeStep(e, -1)}
+                    onSubmit={handleSubmitForm}
                 />
             </InnerWrapper>
-            <LetterImage />
+            <LetterImage step={letterStep} />
             <CirclesImageWrapper>
                 <CirclesImage src={circlesWithGradient} />
             </CirclesImageWrapper>

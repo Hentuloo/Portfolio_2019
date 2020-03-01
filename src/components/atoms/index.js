@@ -3,7 +3,7 @@ import PhraseBlindsEffect from './PhraseBlindsEffect/PhraseBlindsEffect';
 import List from './List/List';
 
 export * from './Paragraph/Paragraph';
-export * from './Input/Input';
+export * from './FormControllers';
 export * from './PrefixNote/PrefixNote';
 export * from './AnimatedSvg';
 
