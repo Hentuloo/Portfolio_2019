@@ -8,6 +8,7 @@ export const theme = {
             'rgb(198, 194, 194)',
             'rgb(123,123,123)',
             '#454545',
+            'rgba(235,235,235,0.2)',
         ],
         brand: [
             'rgb(215,108,108)',
@@ -47,6 +48,7 @@ export const theme = {
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
     breakPointMiddle: '1200px',
     breakPointLarge: '1400px',
+    breakPointMobileKeyboard: `@media (max-width: 768px) and (min-aspect-ratio: 13/11)`,
     breakPointMobileLandscape: `@media (max-width: 768px) and (orientation: landscape)`,
 
     blindsAnimation: 'cubic-bezier(0.97, 0.16, 0.31, 0.67)',

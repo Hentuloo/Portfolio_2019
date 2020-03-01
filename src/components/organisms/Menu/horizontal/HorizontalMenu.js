@@ -11,6 +11,9 @@ const Wrapperr = styled.nav`
     bottom: 0%;
     left: 0%;
     z-index: 14;
+    ${({ theme }) => theme.breakPointMobileKeyboard} {
+        display: none;
+    }
 `;
 
 const HorizontalMenu = () => {

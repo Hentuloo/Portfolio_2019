@@ -6,6 +6,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 //Styled components
 import { theme } from '../src/themes/mainTheme';
+import GlobalStyles from '../src/themes/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 
 //Redux
@@ -21,7 +22,10 @@ function loadStories() {
 
 addDecorator(story => (
     <ReduxProvider store={store}>
-        <ThemeProvider theme={theme}>{story()}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+            <GlobalStyles />
+            {story()}
+        </ThemeProvider>
     </ReduxProvider>
 ));
 
