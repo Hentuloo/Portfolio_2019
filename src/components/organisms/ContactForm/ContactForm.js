@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { circlesWithGradient } from 'images/Circles';
 import { LetterImage } from './LetterImage';
+import { sendNetilfyForm } from './utils';
 
 import Form from './Form';
 
@@ -10,17 +11,18 @@ const Wrapper = styled.div`
     position: relative;
     display: block;
     width: 84%;
-    height: calc(100vh - 250px);
-    margin: 110px auto 0px auto;
+    height: calc(100vh - 260px);
+    margin: 80px auto 0px auto;
     border-radius: 15px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
     background-color: ${({ theme }) => theme.color.white[0]};
+    cursor: none;
     ${({ theme }) => theme.breakPointMobileKeyboard} {
         height: calc(100vh - 120px);
         margin: 80px auto 0px auto;
     }
 `;
-const InnerWrapper = styled.form`
+const InnerWrapper = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
@@ -39,6 +41,7 @@ const CirclesImageWrapper = styled.div`
     left: 0%;
     border-radius: 15px;
     overflow: hidden;
+    pointer-events: none;
 `;
 const CirclesImage = styled.img`
     position: relative;
@@ -48,7 +51,14 @@ const CirclesImage = styled.img`
 `;
 
 export const ContactForm = () => {
-    const formRef = useRef(null);
+    const [letterStep, setLetterStep] = useState(1);
+    const [formStatus, setFormStatus] = useReducer(
+        (prev, next) => ({ ...prev, ...next }),
+        {
+            isSending: null,
+            formMessage: null,
+        },
+    );
     const [inputs, setInputs] = useReducer(
         (prev, next) => ({ ...prev, ...next }),
         {
@@ -57,7 +67,7 @@ export const ContactForm = () => {
             pMessage: '',
         },
     );
-    const [letterStep, setLetterStep] = useState(1);
+    const formRef = useRef(null);
 
     const handleFocusFirstInput = () => {
         setTimeout(() => {
@@ -68,16 +78,32 @@ export const ContactForm = () => {
         const { name, value } = e.target;
         setInputs({ [name]: value });
     };
-    const handleSubmitForm = e => {
+    const handleSubmitForm = async e => {
         e.preventDefault();
+        setFormStatus({ isSending: true, formMessage: null });
+        try {
+            const response = await sendNetilfyForm(inputs);
+            if (response.ok) {
+                setFormStatus({
+                    isSending: false,
+                    formMessage: `Dostarczono`,
+                });
+                setInputs({ pName: '', pEmail: '', pMessage: '' });
+            }
+        } catch (err) {
+            setFormStatus({
+                isSending: true,
+                formMessage: `Coś poszło nie tak (${err.message ||
+                    err.status})`,
+            });
+        }
     };
-
     console.log(setLetterStep);
-
     return (
         <Wrapper>
             <InnerWrapper ref={formRef}>
                 <Form
+                    formStatus={formStatus}
                     handleFocusFirstInput={handleFocusFirstInput}
                     inputsValues={inputs}
                     onInputChange={onInputChange}

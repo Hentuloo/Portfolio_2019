@@ -88,7 +88,7 @@ const Controller = ({
             {validationMessage && (
                 <ValidMessageSC>
                     {validationMessage}
-                    <span className="sr-only">Jest zwalidowane</span>
+                    <span className="sr-only"> Jest zwalidowane</span>
                 </ValidMessageSC>
             )}
         </WrapperSC>

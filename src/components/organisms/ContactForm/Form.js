@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Input, Textarea } from 'components/atoms';
 import { isValid } from './utils';
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
     position: relative;
     display: grid;
     height: 100%;
@@ -22,6 +22,12 @@ const SubTitle = styled.p`
     margin: 5px auto 10px;
     font-weight: 300;
     font-size: ${({ theme }) => theme.font.xxs};
+    ${({ red }) =>
+        red &&
+        css`
+            font-weight: 500;
+            color: ${({ theme }) => theme.color.brand[1]};
+        `}
 `;
 const StyledInput = styled(Input)`
     margin: 5px auto 5px;
@@ -40,13 +46,20 @@ const Button = styled.button`
 `;
 
 const Form = ({
+    formStatus: { isSending, formMessage },
     onInputChange,
     inputsValues,
     handleFocusFirstInput,
     onSubmit,
 }) => {
     return (
-        <Wrapper autocomplete="false" onSubmit={onSubmit}>
+        <Wrapper
+            autocomplete="false"
+            onSubmit={onSubmit}
+            name="contact"
+            method="post"
+            data-netlify="true"
+        >
             <Title>Kontakt</Title>
             <SubTitle>
                 Aktualnie poszukuję pracy na stanowisku Junior Web, napisz a ja
@@ -83,8 +96,15 @@ const Form = ({
                 value={inputsValues.pMessage}
                 onChange={onInputChange}
             />
-
             <Button type="submit">Wyślij</Button>
+            {isSending && <SubTitle red>Wysyłanie</SubTitle>}
+            {formMessage && <SubTitle red>{formMessage}</SubTitle>}
+            {isSending !== null && (
+                <SubTitle right>
+                    P.S. jeśli podoba Ci się strona koniecznie sprawdź ją na
+                    większym ekranie!
+                </SubTitle>
+            )}
         </Wrapper>
     );
 };
@@ -98,6 +118,10 @@ Form.propTypes = {
     }).isRequired,
     handleFocusFirstInput: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    formStatus: PropTypes.shape({
+        isSending: PropTypes.bool,
+        formMessage: PropTypes.string,
+    }).isRequired,
 };
 
 export default Form;
