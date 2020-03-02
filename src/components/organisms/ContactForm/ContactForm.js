@@ -2,7 +2,12 @@ import React, { useState, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 import { circlesWithGradient } from 'images/Circles';
 import { LetterImage } from './LetterImage';
-import { sendNetilfyForm, isValid, mergeInputObjects } from './utils';
+import {
+    sendNetilfyForm,
+    isValid,
+    mergeInputObjects,
+    inputsStateToObjectWithValues,
+} from './utils';
 
 import Form from './Form';
 
@@ -135,7 +140,9 @@ export const ContactForm = () => {
         setLetterStep('send');
         setFirstInputTouched(false);
         try {
-            const response = await sendNetilfyForm(inputs);
+            const response = await sendNetilfyForm(
+                inputsStateToObjectWithValues(inputs),
+            );
             if (response.ok) {
                 setFormStatus({
                     isSending: false,

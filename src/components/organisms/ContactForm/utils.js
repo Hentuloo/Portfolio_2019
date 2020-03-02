@@ -53,3 +53,10 @@ export const mergeInputObjects = (state, key, value) => {
         },
     };
 };
+
+export const inputsStateToObjectWithValues = state => {
+    return Object.keys(state).reduce((acc, key) => {
+        acc[key.slice(1)] = state[key].value;
+        return acc;
+    }, {});
+};
