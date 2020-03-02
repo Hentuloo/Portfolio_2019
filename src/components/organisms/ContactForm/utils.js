@@ -60,3 +60,16 @@ export const inputsStateToObjectWithValues = state => {
         return acc;
     }, {});
 };
+export const inputsValidation = state => {
+    let valid = { ok: true, fieldName: null };
+
+    Object.keys(state).some(key => {
+        if (!isValid(key, state[key].value)) {
+            valid = { ok: false, fieldName: key };
+            return true;
+        }
+        return false;
+    });
+
+    return valid;
+};

@@ -109,7 +109,7 @@ export const LetterImage = ({ step }) => {
             case 'send':
                 {
                     const documentElements = [
-                        docTexts.current,
+                        docTexts.current.children,
                         docTitle.current,
                         docRectengle.current,
                     ];

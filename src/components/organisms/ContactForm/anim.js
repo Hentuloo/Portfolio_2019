@@ -90,7 +90,7 @@ export const showStamp = el => {
         visibility: 'visible',
         opacity: 0,
         scale: 2,
-    }).to(el, 0.4, {
+    }).to(el, 0.6, {
         opacity: 1,
         scale: 1,
     });
@@ -100,7 +100,13 @@ export const showStamp = el => {
 export const sendLetter = el => {
     const tl = new TimelineLite();
 
-    tl.to(el, 0.7, { x: '100vw', y: '-100%', rotationZ: -40, opacity: 0 });
+    tl.to(el, 1, {
+        x: '100vw',
+        y: '-100%',
+        rotationZ: -40,
+        opacity: 0,
+        delay: 0.4,
+    });
 
     return tl;
 };

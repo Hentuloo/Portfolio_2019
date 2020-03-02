@@ -1,12 +1,14 @@
 import React, { useState, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 import { circlesWithGradient } from 'images/Circles';
+import { promisWithMinimumTime } from 'config/utils';
 import { LetterImage } from './LetterImage';
 import {
     sendNetilfyForm,
     isValid,
     mergeInputObjects,
     inputsStateToObjectWithValues,
+    inputsValidation,
 } from './utils';
 
 import Form from './Form';
@@ -121,6 +123,7 @@ export const ContactForm = () => {
     const onInputChange = e => {
         const { name, value } = e.target;
         const valid = isValid(name, value);
+
         if (inputs[name].letterStepReached === false && valid) {
             increaseLetterStep();
             setInputs(
@@ -138,13 +141,24 @@ export const ContactForm = () => {
     };
     const handleSubmitForm = async e => {
         e.preventDefault();
+        const { ok, fieldName } = inputsValidation(inputs);
+
+        if (!ok) {
+            setFormStatus({
+                formMessage: `[${fieldName.slice(1)}] jest nieprawidłowe`,
+            });
+            return;
+        }
+
         setFormStatus({ isSending: true, formMessage: null });
         setLetterStep('send');
         setFirstInputTouched(false);
         try {
-            const response = await sendNetilfyForm(
-                inputsStateToObjectWithValues(inputs),
+            const response = await promisWithMinimumTime(
+                3000,
+                sendNetilfyForm(inputsStateToObjectWithValues(inputs)),
             );
+
             if (response.ok) {
                 setFormStatus({
                     isSending: false,
