@@ -29,7 +29,7 @@ const SwitchPages = () => {
     });
     const { mainPageContent, projectPage, projects } = useMemo(() => {
         return currentLang === 'en' ? en : pl;
-    }, [data]);
+    }, [data, currentLang]);
 
     if (!data) {
         const apiData = useDataApi();
