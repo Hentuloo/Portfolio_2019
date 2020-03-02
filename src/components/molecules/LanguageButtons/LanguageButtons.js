@@ -8,15 +8,17 @@ import Constants from 'config/Constants';
 const Button = styled.button`
     position: relative;
     width: 45px;
+    height: 45px;
     padding: 4px 0px 6px 0px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     letter-spacing: 1px;
     font-family: ${({ theme }) => theme.font.second};
     font-size: ${({ theme }) => theme.font.xs};
     font-weight: ${({ theme }) => theme.font.bold};
     background-color: ${({ theme }) => theme.color.gray[1]};
     cursor: none;
+
     &:hover {
         background-color: ${({ theme }) => theme.color.gray[2]};
     }
