@@ -1,7 +1,9 @@
 import React, { useState, useReducer, useRef } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { circlesWithGradient } from 'images/Circles';
 import { promisWithMinimumTime } from 'config/utils';
+import Constants from 'config/Constants';
 import { LetterImage } from './LetterImage';
 import {
     sendNetilfyForm,
@@ -91,6 +93,7 @@ const inputsInit = {
 };
 
 export const ContactForm = () => {
+    const lang = useSelector(({ language }) => language);
     const [letterStep, setLetterStep] = useState(1);
     const [firstInputTouched, setFirstInputTouched] = useState(false);
     const [formStatus, setFormStatus] = useReducer(
@@ -145,7 +148,9 @@ export const ContactForm = () => {
 
         if (!ok) {
             setFormStatus({
-                formMessage: `[${fieldName.slice(1)}] jest nieprawidłowe`,
+                formMessage: `${
+                    Constants[lang].FORM[fieldName.slice(1).toLowerCase()].field
+                } ${Constants[lang].FORM.isWrong}`,
             });
             return;
         }
@@ -162,7 +167,7 @@ export const ContactForm = () => {
             if (response.ok) {
                 setFormStatus({
                     isSending: false,
-                    formMessage: `Dostarczono`,
+                    formMessage: Constants[lang].FORM.delivered,
                 });
                 setLetterStep('success');
 
@@ -172,8 +177,9 @@ export const ContactForm = () => {
             setLetterStep('failure');
             setFormStatus({
                 isSending: true,
-                formMessage: `Coś poszło nie tak (${err.message ||
-                    err.status})`,
+                formMessage: `${
+                    Constants[lang].FORM.failDelivery
+                } (${err.message || err.status})`,
             });
         }
     };

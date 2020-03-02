@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import { Input, Textarea } from 'components/atoms';
+import Constants from 'config/Constants';
 
 const Wrapper = styled.form`
     position: relative;
@@ -57,6 +59,7 @@ const Form = ({
     handleFocusFirstInput,
     onSubmit,
 }) => {
+    const lang = useSelector(({ language }) => language);
     return (
         <Wrapper
             autocomplete="false"
@@ -65,50 +68,46 @@ const Form = ({
             method="post"
             data-netlify="true"
         >
-            <Title>Kontakt</Title>
-            <SubTitle>
-                Aktualnie poszukuję pracy na stanowisku Junior Web, napisz a ja
-                spróbuje pomóc
-            </SubTitle>
+            <Title>{Constants[lang].FORM.contact}</Title>
+            <SubTitle>{Constants[lang].FORM.subTitle}</SubTitle>
             <StyledInput
                 isInvalid={inputsValues.pName.isInValid}
                 onFocus={handleFocusFirstInput}
                 labelName="inputName"
-                labelText="Wpisz swoje imię"
+                labelText={Constants[lang].FORM.name.label}
                 name="pName"
-                placeholder="Twoje imię:"
-                validationMessage="6-30 znaków"
+                placeholder={Constants[lang].FORM.name.placeholder}
+                validationMessage={Constants[lang].FORM.name.validMessage}
                 value={inputsValues.pName.value}
                 onChange={onInputChange}
             />
             <StyledInput
                 isInvalid={inputsValues.pEmail.isInValid}
                 labelName="inputEmail"
-                labelText="Wpisz swój email"
+                labelText={Constants[lang].FORM.email.label}
                 name="pEmail"
-                placeholder="Twój email:"
-                validationMessage="Email"
+                placeholder={Constants[lang].FORM.email.placeholder}
+                validationMessage={Constants[lang].FORM.email.validMessage}
                 value={inputsValues.pEmail.value}
                 onChange={onInputChange}
             />
             <StyledTextarea
                 isInvalid={inputsValues.pMessage.isInValid}
                 labelName="inputMessage"
-                labelText="Wpisz swoją wiadomość"
+                labelText={Constants[lang].FORM.message.label}
                 name="pMessage"
-                placeholder="W czym mogę Ci pomóc?"
-                validationMessage="10-200 znaków"
+                placeholder={Constants[lang].FORM.message.placeholder}
+                validationMessage={Constants[lang].FORM.message.validMessage}
                 value={inputsValues.pMessage.value}
                 onChange={onInputChange}
             />
-            <Button type="submit">Wyślij</Button>
-            {isSending && <SubTitle red>Wysyłanie</SubTitle>}
+            <Button type="submit">{Constants[lang].FORM.send}</Button>
+            {isSending && (
+                <SubTitle red>{Constants[lang].FORM.sending}</SubTitle>
+            )}
             {formMessage && <SubTitle red>{formMessage}</SubTitle>}
             {isSending !== null && (
-                <SubTitle right>
-                    P.S. jeśli podoba Ci się strona koniecznie sprawdź ją na
-                    większym ekranie!
-                </SubTitle>
+                <SubTitle right>{Constants[lang].FORM.ps}</SubTitle>
             )}
         </Wrapper>
     );
