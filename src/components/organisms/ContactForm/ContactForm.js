@@ -112,9 +112,11 @@ export const ContactForm = () => {
             increaseLetterStep();
             setFirstInputTouched(true);
         }
-        setTimeout(() => {
-            formRef.current.scrollTop = '100';
-        }, 400);
+        if (window.innerWidth <= 755) {
+            setTimeout(() => {
+                formRef.current.scrollTop = '100';
+            }, 400);
+        }
     };
     const onInputChange = e => {
         const { name, value } = e.target;
