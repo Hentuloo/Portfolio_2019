@@ -46,7 +46,7 @@ export const theme = {
         second: "'Roboto', sans-serif",
     },
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
-    breakPointMiddle: '1200px',
+    breakPointMiddle: '1150px',
     breakPointLarge: '1400px',
     breakPointMobileKeyboard: `@media (max-width: 768px) and (min-aspect-ratio: 13/11)`,
     breakPointMobileLandscape: `@media (max-width: 768px) and (orientation: landscape)`,

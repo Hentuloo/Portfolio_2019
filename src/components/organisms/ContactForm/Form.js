@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import { Input, Textarea } from 'components/atoms';
-import { isValid } from './utils';
 
 const Wrapper = styled.form`
     position: relative;
@@ -28,6 +27,11 @@ const SubTitle = styled.p`
             font-weight: 500;
             color: ${({ theme }) => theme.color.brand[1]};
         `}
+    ${({ right }) =>
+        right &&
+        css`
+            text-align: right;
+        `}
 `;
 const StyledInput = styled(Input)`
     margin: 5px auto 5px;
@@ -43,6 +47,7 @@ const Button = styled.button`
     text-transform: uppercase;
     margin: 5px auto 15px;
     outline-color: ${({ theme }) => theme.color.gray[3]};
+    cursor: none;
 `;
 
 const Form = ({
@@ -66,34 +71,34 @@ const Form = ({
                 spróbuje pomóc
             </SubTitle>
             <StyledInput
-                isInvalid={!isValid('pName', inputsValues.pName)}
+                isInvalid={inputsValues.pName.isInValid}
                 onFocus={handleFocusFirstInput}
                 labelName="inputName"
                 labelText="Wpisz swoje imię"
                 name="pName"
                 placeholder="Twoje imię:"
                 validationMessage="6-30 znaków"
-                value={inputsValues.pName}
+                value={inputsValues.pName.value}
                 onChange={onInputChange}
             />
             <StyledInput
-                isInvalid={!isValid('pEmail', inputsValues.pEmail)}
+                isInvalid={inputsValues.pEmail.isInValid}
                 labelName="inputEmail"
                 labelText="Wpisz swój email"
                 name="pEmail"
                 placeholder="Twój email:"
                 validationMessage="Email"
-                value={inputsValues.pEmail}
+                value={inputsValues.pEmail.value}
                 onChange={onInputChange}
             />
             <StyledTextarea
-                isInvalid={!isValid('pMessage', inputsValues.pMessage)}
+                isInvalid={inputsValues.pMessage.isInValid}
                 labelName="inputMessage"
                 labelText="Wpisz swoją wiadomość"
                 name="pMessage"
                 placeholder="W czym mogę Ci pomóc?"
                 validationMessage="10-200 znaków"
-                value={inputsValues.pMessage}
+                value={inputsValues.pMessage.value}
                 onChange={onInputChange}
             />
             <Button type="submit">Wyślij</Button>
@@ -112,9 +117,18 @@ const Form = ({
 Form.propTypes = {
     onInputChange: PropTypes.func.isRequired,
     inputsValues: PropTypes.shape({
-        pName: PropTypes.string,
-        pEmail: PropTypes.string,
-        pMessage: PropTypes.string,
+        pName: PropTypes.shape({
+            value: PropTypes.string,
+            isInValid: PropTypes.bool,
+        }),
+        pEmail: PropTypes.shape({
+            value: PropTypes.string,
+            isInValid: PropTypes.bool,
+        }),
+        pMessage: PropTypes.shape({
+            value: PropTypes.string,
+            isInValid: PropTypes.bool,
+        }),
     }).isRequired,
     handleFocusFirstInput: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,

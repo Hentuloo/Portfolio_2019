@@ -1,9 +1,8 @@
 import React, { useState, useReducer, useRef } from 'react';
 import styled from 'styled-components';
-
 import { circlesWithGradient } from 'images/Circles';
 import { LetterImage } from './LetterImage';
-import { sendNetilfyForm } from './utils';
+import { sendNetilfyForm, isValid, mergeInputObjects } from './utils';
 
 import Form from './Form';
 
@@ -11,7 +10,9 @@ const Wrapper = styled.div`
     position: relative;
     display: block;
     width: 84%;
+    max-width: 355px;
     height: calc(100vh - 260px);
+    max-height: 500px;
     margin: 80px auto 0px auto;
     border-radius: 15px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
@@ -20,6 +21,18 @@ const Wrapper = styled.div`
     ${({ theme }) => theme.breakPointMobileKeyboard} {
         height: calc(100vh - 120px);
         margin: 80px auto 0px auto;
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
+        max-width: 455px;
+        height: calc(100vh - 200px);
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
+        max-width: 355px;
+        width: 100%;
+        height: 100%;
+        max-height: 500px;
+        margin: 0px auto 0px auto;
     }
 `;
 const InnerWrapper = styled.div`
@@ -32,6 +45,9 @@ const InnerWrapper = styled.div`
     text-align: center;
     font-family: ${({ theme }) => theme.font.second};
     overflow-y: auto;
+    @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
+        padding-bottom: 10px;
+    }
 `;
 const CirclesImageWrapper = styled.div`
     position: absolute;
@@ -49,9 +65,27 @@ const CirclesImage = styled.img`
     top: 50%;
     transform: translateY(-85%);
 `;
+const inputsInit = {
+    pName: {
+        value: '',
+        isInValid: null,
+        letterStepReached: false,
+    },
+    pEmail: {
+        value: '',
+        isInValid: null,
+        letterStepReached: false,
+    },
+    pMessage: {
+        value: '',
+        isInValid: null,
+        letterStepReached: false,
+    },
+};
 
 export const ContactForm = () => {
     const [letterStep, setLetterStep] = useState(1);
+    const [firstInputTouched, setFirstInputTouched] = useState(false);
     const [formStatus, setFormStatus] = useReducer(
         (prev, next) => ({ ...prev, ...next }),
         {
@@ -61,26 +95,45 @@ export const ContactForm = () => {
     );
     const [inputs, setInputs] = useReducer(
         (prev, next) => ({ ...prev, ...next }),
-        {
-            pName: '',
-            pEmail: '',
-            pMessage: '',
-        },
+        inputsInit,
     );
     const formRef = useRef(null);
 
+    const increaseLetterStep = () =>
+        setLetterStep(typeof letterStep === 'string' ? 1 : letterStep + 1);
+
     const handleFocusFirstInput = () => {
+        if (!firstInputTouched) {
+            increaseLetterStep();
+            setFirstInputTouched(true);
+        }
         setTimeout(() => {
             formRef.current.scrollTop = '100';
         }, 400);
     };
     const onInputChange = e => {
         const { name, value } = e.target;
-        setInputs({ [name]: value });
+        const valid = isValid(name, value);
+        if (inputs[name].letterStepReached === false && valid) {
+            increaseLetterStep();
+            setInputs(
+                mergeInputObjects(inputs, name, {
+                    value,
+                    isInValid: !valid,
+                    letterStepReached: true,
+                }),
+            );
+            return;
+        }
+        setInputs(
+            mergeInputObjects(inputs, name, { value, isInValid: !valid }),
+        );
     };
     const handleSubmitForm = async e => {
         e.preventDefault();
         setFormStatus({ isSending: true, formMessage: null });
+        setLetterStep('send');
+        setFirstInputTouched(false);
         try {
             const response = await sendNetilfyForm(inputs);
             if (response.ok) {
@@ -88,9 +141,12 @@ export const ContactForm = () => {
                     isSending: false,
                     formMessage: `Dostarczono`,
                 });
-                setInputs({ pName: '', pEmail: '', pMessage: '' });
+                setLetterStep('success');
+
+                setInputs(inputsInit);
             }
         } catch (err) {
+            setLetterStep('failure');
             setFormStatus({
                 isSending: true,
                 formMessage: `Coś poszło nie tak (${err.message ||
@@ -98,7 +154,7 @@ export const ContactForm = () => {
             });
         }
     };
-    console.log(setLetterStep);
+
     return (
         <Wrapper>
             <InnerWrapper ref={formRef}>

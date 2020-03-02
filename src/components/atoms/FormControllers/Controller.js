@@ -20,6 +20,7 @@ export const WrapperSC = styled.label`
     display: flex;
     width: 80%;
     margin: 0px auto;
+    cursor: none;
     &::after {
         position: absolute;
         content: '';
@@ -30,7 +31,7 @@ export const WrapperSC = styled.label`
         background-color: ${({ theme }) => theme.color.gray[0]};
     }
     ${({ isInvalid }) =>
-        isInvalid &&
+        isInvalid === true &&
         css`
             ${ValidMessageSC} {
                 opacity: 1;

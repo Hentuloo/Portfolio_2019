@@ -15,7 +15,6 @@ const PageWrapper = styled.div`
     top: 0%;
     width: 100%;
     transform-origin: top;
-    overflow: hidden;
 `;
 const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
     const currentPage = useSelector(({ ActivePage }) => ActivePage.current);

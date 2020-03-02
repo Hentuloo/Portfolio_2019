@@ -1,17 +1,33 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TimelineLite } from 'gsap';
-
-import { introAnimation, open } from './anim';
+import {
+    introAnimation,
+    closeLetter,
+    showPureDoc,
+    showDocTitle,
+    showletterTitles,
+    showDocText,
+    hideDocumentIntoLetter,
+    showStamp,
+    sendLetter,
+    bellAnim,
+    hideElement,
+} from './anim';
 
 const Wrapper = styled.div`
     position: absolute;
     display: block;
     width: 120px;
-    top: -80px;
+    top: -70px;
     left: 50%;
     transform: translate(-50%, 0%);
     z-index: 10;
+    @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
+        width: 150px;
+        top: -100px;
+    }
 `;
 const SvgElement = styled.svg`
     max-width: 100%;
@@ -21,12 +37,13 @@ const SvgElement = styled.svg`
     #docTitle,
     #letterTitles,
     #Success,
+    #plane,
     #Failure {
         visibility: hidden;
     }
 `;
 
-export const LetterImage = () => {
+export const LetterImage = ({ step }) => {
     const wrapper = useRef(null);
     const letterOpener = useRef(null);
     const docRectengle = useRef(null);
@@ -35,21 +52,92 @@ export const LetterImage = () => {
     const letterTitles = useRef(null);
     const Success = useRef(null);
     const Failure = useRef(null);
+    const plane = useRef(null);
 
     const generalTl = useMemo(() => new TimelineLite(), []);
-
     useEffect(() => {
         generalTl
             .addLabel('start')
             .add(introAnimation(wrapper.current), 'start')
             .add(
-                open(letterOpener.current)
+                closeLetter(letterOpener.current)
                     .progress(1)
                     .delay(1.4)
                     .reverse(),
                 'start',
             );
     }, []);
+
+    const getRespond = useCallback(respondFlag => {
+        generalTl
+            .addLabel('success')
+            .add(closeLetter(letterOpener.current), 'success')
+            .add(introAnimation(wrapper.current), 'success')
+            .add(hideElement([letterTitles.current, plane.current]), 'success')
+            .add(showStamp(respondFlag ? Success.current : Failure.current));
+    }, []);
+
+    const animationByStep = useCallback(choosedStep => {
+        switch (choosedStep) {
+            case 1:
+                generalTl
+                    .add('resetAnim')
+                    .add(
+                        closeLetter(letterOpener.current).reverse(),
+                        'resetAnim',
+                    )
+                    .add(
+                        hideElement([Failure.current, Success.current]),
+                        'resetAnim',
+                    );
+                break;
+            case 2:
+                generalTl
+                    .add(bellAnim(wrapper.current))
+                    .add(showPureDoc(docRectengle.current), '-=0.3');
+                break;
+            case 3:
+                generalTl.add(showDocTitle(docTitle.current));
+                break;
+            case 4:
+                generalTl.add(showletterTitles(letterTitles.current));
+                break;
+            case 5:
+                generalTl.add(showDocText(docTexts.current.children));
+                break;
+            case 6:
+            case 'send':
+                {
+                    const documentElements = [
+                        docTexts.current,
+                        docTitle.current,
+                        docRectengle.current,
+                    ];
+
+                    generalTl
+                        .add(hideDocumentIntoLetter(documentElements))
+                        .add(closeLetter(letterOpener.current))
+                        .add(showStamp(plane.current))
+                        .add(sendLetter(wrapper.current));
+                }
+                break;
+            case 7:
+            case 'success':
+                getRespond(true);
+                break;
+            case 8:
+            case 'failure':
+                getRespond(false);
+                break;
+            default:
+                return null;
+        }
+        return null;
+    }, []);
+
+    useEffect(() => {
+        animationByStep(step);
+    }, [step]);
 
     return (
         <Wrapper ref={wrapper}>
@@ -164,8 +252,35 @@ export const LetterImage = () => {
                             fill="#C16161"
                         />
                     </g>
+                    <g ref={plane} id="plane">
+                        <g id="Group">
+                            <path
+                                id="Vector_16"
+                                opacity="0.8"
+                                d="M438.862 398.463L444.928 384.103L483.151 314.019L338.385 354.192C350.687 356.361 374.187 365.356 374.187 365.356C374.187 365.356 382.234 388.011 387.661 398.463C398.24 391.184 410.374 381.14 410.374 381.14C410.374 381.14 427.522 388.979 438.862 398.463Z"
+                                fill="#C16161"
+                            />
+                        </g>
+                        <g id="layer1">
+                            <g id="Group 28">
+                                <path
+                                    id="path4718"
+                                    d="M338.129 354.152L484.999 313L439.45 397.98L397.122 369.835L484.783 313.142L392.227 368.896L386.59 397.431L375.274 365.967L484.768 313.135L373.239 363.825L338.129 354.152Z"
+                                    fill="#F2F2F2"
+                                />
+                                <path
+                                    id="path4720"
+                                    d="M389.445 398.062L408.29 380.791L396.112 371.886L389.445 398.062Z"
+                                    fill="#F2F2F2"
+                                />
+                            </g>
+                        </g>
+                    </g>
                 </g>
             </SvgElement>
         </Wrapper>
     );
+};
+LetterImage.propTypes = {
+    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

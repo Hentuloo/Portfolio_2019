@@ -1,7 +1,7 @@
 import validator from 'validator';
 
 export const isValid = (name, value) => {
-    if (value === '') return true;
+    if (value === '') return null;
     let validStatus = true;
     switch (name) {
         case 'pName':
@@ -43,3 +43,13 @@ export const sendNetilfyForm = values =>
         },
         body: encode({ 'form-name': 'contact', ...values }),
     });
+
+export const mergeInputObjects = (state, key, value) => {
+    return {
+        ...state,
+        [key]: {
+            ...state[key],
+            ...value,
+        },
+    };
+};
