@@ -1,7 +1,14 @@
-import React, { useRef, useEffect, useMemo, useCallback } from 'react';
+import React, {
+    useRef,
+    useEffect,
+    useMemo,
+    useCallback,
+    useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TimelineLite } from 'gsap';
+import { useSelector } from 'react-redux';
 import {
     introAnimation,
     closeLetter,
@@ -44,6 +51,8 @@ const SvgElement = styled.svg`
 `;
 
 export const LetterImage = ({ step }) => {
+    const [startTime, setTweenTime] = useState(0);
+    const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
     const wrapper = useRef(null);
     const letterOpener = useRef(null);
     const docRectengle = useRef(null);
@@ -61,11 +70,11 @@ export const LetterImage = ({ step }) => {
             .add(introAnimation(wrapper.current), 'start')
             .add(
                 closeLetter(letterOpener.current)
-                    .progress(1)
-                    .delay(1.4)
+                    .duration(0)
                     .reverse(),
                 'start',
             );
+        setTweenTime(generalTl.time());
     }, []);
 
     const getRespond = useCallback(respondFlag => {
@@ -75,69 +84,78 @@ export const LetterImage = ({ step }) => {
             .add(introAnimation(wrapper.current), 'success')
             .add(hideElement([letterTitles.current, plane.current]), 'success')
             .add(showStamp(respondFlag ? Success.current : Failure.current));
+        setTweenTime(generalTl.time());
     }, []);
 
-    const animationByStep = useCallback(choosedStep => {
-        switch (choosedStep) {
-            case 1:
-                generalTl
-                    .add('resetAnim')
-                    .add(
-                        closeLetter(letterOpener.current).reverse(),
-                        'resetAnim',
-                    )
-                    .add(
-                        hideElement([Failure.current, Success.current]),
-                        'resetAnim',
-                    );
-                break;
-            case 2:
-                generalTl
-                    .add(bellAnim(wrapper.current))
-                    .add(showPureDoc(docRectengle.current), '-=0.3');
-                break;
-            case 3:
-                generalTl.add(showDocTitle(docTitle.current));
-                break;
-            case 4:
-                generalTl.add(showletterTitles(letterTitles.current));
-                break;
-            case 5:
-                generalTl.add(showDocText(docTexts.current.children));
-                break;
-            case 6:
-            case 'send':
-                {
-                    const documentElements = [
-                        docTexts.current.children,
-                        docTitle.current,
-                        docRectengle.current,
-                    ];
-
+    const animationByStep = useCallback(
+        choosedStep => {
+            switch (choosedStep) {
+                case 1:
                     generalTl
-                        .add(hideDocumentIntoLetter(documentElements))
-                        .add(closeLetter(letterOpener.current))
-                        .add(showStamp(plane.current))
-                        .add(sendLetter(wrapper.current));
-                }
-                break;
-            case 7:
-            case 'success':
-                getRespond(true);
-                break;
-            case 8:
-            case 'failure':
-                getRespond(false);
-                break;
-            default:
-                return null;
-        }
-        return null;
-    }, []);
+                        .add('resetAnim')
+                        .add(
+                            closeLetter(letterOpener.current).reverse(),
+                            'resetAnim',
+                        )
+                        .add(
+                            hideElement([Failure.current, Success.current]),
+                            'resetAnim',
+                        );
+                    break;
+                case 2:
+                    generalTl
+                        .add(bellAnim(wrapper.current))
+                        .add(showPureDoc(docRectengle.current), '-=0.3');
+                    break;
+                case 3:
+                    generalTl.add(showDocTitle(docTitle.current));
+                    break;
+                case 4:
+                    generalTl.add(showletterTitles(letterTitles.current));
+                    break;
+                case 5:
+                    generalTl.add(showDocText(docTexts.current.children));
+                    break;
+                case 6:
+                case 'send':
+                    {
+                        const documentElements = [
+                            docTexts.current.children,
+                            docTitle.current,
+                            docRectengle.current,
+                        ];
+
+                        generalTl
+                            .add(hideDocumentIntoLetter(documentElements))
+                            .add(closeLetter(letterOpener.current))
+                            .add(showStamp(plane.current))
+                            .add(sendLetter(wrapper.current));
+                    }
+                    break;
+                case 7:
+                case 'success':
+                    getRespond(true);
+                    break;
+                case 8:
+                case 'failure':
+                    getRespond(false);
+                    break;
+                default:
+                    return null;
+            }
+            return null;
+        },
+        [generalTl],
+    );
 
     useEffect(() => {
         animationByStep(step);
     }, [step]);
+    useEffect(() => {
+        if (previous !== 'contact' && previous !== current) {
+            generalTl.seek(startTime);
+        }
+    }, [current]);
 
     return (
         <Wrapper ref={wrapper}>

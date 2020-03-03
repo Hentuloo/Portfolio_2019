@@ -10,7 +10,7 @@ import {
     isValid,
     mergeInputObjects,
     inputsStateToObjectWithValues,
-    // inputsValidation,
+    inputsValidation,
 } from './utils';
 
 import Form from './Form';
@@ -144,16 +144,16 @@ export const ContactForm = () => {
     };
     const handleSubmitForm = async e => {
         e.preventDefault();
-        // const { ok, fieldName } = inputsValidation(inputs);
+        const { ok, fieldName } = inputsValidation(inputs);
 
-        // if (!ok) {
-        //     setFormStatus({
-        //         formMessage: `${
-        //             Constants[lang].FORM[fieldName.slice(1).toLowerCase()].field
-        //         } ${Constants[lang].FORM.isWrong}`,
-        //     });
-        //     return;
-        // }
+        if (!ok) {
+            setFormStatus({
+                formMessage: `${
+                    Constants[lang].FORM[fieldName.slice(1).toLowerCase()].field
+                } ${Constants[lang].FORM.isWrong}`,
+            });
+            return;
+        }
 
         setFormStatus({ isSending: true, formMessage: null });
         setLetterStep('send');
