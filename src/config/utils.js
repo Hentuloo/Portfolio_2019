@@ -1,6 +1,5 @@
-export const promisWithMinimumTime = async (time, promise) => {
+export const promisWithMinimumTime = (time, promise) => {
     const minTimePromise = () =>
         new Promise(resolve => setTimeout(resolve, time));
-    const [resp] = await Promise.all([promise, minTimePromise()]);
-    return resp;
+    return Promise.all([minTimePromise(), promise]);
 };
