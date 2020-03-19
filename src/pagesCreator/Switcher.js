@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -21,25 +21,21 @@ const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
     const entryPage = useSelector(({ Pages }) => Pages.entryPage);
     const dispatch = useDispatch();
 
-    const setPage = useSetPage();
-
-    const portfolioRef = useRef(null);
-    const projectsRef = useRef(null);
-    const contactRef = useRef(null);
+    const setPages = useSetPage();
 
     useEffect(() => {
         const refs = {
-            portfolio: portfolioRef.current,
-            projects: projectsRef.current,
-            contact: contactRef.current,
+            portfolio: '.PortfolioPage',
+            projects: '.ProjectsPage',
+            contact: '.PageWrapper',
         };
         dispatch(setPagesRefs(refs));
-        setPage(entryPage, refs);
+        setPages(entryPage, refs);
     }, []);
 
     return (
         <>
-            <PageWrapper ref={portfolioRef}>
+            <PageWrapper className="PortfolioPage">
                 <PortfolioPage
                     photo={photo}
                     content={mainPageContent}
@@ -47,10 +43,10 @@ const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
                     headLine="Kamil Chędkowski"
                 />
             </PageWrapper>
-            <PageWrapper ref={projectsRef}>
+            <PageWrapper className="ProjectsPage">
                 <ProjectsPage projects={projects} data={projectPage} />
             </PageWrapper>
-            <PageWrapper ref={contactRef}>
+            <PageWrapper className="PageWrapper">
                 <ContactPage />
             </PageWrapper>
         </>

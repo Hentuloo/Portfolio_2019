@@ -61,7 +61,9 @@ const ListWrapper = () => {
     const wrapperRef = useRef();
 
     const lang = useSelector(({ language }) => language);
-    const { entryPage, refs } = useSelector(({ Pages }) => Pages);
+    const { entryPage, refs, onChangeCallbacks } = useSelector(
+        ({ Pages }) => Pages,
+    );
 
     const handleChangePage = useCallback(
         (e, pageName) => {
@@ -77,6 +79,9 @@ const ListWrapper = () => {
                 showPage(refs[pageName]),
                 '=-0.5',
             );
+            onChangeCallbacks.forEach(fn => {
+                fn(pageName);
+            });
         },
         [refs],
     );

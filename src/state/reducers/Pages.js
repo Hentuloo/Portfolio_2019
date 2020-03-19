@@ -18,6 +18,11 @@ export default (state = initState, action) => {
                 ...state,
                 refs: action.payload,
             };
+        case pagesActions.ADD_CALLBACK:
+            return {
+                ...state,
+                onChangeCallbacks: [...state.onChangeCallbacks, action.payload],
+            };
         default:
             return state;
     }

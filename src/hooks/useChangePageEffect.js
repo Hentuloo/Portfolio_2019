@@ -38,12 +38,15 @@ export const useChangePageEffect = () => {
     const changeUrl = useChangePageUrl();
 
     const changePage = useCallback(
-        (pageName, forceAnim) => {
+        (pageName, forceAnim, withCallbacks) => {
             if (!pageName) return null;
 
             const change = () => {
                 window.scrollTo(0, 0);
-                onChangeCallbacks.forEach(cb => cb(pageName));
+                if (withCallbacks)
+                    onChangeCallbacks.forEach(cb => {
+                        cb(pageName);
+                    });
                 changeUrl(pageName);
             };
 

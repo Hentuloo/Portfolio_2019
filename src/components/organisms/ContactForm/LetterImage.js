@@ -1,13 +1,10 @@
-import React, {
-    useRef,
-    useEffect,
-    useMemo,
-    useCallback,
-    useState,
-} from 'react';
+import React, { useRef, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { TimelineLite } from 'gsap';
+
+import { addCallback } from 'state/actions/pagesActions';
 import {
     introAnimation,
     closeLetter,
@@ -50,8 +47,8 @@ const SvgElement = styled.svg`
 `;
 
 export const LetterImage = ({ step }) => {
-    // const [startTime, setTweenTime] = useState(0);
-    const [, setTweenTime] = useState(0);
+    const dispatch = useDispatch();
+
     const wrapper = useRef(null);
     const letterOpener = useRef(null);
     const docRectengle = useRef(null);
@@ -73,7 +70,6 @@ export const LetterImage = ({ step }) => {
                     .reverse(),
                 'start',
             );
-        setTweenTime(generalTl.time());
     }, []);
 
     const getRespond = useCallback(respondFlag => {
@@ -83,7 +79,6 @@ export const LetterImage = ({ step }) => {
             .add(introAnimation(wrapper.current), 'success')
             .add(hideElement([letterTitles.current, plane.current]), 'success')
             .add(showStamp(respondFlag ? Success.current : Failure.current));
-        setTweenTime(generalTl.time());
     }, []);
 
     const animationByStep = useCallback(
@@ -150,11 +145,16 @@ export const LetterImage = ({ step }) => {
     useEffect(() => {
         animationByStep(step);
     }, [step]);
-    // useEffect(() => {
-    //     if (previous !== 'contact' && previous !== current) {
-    //         generalTl.seek(startTime);
-    //     }
-    // }, [current]);
+
+    useEffect(() => {
+        const introLetterAnimation = pageName => {
+            if (pageName === 'contact') {
+                generalTl.pause('start+=0.1');
+                setTimeout(() => generalTl.play(), 500);
+            }
+        };
+        dispatch(addCallback(introLetterAnimation));
+    }, []);
 
     return (
         <Wrapper ref={wrapper}>
