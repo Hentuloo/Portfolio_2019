@@ -1,5 +1,4 @@
-import React, { useRef, useMemo, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -7,8 +6,15 @@ import Constants from 'config/Constants';
 import waveSvg from 'images/MenuWave.svg';
 
 import { form, home, projects } from 'images/menuIcons';
-import { TimelineLite } from 'gsap';
+
+import {
+    useChangePageEffect,
+    hideAllPages,
+    showPage,
+} from 'hooks/useChangePageEffect';
+
 import Link from './Link';
+import { changeActiveLinkAnim } from './anim';
 
 const Wrapper = styled.ul`
     position: relative;
@@ -49,49 +55,50 @@ const WaveImage = styled.img`
     width: 100%;
 `;
 
-const ListWrapper = ({ changePage }) => {
+const ListWrapper = () => {
+    const changePage = useChangePageEffect();
     const waveRef = useRef();
-    const elementRef = useRef();
-    const generalTl = useMemo(() => new TimelineLite(), []);
+    const wrapperRef = useRef();
 
     const lang = useSelector(({ language }) => language);
-    const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
+    const { entryPage, refs } = useSelector(({ Pages }) => Pages);
+
+    const handleChangePage = useCallback(
+        (e, pageName) => {
+            e.preventDefault();
+
+            const links = [...wrapperRef.current.childNodes].slice(0, 3);
+
+            const tl = changeActiveLinkAnim(waveRef.current, links, pageName);
+            tl.eventCallback('onComplete', () => {
+                changePage(pageName);
+            });
+            tl.add(hideAllPages(refs), '-=1.2').add(
+                showPage(refs[pageName]),
+                '=-0.5',
+            );
+        },
+        [refs],
+    );
 
     useEffect(() => {
-        const waveNode = waveRef.current;
-        const links = elementRef.current.childNodes;
-        const linkWidth = links[0].offsetWidth;
-
-        if (current === 'portfolio') {
-            generalTl.to(waveNode, 0.8, { x: 0 });
-        } else if (current === 'projects') {
-            generalTl.to(waveNode, 0.8, { x: -linkWidth });
-        } else if (current === 'contact') {
-            generalTl.to(waveNode, 0.8, { x: linkWidth });
-        }
-    }, [current]);
-
-    const opposite =
-        (current === 'projects' && previous === 'contact') ||
-        (previous === 'projects' && current === 'contact');
+        const links = [...wrapperRef.current.childNodes].slice(0, 3);
+        changeActiveLinkAnim(waveRef.current, links, entryPage);
+    }, []);
 
     return (
-        <Wrapper>
-            <ListElement ref={elementRef}>
+        <Wrapper ref={wrapperRef}>
+            <ListElement>
                 <Link
                     href={`#${Constants[lang].PATHS.projects}`}
-                    onClick={e => changePage(e, 'projects')}
-                    active={current === 'projects'}
-                    opposite={opposite}
+                    onClick={e => handleChangePage(e, 'projects')}
                     icon={projects}
                 />
             </ListElement>
             <ListElement>
                 <Link
                     href={`#${Constants[lang].PATHS.portfolio}`}
-                    onClick={e => changePage(e, 'portfolio')}
-                    active={current === 'portfolio'}
-                    opposite={opposite}
+                    onClick={e => handleChangePage(e, 'portfolio')}
                     inCenter
                     icon={home}
                 />
@@ -99,9 +106,7 @@ const ListWrapper = ({ changePage }) => {
             <ListElement>
                 <Link
                     href={`#${Constants[lang].PATHS.contact}`}
-                    onClick={e => changePage(e, 'contact')}
-                    active={current === 'contact'}
-                    opposite={opposite}
+                    onClick={e => handleChangePage(e, 'contact')}
                     icon={form}
                 />
             </ListElement>
@@ -110,10 +115,6 @@ const ListWrapper = ({ changePage }) => {
             </WaveImageWrapper>
         </Wrapper>
     );
-};
-
-ListWrapper.propTypes = {
-    changePage: PropTypes.func.isRequired,
 };
 
 export default ListWrapper;

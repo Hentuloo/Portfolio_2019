@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -51,9 +51,13 @@ const Wrapper = styled.ul`
     }
 `;
 
-const List = ({ children, className }) => {
-    return <Wrapper className={className}>{children}</Wrapper>;
-};
+const List = forwardRef(({ children, className, ...props }, ref) => {
+    return (
+        <Wrapper ref={ref} className={className} {...props}>
+            {children}
+        </Wrapper>
+    );
+});
 
 List.propTypes = {
     className: PropTypes.string,

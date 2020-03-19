@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { changeLanguage } from 'state/actions/langActions';
-import { changePage } from 'state/actions/activePageActions';
+import { setEntryPage } from 'state/actions/pagesActions';
 
 import App from 'pages/index';
 
@@ -15,7 +15,7 @@ const ErrorRedirect = () => {
 
     const choosePage = (lang, subPage) => {
         window.history.pushState(null, null, `/${lang}/${subPage}`);
-        dispatch(changePage(subPage));
+        dispatch(setEntryPage(subPage));
         dispatch(changeLanguage(lang));
         setSimilarRoute(true);
     };

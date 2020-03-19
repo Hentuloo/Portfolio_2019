@@ -2,9 +2,8 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { useChangePageEffect } from 'hooks/useChangePageEffect';
 import ListWrapper from './ListWrapper';
-
-import { useChangePage } from '../utils';
 
 const Wrapper = styled.nav`
     position: fixed;
@@ -19,8 +18,7 @@ const Wrapper = styled.nav`
 `;
 
 const VerticalMenu = ({ pdfEng, pdf }) => {
-    const onChangePage = useChangePage();
-
+    const onChangePage = useChangePageEffect();
     return (
         <Wrapper>
             <ListWrapper

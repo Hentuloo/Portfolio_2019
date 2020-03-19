@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 
-import { TimelineLite } from 'gsap';
+import { useSetPage } from 'hooks/useChangePageEffect';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setPagesRefs } from 'state/actions/pagesActions';
 import PortfolioPage from './Portfolio/PortfolioPage';
 import ContactPage from './Contact/ContactPage';
 import ProjectsPage from './Projects/ProjectsPage';
@@ -17,31 +18,24 @@ const PageWrapper = styled.div`
     transform-origin: top;
 `;
 const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
-    const currentPage = useSelector(({ ActivePage }) => ActivePage.current);
+    const entryPage = useSelector(({ Pages }) => Pages.entryPage);
+    const dispatch = useDispatch();
+
+    const setPage = useSetPage();
+
     const portfolioRef = useRef(null);
     const projectsRef = useRef(null);
     const contactRef = useRef(null);
 
-    const generalTl = useMemo(() => new TimelineLite(), []);
-
-    const hidden = useMemo(() => ({ opacity: 0, scaleY: 0 }), []);
-    const visible = useMemo(() => ({ opacity: 1, delay: 0.4, zIndex: 1 }), []);
-
     useEffect(() => {
-        const pages = [
-            portfolioRef.current,
-            projectsRef.current,
-            contactRef.current,
-        ];
-        const setAsActive = index => {
-            pages.forEach(pageNode => generalTl.set(pageNode, hidden));
-            generalTl.set(pages[index], { scaleY: 1 });
-            generalTl.to(pages[index], 0.1, visible);
+        const refs = {
+            portfolio: portfolioRef.current,
+            projects: projectsRef.current,
+            contact: contactRef.current,
         };
-        if (currentPage === 'portfolio') setAsActive(0);
-        if (currentPage === 'projects') setAsActive(1);
-        if (currentPage === 'contact') setAsActive(2);
-    }, [currentPage]);
+        dispatch(setPagesRefs(refs));
+        setPage(entryPage, refs);
+    }, []);
 
     return (
         <>

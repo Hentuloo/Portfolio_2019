@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { changeLanguage } from 'state/actions/langActions';
-import Constants from 'config/Constants';
 
 const Button = styled.button`
     position: relative;
@@ -71,24 +70,11 @@ const Wrapper = styled.div`
 `;
 const LanguageButtons = () => {
     const dispatch = useDispatch();
-    const {
-        lang: currentLang,
-        ActivePage: { current },
-    } = useSelector(({ ActivePage, language }) => ({
-        lang: language,
-        ActivePage,
-    }));
+    const currentLang = useSelector(({ language }) => language);
 
     const handleChangeLanguage = lang => {
         if (lang !== currentLang) {
-            // const { origin } = window.location;
-            // window.location.href = `${origin}/${lang}/#${Constants[lang].PATHS[current]}`;
-            window.history.pushState(
-                null,
-                null,
-                `/${lang}/${Constants[lang].PATHS[current]}`,
-            );
-
+            window.history.pushState(null, null, `/${lang}/portfolio`);
             dispatch(changeLanguage(lang));
         }
     };

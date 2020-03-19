@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
 import { SectionsWithNav as SWN } from 'components/compoud';
 
 const ImageWrapper = styled.div`
@@ -17,17 +16,17 @@ const ImageWrapper = styled.div`
 
 // name have to be the same like in compoud element (in this case SWN.Button => Button)
 const Button = ({ Component, index, ...props }) => {
-    const { current } = useSelector(({ ActivePage }) => ActivePage);
-
     return (
         <SWN.Button
             name="Button"
             {...props}
-            render={({ active }) => (
+            // render={({ active }) => (
+            render={() => (
                 <ImageWrapper>
                     <Component
                         tlSettings={{
-                            paused: current !== 'projects' || active !== index,
+                            // paused: current !== 'projects' || active !== index,
+                            paused: true,
                         }}
                     />
                 </ImageWrapper>

@@ -8,7 +8,6 @@ import React, {
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { TimelineLite } from 'gsap';
-import { useSelector } from 'react-redux';
 import {
     introAnimation,
     closeLetter,
@@ -51,8 +50,8 @@ const SvgElement = styled.svg`
 `;
 
 export const LetterImage = ({ step }) => {
-    const [startTime, setTweenTime] = useState(0);
-    const { current, previous } = useSelector(({ ActivePage }) => ActivePage);
+    // const [startTime, setTweenTime] = useState(0);
+    const [, setTweenTime] = useState(0);
     const wrapper = useRef(null);
     const letterOpener = useRef(null);
     const docRectengle = useRef(null);
@@ -151,11 +150,11 @@ export const LetterImage = ({ step }) => {
     useEffect(() => {
         animationByStep(step);
     }, [step]);
-    useEffect(() => {
-        if (previous !== 'contact' && previous !== current) {
-            generalTl.seek(startTime);
-        }
-    }, [current]);
+    // useEffect(() => {
+    //     if (previous !== 'contact' && previous !== current) {
+    //         generalTl.seek(startTime);
+    //     }
+    // }, [current]);
 
     return (
         <Wrapper ref={wrapper}>

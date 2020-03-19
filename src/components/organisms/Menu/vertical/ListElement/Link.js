@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 export const LinkWrapper = styled.a`
@@ -16,14 +16,12 @@ export const LinkWrapper = styled.a`
     cursor: none;
     font-weight: 600;
     background-color: transparent;
-    ${({ active }) =>
-        active &&
-        css`
-            color: ${({ theme }) => theme.color.brand[2]};
-            &:hover {
-                color: ${({ theme }) => theme.color.brand[0]} !important;
-            }
-        `}
+    &.active {
+        color: ${({ theme }) => theme.color.brand[2]};
+        &:hover {
+            color: ${({ theme }) => theme.color.brand[0]} !important;
+        }
+    }
 `;
 
 const Link = ({ children, ...props }) => {

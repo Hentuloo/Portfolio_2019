@@ -37,7 +37,6 @@ const Wrapper = styled.div`
 
 const SkilsSwitcher = ({ data }) => {
     if (!data.length) return null;
-    const { current } = useSelector(({ ActivePage }) => ActivePage);
     const lang = useSelector(({ language }) => language);
     const buttonComponents = useMemo(
         () => [Mountain, Charts, Box, Joystick],
@@ -48,14 +47,14 @@ const SkilsSwitcher = ({ data }) => {
         <Wrapper>
             <SWN.Wrapper
                 updateTrigger={lang}
-                triggerInitAnimationDeps={[
-                    initAnim => () => {
-                        if (current === 'projects') {
-                            setTimeout(() => initAnim(), 50);
-                        }
-                    },
-                    current,
-                ]}
+                // triggerInitAnimationDeps={[
+                //     initAnim => () => {
+                //         if (current === 'projects') {
+                //             setTimeout(() => initAnim(), 50);
+                //         }
+                //     },
+                //     current,
+                // ]}
             >
                 {data.map(({ title }, index) => (
                     <Button

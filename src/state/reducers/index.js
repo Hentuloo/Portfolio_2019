@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import language from './language';
-import ActivePage from './ActivePage';
+import Pages from './Pages';
 import cursor from './cursor';
 
 export default combineReducers({
     language,
-    ActivePage,
+    Pages,
     cursor,
 });

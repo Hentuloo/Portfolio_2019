@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useChangePage } from '../utils';
 
 import ListWrapper from './ListWrapper';
 
@@ -17,10 +16,9 @@ const Wrapperr = styled.nav`
 `;
 
 const HorizontalMenu = () => {
-    const changePage = useChangePage();
     return (
         <Wrapperr>
-            <ListWrapper changePage={changePage} />
+            <ListWrapper />
         </Wrapperr>
     );
 };
