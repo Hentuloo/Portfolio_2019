@@ -1,11 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { SectionsWithNav as SWN } from 'components/compoud';
+
 import { Mountain, Charts, Box, Joystick } from 'components/atoms';
 
+import { addCallback } from 'state/actions/pagesActions';
 import Button from './Button';
 import Section from './Section';
 
@@ -37,25 +39,46 @@ const Wrapper = styled.div`
 
 const SkilsSwitcher = ({ data }) => {
     if (!data.length) return null;
+
+    const dispatch = useDispatch();
     const lang = useSelector(({ language }) => language);
+    const { rerender, buttonsClass, changeActive, setPaused } = useContext(
+        SWN.Context,
+    );
+
     const buttonComponents = useMemo(
         () => [Mountain, Charts, Box, Joystick],
         [],
     );
 
+    useEffect(() => {
+        const triggerSkillsSwitcherAnimation = pageName => {
+            if (pageName === 'projects') {
+                const buttons = document.querySelectorAll(`.${buttonsClass}`);
+
+                SWN.hideElements(buttons)
+                    .add(() => {
+                        changeActive(0);
+                    }, '+=0.2')
+                    .add(SWN.introAnimation(buttons).duration(1.5), '-=0.1')
+                    .add(() => {
+                        setPaused(false);
+                    }, '+=0.5');
+            } else {
+                setPaused(true);
+            }
+        };
+
+        dispatch(addCallback(triggerSkillsSwitcherAnimation));
+    }, []);
+
+    useEffect(() => {
+        rerender();
+    }, [lang]);
+
     return (
         <Wrapper>
-            <SWN.Wrapper
-                updateTrigger={lang}
-                // triggerInitAnimationDeps={[
-                //     initAnim => () => {
-                //         if (current === 'projects') {
-                //             setTimeout(() => initAnim(), 50);
-                //         }
-                //     },
-                //     current,
-                // ]}
-            >
+            <SWN.Wrapper>
                 {data.map(({ title }, index) => (
                     <Button
                         SectionWithNavComponent="Button"
@@ -94,4 +117,4 @@ SkilsSwitcher.propTypes = {
     ).isRequired,
 };
 
-export default SkilsSwitcher;
+export default SWN.connect(SkilsSwitcher);

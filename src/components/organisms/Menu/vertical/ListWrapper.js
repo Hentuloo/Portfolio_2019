@@ -25,7 +25,7 @@ const ListWrapper = ({ changePage, pdfs }) => {
 
         const links = getLinks(wrapperRef);
         changeActiveLinkAnim(links, pageName);
-        changePage(pageName, true);
+        changePage(pageName, true, true);
     };
 
     useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Context } from './Context';
@@ -44,72 +44,31 @@ const Image = styled.img`
     max-height: 100%;
 `;
 
-export const Wrapper = ({
-    children,
-    triggerInitAnimationDeps,
-    updateTrigger,
-}) => {
-    const [throttledButtons, setThrottledButtons] = useState(null);
-    const [{ prevActive, active }, setNewActive] = useReducer(
-        (prevS, newActive) => ({
-            prevActive: prevS.active,
-            active: newActive,
-        }),
-        {
-            prevActive: null,
-            active: 0,
-        },
-    );
+export const Wrapper = ({ children }) => {
+    const { changeActive, rerenderDeps, buttonsClass } = useContext(Context);
 
-    const handleChangeActive = newActive => {
-        if (throttledButtons === null) {
-            setNewActive(newActive);
-            const timeoutId = setTimeout(() => {
-                setThrottledButtons(null);
-            }, 800);
-            setThrottledButtons(timeoutId);
-        }
-        return null;
-    };
-
-    const contextValue = {
-        active,
-        prevActive,
-    };
     const [buttons, sections] = useMemo(
-        () => separatedChildrenWithButtonEvent(children, handleChangeActive),
-        [updateTrigger],
+        () =>
+            separatedChildrenWithButtonEvent(
+                children,
+                changeActive,
+                buttonsClass,
+            ),
+        [rerenderDeps],
     );
 
     return (
-        <Context.Provider value={contextValue}>
-            <OutWrapperSC>
-                <WrapperSC>
-                    <ButtonsWrapper
-                        triggerInitAnimationDeps={triggerInitAnimationDeps}
-                    >
-                        {buttons}
-                    </ButtonsWrapper>
-                    <SectionsWrapper>{sections}</SectionsWrapper>
-                    <CirclesImageWrapper type="presentation">
-                        <Image src={circlesRightBottom} />
-                    </CirclesImageWrapper>
-                </WrapperSC>
-            </OutWrapperSC>
-        </Context.Provider>
+        <OutWrapperSC>
+            <WrapperSC>
+                <ButtonsWrapper>{buttons}</ButtonsWrapper>
+                <SectionsWrapper>{sections}</SectionsWrapper>
+                <CirclesImageWrapper type="presentation">
+                    <Image src={circlesRightBottom} />
+                </CirclesImageWrapper>
+            </WrapperSC>
+        </OutWrapperSC>
     );
 };
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    updateTrigger: PropTypes.any,
-    triggerInitAnimationDeps: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.func,
-        PropTypes.arrayOf(PropTypes.string),
-    ]),
-};
-Wrapper.defaultProps = {
-    updateTrigger: null,
-    triggerInitAnimationDeps: [],
 };

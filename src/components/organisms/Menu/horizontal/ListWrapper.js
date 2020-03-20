@@ -72,18 +72,20 @@ const ListWrapper = () => {
             const links = [...wrapperRef.current.childNodes].slice(0, 3);
 
             const tl = changeActiveLinkAnim(waveRef.current, links, pageName);
-            tl.eventCallback('onComplete', () => {
-                changePage(pageName);
-            });
-            tl.add(hideAllPages(refs), '-=1.2').add(
-                showPage(refs[pageName]),
-                '=-0.5',
-            );
-            onChangeCallbacks.forEach(fn => {
-                fn(pageName);
-            });
+
+            tl.add(hideAllPages(refs), '-=0.6')
+                .addLabel('showPage')
+                .add(() => {
+                    onChangeCallbacks.forEach(fn => {
+                        fn(pageName);
+                    });
+                }, 'showPage-=0.24')
+                .add(showPage(refs[pageName]), 'showPage-=0.16')
+                .add(() => {
+                    changePage(pageName);
+                }, '+=0.35');
         },
-        [refs],
+        [refs, onChangeCallbacks.length],
     );
 
     useEffect(() => {

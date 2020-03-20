@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SectionsWithNav as SWN } from 'components/compoud';
@@ -16,22 +16,22 @@ const ImageWrapper = styled.div`
 
 // name have to be the same like in compoud element (in this case SWN.Button => Button)
 const Button = ({ Component, index, ...props }) => {
+    const { active, paused } = useContext(SWN.Context);
+
+    const pause = useMemo(() => {
+        if (paused === true || active !== index) return true;
+        return false;
+    }, [paused, active]);
     return (
-        <SWN.Button
-            name="Button"
-            {...props}
-            // render={({ active }) => (
-            render={() => (
-                <ImageWrapper>
-                    <Component
-                        tlSettings={{
-                            // paused: current !== 'projects' || active !== index,
-                            paused: true,
-                        }}
-                    />
-                </ImageWrapper>
-            )}
-        />
+        <SWN.Button name="Button" {...props}>
+            <ImageWrapper>
+                <Component
+                    tlSettings={{
+                        paused: pause,
+                    }}
+                />
+            </ImageWrapper>
+        </SWN.Button>
     );
 };
 Button.propTypes = {

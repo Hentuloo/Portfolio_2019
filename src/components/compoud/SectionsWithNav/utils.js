@@ -5,7 +5,11 @@ export const elementsByOrder = (elements, orders) => {
     return elements;
 };
 
-export const separatedChildrenWithButtonEvent = (children, onButtonClick) => {
+export const separatedChildrenWithButtonEvent = (
+    children,
+    onButtonClick,
+    buttonsClass,
+) => {
     return Children.toArray(children).reduce(
         (reactElements, child, i) => {
             const componentName =
@@ -15,6 +19,7 @@ export const separatedChildrenWithButtonEvent = (children, onButtonClick) => {
             if (componentName === 'Button') {
                 const buttonWithOnClick = cloneElement(child, {
                     onClick: () => onButtonClick(i),
+                    className: buttonsClass,
                 });
                 reactElements[0].push(buttonWithOnClick);
                 return reactElements;

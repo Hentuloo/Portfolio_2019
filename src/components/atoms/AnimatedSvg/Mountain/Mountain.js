@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { TimelineLite } from 'gsap';
 import { objectToArray } from '../utils';
@@ -12,7 +12,7 @@ export const Mountain = ({ tlSettings }) => {
     const cloud3 = useRef(null);
     const plantsWrapper = useRef(null);
 
-    const [generalTl] = useState(new TimelineLite());
+    const generalTl = useMemo(() => new TimelineLite(), []);
 
     useEffect(() => {
         const flagAnimation = flagAnim(flagRef.current);

@@ -1,9 +1,10 @@
 import { TimelineLite } from 'gsap';
 
-export const entryAnimation = elements => {
+export const hideElements = elements => {
     if (!elements.length) return null;
     const { parentNode } = elements[0];
     const tl = new TimelineLite();
+
     tl.set(elements, {
         opacity: 0,
         scale: 1,
@@ -11,7 +12,14 @@ export const entryAnimation = elements => {
         x: parentNode.offsetWidth,
     });
 
-    tl.staggerTo(elements, 0.6, {
+    return tl;
+};
+export const entryAnimation = elements => {
+    if (!elements.length) return null;
+    const { parentNode } = elements[0];
+    const tl = new TimelineLite();
+
+    tl.add(hideElements(elements)).staggerTo(elements, 0.6, {
         opacity: 1,
         x: (i, t) => {
             const ofset = -(t.offsetWidth * (elements.length - i));

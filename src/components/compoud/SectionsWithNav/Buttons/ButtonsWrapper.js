@@ -29,7 +29,7 @@ export const ButtonsWrapperSC = styled.div`
         }`}
 `;
 
-export const ButtonsWrapper = ({ children, triggerInitAnimationDeps }) => {
+export const ButtonsWrapper = ({ children }) => {
     const { active } = useContext(Context);
     const wrapperRef = useRef({ children: [] });
     const [btnsOrder, setButtonsOrder] = useState([]);
@@ -53,14 +53,6 @@ export const ButtonsWrapper = ({ children, triggerInitAnimationDeps }) => {
     const introWithSelectActive = buttons =>
         generalTl.add(introAnimation(buttons));
 
-    if (triggerInitAnimationDeps.length) {
-        const [fn, deps] = triggerInitAnimationDeps;
-        useEffect(
-            fn(() => introWithSelectActive(buttons)),
-            deps,
-        );
-    }
-
     useEffect(() => {
         const newOrder = setOrderByNewActive(btnsOrder, active);
         setButtonsOrder(newOrder);
@@ -81,13 +73,7 @@ export const ButtonsWrapper = ({ children, triggerInitAnimationDeps }) => {
 
 ButtonsWrapper.propTypes = {
     children: PropTypes.node,
-    triggerInitAnimationDeps: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.func,
-        PropTypes.arrayOf(PropTypes.string),
-    ]),
 };
 ButtonsWrapper.defaultProps = {
     children: null,
-    triggerInitAnimationDeps: [],
 };

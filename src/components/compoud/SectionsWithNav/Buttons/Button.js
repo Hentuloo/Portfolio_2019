@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Context } from '../Context';
 
 export const ButtonSC = styled.button`
     position: absolute;
@@ -16,15 +15,7 @@ export const ButtonSC = styled.button`
     }
 `;
 
-export const Button = ({ children, render, ...props }) => {
-    const { active, prevActive } = useContext(Context);
-    if (render) {
-        return (
-            <ButtonSC type="button" {...props}>
-                {render({ active, prevActive })}
-            </ButtonSC>
-        );
-    }
+export const Button = ({ children, ...props }) => {
     return (
         <ButtonSC type="button" {...props}>
             {children}
@@ -32,10 +23,8 @@ export const Button = ({ children, render, ...props }) => {
     );
 };
 Button.propTypes = {
-    render: PropTypes.func,
     children: PropTypes.node,
 };
 Button.defaultProps = {
-    render: null,
     children: null,
 };

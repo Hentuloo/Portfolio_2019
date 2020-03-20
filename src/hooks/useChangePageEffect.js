@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 
 const hidden = { opacity: 0, scaleY: 0 };
-const visible = { opacity: 1, delay: 0.4 };
+const visible = { opacity: 1, delay: 0.25 };
 
 export const hideAllPages = refs => {
     const tl = new TimelineLite();
@@ -14,7 +14,7 @@ export const hideAllPages = refs => {
 export const showPage = page => {
     const tl = new TimelineLite();
     tl.set(page, { scaleY: 1, zIndex: 1 });
-    tl.to(page, 0.2, visible);
+    tl.to(page, 0.3, visible);
     return tl;
 };
 
@@ -61,7 +61,7 @@ export const useChangePageEffect = () => {
             change();
             return null;
         },
-        [refs],
+        [refs, onChangeCallbacks.length],
     );
 
     return changePage;
