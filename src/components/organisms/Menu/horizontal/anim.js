@@ -1,18 +1,26 @@
-import { TimelineLite } from 'gsap';
+import gsap from 'gsap';
 
+export const showMenu = element => {
+    if (!element) return Error('element is required');
+    const tl = new gsap.timeline();
+
+    tl.to(element, 0.3, { y: 0 });
+
+    return tl;
+};
 export const activeLinkAnimation = element => {
     if (!element) return Error('element is required');
-    const tl = new TimelineLite();
+    const tl = new gsap.timeline();
 
-    tl.to(element, 0.3, { opacity: 0, y: 20 })
+    tl.to(element, 0.4, { opacity: 0, y: 20 })
         .set(element, { y: '-34%', scale: 0.6 })
-        .to(element, 0.4, { scale: 1, opacity: 1, delay: 0.1 });
+        .to(element, 0.6, { scale: 1, opacity: 1, delay: 0.2 });
 
     return tl;
 };
 export const hideLinkAnimation = element => {
     if (!element) return Error('element is required');
-    const tl = new TimelineLite();
+    const tl = new gsap.timeline();
 
     tl.to(element, 0.5, { y: 0 }, 'change');
 
@@ -20,7 +28,7 @@ export const hideLinkAnimation = element => {
 };
 export const hideAndShowAnimation = element => {
     if (!element) return Error('element is required');
-    const tl = new TimelineLite();
+    const tl = new gsap.timeline();
 
     tl.to(element, 0.2, { opacity: 0, y: 20 }).to(element, 0.2, {
         opacity: 1,
@@ -41,9 +49,9 @@ export const selectActiveLinkAnimation = (links, activeIndex) => {
 };
 export const wavePositionAnimation = (wave, transformX) => {
     if (!wave) return Error('wave is required');
-    const tl = new TimelineLite();
+    const tl = new gsap.timeline();
 
-    tl.to(wave, 0.8, { x: transformX });
+    tl.to(wave, 1.1, { x: transformX });
 
     return tl;
 };
@@ -53,7 +61,7 @@ export const changeActiveLinkAnim = (wave, links, pageName) => {
         return Error('Something gone wrong: horizontal-menu animation');
     }
 
-    const tl = new TimelineLite();
+    const tl = new gsap.timeline();
     const aName = 'changeActiveLinkAnim';
     tl.addLabel(aName);
 

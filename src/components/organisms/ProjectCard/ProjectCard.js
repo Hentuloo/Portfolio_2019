@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import LineSecondary from 'images/projectBoxLineSecondary.svg';
-import ProjectImage from './ProjectImage';
+import ProjectImage, { Image } from './ProjectImage';
 import TitleWithLinks from './TitleWithLinks';
 import Icons from './Icons';
 
@@ -17,10 +17,10 @@ const Wrapper = styled.div`
     background-color: ${({ theme }) => theme.color.white[0]};
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.35);
     font-family: ${({ theme }) => theme.font.second};
-    font-weight: 700;
+    font-weight: 500;
     &:hover {
         /* Inner image in ProjectImage component */
-        .innerImage {
+        ${Image} {
             transform: scale(1);
         }
     }
@@ -34,7 +34,7 @@ const Description = styled.p`
     font-family: ${({ theme }) => theme.font.second};
 
     letter-spacing: 0px;
-    font-weight: 400;
+    font-weight: 300;
     word-spacing: 4px;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
@@ -82,9 +82,25 @@ const Line = styled.img`
 
 const ProjectBox = ({ data }) => {
     const { title, description, gitLink, liveLink, photo, technologies } = data;
+    const wrapperRef = useRef();
+    const [inView, setInView] = useState();
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) setInView(true);
+            },
+            { rootMargin: '-30px' },
+        );
+
+        if (wrapperRef.current) {
+            observer.observe(wrapperRef.current);
+        }
+    }, []);
+
     return (
-        <Wrapper>
-            <ProjectImage photo={photo} title={title} />
+        <Wrapper ref={wrapperRef}>
+            <ProjectImage loading={!inView} photo={photo} title={title} />
             <TitleWithLinks
                 title={title}
                 gitLink={gitLink}
@@ -96,7 +112,7 @@ const ProjectBox = ({ data }) => {
                     <Line src={LineSecondary} role="presentation" alt="" />
                 </LineBox>
             </LineWrapper>
-            <Icons technologies={technologies} />
+            {inView && <Icons technologies={technologies} />}
         </Wrapper>
     );
 };

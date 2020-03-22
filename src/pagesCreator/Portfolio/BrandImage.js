@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import GraphImg from 'graphcms-image';
+import { getGraphcmsImg } from 'config/utils';
 
 import { circlesGray, circlesCornerGray } from 'images/Circles';
 
 const Wrapper = styled.div`
     position: relative;
 `;
-const GraphImageWrapper = styled.div`
-    img {
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        max-width: 100%;
-        max-height: 80vh;
-    }
+const ImageWrapper = styled.div``;
+const Image = styled.img`
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    max-width: 100%;
+    max-height: 80vh;
 `;
 const TopCircles = styled.img`
     position: absolute;
@@ -46,16 +44,12 @@ const BrandImage = ({ photo, className }) => {
     return (
         <Wrapper className={className}>
             <TopCircles src={circlesCornerGray} />
-            <GraphImageWrapper>
-                <GraphImg
-                    image={photo}
-                    maxWidth={600}
-                    fadeIn={false}
-                    blurryPlaceholder={false}
-                    backgroundColor={false}
+            <ImageWrapper>
+                <Image
+                    src={getGraphcmsImg(photo, 200)}
                     alt="Kamil Chędkowski - zdjęcie"
                 />
-            </GraphImageWrapper>
+            </ImageWrapper>
             <BottomCircles src={circlesGray} />
         </Wrapper>
     );

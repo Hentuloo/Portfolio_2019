@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { useSelector } from 'react-redux';
 
-import { TweenLite, Power1 } from 'gsap';
+import gsap, { Power1 } from 'gsap';
 
 const Wrapper = styled.div`
     position: fixed;
@@ -88,16 +88,14 @@ const Cursor = () => {
     useEffect(() => {
         const [small, big] = [...wrapperRef.current.childNodes];
         const mouseMove = ({ clientX, clientY }) => {
-            TweenLite.to(small, 0.3, {
+            gsap.to(small, 0.3, {
                 x: clientX,
                 y: clientY,
                 ease: Power1.ease,
-                force3D: false,
             });
-            TweenLite.to(big, 0.9, {
+            gsap.to(big, 0.9, {
                 x: clientX,
                 y: clientY,
-                force3D: false,
                 ease: Power1.ease,
             });
         };

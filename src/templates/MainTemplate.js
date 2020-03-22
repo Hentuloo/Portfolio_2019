@@ -1,16 +1,19 @@
-import React, { useMemo, useEffect, useRef } from 'react';
+import React, { useMemo, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import gsap from 'gsap';
 
 import { PhraseBlindsEffect, BackgroundView } from 'components/atoms';
 import {
     BackgroudBoxes,
     LanguageButtons,
     GridBlocksAnimation,
+    startGridAnimation,
+    endGridAnimation,
 } from 'components/molecules';
 
 import { Menu } from 'components/organisms';
-import { TimelineLite } from 'gsap';
+import { useSelector } from 'react-redux';
 import BackgroundViewWithImage from './BackgroundViewWithImage';
 
 const StartAnimation = styled.div`
@@ -35,26 +38,37 @@ const ContentWrapper = styled.div`
 `;
 
 const MainTemplate = ({ children }) => {
-    const generalTl = useMemo(() => new TimelineLite({ delay: 1 }), []);
+    const [throttledContent, setThrottledContent] = useState(false);
+    const { entryPageLoaded } = useSelector(({ Pages }) => Pages);
+
     const beforeAnimationNode = useRef(null);
     const afterAnimationNode = useRef(null);
+    const gridBlocksRef = useRef(null);
+
+    const generalTl = useMemo(() => gsap.timeline({ delay: 1 }), []).addLabel(
+        'start',
+    );
 
     useEffect(() => {
-        generalTl
-            .addLabel('start')
-            .to(
-                afterAnimationNode.current,
-                0,
-                { opacity: 1, pointerEvents: 'auto' },
-                'gridAnimationStart+=1.1',
-            )
-            .to(
-                beforeAnimationNode.current,
-                0,
-                { opacity: 0 },
-                'gridAnimationStart+=1.1',
-            );
+        const blocks = gridBlocksRef.current.children;
+
+        generalTl.add(startGridAnimation(blocks), '+=0.1').add(() => {
+            setThrottledContent(true);
+            generalTl.set(beforeAnimationNode.current, { opacity: 0 });
+        });
     }, []);
+
+    useEffect(() => {
+        if (!entryPageLoaded) return;
+
+        const blocks = gridBlocksRef.current.children;
+        generalTl
+            .set(afterAnimationNode.current, {
+                opacity: 1,
+                pointerEvents: 'auto',
+            })
+            .add(endGridAnimation(blocks));
+    }, [entryPageLoaded]);
 
     return (
         <>
@@ -70,15 +84,11 @@ const MainTemplate = ({ children }) => {
                 <LanguageButtons />
                 <ContentWrapper>
                     <Menu />
-                    <Content>{children}</Content>
+                    {throttledContent && <Content>{children}</Content>}
                 </ContentWrapper>
                 <BackgroundView />
             </ShowAfterStartAnimation>
-            <GridBlocksAnimation
-                tl={generalTl}
-                startLabel="gridAnimationStart"
-                endLabel="gridAnimationEnd"
-            />
+            <GridBlocksAnimation ref={gridBlocksRef} />
         </>
     );
 };

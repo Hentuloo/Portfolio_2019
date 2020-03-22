@@ -9,12 +9,13 @@ import { form, home, projects } from 'images/menuIcons';
 
 import {
     useChangePageEffect,
-    hideAllPages,
+    hidePages,
     showPage,
 } from 'hooks/useChangePageEffect';
 
+import gsap from 'gsap';
 import Link from './Link';
-import { changeActiveLinkAnim } from './anim';
+import { changeActiveLinkAnim, showMenu } from './anim';
 
 const Wrapper = styled.ul`
     position: relative;
@@ -25,6 +26,7 @@ const Wrapper = styled.ul`
     list-style: none;
     margin: 0px;
     padding: 0px;
+    transform: translateY(100%);
 `;
 const ListElement = styled.li`
     z-index: 16;
@@ -61,37 +63,43 @@ const ListWrapper = () => {
     const wrapperRef = useRef();
 
     const lang = useSelector(({ language }) => language);
-    const { entryPage, refs, onChangeCallbacks } = useSelector(
+    const { entryPage, refs, onChangeCallbacks, entryPageLoaded } = useSelector(
         ({ Pages }) => Pages,
     );
 
     const handleChangePage = useCallback(
         (e, pageName) => {
             e.preventDefault();
-
+            if (refs[pageName] === null) return null;
             const links = [...wrapperRef.current.childNodes].slice(0, 3);
 
             const tl = changeActiveLinkAnim(waveRef.current, links, pageName);
 
-            tl.add(hideAllPages(refs), '-=0.6')
+            tl.add(hidePages(refs, pageName), '-=0.8')
                 .addLabel('showPage')
                 .add(() => {
                     onChangeCallbacks.forEach(fn => {
                         fn(pageName);
                     });
-                }, 'showPage-=0.24')
-                .add(showPage(refs[pageName]), 'showPage-=0.16')
+                }, 'showPage-=0.34')
+                .add(showPage(refs[pageName]), 'showPage-=0.26')
                 .add(() => {
                     changePage(pageName);
                 }, '+=0.35');
+            return tl;
         },
-        [refs, onChangeCallbacks.length],
+        [JSON.stringify(refs), onChangeCallbacks.length],
     );
 
     useEffect(() => {
         const links = [...wrapperRef.current.childNodes].slice(0, 3);
         changeActiveLinkAnim(waveRef.current, links, entryPage);
     }, []);
+
+    useEffect(() => {
+        if (!entryPageLoaded) return;
+        gsap.timeline().add(showMenu(wrapperRef.current), '+=1.1');
+    }, [entryPageLoaded]);
 
     return (
         <Wrapper ref={wrapperRef}>

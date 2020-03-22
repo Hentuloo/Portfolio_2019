@@ -15,11 +15,12 @@ const Wrapper = styled.div`
 
 const ProjectCardWrapper = styled.section`
     margin: 30px auto;
-    max-width: 94%;
+    width: 94%;
+    max-width: 310px;
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         flex-basis: 29%;
-        max-width: 400px;
+        max-width: 310px;
         margin: 40px 0px;
     }
     @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {

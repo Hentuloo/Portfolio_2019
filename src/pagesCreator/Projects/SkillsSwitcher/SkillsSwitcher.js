@@ -41,10 +41,16 @@ const SkilsSwitcher = ({ data }) => {
     if (!data.length) return null;
 
     const dispatch = useDispatch();
+    const { entryPage, entryPageLoaded } = useSelector(({ Pages }) => Pages);
     const lang = useSelector(({ language }) => language);
-    const { rerender, buttonsClass, changeActive, setPaused } = useContext(
-        SWN.Context,
-    );
+    const {
+        rerender,
+        getButtons,
+        setPaused,
+        triggerInitAnimation,
+        btnsOrder,
+        resetButtons,
+    } = useContext(SWN.Context);
 
     const buttonComponents = useMemo(
         () => [Mountain, Charts, Box, Joystick],
@@ -54,16 +60,9 @@ const SkilsSwitcher = ({ data }) => {
     useEffect(() => {
         const triggerSkillsSwitcherAnimation = pageName => {
             if (pageName === 'projects') {
-                const buttons = document.querySelectorAll(`.${buttonsClass}`);
-
-                SWN.hideElements(buttons)
-                    .add(() => {
-                        changeActive(0);
-                    }, '+=0.2')
-                    .add(SWN.introAnimation(buttons).duration(1.5), '-=0.1')
-                    .add(() => {
-                        setPaused(false);
-                    }, '+=0.5');
+                resetButtons().add(() => {
+                    setPaused(false);
+                }, '+=0.5');
             } else {
                 setPaused(true);
             }
@@ -71,6 +70,12 @@ const SkilsSwitcher = ({ data }) => {
 
         dispatch(addCallback(triggerSkillsSwitcherAnimation));
     }, []);
+
+    useEffect(() => {
+        if (!entryPage || entryPage !== 'projects' || !entryPageLoaded) return;
+
+        triggerInitAnimation(getButtons(), btnsOrder, { delay: 0.5 });
+    }, [entryPage, entryPageLoaded]);
 
     useEffect(() => {
         rerender();

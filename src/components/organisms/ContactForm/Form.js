@@ -16,7 +16,7 @@ const Title = styled.h2`
     margin: 0px;
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.font.l};
-    font-weight: 500;
+    font-weight: 300;
 `;
 const SubTitle = styled.p`
     width: 85%;
@@ -26,7 +26,7 @@ const SubTitle = styled.p`
     ${({ red }) =>
         red &&
         css`
-            font-weight: 500;
+            font-weight: 300;
             color: ${({ theme }) => theme.color.brand[1]};
         `}
     ${({ right }) =>

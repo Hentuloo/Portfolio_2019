@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { useChangePageEffect } from 'hooks/useChangePageEffect';
 import ListWrapper from './ListWrapper';
 
 const Wrapper = styled.nav`
@@ -18,13 +17,9 @@ const Wrapper = styled.nav`
 `;
 
 const VerticalMenu = ({ pdfEng, pdf }) => {
-    const onChangePage = useChangePageEffect();
     return (
         <Wrapper>
-            <ListWrapper
-                changePage={onChangePage}
-                pdfs={[pdfEng.url, pdf.url]}
-            />
+            <ListWrapper pdfs={[pdfEng.url, pdf.url]} />
         </Wrapper>
     );
 };
@@ -42,4 +37,4 @@ VerticalMenu.defaultProps = {
     pdf: { url: null },
 };
 
-export default memo(VerticalMenu);
+export default VerticalMenu;

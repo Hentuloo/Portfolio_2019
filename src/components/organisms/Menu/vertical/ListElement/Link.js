@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ export const LinkWrapper = styled.a`
     color: ${({ theme }) => theme.color.black[0]};
     z-index: 15;
     cursor: none;
-    font-weight: 600;
+    font-weight: 700;
     background-color: transparent;
     &.active {
         color: ${({ theme }) => theme.color.brand[2]};
@@ -32,4 +32,4 @@ Link.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export default memo(Link, (prev, next) => prev.active === next.active);
+export default Link;

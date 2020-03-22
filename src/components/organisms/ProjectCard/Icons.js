@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import GraphImg from 'graphcms-image';
+import { getGraphcmsImg } from 'config/utils';
 
 const Wrapper = styled.div`
     position: relative;
@@ -42,15 +42,14 @@ const Icon = styled.div`
     &:hover ${Description} {
         opacity: 1;
     }
+`;
 
-    div {
-        width: 25px;
-        height: 25px;
-    }
-
-    img {
-        width: 100%;
-    }
+const ImageWrapper = styled.div`
+    width: 25px;
+    height: 25px;
+`;
+const Image = styled.img`
+    width: 100%;
 `;
 
 const Icons = ({ technologies }) => {
@@ -58,13 +57,15 @@ const Icons = ({ technologies }) => {
         <Wrapper>
             {technologies.map(e => (
                 <Icon key={e.id}>
-                    <GraphImg
-                        image={e}
-                        alt={e.fileName}
-                        maxWidth={100}
-                        fadeIn={false}
-                        blurryPlaceholder={false}
-                    />
+                    <ImageWrapper>
+                        <Image
+                            src={getGraphcmsImg(e, 25)}
+                            alt={e.fileName}
+                            maxWidth={100}
+                            fadeIn={false}
+                            blurryPlaceholder={false}
+                        />
+                    </ImageWrapper>
                     <Description>{e.title}</Description>
                 </Icon>
             ))}

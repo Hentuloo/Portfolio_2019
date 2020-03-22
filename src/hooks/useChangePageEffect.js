@@ -6,9 +6,13 @@ import { useCallback } from 'react';
 const hidden = { opacity: 0, scaleY: 0 };
 const visible = { opacity: 1, delay: 0.25 };
 
-export const hideAllPages = refs => {
+export const hidePages = (refs, activeName) => {
     const tl = new TimelineLite();
-    Object.values(refs).forEach(page => tl.set(page, hidden));
+    Object.keys(refs).forEach(pageName => {
+        if (pageName !== activeName) {
+            tl.set(refs[pageName], hidden);
+        }
+    });
     return tl;
 };
 export const showPage = page => {
@@ -40,20 +44,20 @@ export const useChangePageEffect = () => {
     const changePage = useCallback(
         (pageName, forceAnim, withCallbacks) => {
             if (!pageName) return null;
-
             const change = () => {
                 window.scrollTo(0, 0);
-                if (withCallbacks)
+                if (withCallbacks) {
                     onChangeCallbacks.forEach(cb => {
                         cb(pageName);
                     });
+                }
                 changeUrl(pageName);
             };
 
             if (forceAnim) {
                 const tl = new TimelineLite();
 
-                tl.add(hideAllPages(refs)).add(showPage(refs[pageName]));
+                tl.add(hidePages(refs, pageName)).add(showPage(refs[pageName]));
                 change();
 
                 return tl;
@@ -61,7 +65,7 @@ export const useChangePageEffect = () => {
             change();
             return null;
         },
-        [refs, onChangeCallbacks.length],
+        [JSON.stringify(refs), onChangeCallbacks.length],
     );
 
     return changePage;
@@ -69,12 +73,19 @@ export const useChangePageEffect = () => {
 export const useSetPage = () => {
     const { refs } = useSelector(({ Pages }) => Pages);
 
-    const fn = useCallback((pageName, specialRefs) => {
-        const rf = specialRefs || refs;
-        hideAllPages(rf);
-        showPage(rf[pageName]);
-        window.scrollTo(0, 0);
-    }, []);
+    const fn = useCallback(
+        (pageName, specialRefs) => {
+            const rf = specialRefs || refs;
+
+            const tl = hidePages(rf, pageName);
+            tl.add(showPage(rf[pageName]));
+
+            window.scrollTo(0, 0);
+
+            return tl;
+        },
+        [JSON.stringify(refs)],
+    );
 
     return fn;
 };

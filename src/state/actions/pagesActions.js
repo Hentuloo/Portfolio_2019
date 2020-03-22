@@ -2,6 +2,7 @@ export const pagesActions = {
     SET_ENTRY_PAGE: 'SET_ENTRY_PAGE',
     SET_PAGES_REFS: 'SET_PAGES_REFS',
     ADD_CALLBACK: 'ADD_CALLBACK',
+    ENTRY_PAGE_LOADED: 'ENTRY_PAGE_LOADED',
 };
 
 export const setPagesRefs = newRefsObject => {
@@ -12,4 +13,7 @@ export const setEntryPage = pageName => {
 };
 export const addCallback = fn => {
     return { type: pagesActions.ADD_CALLBACK, payload: fn };
+};
+export const setEntryPageLoaded = fn => {
+    return { type: pagesActions.ENTRY_PAGE_LOADED, payload: fn };
 };

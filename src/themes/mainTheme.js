@@ -30,7 +30,7 @@ export const theme = {
 
     font: {
         bold: '700',
-        light: '400',
+        light: '300',
         mini: '0.7rem',
         xxxs: '0.9rem',
         xxs: '1.2rem',
@@ -48,8 +48,8 @@ export const theme = {
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
     breakPointMiddle: '1150px',
     breakPointLarge: '1400px',
-    breakPointMobileKeyboard: `@media (max-width: 768px) and (min-aspect-ratio: 13/11)`,
+    breakPointMobileKeyboard: ` @media screen and (min-device-aspect-ratio: 1/1), (min-aspect-ratio: 1/1)
+`,
     breakPointMobileLandscape: `@media (max-width: 768px) and (orientation: landscape)`,
-
     blindsAnimation: 'cubic-bezier(0.97, 0.16, 0.31, 0.67)',
 };

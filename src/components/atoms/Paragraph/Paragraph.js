@@ -32,7 +32,7 @@ export const Paragraph = styled.p`
         asTitle &&
         css`
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 700;
             font-size: ${({ theme }) => theme.font.middle};
             margin-bottom: 5px;
             @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
@@ -49,7 +49,7 @@ export const Paragraph = styled.p`
     ${({ red }) =>
         red &&
         css`
-            font-weight: 500;
+            font-weight: 700;
             color: ${({ theme }) => theme.color.brand[0]};
         `}
        `;
@@ -59,7 +59,7 @@ export const ParagraphTitle = styled.h3`
     font-family: ${({ theme }) => theme.font.second};
     margin: 0px;
     margin-bottom: 20px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 114%;
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.font.l};

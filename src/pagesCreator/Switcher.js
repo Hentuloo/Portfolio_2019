@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { useSetPage } from 'hooks/useChangePageEffect';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setPagesRefs } from 'state/actions/pagesActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { setEntryPageLoaded } from 'state/actions/pagesActions';
+
 import PortfolioPage from './Portfolio/PortfolioPage';
 import ContactPage from './Contact/ContactPage';
 import ProjectsPage from './Projects/ProjectsPage';
@@ -17,37 +18,47 @@ const PageWrapper = styled.div`
     width: 100%;
     transform-origin: top;
 `;
-const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
-    const entryPage = useSelector(({ Pages }) => Pages.entryPage);
-    const dispatch = useDispatch();
 
-    const setPages = useSetPage();
+const Switcher = ({ photo, mainPageContent, projects, projectPage }) => {
+    const dispatch = useDispatch();
+    const [loadRestPages, setLoadRestPages] = useState(false);
+    const { entryPageLoaded, entryPage, refs } = useSelector(
+        ({ Pages }) => Pages,
+    );
+
+    const setPage = useSetPage();
 
     useEffect(() => {
-        const refs = {
-            portfolio: '.PortfolioPage',
-            projects: '.ProjectsPage',
-            contact: '.PageWrapper',
-        };
-        dispatch(setPagesRefs(refs));
-        setPages(entryPage, refs);
+        setPage(entryPage, refs);
+        dispatch(setEntryPageLoaded(true));
     }, []);
+
+    useEffect(() => {
+        if (!entryPageLoaded) return;
+        setTimeout(() => setLoadRestPages(true), 1700);
+    }, [entryPageLoaded]);
 
     return (
         <>
             <PageWrapper className="PortfolioPage">
-                <PortfolioPage
-                    photo={photo}
-                    content={mainPageContent}
-                    email="chentulooo@gmail.com"
-                    headLine="Kamil Chędkowski"
-                />
+                {(entryPage === 'portfolio' || loadRestPages === true) && (
+                    <PortfolioPage
+                        photo={photo}
+                        content={mainPageContent}
+                        email="chentulooo@gmail.com"
+                        headLine="Kamil Chędkowski"
+                    />
+                )}
             </PageWrapper>
             <PageWrapper className="ProjectsPage">
-                <ProjectsPage projects={projects} data={projectPage} />
+                {(entryPage === 'projects' || loadRestPages === true) && (
+                    <ProjectsPage projects={projects} data={projectPage} />
+                )}
             </PageWrapper>
             <PageWrapper className="PageWrapper">
-                <ContactPage />
+                {(entryPage === 'contact' || loadRestPages === true) && (
+                    <ContactPage />
+                )}
             </PageWrapper>
         </>
     );

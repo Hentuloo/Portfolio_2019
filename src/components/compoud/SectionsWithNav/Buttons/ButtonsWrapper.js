@@ -1,13 +1,11 @@
 /* eslint-disable no-shadow */
-import React, { useContext, useRef, useEffect, useState, useMemo } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { TimelineLite } from 'gsap';
+
 import { Context } from '../Context';
 
 import { ButtonSC } from './Button';
-import { setOrderByNewActive, elementsByOrder } from '../utils';
-import { introAnimation, selectItemAnimation } from './gsapAnimations';
 
 export const ButtonsWrapperSC = styled.div`
     position: absolute;
@@ -31,44 +29,8 @@ export const ButtonsWrapperSC = styled.div`
 
 export const ButtonsWrapper = ({ children }) => {
     const { active } = useContext(Context);
-    const wrapperRef = useRef({ children: [] });
-    const [btnsOrder, setButtonsOrder] = useState([]);
 
-    const generalTl = useMemo(() => new TimelineLite(), []);
-
-    const buttons = elementsByOrder(
-        [...wrapperRef.current.children],
-        btnsOrder,
-    );
-
-    const selectNewActiveButton = newOrder => {
-        const elementsByNewOrder = elementsByOrder(
-            [...wrapperRef.current.children],
-            newOrder,
-        );
-
-        generalTl.add(selectItemAnimation(elementsByNewOrder));
-    };
-
-    const introWithSelectActive = buttons =>
-        generalTl.add(introAnimation(buttons));
-
-    useEffect(() => {
-        const newOrder = setOrderByNewActive(btnsOrder, active);
-        setButtonsOrder(newOrder);
-        selectNewActiveButton(newOrder);
-    }, [active]);
-
-    useEffect(() => {
-        setButtonsOrder(buttons.map((btn, i) => i));
-        introWithSelectActive(buttons);
-    }, [wrapperRef.current.children.length]);
-
-    return (
-        <ButtonsWrapperSC ref={wrapperRef} active={active}>
-            {children}
-        </ButtonsWrapperSC>
-    );
+    return <ButtonsWrapperSC active={active}>{children}</ButtonsWrapperSC>;
 };
 
 ButtonsWrapper.propTypes = {

@@ -18,7 +18,7 @@ export const separatedChildrenWithButtonEvent = (
                 child.type.displayName;
             if (componentName === 'Button') {
                 const buttonWithOnClick = cloneElement(child, {
-                    onClick: () => onButtonClick(i),
+                    onClick: () => onButtonClick(i, true),
                     className: buttonsClass,
                 });
                 reactElements[0].push(buttonWithOnClick);

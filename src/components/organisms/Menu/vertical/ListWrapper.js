@@ -5,14 +5,18 @@ import { useSelector } from 'react-redux';
 import { List } from 'components/atoms';
 
 import Constants from 'config/Constants';
+import { useChangePageEffect } from 'hooks/useChangePageEffect';
 import ListElement from './ListElement/ListElement';
 import ListElementWithMultiLinks from './ListElement/ListElementWithMultiLinks';
 import { changeActiveLinkAnim } from './anim';
 
-const ListWrapper = ({ changePage, pdfs }) => {
-    const wrapperRef = useRef(null);
+const ListWrapper = ({ pdfs }) => {
+    const changePage = useChangePageEffect();
+
     const lang = useSelector(({ language }) => language);
     const { entryPage } = useSelector(({ Pages }) => Pages);
+
+    const wrapperRef = useRef(null);
 
     const getLinks = useCallback(wrapper => {
         return [...wrapper.current.childNodes]
@@ -20,13 +24,16 @@ const ListWrapper = ({ changePage, pdfs }) => {
             .map(link => link.children[0]);
     }, []);
 
-    const handleChangePage = (e, pageName) => {
-        e.preventDefault();
+    const handleChangePage = useCallback(
+        (e, pageName) => {
+            e.preventDefault();
 
-        const links = getLinks(wrapperRef);
-        changeActiveLinkAnim(links, pageName);
-        changePage(pageName, true, true);
-    };
+            const links = getLinks(wrapperRef);
+            changeActiveLinkAnim(links, pageName);
+            changePage(pageName, true, true);
+        },
+        [changePage],
+    );
 
     useEffect(() => {
         const links = getLinks(wrapperRef);
@@ -80,7 +87,6 @@ const ListWrapper = ({ changePage, pdfs }) => {
 };
 
 ListWrapper.propTypes = {
-    changePage: PropTypes.func.isRequired,
     pdfs: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

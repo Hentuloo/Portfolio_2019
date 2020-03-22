@@ -1,9 +1,14 @@
 import { pagesActions } from 'state/actions/pagesActions';
 
 const initState = {
-    refs: { portfolio: null, projects: null, contact: null },
+    refs: {
+        portfolio: '.PortfolioPage',
+        projects: '.ProjectsPage',
+        contact: '.PageWrapper',
+    },
     onChangeCallbacks: [],
     entryPage: 'portfolio',
+    entryPageLoaded: false,
 };
 
 export default (state = initState, action) => {
@@ -22,6 +27,11 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 onChangeCallbacks: [...state.onChangeCallbacks, action.payload],
+            };
+        case pagesActions.ENTRY_PAGE_LOADED:
+            return {
+                ...state,
+                entryPageLoaded: action.payload,
             };
         default:
             return state;
