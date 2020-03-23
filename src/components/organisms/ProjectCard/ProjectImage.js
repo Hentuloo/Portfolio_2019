@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { getGraphcmsImg } from 'config/utils';
 
-import mockyImage from 'images/mockyImage.svg';
+import pandaSleeping from 'images/pandaSleeping.svg';
 import LinePrimary from 'images/projectBoxLinePrimary.svg';
 import { useImage } from 'hooks/useImage';
 
@@ -32,6 +32,13 @@ export const Image = styled.img`
     }
 `;
 
+const MockyImage = styled.img`
+    position: absolute;
+    width: 90%;
+    bottom: calc(30%);
+    right: -3%;
+    z-index: 5;
+`;
 const Line = styled.img`
     width: 105%;
     pointer-events: none;
@@ -55,7 +62,7 @@ const ProjectImage = ({ photo, title, loading }) => {
     if (loading || image === undefined) {
         return (
             <Wrapper role="presentation">
-                <Image src={mockyImage} alt="Ładowanie obrazka" />
+                <MockyImage src={pandaSleeping} alt="Ładowanie zdjęcia" />
                 <Line src={LinePrimary} alt="Ozdobna linia" />
             </Wrapper>
         );

@@ -22,7 +22,6 @@ export const connect = WrapperedComponent => {
             withAnim: true,
             updateOrder: false,
         });
-        const [generalTl] = useState(gsap.timeline());
 
         const setNewActive = (
             newActive,
@@ -42,8 +41,12 @@ export const connect = WrapperedComponent => {
         );
 
         const selectNewActiveButton = newOrder => {
+            const tl = gsap.timeline();
+
             const elementsByNewOrder = elementsByOrder(getButtons(), newOrder);
-            generalTl.add(selectItemAnimation(elementsByNewOrder));
+            tl.add(selectItemAnimation(elementsByNewOrder));
+
+            return tl;
         };
 
         const changeActive = (newActive, triggerAnim) => {
