@@ -1,24 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { Modal } from 'components/organisms';
 
-import { SectionsWithNav as SWN } from 'components/compoud';
 import { ParagraphTitle, Paragraph } from 'components/atoms';
-
-const StyledSection = styled(SWN.SectionSC)`
-    ${Paragraph}:nth-child(3) {
-        padding-top: 20px;
-    }
-
-    ${Paragraph}:nth-child(4) {
-        padding-right: 30px;
-    }
-`;
 
 const Section = ({ type, content, ...props }) => {
     if (type === 'plain-text') {
         return (
-            <StyledSection {...props}>
+            <Modal.Section {...props}>
                 {content.map(({ title, paragraph }, index) => {
                     if (!(index % 2)) {
                         return (
@@ -37,7 +26,7 @@ const Section = ({ type, content, ...props }) => {
                         </Fragment>
                     );
                 })}
-            </StyledSection>
+            </Modal.Section>
         );
     }
     return null;

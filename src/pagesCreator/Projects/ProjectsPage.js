@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import ProjectsWrapper from './ProjectsWrapper';
-import SkillsSwitcher from './SkillsSwitcher/SkillsSwitcher';
+import SkillsModal from './SkillsModal/SkillsModal';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -30,7 +30,7 @@ const StyledProjectsWrapper = styled(ProjectsWrapper)`
 const Projects = ({ projects, data }) => {
     return (
         <Wrapper>
-            <SkillsSwitcher data={data} />
+            <SkillsModal data={data} />
             <StyledProjectsWrapper projects={projects} />
         </Wrapper>
     );

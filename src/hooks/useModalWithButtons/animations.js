@@ -1,9 +1,10 @@
-import { TimelineLite } from 'gsap';
+import gsap from 'gsap';
+import { elementsByOrder } from './utils';
 
 export const hideElements = elements => {
     if (!elements.length) return null;
     const { parentNode } = elements[0];
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
 
     tl.set(elements, {
         opacity: 0,
@@ -17,7 +18,7 @@ export const hideElements = elements => {
 export const entryAnimation = elements => {
     if (!elements.length) return null;
     const { parentNode } = elements[0];
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
 
     tl.add(hideElements(elements)).staggerTo(elements, 0.6, {
         opacity: 1,
@@ -35,7 +36,7 @@ export const entryAnimation = elements => {
 export const setAsActiveAnimation = element => {
     if (!element) return null;
 
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     tl.to(element, 0.8, {
         x: '10%',
         y: element.offsetHeight / 1.7,
@@ -48,7 +49,7 @@ export const setAsActiveAnimation = element => {
 export const introAnimation = elements => {
     if (!elements.length) return null;
 
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     tl.addLabel('start')
         .add(entryAnimation(elements), 'start')
         .add(setAsActiveAnimation(elements[0]), 'start+=0.6');
@@ -63,7 +64,7 @@ export const setInRowAnimation = elements => {
     const wrapperWidth = wrapper.offsetWidth;
     const elementWidth = elements[0].offsetWidth;
 
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     elements.forEach((btn, index) => {
         tl.to(
             btn,
@@ -90,7 +91,7 @@ export const removeFromActivePositionAnimation = button => {
     if (!button) return null;
     const wrapper = button.parentNode;
 
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     tl.to(button, 0.5, {
         scale: 0.3,
         opacity: 0,
@@ -117,11 +118,29 @@ export const selectItemAnimation = elements => {
     const lastEl = elements[elements.length - 1];
     const restElements = elements.slice(1, elements.length - 1);
 
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     tl.addLabel('start')
         .add(setInRowAnimation(restElements), 'start')
         .add(setAsActiveAnimation(activeEl), 'start')
         .add(removeFromActivePositionAnimation(lastEl), 'start+=0.3');
+
+    return tl;
+};
+
+export const selectNewActiveButtonAnimation = (buttons, newOrder) => {
+    const tl = gsap.timeline();
+
+    const elementsByNewOrder = elementsByOrder(buttons, newOrder);
+    tl.add(selectItemAnimation(elementsByNewOrder));
+
+    return tl;
+};
+
+export const triggerInitAnimation = (buttons, order, options) => {
+    const tl = gsap.timeline(options || {});
+
+    const buttonsByOrder = elementsByOrder(buttons, order);
+    tl.add(introAnimation(buttonsByOrder));
 
     return tl;
 };

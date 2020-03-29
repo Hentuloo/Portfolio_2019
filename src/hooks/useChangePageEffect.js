@@ -1,4 +1,4 @@
-import { TimelineLite } from 'gsap';
+import gsap from 'gsap';
 import Constants from 'config/Constants';
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
@@ -7,7 +7,7 @@ const hidden = { opacity: 0, scaleY: 0 };
 const visible = { opacity: 1, delay: 0.25 };
 
 export const hidePages = (refs, activeName) => {
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     Object.keys(refs).forEach(pageName => {
         if (pageName !== activeName) {
             tl.set(refs[pageName], hidden);
@@ -16,7 +16,7 @@ export const hidePages = (refs, activeName) => {
     return tl;
 };
 export const showPage = page => {
-    const tl = new TimelineLite();
+    const tl = gsap.timeline();
     tl.set(page, { scaleY: 1, zIndex: 1 });
     tl.to(page, 0.3, visible);
     return tl;
@@ -55,7 +55,7 @@ export const useChangePageEffect = () => {
             };
 
             if (forceAnim) {
-                const tl = new TimelineLite();
+                const tl = gsap.timeline();
 
                 tl.add(hidePages(refs, pageName)).add(showPage(refs[pageName]));
                 change();

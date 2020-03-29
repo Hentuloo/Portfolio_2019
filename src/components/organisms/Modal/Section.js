@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const SectionSC = styled.section`
+export const Section = styled.div`
     position: absolute;
     width: 100%;
     left: 0%;
@@ -12,4 +12,9 @@ export const SectionSC = styled.section`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         padding: 30px 50px 0px 20px;
     }
+    ${({ active }) =>
+        active &&
+        css`
+            opacity: 1;
+        `}
 `;
