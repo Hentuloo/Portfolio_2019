@@ -13,6 +13,7 @@ const ImageWrapper = styled.div`
 `;
 const ImageTree = styled.img`
     height: 100%;
+    max-width: 100%;
 `;
 const CirclesBackground = styled.img`
     position: absolute;
