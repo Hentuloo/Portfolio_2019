@@ -9,26 +9,32 @@ const GlobalStyle = createGlobalStyle`
     font-size:62.5%;
     cursor: none;
   }
+  @media (min-width: 768px) {
+    html {
+    font-size:65.5%;
+  }
+  }
+  @media (min-width: 1300px) {
+    html {
+    font-size:70.5%;
+  }
+  }
+  @media (min-width: 1800px) {
+    html {
+    font-size:78.5%;
+  }
+  }
   body {
    font-size:1.6rem;
    /* font-family: 'Rhodium Libre', serif; */
    font-family: 'Baloo Tamma';
    font-weight: 700;
    margin:0px;
-  letter-spacing: 1px;
-  overflow-x:hidden;
-    color: ${({ theme }) => theme.color.gray[4]};
+   letter-spacing: 1px;
+   overflow-x:hidden;
+   color: ${({ theme }) => theme.color.gray[4]};
   }
-@media (min-width: 768px) {
-    html {
-   font-size:76.5%;
-  }
-  }
-@media (min-width: 1300px) {
-    html {
-   font-size:81.5%;
-  }
-  }
+
  .focus-only {
    color:white;
   border: 0;
