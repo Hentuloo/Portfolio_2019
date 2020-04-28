@@ -6,9 +6,10 @@ import { changeLanguage } from 'state/actions/langActions';
 
 const Button = styled.button`
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     padding: 4px 0px 6px 0px;
+
     border: none;
     border-radius: 50%;
     letter-spacing: 1px;
@@ -49,6 +50,7 @@ const Button = styled.button`
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         letter-spacing: 1px;
+        margin-right: 13px;
         font-size: ${({ theme }) => theme.font.xxs};
         &::before {
             display: none;
@@ -65,7 +67,7 @@ const Wrapper = styled.div`
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         max-width: auto;
         left: 12px;
-        top: 4px;
+        top: 1vh;
     }
 `;
 const LanguageButtons = () => {
