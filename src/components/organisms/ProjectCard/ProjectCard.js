@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
 const Description = styled.p`
     flex-grow: 1;
-    padding: 5px 10px 10px;
+    padding: 0px 10px 10px;
     font-size: ${({ theme }) => theme.font.xxs};
     line-height: ${({ theme }) => theme.font.s};
     font-family: ${({ theme }) => theme.font.second};

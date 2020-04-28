@@ -35,14 +35,20 @@ const Title = styled.h2`
 
 const LinksWrapper = styled.div`
     display: flex;
-    height: 55px;
+    height: 40px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.font.xxs};
-    transform: translateY(-15px);
+    transform: translateY(-20px);
+    @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
+        height: 60px;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        transform: translateY(-10px);
+    }
 `;
 
 const LinkButton = styled.a`

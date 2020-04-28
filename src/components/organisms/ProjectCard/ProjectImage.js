@@ -46,12 +46,18 @@ const Line = styled.img`
 `;
 const Wrapper = styled.div`
     position: relative;
-    padding-bottom: 20px;
     overflow: hidden;
     border-radius: 8px 8px 0px 0px;
-    min-height: 180px;
+    max-height: 160px;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        min-height: 140px;
+        max-height: 130px;
+        padding-bottom: 0px;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointMiddle}) {
+        max-height: 160px;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
+        max-height: 175px;
     }
 `;
 
