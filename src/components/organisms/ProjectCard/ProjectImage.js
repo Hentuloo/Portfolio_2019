@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { getGraphcmsImg } from 'config/utils';
 
-import pandaSleeping from 'images/pandaSleeping.svg';
+import loadingProjectImage from 'images/loadingProjectImage.svg';
 import LinePrimary from 'images/projectBoxLinePrimary.svg';
 import { useImage } from 'hooks/useImage';
 
@@ -68,7 +68,7 @@ const ProjectImage = ({ photo, title, loading }) => {
     if (loading || image === undefined) {
         return (
             <Wrapper role="presentation">
-                <MockyImage src={pandaSleeping} alt="Ładowanie zdjęcia" />
+                <MockyImage src={loadingProjectImage} alt="Ładowanie zdjęcia" />
                 <Line src={LinePrimary} alt="Ozdobna linia" />
             </Wrapper>
         );

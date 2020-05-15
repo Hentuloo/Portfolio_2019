@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import pandaGround from 'images/pandaGround.svg';
+import aboutPageImage from 'images/aboutPageImage.svg';
 import { ParagraphTitle, Paragraph } from 'components/atoms';
 
 const Wrapper = styled.div`
@@ -68,7 +68,7 @@ const AboutSection = ({ className, content }) => {
             </AliginRight>
 
             <ImageWrapper>
-                <Image src={pandaGround} />
+                <Image src={aboutPageImage} />
             </ImageWrapper>
 
             <AliginLeft>
