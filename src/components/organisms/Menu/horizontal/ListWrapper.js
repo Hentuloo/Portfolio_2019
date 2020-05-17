@@ -9,7 +9,7 @@ import { form, home, projects } from 'images/menuIcons';
 import gsap from 'gsap';
 import { getViewNameByUrl } from 'config/utils';
 import Link from './Link';
-import { changeActiveLinkAnim, showMenu } from './anim';
+import { changeActiveLinkAnim, showMenu, hideAndShowAnimation } from './anim';
 
 const Wrapper = styled.ul`
     position: relative;
@@ -54,10 +54,11 @@ const WaveImage = styled.img`
 const ListWrapper = ({ lang, showContent }) => {
     const waveRef = useRef();
     const wrapperRef = useRef();
+    const lastPageName = useRef(getViewNameByUrl());
 
     useEffect(() => {
         const links = [...wrapperRef.current.childNodes].slice(0, 3);
-        changeActiveLinkAnim(waveRef.current, links, getViewNameByUrl());
+        changeActiveLinkAnim(waveRef.current, links, lastPageName.current);
     }, []);
 
     useEffect(() => {
@@ -65,9 +66,21 @@ const ListWrapper = ({ lang, showContent }) => {
         gsap.timeline().add(showMenu(wrapperRef.current), '+=1.2');
     }, [showContent]);
 
+    const checkIfNewPageIsOnOtherHand = useCallback(pageName => {
+        // projects | portfolio | contacts
+        return (
+            (lastPageName.current === 'contact' ||
+                lastPageName.current === 'projects') &&
+            (pageName === 'projects' || pageName === 'contact')
+        );
+    }, []);
+
     const hanldeChangePage = useCallback(pageName => {
         const links = [...wrapperRef.current.childNodes].slice(0, 3);
+        const isOpposite = checkIfNewPageIsOnOtherHand(pageName);
         changeActiveLinkAnim(waveRef.current, links, pageName);
+        if (isOpposite) hideAndShowAnimation(links[1]);
+        lastPageName.current = pageName;
     }, []);
 
     return (
