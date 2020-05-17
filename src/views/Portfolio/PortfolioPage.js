@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
 import Constants from 'config/Constants';
 
@@ -72,8 +71,7 @@ const StyledAboutSection = styled(AboutSection)`
     }
 `;
 const Portfolio = ({ content, photo, className }) => {
-    const lang = useSelector(({ language }) => language);
-    const { email } = Constants[lang].CONTENT;
+    const { email } = Constants.pl.CONTENT;
 
     return (
         <Wrapper className={className}>
@@ -105,4 +103,4 @@ Portfolio.defaultProps = {
     className: '',
 };
 
-export default memo(Portfolio, (prev, next) => prev.content === next.content);
+export default memo(Portfolio);

@@ -1,4 +1,4 @@
-import { TimelineLite, Bounce } from 'gsap';
+import gsap, { TimelineLite, Bounce } from 'gsap';
 
 export const introAnimation = el => {
     const tl = new TimelineLite();
@@ -15,9 +15,8 @@ export const introAnimation = el => {
 };
 
 export const closeLetter = el => {
-    const tl = new TimelineLite();
-
-    tl.fromTo(el, 0.4, { y: '0%' }, { y: '100%' });
+    const tl = gsap.timeline();
+    tl.from(el, 0.3, { y: '0%' }).to(el, 0.2, { y: '100px' });
 
     return tl;
 };

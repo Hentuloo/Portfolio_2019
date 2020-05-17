@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { changeLanguage } from 'state/actions/langActions';
 
@@ -70,13 +71,11 @@ const Wrapper = styled.div`
         top: 1vh;
     }
 `;
-const LanguageButtons = () => {
+const LanguageButtons = ({ currentLang }) => {
     const dispatch = useDispatch();
-    const currentLang = useSelector(({ language }) => language);
 
     const handleChangeLanguage = lang => {
         if (lang !== currentLang) {
-            window.history.pushState(null, null, `/${lang}/portfolio`);
             dispatch(changeLanguage(lang));
         }
     };
@@ -101,4 +100,8 @@ const LanguageButtons = () => {
     );
 };
 
-export default LanguageButtons;
+export default memo(LanguageButtons);
+
+LanguageButtons.propTypes = {
+    currentLang: PropTypes.string.isRequired,
+};

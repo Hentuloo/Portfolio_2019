@@ -7,6 +7,7 @@ export const Button = styled.div`
     border-radius: 50%;
     background-color: white;
     border: none;
+    opacity: 0;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 80px;
         height: 80px;

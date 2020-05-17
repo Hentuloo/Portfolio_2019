@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby';
+import { useMemo } from 'react';
 
 export const usePdfLinks = () => {
     const data = useStaticQuery(
@@ -26,8 +27,11 @@ export const usePdfLinks = () => {
 
     const { pdf, pdfEng } = pdfs;
 
-    return {
-        pdf,
-        pdfEng,
-    };
+    return useMemo(
+        () => ({
+            pdf,
+            pdfEng,
+        }),
+        [pdf, pdfEng],
+    );
 };

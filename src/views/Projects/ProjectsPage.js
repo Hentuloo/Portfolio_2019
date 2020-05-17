@@ -1,7 +1,8 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { useWindowSize } from 'hooks/useWindowSize';
 import ProjectsWrapper from './ProjectsWrapper';
 import SkillsModal from './SkillsModal/SkillsModal';
 
@@ -28,14 +29,23 @@ const StyledProjectsWrapper = styled(ProjectsWrapper)`
 `;
 
 const Projects = ({ projects, data }) => {
+    const [showProjects, setShowProjects] = useState(false);
+    const width = useWindowSize();
+
+    useEffect(() => {
+        if (width <= 769 || width === undefined) {
+            setTimeout(() => setShowProjects(true), 2500);
+        } else {
+            setShowProjects(true);
+        }
+    }, []);
     return (
         <Wrapper>
             <SkillsModal data={data} />
-            <StyledProjectsWrapper projects={projects} />
+            {showProjects && <StyledProjectsWrapper projects={projects} />}
         </Wrapper>
     );
 };
-
 Projects.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { addCallback } from 'state/actions/pagesActions';
 import { useModalWithButtons } from 'hooks/useModalWithButtons';
 import { Modal } from 'components/organisms';
 import ButtonsWrapper from './ButtonsWrapper/ButtonsWrapper';
@@ -23,44 +21,9 @@ const Wrapper = styled.div`
 
 const SkillsModal = ({ data }) => {
     if (!data.length) return null;
-    const { entryPage, entryPageLoaded } = useSelector(({ Pages }) => Pages);
-    const [pauseButtonAnim, setPauseButtonAnim] = useState(true);
-    const {
-        active,
-        btnsOrder,
-        buttonsWrapperRef,
-        resetButtons,
-        getButtonsProps,
-        triggerInitAnimation,
-    } = useModalWithButtons({ active: 0 });
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        const triggerSkillsSwitcherAnimation = pageName => {
-            if (pageName === 'projects') {
-                resetButtons([...buttonsWrapperRef.current.children]).add(
-                    () => {
-                        setPauseButtonAnim(false);
-                    },
-                    '+=0.5',
-                );
-            } else {
-                setPauseButtonAnim(true);
-            }
-        };
-        dispatch(addCallback(triggerSkillsSwitcherAnimation));
-    }, []);
-
-    useEffect(() => {
-        // Animation when user entry page on projects
-        if (!entryPage || entryPage !== 'projects' || !entryPageLoaded) return;
-        triggerInitAnimation(
-            [...buttonsWrapperRef.current.children],
-            btnsOrder,
-            { delay: 0.5 },
-        );
-    }, [entryPage, entryPageLoaded]);
+    const { active, buttonsWrapperRef, getButtonsProps } = useModalWithButtons({
+        active: 0,
+    });
 
     return (
         <Wrapper>
@@ -70,7 +33,6 @@ const SkillsModal = ({ data }) => {
                     getButtonsProps={getButtonsProps}
                     data={data}
                     activeIndex={active}
-                    pauseButtonAnim={pauseButtonAnim}
                 />
                 <SectionsWrapper data={data} activeIndex={active} />
                 <Modal.BackgroundImage />

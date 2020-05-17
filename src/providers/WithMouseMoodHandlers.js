@@ -16,7 +16,6 @@ const WithMouseMoodHandlers = ({ render, mood, initialMood }) => {
         onMouseEnter: e => changeCursorMode(e, mood),
         onMouseDown: e => changeCursorMode(e, mood),
         onMouseLeave: e => changeCursorMode(e, initialMood),
-        onBlur: e => changeCursorMode(e, initialMood),
     };
 
     return render({ getHandlers: listeners });

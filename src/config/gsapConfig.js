@@ -1,4 +1,4 @@
-import { CSSPlugin } from 'gsap/CSSPlugin';
+import { ScrollToPlugin, CSSPlugin } from 'gsap/all';
 
 // eslint-disable-next-line no-unused-vars
-const plugin = [CSSPlugin];
+const plugin = [CSSPlugin, ScrollToPlugin];

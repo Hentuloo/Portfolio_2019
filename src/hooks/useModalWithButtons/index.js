@@ -18,7 +18,7 @@ import {
 
 const defaultState = {
     active: 0,
-    withAnim: true,
+    withAnim: false,
     updateOrder: false,
     rerenderCount: 0,
     btnsOrder: [],
@@ -62,8 +62,7 @@ export const useModalWithButtons = initState => {
     }, []);
 
     useEffect(() => {
-        if (state.active === null) return;
-        if (buttons.length === 0) return;
+        if (state.active === null || buttons.length === 0) return;
 
         const newOrder = setOrderByNewActive(state.btnsOrder, state.active);
 
@@ -73,7 +72,9 @@ export const useModalWithButtons = initState => {
 
     useEffect(() => {
         const btns = [...buttonsWrapperRef.current.children];
-        dispatch(setNewButtonsOrderAction(btns.map((_, i) => i)));
+        const order = btns.map((_, i) => i);
+        dispatch(setNewButtonsOrderAction(order));
+        triggerInitAnimation(btns, order, { delay: 0.4 });
     }, []);
 
     const getButtonsProps = useCallback(

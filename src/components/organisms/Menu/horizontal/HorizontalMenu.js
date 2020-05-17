@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import ListWrapper from './ListWrapper';
 
 const Wrapperr = styled.nav`
@@ -15,12 +15,16 @@ const Wrapperr = styled.nav`
     }
 `;
 
-const HorizontalMenu = () => {
+const HorizontalMenu = ({ currentLang, showContent }) => {
     return (
         <Wrapperr>
-            <ListWrapper />
+            <ListWrapper lang={currentLang} showContent={showContent} />
         </Wrapperr>
     );
 };
+HorizontalMenu.propTypes = {
+    currentLang: PropTypes.string.isRequired,
+    showContent: PropTypes.bool.isRequired,
+};
 
-export default HorizontalMenu;
+export default memo(HorizontalMenu);

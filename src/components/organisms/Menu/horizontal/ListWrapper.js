@@ -1,19 +1,13 @@
 import React, { useRef, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-
 import Constants from 'config/Constants';
 import waveSvg from 'images/MenuWave.svg';
 
 import { form, home, projects } from 'images/menuIcons';
 
-import {
-    useChangePageEffect,
-    hidePages,
-    showPage,
-} from 'hooks/useChangePageEffect';
-
 import gsap from 'gsap';
+import { getViewNameByUrl } from 'config/utils';
 import Link from './Link';
 import { changeActiveLinkAnim, showMenu } from './anim';
 
@@ -57,71 +51,45 @@ const WaveImage = styled.img`
     width: 100%;
 `;
 
-const ListWrapper = () => {
-    const changePage = useChangePageEffect();
+const ListWrapper = ({ lang, showContent }) => {
     const waveRef = useRef();
     const wrapperRef = useRef();
 
-    const lang = useSelector(({ language }) => language);
-    const { entryPage, refs, onChangeCallbacks, entryPageLoaded } = useSelector(
-        ({ Pages }) => Pages,
-    );
-
-    const handleChangePage = useCallback(
-        (e, pageName) => {
-            e.preventDefault();
-            if (refs[pageName] === null) return null;
-            const links = [...wrapperRef.current.childNodes].slice(0, 3);
-
-            const tl = changeActiveLinkAnim(waveRef.current, links, pageName);
-
-            tl.add(hidePages(refs, pageName), '-=0.8')
-                .addLabel('showPage')
-                .add(() => {
-                    onChangeCallbacks.forEach(fn => {
-                        fn(pageName);
-                    });
-                }, 'showPage-=0.34')
-                .add(showPage(refs[pageName]), 'showPage-=0.26')
-                .add(() => {
-                    changePage(pageName);
-                }, '+=0.35');
-            return tl;
-        },
-        [JSON.stringify(refs), onChangeCallbacks.length],
-    );
-
     useEffect(() => {
         const links = [...wrapperRef.current.childNodes].slice(0, 3);
-        changeActiveLinkAnim(waveRef.current, links, entryPage);
+        changeActiveLinkAnim(waveRef.current, links, getViewNameByUrl());
     }, []);
 
     useEffect(() => {
-        if (!entryPageLoaded) return;
-        gsap.timeline().add(showMenu(wrapperRef.current), '+=1.1');
-    }, [entryPageLoaded]);
+        if (!showContent) return;
+        gsap.timeline().add(showMenu(wrapperRef.current), '+=1.2');
+    }, [showContent]);
+
+    const hanldeChangePage = useCallback(pageName => {
+        const links = [...wrapperRef.current.childNodes].slice(0, 3);
+        changeActiveLinkAnim(waveRef.current, links, pageName);
+    }, []);
 
     return (
         <Wrapper ref={wrapperRef}>
             <ListElement>
                 <Link
-                    href={`#${Constants[lang].PATHS.projects}`}
-                    onClick={e => handleChangePage(e, 'projects')}
+                    onClick={() => hanldeChangePage('projects')}
+                    to={`/${Constants[lang].PATHS.projects}`}
                     icon={projects}
                 />
             </ListElement>
             <ListElement>
                 <Link
-                    href={`#${Constants[lang].PATHS.portfolio}`}
-                    onClick={e => handleChangePage(e, 'portfolio')}
-                    inCenter
+                    onClick={() => hanldeChangePage('portfolio')}
+                    to={`${Constants[lang].PATHS.portfolio}`}
                     icon={home}
                 />
             </ListElement>
             <ListElement>
                 <Link
-                    href={`#${Constants[lang].PATHS.contact}`}
-                    onClick={e => handleChangePage(e, 'contact')}
+                    onClick={() => hanldeChangePage('contact')}
+                    to={`/${Constants[lang].PATHS.contact}`}
                     icon={form}
                 />
             </ListElement>
@@ -131,5 +99,8 @@ const ListWrapper = () => {
         </Wrapper>
     );
 };
-
+ListWrapper.propTypes = {
+    lang: PropTypes.string.isRequired,
+    showContent: PropTypes.bool.isRequired,
+};
 export default ListWrapper;

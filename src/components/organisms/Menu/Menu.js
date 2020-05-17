@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
+import PropTypes from 'prop-types';
 
 import { useWindowSize } from 'hooks/useWindowSize';
 import { usePdfLinks } from 'api/getPdf.js';
+import { useSelector } from 'react-redux';
 import VerticalMenu from './vertical/VerticalMenu';
 import HorizontalMenu from './horizontal/HorizontalMenu';
 
-const Menu = () => {
+const Menu = ({ showContent }) => {
+    const currentLang = useSelector(({ language }) => language);
     const [isMobile, setIsMobile] = useState(undefined);
     const { width } = useWindowSize();
     const pdfs = usePdfLinks();
@@ -19,8 +22,19 @@ const Menu = () => {
     }, [width]);
 
     if (isMobile === undefined) return null;
-    if (isMobile) return <HorizontalMenu />;
-    return <VerticalMenu {...pdfs} />;
+    if (isMobile)
+        return (
+            <HorizontalMenu
+                currentLang={currentLang}
+                showContent={showContent}
+            />
+        );
+
+    return <VerticalMenu {...pdfs} currentLang={currentLang} />;
 };
 
-export default Menu;
+export default memo(Menu);
+
+Menu.propTypes = {
+    showContent: PropTypes.bool.isRequired,
+};

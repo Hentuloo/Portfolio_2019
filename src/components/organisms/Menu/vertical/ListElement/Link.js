@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 
-export const LinkWrapper = styled.a`
+export const LinkWrapper = styled(Link)`
     position: relative;
     display: grid;
     width: 100%;
@@ -24,12 +25,29 @@ export const LinkWrapper = styled.a`
     }
 `;
 
-const Link = ({ children, ...props }) => {
-    return <LinkWrapper {...props}>{children}</LinkWrapper>;
+const LinkEl = ({ children, href, to, ...props }) => {
+    if (href) {
+        return (
+            <LinkWrapper as="a" href={href} {...props}>
+                {children}
+            </LinkWrapper>
+        );
+    }
+    return (
+        <LinkWrapper activeClassName="active" to={to} {...props}>
+            {children}
+        </LinkWrapper>
+    );
 };
 
-Link.propTypes = {
+LinkEl.propTypes = {
     children: PropTypes.node.isRequired,
+    to: PropTypes.string,
+    href: PropTypes.string,
+};
+LinkEl.defaultProps = {
+    to: '',
+    href: '',
 };
 
-export default Link;
+export default LinkEl;

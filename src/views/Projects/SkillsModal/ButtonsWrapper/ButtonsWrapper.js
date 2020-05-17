@@ -7,32 +7,29 @@ import Button from './Button';
 import AnimatedSvg from './AnimatedSvg';
 
 const ButtonsWrapper = forwardRef(
-    ({ getButtonsProps, data, activeIndex, pauseButtonAnim }, ref) => {
+    ({ getButtonsProps, data, activeIndex }, ref) => {
         const [frontEnd, backEnd, Other, NowSoon] = data;
         return (
             <Modal.ButtonsWrapper ref={ref}>
                 <Button title={frontEnd.title} {...getButtonsProps(0)}>
                     <AnimatedSvg
                         Component={Mountain}
-                        paused={pauseButtonAnim || activeIndex !== 0}
+                        paused={activeIndex !== 0}
                     />
                 </Button>
                 <Button title={backEnd.title} {...getButtonsProps(1)}>
                     <AnimatedSvg
                         Component={Charts}
-                        paused={pauseButtonAnim || activeIndex !== 1}
+                        paused={activeIndex !== 1}
                     />
                 </Button>
                 <Button title={Other.title} {...getButtonsProps(2)}>
-                    <AnimatedSvg
-                        Component={Box}
-                        paused={pauseButtonAnim || activeIndex !== 2}
-                    />
+                    <AnimatedSvg Component={Box} paused={activeIndex !== 2} />
                 </Button>
                 <Button title={NowSoon.title} {...getButtonsProps(3)}>
                     <AnimatedSvg
                         Component={Joystick}
-                        paused={pauseButtonAnim || activeIndex !== 3}
+                        paused={activeIndex !== 3}
                     />
                 </Button>
             </Modal.ButtonsWrapper>
@@ -43,7 +40,6 @@ const ButtonsWrapper = forwardRef(
 ButtonsWrapper.propTypes = {
     getButtonsProps: PropTypes.func.isRequired,
     activeIndex: PropTypes.number.isRequired,
-    pauseButtonAnim: PropTypes.bool.isRequired,
     data: PropTypes.arrayOf(
         PropTypes.shape({
             type: PropTypes.string.isRequired,
@@ -57,9 +53,4 @@ ButtonsWrapper.propTypes = {
     ).isRequired,
 };
 
-export default memo(ButtonsWrapper, (prev, next) => {
-    return (
-        prev.activeIndex === next.activeIndex &&
-        prev.pauseButtonAnim === next.pauseButtonAnim
-    );
-});
+export default memo(ButtonsWrapper);

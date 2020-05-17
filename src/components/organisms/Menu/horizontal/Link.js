@@ -1,11 +1,9 @@
-import React, { useRef, useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TimelineLite } from 'gsap';
+import TransitionLink from 'gatsby-plugin-transition-link';
 
-import { hideAndShowAnimation } from './anim';
-
-const Wrapper = styled.a`
+const Wrapper = styled(TransitionLink)`
     position: relative;
     display: block;
     height: 100%;
@@ -24,32 +22,25 @@ const Icon = styled.img`
     width: 100%;
 `;
 
-const Link = ({ icon, opposite, inCenter, ...props }) => {
-    const iconRef = useRef();
-    const generalTl = useMemo(() => new TimelineLite(), []);
-
-    if (opposite && inCenter) {
-        const iconNode = iconRef.current;
-        generalTl.add(hideAndShowAnimation(iconNode));
-    }
-
+const LinkEl = ({ icon, to, ...props }) => {
     return (
-        <Wrapper {...props}>
+        <Wrapper
+            exit={{
+                delay: 0.87,
+            }}
+            to={to}
+            {...props}
+        >
             <span className="sr-only">Projekty</span>
-            <IconWrapper ref={iconRef}>
+            <IconWrapper>
                 <Icon src={icon} />
             </IconWrapper>
         </Wrapper>
     );
 };
-Link.propTypes = {
+LinkEl.propTypes = {
     icon: PropTypes.string.isRequired,
-    opposite: PropTypes.bool,
-    inCenter: PropTypes.bool,
-};
-Link.defaultProps = {
-    opposite: false,
-    inCenter: false,
+    to: PropTypes.string.isRequired,
 };
 
-export default Link;
+export default LinkEl;

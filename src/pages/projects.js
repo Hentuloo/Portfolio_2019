@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SEO from 'components/organisms/SEO';
-import PortfolioPage from 'views/Portfolio/PortfolioPage';
+import 'config/gsapConfig';
+import ProjectsPage from 'views/Projects/ProjectsPage';
 
-const App = ({ mainPageContent, photo, ...props }) => {
+const App = ({ projects, projectPage, ...props }) => {
     return (
         <>
             <SEO />
-            <PortfolioPage
-                photo={photo}
-                content={mainPageContent}
-                email="chentulooo@gmail.com"
-                headLine="Kamil Chędkowski"
-                {...props}
-            />
+            <ProjectsPage projects={projects} data={projectPage} {...props} />
         </>
     );
 };
+
 App.propTypes = {
     mainPageContent: PropTypes.arrayOf(
         PropTypes.shape({

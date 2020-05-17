@@ -66,6 +66,7 @@ export const changeActiveLinkAnim = (wave, links, pageName) => {
     tl.addLabel(aName);
 
     const linkWidth = links[0].offsetWidth;
+
     if (pageName === 'portfolio') {
         tl.add(wavePositionAnimation(wave, 0), aName).add(
             selectActiveLinkAnimation(links, 1),

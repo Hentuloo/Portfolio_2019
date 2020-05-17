@@ -1,10 +1,7 @@
 import React, { useRef, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import { TimelineLite } from 'gsap';
-
-import { addCallback } from 'state/actions/pagesActions';
 import {
     introAnimation,
     closeLetter,
@@ -47,8 +44,6 @@ const SvgElement = styled.svg`
 `;
 
 export const LetterImage = ({ step }) => {
-    const dispatch = useDispatch();
-
     const wrapper = useRef(null);
     const letterOpener = useRef(null);
     const docRectengle = useRef(null);
@@ -61,15 +56,7 @@ export const LetterImage = ({ step }) => {
 
     const generalTl = useMemo(() => new TimelineLite(), []);
     useEffect(() => {
-        generalTl
-            .addLabel('start')
-            .add(introAnimation(wrapper.current), 'start')
-            .add(
-                closeLetter(letterOpener.current)
-                    .duration(0)
-                    .reverse(),
-                'start',
-            );
+        generalTl.addLabel('start');
     }, []);
 
     const getRespond = useCallback(respondFlag => {
@@ -88,13 +75,10 @@ export const LetterImage = ({ step }) => {
                     generalTl
                         .add('resetAnim')
                         .add(
-                            closeLetter(letterOpener.current).reverse(),
-                            'resetAnim',
-                        )
-                        .add(
                             hideElement([Failure.current, Success.current]),
                             'resetAnim',
-                        );
+                        )
+                        .add(closeLetter(letterOpener.current).reverse());
                     break;
                 case 2:
                     generalTl
@@ -145,16 +129,6 @@ export const LetterImage = ({ step }) => {
     useEffect(() => {
         animationByStep(step);
     }, [step]);
-
-    useEffect(() => {
-        const introLetterAnimation = pageName => {
-            if (pageName === 'contact') {
-                generalTl.pause('start+=0.1');
-                setTimeout(() => generalTl.play(), 500);
-            }
-        };
-        dispatch(addCallback(introLetterAnimation));
-    }, []);
 
     return (
         <Wrapper ref={wrapper}>

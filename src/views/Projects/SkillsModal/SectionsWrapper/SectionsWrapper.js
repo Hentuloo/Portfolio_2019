@@ -33,9 +33,4 @@ SectionsWrapper.propTypes = {
     activeIndex: PropTypes.number.isRequired,
 };
 
-export default memo(SectionsWrapper, (prev, next) => {
-    return (
-        prev.activeIndex === next.activeIndex &&
-        prev.data[0].content[0].title === next.data[0].content[0].title
-    );
-});
+export default memo(SectionsWrapper);

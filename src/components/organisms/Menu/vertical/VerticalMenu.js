@@ -16,10 +16,10 @@ const Wrapper = styled.nav`
     z-index: 25;
 `;
 
-const VerticalMenu = ({ pdfEng, pdf }) => {
+const VerticalMenu = ({ pdfEng, pdf, currentLang }) => {
     return (
         <Wrapper>
-            <ListWrapper pdfs={[pdfEng.url, pdf.url]} />
+            <ListWrapper lang={currentLang} pdfs={[pdfEng.url, pdf.url]} />
         </Wrapper>
     );
 };
@@ -31,6 +31,7 @@ VerticalMenu.propTypes = {
     pdf: PropTypes.shape({
         url: PropTypes.string,
     }),
+    currentLang: PropTypes.string.isRequired,
 };
 VerticalMenu.defaultProps = {
     pdfEng: { url: null },
