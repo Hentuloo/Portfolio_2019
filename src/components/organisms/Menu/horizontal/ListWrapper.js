@@ -82,7 +82,7 @@ const ListWrapper = ({ lang, showContent }) => {
             <ListElement>
                 <Link
                     onClick={() => hanldeChangePage('portfolio')}
-                    to={`${Constants[lang].PATHS.portfolio}`}
+                    to={`${Constants[lang].PATHS.root}`}
                     icon={home}
                 />
             </ListElement>

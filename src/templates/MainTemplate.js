@@ -43,7 +43,6 @@ const MainTemplate = ({
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [path]);
-
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -53,17 +52,22 @@ const MainTemplate = ({
                     setShowContent={setShowContent}
                     render={() => (
                         <>
-                            <BackgroudBoxes />
+                            <BackgroudBoxes
+                                contentLoaded={showContent}
+                                showAll={path === '/'}
+                            />
                             <LanguageButtons currentLang={currentLang} />
                             <ContentWrapper>
                                 <Menu showContent={showContent} />
                                 {showContent && (
                                     <Content>
-                                        <Component
-                                            {...props}
-                                            {...data}
-                                            photo={photo}
-                                        />
+                                        {Component ? (
+                                            <Component
+                                                {...props}
+                                                {...data}
+                                                photo={photo}
+                                            />
+                                        ) : null}
                                     </Content>
                                 )}
                             </ContentWrapper>
@@ -82,7 +86,11 @@ MainTemplate.propTypes = {
     path: PropTypes.string.isRequired,
     pageResources: PropTypes.shape({
         component: PropTypes.func,
-    }).isRequired,
+    }),
 };
-
+MainTemplate.defaultProps = {
+    pageResources: {
+        component: null,
+    },
+};
 export default MainTemplate;

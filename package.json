@@ -71,7 +71,8 @@
         "s": "start-storybook -s public",
         "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
         "build-storybook": " build-storybook -s public",
-        "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+        "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+        "clean": "gatsby clean"
     },
     "repository": {
         "type": "git",

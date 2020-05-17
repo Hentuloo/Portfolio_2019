@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import gsap from 'gsap';
 
 const RightBox = styled.div`
     position: fixed;
@@ -10,6 +12,7 @@ const RightBox = styled.div`
     top: 0%;
     z-index: -2;
     will-change: transform;
+    transform: translate(0%, -100%);
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 160px;
         height: 210px;
@@ -25,13 +28,14 @@ const LeftBox = styled.div`
     top: 0%;
     z-index: -2;
     will-change: transform;
+    transform: translate(0%, -100%);
 
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         width: 150px;
         height: 190px;
-        left: 240px;
+        left: 320px;
         top: -75px;
-        transform: rotate(-25deg);
+        transform: rotate(-25deg) translate(0%, -100%);
     }
 `;
 const StaticGrayBlock = styled.div`
@@ -50,14 +54,56 @@ const StaticGrayBlock = styled.div`
     }
 `;
 
-const BackgroudBoxes = () => {
+const BackgroudBoxes = ({ showAll, contentLoaded }) => {
+    const leftBox = useRef(null);
+    const rightBox = useRef(null);
+
+    const showBoxes = useCallback(
+        (opts = {}) => {
+            const left = leftBox.current;
+            const right = rightBox.current;
+            if (!right || !left) return;
+            return gsap.to([right, left], { y: 0, ...opts });
+        },
+        [leftBox, rightBox],
+    );
+    const hideBoxes = useCallback(
+        (opts = {}) => {
+            const left = leftBox.current;
+            const right = rightBox.current;
+            if (!right || !left) return;
+            return gsap.to([right, left], { y: '-=100%', ...opts });
+        },
+        [leftBox.current, rightBox.current],
+    );
+
+    useEffect(() => {
+        if (!contentLoaded) return;
+        if (showAll) {
+            showBoxes();
+        } else {
+            hideBoxes();
+        }
+    }, [showAll]);
+
+    useEffect(() => {
+        if (contentLoaded) {
+            showBoxes({ delay: 1.5 });
+        }
+    }, [contentLoaded]);
+
     return (
         <div>
-            <LeftBox />
-            <RightBox />
+            <LeftBox ref={leftBox} />
+            <RightBox ref={rightBox} />
             <StaticGrayBlock />
         </div>
     );
 };
 
 export default BackgroudBoxes;
+
+BackgroudBoxes.propTypes = {
+    showAll: PropTypes.bool.isRequired,
+    contentLoaded: PropTypes.bool.isRequired,
+};
