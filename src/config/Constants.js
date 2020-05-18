@@ -11,6 +11,9 @@ export default {
             headLine: ['Kamil', 'Chędkowski'],
             email: 'chentulooo@gmail.com',
             error: 'Something gone wrong...',
+            next: 'Next',
+            prev: 'Previous',
+            InMeanTime: 'In the  meantime:',
         },
         FORM: {
             contact: 'Contact',
@@ -55,6 +58,9 @@ export default {
             headLine: ['Kamil', 'Chędkowski'],
             email: 'chentulooo@gmail.com',
             error: 'Coś poszło nie tak...',
+            next: 'Następne',
+            prev: 'Poprzednie',
+            InMeanTime: 'W między czasie:',
         },
         FORM: {
             contact: 'Kontakt',

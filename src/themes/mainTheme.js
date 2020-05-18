@@ -48,6 +48,7 @@ export const theme = {
     breakPointMobile: '768px', // tis parametr is also use in GlobalStyles.js (to change font-size)
     breakPointMiddle: '1150px',
     breakPointLarge: '1400px',
+    breakPointVeryLarge: '1800px',
     breakPointMobileKeyboard: ` @media screen and (min-device-aspect-ratio: 1/1), (min-aspect-ratio: 1/1)
 `,
     breakPointMobileLandscape: `@media (max-width: 768px) and (orientation: landscape)`,

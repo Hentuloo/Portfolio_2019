@@ -52,6 +52,12 @@ export const Paragraph = styled.p`
             font-weight: 700;
             color: ${({ theme }) => theme.color.brand[0]};
         `}
+
+        img{
+        height: 1.1em; 
+        width: 1.1em;
+        margin-bottom: -4px;
+        }
        `;
 
 export const ParagraphTitle = styled.h3`

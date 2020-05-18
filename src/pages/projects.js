@@ -28,7 +28,10 @@ App.propTypes = {
     projectPage: PropTypes.arrayOf(
         PropTypes.shape({
             type: PropTypes.string,
-            title: PropTypes.string,
+            title: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.arrayOf(PropTypes.string),
+            ]),
             content: PropTypes.arrayOf(
                 PropTypes.shape({
                     title: PropTypes.string,

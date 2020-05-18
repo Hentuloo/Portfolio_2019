@@ -76,7 +76,6 @@ const Portfolio = ({ content, photo, className }) => {
     return (
         <Wrapper className={className}>
             <BrandName />
-            <div></div>
             <StyledBrandImage photo={photo} />
             <EmailField>{email}</EmailField>
             <StyledAboutSection content={content} />

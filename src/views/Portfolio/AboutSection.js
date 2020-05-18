@@ -4,18 +4,22 @@ import styled from 'styled-components';
 
 import aboutPageImage from 'images/aboutPageImage.svg';
 import { ParagraphTitle, Paragraph } from 'components/atoms';
+import HobbiesWithButtons from './HobbiesWithButtons';
 
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 50px 1fr 50px;
+    grid-row-gap: 30px;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         grid-template-columns: 150px 1fr 150px;
         grid-row-gap: 80px;
     }
 `;
 const AliginRight = styled.div`
+    max-width: 625px;
     grid-column: 1/-1;
     text-align: right;
+    justify-self: end;
     ${ParagraphTitle} {
         &::after {
             left: auto;
@@ -24,17 +28,6 @@ const AliginRight = styled.div`
     }
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         grid-column: -3/-1;
-    }
-`;
-const AliginLeft = styled.div`
-    grid-column: 1/4;
-    @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
-        grid-column: 1/3;
-        padding-bottom: 60px;
-    }
-
-    ${Paragraph}:first-child {
-        font-size: ${({ theme }) => theme.font.s};
     }
 `;
 
@@ -48,6 +41,10 @@ const ImageWrapper = styled.div`
         position: fixed;
         width: 45%;
         height: calc(100% - 300px);
+        bottom: 6%;
+        right: -3%;
+    }
+    @media (min-width: ${({ theme }) => theme.breakPointLarge}) {
         bottom: -3%;
         right: 3%;
     }
@@ -60,23 +57,19 @@ const Image = styled.img`
 const AboutSection = ({ className, content }) => {
     if (!content) return null;
 
+    const { title, paragraph } = content[0];
     return (
         <Wrapper className={className}>
             <AliginRight>
-                <ParagraphTitle>{content[0].title}</ParagraphTitle>
-                <Paragraph>{content[0].paragraph}</Paragraph>
+                <ParagraphTitle>{title}</ParagraphTitle>
+                <Paragraph dangerouslySetInnerHTML={{ __html: paragraph }} />
             </AliginRight>
 
             <ImageWrapper>
                 <Image src={aboutPageImage} />
             </ImageWrapper>
 
-            <AliginLeft>
-                <Paragraph as="h4" underline asTitle>
-                    {content[1].title}
-                </Paragraph>
-                <Paragraph>{content[1].paragraph}</Paragraph>
-            </AliginLeft>
+            <HobbiesWithButtons data={content.slice(1)} />
         </Wrapper>
     );
 };
@@ -84,7 +77,10 @@ const AboutSection = ({ className, content }) => {
 AboutSection.propTypes = {
     content: PropTypes.arrayOf(
         PropTypes.shape({
-            title: PropTypes.string,
+            title: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.arrayOf(PropTypes.string),
+            ]),
             paragraph: PropTypes.string,
         }),
     ).isRequired,
