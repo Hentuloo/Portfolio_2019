@@ -94,6 +94,8 @@ export default {
         },
     },
     GENERAL: {
+        emailUrl:
+            'https://us-central1-nodemailer-7d702.cloudfunctions.net/sendMail',
         // refferal similar to themes/mainTheme
         animationTime: '0.8s',
         changePageDelay: 0.3,

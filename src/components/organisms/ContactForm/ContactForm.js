@@ -6,7 +6,7 @@ import { promisWithMinimumTime } from 'config/utils';
 import Constants from 'config/Constants';
 import { LetterImage } from './LetterImage';
 import {
-    sendNetilfyForm,
+    sendEmailToBrand,
     isValid,
     mergeInputObjects,
     inputsStateToObjectWithValues,
@@ -161,7 +161,7 @@ export const ContactForm = () => {
         try {
             const resp = await promisWithMinimumTime(
                 3000,
-                sendNetilfyForm(inputsStateToObjectWithValues(inputs)),
+                sendEmailToBrand(inputsStateToObjectWithValues(inputs)),
             );
             const response = resp[1];
 
@@ -173,6 +173,12 @@ export const ContactForm = () => {
                 setLetterStep('success');
 
                 setInputs(inputsInit);
+            } else {
+                setLetterStep('failure');
+                setFormStatus({
+                    isSending: true,
+                    formMessage: `${Constants[lang].FORM.failDelivery}`,
+                });
             }
         } catch (err) {
             setLetterStep('failure');

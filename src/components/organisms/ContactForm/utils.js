@@ -1,4 +1,5 @@
 import validator from 'validator';
+import Constants from 'config/Constants';
 
 export const isValid = (name, value) => {
     if (value === '') return null;
@@ -35,14 +36,15 @@ export const encode = data => {
         .join('&');
 };
 
-export const sendNetilfyForm = values =>
-    fetch('/', {
+export const sendEmailToBrand = values => {
+    return fetch(Constants.GENERAL.emailUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: encode({ 'form-name': 'contact', ...values }),
     });
+};
 
 export const mergeInputObjects = (state, key, value) => {
     return {
