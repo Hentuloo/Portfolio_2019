@@ -5,7 +5,7 @@ export const Wrapper = styled.section`
     width: 90%;
     height: 100%;
     display: grid;
-    min-height: 400px;
+    min-height: 360px;
     margin: 70px auto 0px;
     padding: 22px 15px 10px;
     border-radius: 6px;

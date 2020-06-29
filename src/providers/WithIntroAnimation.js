@@ -33,10 +33,12 @@ export const WithIntroAnimation = ({ showContent, setShowContent, render }) => {
 
     useEffect(() => {
         const blocks = gridBlocksRef.current.children;
-
+        const beforeAnimElement = beforeAnimationNode.current;
         generalTl.add(startGridAnimation(blocks), '+=0.1').add(() => {
             setShowContent(true);
-            generalTl.set(beforeAnimationNode.current, { opacity: 0 });
+            if (beforeAnimElement) {
+                generalTl.set(beforeAnimElement, { opacity: 0 });
+            }
         });
 
         setLoaded(true);

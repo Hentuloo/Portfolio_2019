@@ -8,7 +8,7 @@ export const Section = styled.div`
     display: grid;
     opacity: 0;
     overflow: hidden;
-    padding: 60px 40px 0px;
+    padding: 60px 20px 0px;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         padding: 30px 50px 0px 20px;
     }

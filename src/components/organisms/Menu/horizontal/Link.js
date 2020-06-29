@@ -26,7 +26,7 @@ const LinkEl = ({ icon, to, ...props }) => {
     return (
         <Wrapper
             exit={{
-                delay: 0.87,
+                delay: 0.9,
             }}
             to={to}
             {...props}

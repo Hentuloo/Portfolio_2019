@@ -171,7 +171,6 @@ export const ContactForm = () => {
                     formMessage: Constants[lang].FORM.delivered,
                 });
                 setLetterStep('success');
-
                 setInputs(inputsInit);
             } else {
                 setLetterStep('failure');
@@ -180,13 +179,12 @@ export const ContactForm = () => {
                     formMessage: `${Constants[lang].FORM.failDelivery}`,
                 });
             }
-        } catch (err) {
+        } catch ({ message, status, ...err }) {
             setLetterStep('failure');
             setFormStatus({
-                isSending: true,
-                formMessage: `${
-                    Constants[lang].FORM.failDelivery
-                } (${err.message || err.status})`,
+                isSending: false,
+                formMessage: `${Constants[lang].FORM.failDelivery} (${message ||
+                    status})`,
             });
         }
     };

@@ -41,17 +41,23 @@ export const hideAndShowAnimation = element => {
 
 export const selectActiveLinkAnimation = (links, activeIndex) => {
     if (!links.length) return Error('links are required');
+
+    const tl = new gsap.timeline();
+    tl.addLabel('selectActive');
+
     links.forEach((link, index) => {
-        if (index === activeIndex) return activeLinkAnimation(link.children);
-        return hideLinkAnimation(link.children);
+        if (index === activeIndex)
+            return tl.add(activeLinkAnimation(link.children), 'selectActive');
+        return tl.add(hideLinkAnimation(link.children), 'selectActive');
     });
-    return null;
+
+    return tl;
 };
 export const wavePositionAnimation = (wave, transformX) => {
     if (!wave) return Error('wave is required');
     const tl = new gsap.timeline();
 
-    tl.to(wave, 1.1, { x: transformX });
+    tl.to(wave, 0.6, { x: transformX });
 
     return tl;
 };

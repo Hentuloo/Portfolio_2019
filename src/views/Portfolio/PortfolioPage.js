@@ -59,6 +59,7 @@ const StyledAboutSection = styled(AboutSection)`
     grid-row: 4/-1;
     width: 85%;
     margin: 0px auto;
+    overflow: hidden;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         grid-column: 1/2;
         grid-row: 3/-1;

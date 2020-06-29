@@ -8,6 +8,11 @@ import { form, home, projects } from 'images/menuIcons';
 
 import gsap from 'gsap';
 import { getViewNameByUrl } from 'config/utils';
+import {
+    startGridAnimation,
+    GridBlocksAnimation,
+    endGridAnimation,
+} from 'components/molecules';
 import Link from './Link';
 import { changeActiveLinkAnim, showMenu, hideAndShowAnimation } from './anim';
 
@@ -21,6 +26,7 @@ const Wrapper = styled.ul`
     margin: 0px;
     padding: 0px;
     transform: translateY(100%);
+    z-index: 35;
 `;
 const ListElement = styled.li`
     z-index: 16;
@@ -55,7 +61,7 @@ const ListWrapper = ({ lang, showContent }) => {
     const waveRef = useRef();
     const wrapperRef = useRef();
     const lastPageName = useRef(getViewNameByUrl());
-
+    const gridBlocksRef = useRef(null);
     useEffect(() => {
         const links = [...wrapperRef.current.childNodes].slice(0, 3);
         changeActiveLinkAnim(waveRef.current, links, lastPageName.current);
@@ -75,41 +81,57 @@ const ListWrapper = ({ lang, showContent }) => {
         );
     }, []);
 
-    const hanldeChangePage = useCallback(pageName => {
+    const linksAnim = useCallback(pageName => {
         const links = [...wrapperRef.current.childNodes].slice(0, 3);
         const isOpposite = checkIfNewPageIsOnOtherHand(pageName);
         changeActiveLinkAnim(waveRef.current, links, pageName);
         if (isOpposite) hideAndShowAnimation(links[1]);
+    }, []);
+    const gridBlocksAnim = useCallback(() => {
+        const blocks = gridBlocksRef.current.children;
+        gsap.timeline()
+            .add(startGridAnimation(blocks))
+            .add(endGridAnimation(blocks));
+    }, []);
+
+    const hanldeChangePage = useCallback(pageName => {
+        linksAnim(pageName);
+        gridBlocksAnim();
         lastPageName.current = pageName;
     }, []);
 
+    useEffect(() => {}, []);
+
     return (
-        <Wrapper ref={wrapperRef}>
-            <ListElement>
-                <Link
-                    onClick={() => hanldeChangePage('projects')}
-                    to={`/${Constants[lang].PATHS.projects}`}
-                    icon={projects}
-                />
-            </ListElement>
-            <ListElement>
-                <Link
-                    onClick={() => hanldeChangePage('portfolio')}
-                    to={`${Constants[lang].PATHS.root}`}
-                    icon={home}
-                />
-            </ListElement>
-            <ListElement>
-                <Link
-                    onClick={() => hanldeChangePage('contact')}
-                    to={`/${Constants[lang].PATHS.contact}`}
-                    icon={form}
-                />
-            </ListElement>
-            <WaveImageWrapper ref={waveRef}>
-                <WaveImage src={waveSvg} />
-            </WaveImageWrapper>
-        </Wrapper>
+        <>
+            <GridBlocksAnimation ref={gridBlocksRef} />
+            <Wrapper ref={wrapperRef}>
+                <ListElement>
+                    <Link
+                        onClick={() => hanldeChangePage('projects')}
+                        to={`/${Constants[lang].PATHS.projects}`}
+                        icon={projects}
+                    />
+                </ListElement>
+                <ListElement>
+                    <Link
+                        onClick={() => hanldeChangePage('portfolio')}
+                        to={`${Constants[lang].PATHS.root}`}
+                        icon={home}
+                    />
+                </ListElement>
+                <ListElement>
+                    <Link
+                        onClick={() => hanldeChangePage('contact')}
+                        to={`/${Constants[lang].PATHS.contact}`}
+                        icon={form}
+                    />
+                </ListElement>
+                <WaveImageWrapper ref={waveRef}>
+                    <WaveImage src={waveSvg} />
+                </WaveImageWrapper>
+            </Wrapper>
+        </>
     );
 };
 ListWrapper.propTypes = {

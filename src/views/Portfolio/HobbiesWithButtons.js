@@ -24,7 +24,7 @@ const SectionsWrapper = styled.div`
 `;
 const Section = styled.div`
     position: absolute;
-    width: 100%;
+    width: 95%;
     height: 100%;
     left: 0%;
     top: 0%;

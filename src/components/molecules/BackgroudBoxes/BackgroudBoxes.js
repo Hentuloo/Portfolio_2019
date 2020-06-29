@@ -63,7 +63,7 @@ const BackgroudBoxes = ({ showAll, contentLoaded }) => {
             const left = leftBox.current;
             const right = rightBox.current;
             if (!right || !left) return;
-            return gsap.to([right, left], { delay: 0.4, y: 0, ...opts });
+            return gsap.to([right, left], { delay: 0.1, y: 0, ...opts });
         },
         [leftBox, rightBox],
     );
@@ -72,7 +72,7 @@ const BackgroudBoxes = ({ showAll, contentLoaded }) => {
             const left = leftBox.current;
             const right = rightBox.current;
             if (!right || !left) return;
-            return gsap.to([right, left], { delay: 0.4, y: '-=100%', ...opts });
+            return gsap.to([right, left], { delay: 0.1, y: '-=100%', ...opts });
         },
         [leftBox.current, rightBox.current],
     );

@@ -64,7 +64,7 @@ const Wrapper = styled.div`
     max-width: 27%;
     right: 8px;
     top: 2px;
-    z-index: 20;
+    z-index: 10;
     @media (min-width: ${({ theme }) => theme.breakPointMobile}) {
         max-width: auto;
         left: 12px;

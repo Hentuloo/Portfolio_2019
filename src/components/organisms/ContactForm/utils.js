@@ -36,15 +36,15 @@ export const encode = data => {
         .join('&');
 };
 
-export const sendEmailToBrand = values => {
-    return fetch(Constants.GENERAL.emailUrl, {
+export const sendEmailToBrand = values =>
+    fetch(Constants.GENERAL.emailUrl, {
         method: 'POST',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: encode({ 'form-name': 'contact', ...values }),
     });
-};
 
 export const mergeInputObjects = (state, key, value) => {
     return {
