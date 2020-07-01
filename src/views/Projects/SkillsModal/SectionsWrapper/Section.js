@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import { Modal } from 'components/organisms';
 
 import { ParagraphTitle, Paragraph } from 'components/atoms';
+import styled from 'styled-components';
+
+const Wrapper = styled(Modal.Section)``;
+const SecondTitle = styled(Paragraph)`
+    margin-top: 18px;
+`;
 
 const Section = ({ type, content, ...props }) => {
     if (type === 'plain-text') {
         return (
-            <Modal.Section {...props}>
+            <Wrapper {...props}>
                 {content.map(({ title, paragraph }, index) => {
                     if (!(index % 2)) {
                         return (
@@ -19,14 +25,14 @@ const Section = ({ type, content, ...props }) => {
                     }
                     return (
                         <Fragment key={index}>
-                            <Paragraph as="h4" asTitle>
+                            <SecondTitle as="h4" asTitle>
                                 {title}
-                            </Paragraph>
+                            </SecondTitle>
                             <Paragraph>{paragraph}</Paragraph>
                         </Fragment>
                     );
                 })}
-            </Modal.Section>
+            </Wrapper>
         );
     }
     return null;
