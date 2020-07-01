@@ -88,7 +88,10 @@ Portfolio.propTypes = {
     className: PropTypes.string,
     content: PropTypes.arrayOf(
         PropTypes.shape({
-            title: PropTypes.string,
+            title: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.arrayOf(PropTypes.string),
+            ]),
             paragraph: PropTypes.string,
         }),
     ).isRequired,

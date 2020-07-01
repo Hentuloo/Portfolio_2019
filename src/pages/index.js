@@ -20,7 +20,10 @@ const App = ({ mainPageContent, photo, ...props }) => {
 App.propTypes = {
     mainPageContent: PropTypes.arrayOf(
         PropTypes.shape({
-            title: PropTypes.string,
+            title: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.arrayOf(PropTypes.string),
+            ]),
             paragraph: PropTypes.string,
         }),
     ).isRequired,
